@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Meet-on-the-road-of-UESTC</string>
+    <string name="menu_nav">导航</string>
+    <string name="menu_appointment">约吧</string>
+    <string name="menu_home">首页</string>
+    <string name="menu_help">帮帮</string>
+    <string name="menu_me">我的</string>
 </resources>
