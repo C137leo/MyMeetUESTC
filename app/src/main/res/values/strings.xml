@@ -5,4 +5,5 @@
     <string name="menu_home">首页</string>
     <string name="menu_help">帮帮</string>
     <string name="menu_me">我的</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoicm9tZXJ4emgiLCJhIjoiY2pvcHBlZW1mMGMzNTNybjF6MXg3cGs0ZCJ9.I_aWoxx1iskI8IQAri4Fmg</string>
 </resources>
