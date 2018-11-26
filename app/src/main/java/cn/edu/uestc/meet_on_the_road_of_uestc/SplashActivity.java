@@ -1,11 +1,11 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
     protected Handler mHandler=new Handler();
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
