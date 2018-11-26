@@ -1,6 +1,8 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -16,6 +19,8 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+
+import static android.icu.lang.UCharacter.JoiningGroup.E;
 
 public class NavFragment extends Fragment {
     private MapView mMapView;
@@ -30,6 +35,9 @@ public class NavFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=getLayoutInflater().inflate(R.layout.fragment_nav,container,false);
         //获取地图控件引用
+        onClickListener onClickListener=new onClickListener();
+        ImageView mImageView=view.findViewById(R.id.emergency_help);
+        mImageView.setOnClickListener(onClickListener);
         mMapView = view.findViewById(R.id.map);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
@@ -45,7 +53,17 @@ public class NavFragment extends Fragment {
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
         return view;
     }
-
+    class onClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            switch(getId()){
+                case R.id.emergency_help:
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "020-61830110"));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+            }
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
