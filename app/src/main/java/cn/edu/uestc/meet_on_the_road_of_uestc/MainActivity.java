@@ -1,5 +1,6 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.HomeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.NavFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     //获取管理类
     FragmentManager mFragmentManager=getSupportFragmentManager();
     AppointmentFragment appointmentFragment=new AppointmentFragment();
@@ -27,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout mAppointment;
     RelativeLayout mMe;
     onClickListener monClickListener=new onClickListener();
+    Intent serviceIntent = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        serviceIntent = new Intent();   //强制前台运行
+        serviceIntent.setClass(this,LocationForegoundService.class);
         setContentView(R.layout.activity_main);
         //添加事物 默认：首页
         FragmentTransaction mTransaction=mFragmentManager.beginTransaction();
