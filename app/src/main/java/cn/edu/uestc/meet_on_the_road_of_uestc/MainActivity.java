@@ -14,7 +14,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.HomeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.NavFragment;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends CheckPermissionsActivity{
     //获取管理类
     FragmentManager mFragmentManager=getSupportFragmentManager();
     AppointmentFragment appointmentFragment=new AppointmentFragment();

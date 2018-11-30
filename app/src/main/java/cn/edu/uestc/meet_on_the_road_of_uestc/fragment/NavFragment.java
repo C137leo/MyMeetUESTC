@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -42,7 +43,6 @@ public class NavFragment extends Fragment {
     private LatLng mCurLocation;
     private String address;
     AMap aMap;
-    AMapLocation aMapLocation;
 //    onClickListener mOnClickListener=new onClickListener();
 
     @Nullable
@@ -59,7 +59,7 @@ public class NavFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setUpMap();
+
         Button button = getActivity().findViewById(R.id.emergency_help);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +80,7 @@ public class NavFragment extends Fragment {
                 }
             }
         });
+        setUpMap();
     }
 
     private void setUpMap(){
@@ -95,7 +96,29 @@ public class NavFragment extends Fragment {
         Log.d("test for location","test for location");
         mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
         mLocationOption = new AMapLocationClientOption();
-        mLocationClient.setLocationListener(new mAMapLocationListener());
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
+                        mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                        address = (aMapLocation.getProvince() + ""
+                                + aMapLocation.getCity() + ""
+                                + aMapLocation.getProvince() + ""
+                                + aMapLocation.getDistrict() + ""
+                                + aMapLocation.getStreet() + ""
+                                + aMapLocation.getStreetNum());
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
+                    }
+                }
+        });
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setNeedAddress(true);
         mLocationOption.setMockEnable(true);
@@ -103,26 +126,6 @@ public class NavFragment extends Fragment {
         mLocationClient.startLocation();
     }
 
-    class mAMapLocationListener implements AMapLocationListener{
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-
-            if (aMapLocation.getErrorCode() == 0) {
-                mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                address = (aMapLocation.getProvince() + ""
-                        + aMapLocation.getCity() + ""
-                        + aMapLocation.getProvince() + ""
-                        + aMapLocation.getDistrict() + ""
-                        + aMapLocation.getStreet() + ""
-                        + aMapLocation.getStreetNum());
-            } else {
-                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError", "location Error, ErrCode:"
-                        + aMapLocation.getErrorCode() + ", errInfo:"
-                        + aMapLocation.getErrorInfo());
-            }
-        }
-    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

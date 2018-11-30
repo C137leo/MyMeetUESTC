@@ -10,12 +10,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-public class CheckPermissionsActivity extends Activity{
+public class CheckPermissionsActivity extends AppCompatActivity {
     /**
      * 需要进行检测的权限数组
      */
