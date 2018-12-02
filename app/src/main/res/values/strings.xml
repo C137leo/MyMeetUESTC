@@ -7,4 +7,9 @@
     <string name="menu_me">我的</string>
     <string name="amap_access_token">87a80c85e4aa9a285be9fd546f8d576b</string>
     <string name="help">help</string>
+    <string name="enter_account">请输入账户</string>
+    <string name="enter_password">请输入密码</string>
+    <string name="sign_in">Sign in</string>
+    <string name="registered">注册账户</string>
+    <string name="forget_password">忘记密码</string>
 </resources>

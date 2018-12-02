@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.AppointmentFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.HelpFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.HomeFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.LoginFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.NavFragment;
 
@@ -22,6 +23,7 @@ public class MainActivity extends CheckPermissionsActivity{
     HomeFragment homeFragment=new HomeFragment();
     MeFragment meFragment=new MeFragment();
     NavFragment navFragment=new NavFragment();
+    LoginFragment loginFragment=new LoginFragment();
     RelativeLayout mNav;
     RelativeLayout mHome;
     RelativeLayout mHelp;
@@ -43,7 +45,8 @@ public class MainActivity extends CheckPermissionsActivity{
         mTransaction.add(R.id.container_content,homeFragment);
         mTransaction.add(R.id.container_content,helpFragment);
         mTransaction.add(R.id.container_content,appointmentFragment);
-        mTransaction.replace(R.id.container_content,homeFragment);
+        mTransaction.add(R.id.container_content,loginFragment);
+        mTransaction.replace(R.id.container_content,loginFragment);
         mTransaction.commit();  //提交
         initMenuListener();
     }

@@ -59,7 +59,7 @@ public class NavFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        setUpMap();
         Button button = getActivity().findViewById(R.id.emergency_help);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +80,6 @@ public class NavFragment extends Fragment {
                 }
             }
         });
-        setUpMap();
     }
 
     private void setUpMap(){
@@ -94,36 +93,38 @@ public class NavFragment extends Fragment {
         UiSettings mUiSettings=aMap.getUiSettings();//获取UI设置类
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
         Log.d("test for location","test for location");
+        Log.d("TEST 2","test 2");
         mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
         mLocationOption = new AMapLocationClientOption();
-        mLocationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                    if (aMapLocation.getErrorCode() == 0) {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("AmapError", "location Error, ErrCode:"
-                                + aMapLocation.getErrorCode() + ", errInfo:"
-                                + aMapLocation.getErrorInfo());
-                        mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                        address = (aMapLocation.getProvince() + ""
-                                + aMapLocation.getCity() + ""
-                                + aMapLocation.getProvince() + ""
-                                + aMapLocation.getDistrict() + ""
-                                + aMapLocation.getStreet() + ""
-                                + aMapLocation.getStreetNum());
-                    } else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("AmapError", "location Error, ErrCode:"
-                                + aMapLocation.getErrorCode() + ", errInfo:"
-                                + aMapLocation.getErrorInfo());
-                    }
-                }
-        });
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setNeedAddress(true);
         mLocationOption.setMockEnable(true);
         mLocationClient.setLocationOption(mLocationOption);
         mLocationClient.startLocation();
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                Log.d("TEST FOR LOCATION","TEXT");
+                if (aMapLocation.getErrorCode() == 0) {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                    mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                    address = (aMapLocation.getProvince() + ""
+                            + aMapLocation.getCity() + ""
+                            + aMapLocation.getProvince() + ""
+                            + aMapLocation.getDistrict() + ""
+                            + aMapLocation.getStreet() + ""
+                            + aMapLocation.getStreetNum());
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+                }
+            }
+        });
     }
 
     @Override
