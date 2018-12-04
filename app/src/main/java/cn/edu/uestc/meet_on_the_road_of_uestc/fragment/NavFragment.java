@@ -1,15 +1,19 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +36,7 @@ import com.amap.api.maps.model.MyLocationStyle;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
@@ -64,9 +69,12 @@ public class NavFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent=new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:61830110"));
-                    startActivity(intent);
+                if(ContextCompat.checkSelfPermission(getActivity(),Manifest.permission
+                .CALL_PHONE)!=PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CALL_PHONE},1);
+                }else{
+                    call();
+                }
             }
         });
         ImageView imageView=getActivity().findViewById(R.id.location);
@@ -125,6 +133,27 @@ public class NavFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void call(){
+        Intent intent=new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:61830110"));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    call();
+                }else{
+                    Toast.makeText(getActivity(),"You have denied the permission",Toast.LENGTH_SHORT).show();
+                }
+                break;
+                default:
+                    break;
+        }
     }
 
     @Override
