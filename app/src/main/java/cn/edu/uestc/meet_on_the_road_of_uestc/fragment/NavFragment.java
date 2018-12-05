@@ -2,14 +2,10 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,13 +31,11 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import okhttp3.OkHttpClient;
 
 public class NavFragment extends Fragment {
     private MapView mMapView;
@@ -52,6 +45,7 @@ public class NavFragment extends Fragment {
     private LatLng mCurLocation;
     private String address;
     AMap aMap;
+    OkHttpClient mOkHttpClient;
 //    onClickListener mOnClickListener=new onClickListener();
 
     @Nullable

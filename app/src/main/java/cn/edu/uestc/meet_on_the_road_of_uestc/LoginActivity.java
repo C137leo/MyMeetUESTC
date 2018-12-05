@@ -11,6 +11,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class LoginActivity extends Activity {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -18,6 +31,7 @@ public class LoginActivity extends Activity {
     EditText login_account;
     EditText login_password;
     CheckBox remember_password;
+    OkHttpClient mOkHttpClient;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -52,10 +66,37 @@ public class LoginActivity extends Activity {
                     editor.putBoolean("remember",true);
                 }
                 editor.apply();
+                sendUserId(new okhttp3.Callback(){
+                               @Override
+                               public void onResponse(Call call, Response response) throws IOException {
+                                   String responDat=response.body().string();
+                               }
+
+                               @Override
+                               public void onFailure(Call call, IOException e) {
+                                   Log.d("postFaulier","posterror");
+                               }
+                           });
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    public void sendUserId(okhttp3.Callback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson=new Gson();
+                Stu stu=new Stu();
+                stu.setAccount(login_account.getText().toString());
+                stu.setPassword(login_password.getText().toString());
+                String stu_json=gson.toJson(stu);
+                mOkHttpClient = new OkHttpClient();
+                RequestBody data = FormBody.create(MediaType.parse("application/json;charset=utf-8"),stu_json);
+                Request request = new Request.Builder().url("http://47.107.162.132").post(data).build();
+                mOkHttpClient.newCall(request).enqueue(callback);
+            }
+        }).start();
+    }
 }
