@@ -16,18 +16,18 @@
         android:id="@+id/HELP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp">
+        android:layout_marginTop="450dp">
 
-        <Button
+        <ImageView
+            android:clickable="true"
+            android:focusable="true"
             android:id="@+id/emergency_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_emergency_help"
-            android:text="@string/help" />
+           android:src="@mipmap/ic_help" />
     </RelativeLayout>
 
     <LinearLayout
-        android:background="#ffebcd"
         android:layout_width="30dp"
         android:layout_height="100dp"
         android:layout_alignParentRight="true"
@@ -35,36 +35,54 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_gravity="center"
-            android:layout_weight="1"
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_location"
-            android:clickable="true"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:background="#FF909090"/>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@mipmap/ic_nearby" />
+
         <ImageView
+            android:clickable="true"
+            android:focusable="true"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_sun"/>
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:background="#FF909090"/>
+            android:src="@mipmap/ic_hot"/>
+
         <ImageView
+            android:clickable="true"
+            android:focusable="true"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:id="@+id/find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/ic_find" />
+            android:src="@mipmap/ic_mylocation" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="520dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_goal"/>
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_run"/>
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_route"/>
     </LinearLayout>
 </RelativeLayout>

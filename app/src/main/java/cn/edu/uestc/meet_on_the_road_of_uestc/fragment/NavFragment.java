@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -30,10 +31,13 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.HeatmapTileProvider;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.TileOverlayOptions;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
@@ -65,8 +69,8 @@ public class NavFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUpMap();
-        Button button = getActivity().findViewById(R.id.emergency_help);
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageView help = getActivity().findViewById(R.id.emergency_help);
+        help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ContextCompat.checkSelfPermission(getActivity(),Manifest.permission
@@ -77,7 +81,7 @@ public class NavFragment extends Fragment {
                 }
             }
         });
-        ImageView imageView=getActivity().findViewById(R.id.location);
+        ImageView imageView=getActivity().findViewById(R.id.find);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +96,7 @@ public class NavFragment extends Fragment {
 
     private void setUpMap(){
         aMap = mMapView.getMap();
+        HeatMapCreate();
         MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
@@ -118,7 +123,7 @@ public class NavFragment extends Fragment {
                     Log.e("AmapError", "location Error, ErrCode:"
                             + aMapLocation.getErrorCode() + ", errInfo:"
                             + aMapLocation.getErrorInfo());
-                    mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                    mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude(),false);
                     address = (aMapLocation.getProvince() + ""
                             + aMapLocation.getCity() + ""
                             + aMapLocation.getProvince() + ""
@@ -156,6 +161,32 @@ public class NavFragment extends Fragment {
         }
     }
 
+    public void HeatMapCreate(){
+        LatLng[] latlngs = new LatLng[500];
+        double x = 30.749125;
+        double y = 103.931633;
+
+        for (int i = 0; i < 500; i++) {
+            double x_ = 0;
+            double y_ = 0;
+            x_ = Math.random() * 0.5 - 0.25;
+            y_ = Math.random() * 0.5 - 0.25;
+            latlngs[i] = new LatLng(x + x_, y + y_,false);
+        }
+        // 构建热力图 HeatmapTileProvider
+        HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
+        builder.data(Arrays.asList(latlngs)) // 设置热力图绘制的数据
+                .gradient(HeatmapTileProvider.DEFAULT_GRADIENT); // 设置热力图渐变，有默认值 DEFAULT_GRADIENT，可不设置该接口
+        // Gradient 的设置可见参考手册
+        // 构造热力图对象
+        HeatmapTileProvider heatmapTileProvider = builder.build();
+        // 初始化 TileOverlayOptions
+        TileOverlayOptions tileOverlayOptions = new TileOverlayOptions();
+        tileOverlayOptions.tileProvider(heatmapTileProvider); // 设置瓦片图层的提供者
+        // 向地图上添加 TileOverlayOptions 类对象
+        Log.d("HeatMap","HeatMapCreate");
+        aMap.addTileOverlay(tileOverlayOptions);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
