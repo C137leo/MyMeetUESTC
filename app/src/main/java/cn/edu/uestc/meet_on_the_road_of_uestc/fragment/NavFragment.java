@@ -30,12 +30,23 @@ import com.amap.api.maps.model.HeatmapTileProvider;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.internal.http.RealResponseBody;
+import okio.BufferedSink;
 
 public class NavFragment extends Fragment {
     private MapView mMapView;
@@ -46,6 +57,11 @@ public class NavFragment extends Fragment {
     private String address;
     AMap aMap;
     OkHttpClient mOkHttpClient;
+    private double Latitude;
+    private double Longitude;
+    Gson mGson=new Gson();
+    String location_json;
+    MediaType json=MediaType.parse("application/json;charset=utf-8");
 //    onClickListener mOnClickListener=new onClickListener();
 
     @Nullable
@@ -116,7 +132,9 @@ public class NavFragment extends Fragment {
                     Log.e("AmapError", "location Error, ErrCode:"
                             + aMapLocation.getErrorCode() + ", errInfo:"
                             + aMapLocation.getErrorInfo());
-                    mCurLocation = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude(),false);
+                    Latitude=aMapLocation.getLatitude();
+                    Longitude=aMapLocation.getLongitude();
+                    mCurLocation = new LatLng(Latitude, Longitude,false);
                     address = (aMapLocation.getProvince() + ""
                             + aMapLocation.getCity() + ""
                             + aMapLocation.getProvince() + ""
@@ -181,6 +199,29 @@ public class NavFragment extends Fragment {
         // 向地图上添加 TileOverlayOptions 类对象
         Log.d("HeatMap","HeatMapCreate");
         aMap.addTileOverlay(tileOverlayOptions);
+    }
+
+    public void sendLocationtoServer(){
+        mOkHttpClient=new OkHttpClient();
+        mCurLocation location=new mCurLocation();
+        location.setLatitude(Latitude);
+        location.setLongitude(Longitude);
+        location_json=mGson.toJson(location);
+        RequestBody mLocation=FormBody.create(json,location_json);
+        Request curLocation=new Request.Builder().url("http://47.107.162.132:80")
+                                            .post(mLocation)
+                                            .build();
+        mOkHttpClient.newCall(curLocation).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("sendLocation",response.body().toString());
+            }
+        });
     }
     @Override
     public void onDestroyView() {
