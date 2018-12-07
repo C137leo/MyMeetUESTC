@@ -94,7 +94,7 @@ public class LoginActivity extends Activity {
                 String stu_json=gson.toJson(stu);
                 mOkHttpClient = new OkHttpClient();
                 RequestBody data = FormBody.create(MediaType.parse("application/json;charset=utf-8"),stu_json);
-                Request request = new Request.Builder().url("http://47.107.162.132").post(data).build();
+                Request request = new Request.Builder().url("http://47.107.162.132:80/conn_mysql").post(data).build();
                 mOkHttpClient.newCall(request).enqueue(callback);
             }
         }).start();

@@ -107,7 +107,6 @@ public class NavFragment extends Fragment {
         mLocationOption.setNeedAddress(true);
         mLocationOption.setMockEnable(true);
         mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.startLocation();
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
@@ -132,6 +131,8 @@ public class NavFragment extends Fragment {
                 }
             }
         });
+        mLocationClient.startLocation();
+
     }
 
     public void call(){

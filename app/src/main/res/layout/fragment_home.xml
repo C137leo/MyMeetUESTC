@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_home"/>
+        android:layout_height="match_parent"
+        android:id="@+id/bing_pic"
+        android:scaleType="centerCrop"/>
 </RelativeLayout>
