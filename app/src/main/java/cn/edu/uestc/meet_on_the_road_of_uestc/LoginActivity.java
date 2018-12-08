@@ -89,12 +89,12 @@ public class LoginActivity extends Activity {
             public void run() {
                 Gson gson=new Gson();
                 Stu stu=new Stu();
-                stu.setAccount(login_account.getText().toString());
-                stu.setPassword(login_password.getText().toString());
+                stu.setUsername(login_account.getText().toString());
+                stu.setmPassword(login_password.getText().toString());
                 String stu_json=gson.toJson(stu);
                 mOkHttpClient = new OkHttpClient();
                 RequestBody data = FormBody.create(MediaType.parse("application/json;charset=utf-8"),stu_json);
-                Request request = new Request.Builder().url("http://47.107.162.132:80/conn_mysql").post(data).build();
+                Request request = new Request.Builder().url("http://47.107.162.132:80/conn_mysql.php").post(data).build();
                 mOkHttpClient.newCall(request).enqueue(callback);
             }
         }).start();
