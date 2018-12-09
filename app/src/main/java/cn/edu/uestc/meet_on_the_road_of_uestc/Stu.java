@@ -1,22 +1,22 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc;
 
 public class Stu {
-    public String account;
-    public String password;
+    public String username;
+    public String mpassword;
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getmPassword() {
+        return mpassword;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setmPassword(String password) {
+        this.mpassword = password;
     }
 }

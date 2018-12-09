@@ -30,6 +30,15 @@
            android:src="@mipmap/ic_help" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:queryHint="请输入搜索地点"></SearchView>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="40dp"
         android:layout_height="150dp"
