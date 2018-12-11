@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -28,15 +29,20 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.HeatmapTileProvider;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.mOnPoiSearchListener;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -62,7 +68,11 @@ public class NavFragment extends Fragment {
     Gson mGson=new Gson();
     String location_json;
     MediaType json=MediaType.parse("application/json;charset=utf-8");
+    mOnPoiSearchListener mOnPoiSearchListener=null;
 //    onClickListener mOnClickListener=new onClickListener();
+    SearchView mSearchView;
+    ArrayList poiArray=null;
+    String poiKey;
 
     @Nullable
     @Override
@@ -102,6 +112,21 @@ public class NavFragment extends Fragment {
                 }
             }
         });
+        mSearchView = getActivity().findViewById(R.id.getPoi);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                poiKey=query;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                poiKey=newText;
+                return false;
+            }
+        });
+        mOnPoiSearchListener=new mOnPoiSearchListener(poiKey,"","郫都区");
     }
 
     private void setUpMap(){
@@ -222,6 +247,14 @@ public class NavFragment extends Fragment {
                 Log.d("sendLocation",response.body().toString());
             }
         });
+    }
+
+    public void makeMaker(){
+        poiArray=mOnPoiSearchListener.getArray();
+        Iterator it=poiArray.iterator();
+        while(it.hasNext()){
+            final Marker marker = aMap.addMarker(new MarkerOptions().position((LatLng)it.next()).title("北京").snippet("DefaultMarker"));
+        }
     }
     @Override
     public void onDestroyView() {
