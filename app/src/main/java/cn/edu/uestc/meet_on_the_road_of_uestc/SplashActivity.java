@@ -13,7 +13,10 @@ public class SplashActivity extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                Intent intent=new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setClass(SplashActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         },2000);
     }

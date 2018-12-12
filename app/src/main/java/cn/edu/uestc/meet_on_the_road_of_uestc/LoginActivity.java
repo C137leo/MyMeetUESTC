@@ -77,7 +77,9 @@ public class LoginActivity extends Activity {
                                    Log.d("postFaulier","posterror");
                                }
                            });
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent=new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setClass(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });

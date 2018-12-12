@@ -126,7 +126,7 @@ public class NavFragment extends Fragment {
                 return false;
             }
         });
-        mOnPoiSearchListener=new mOnPoiSearchListener(poiKey,"","郫都区");
+        mOnPoiSearchListener=new mOnPoiSearchListener (poiKey,"","郫都区");
     }
 
     private void setUpMap(){
