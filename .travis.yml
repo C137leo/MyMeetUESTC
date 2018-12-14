@@ -15,7 +15,6 @@ licenses:
 - android-sdk-license-.+
 - .+
 before_install:
-- openssl aes-256-cbc -K $encrypted_6b42a8524af0_key -iv $encrypted_6b42a8524af0_iv
 before_script:
 - mkdir "$ANDROID_HOME/licenses" || true
 script:
