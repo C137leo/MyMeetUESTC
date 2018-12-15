@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -33,6 +36,9 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.help.Inputtips;
+import com.amap.api.services.help.InputtipsQuery;
+import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.google.gson.Gson;
@@ -41,9 +47,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -53,7 +61,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener{
+import static android.app.Activity.RESULT_OK;
+
+public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener{
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -78,6 +88,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     String city;
     ArrayList<PoiItem> array;
     PoiSearch.Query searchquery;
+    private ListView mInputListView;
+
+
 
     @Nullable
     @Override
@@ -117,6 +130,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 }
             }
         });
+        mInputListView=getActivity().findViewById(R.id.inputtip_list);
         doSearch();
     }
 
@@ -258,7 +272,13 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d("Search text",newText);
+            //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
+                Log.d("begin tip","new text");
+                InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
+                inputquery.setCityLimit(true);//限制在当前城市
+                Inputtips inputTips = new Inputtips(MyApplication.getMyContext(),inputquery);
+                inputTips.setInputtipsListener(NavFragment.this);
+                inputTips.requestInputtipsAsyn();
                 return false;
             }
         });
@@ -279,9 +299,31 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
     }
-    public AMap getaMap(){
-        return aMap;
+
+
+    @Override
+    public void onGetInputtips(List<Tip> list, int i) {
+        // 正确返回
+        if (i == 1000) {
+            new Activity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("return right","return right");
+                    Log.d("Test for tip",list.get(1).getName());
+                    List<String> listString=new ArrayList<String>();
+                    for(int i=0;i<list.size();i++){
+                        listString.add(list.get(i).getName());
+                    }
+                    InputTipsAdapter mAdapter=new InputTipsAdapter(MyApplication.getMyContext(),list);
+                    mInputListView.setAdapter(mAdapter);
+                }
+            });
+        } else {
+            Toast.makeText(MyApplication.getMyContext(), "错误码 :" + i,Toast.LENGTH_SHORT).show();
+        }
     }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
