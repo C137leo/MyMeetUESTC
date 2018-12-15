@@ -18,7 +18,7 @@
     <RelativeLayout
         android:id="@+id/HELP"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="450dp">
 
         <ImageView
@@ -34,11 +34,11 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <SearchView
-        android:id="@+id/getPoi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:queryHint="请输入搜索地点"></SearchView>
+        <android.support.v7.widget.SearchView
+            android:id="@+id/inputPoi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
     </RelativeLayout>
 
     <LinearLayout

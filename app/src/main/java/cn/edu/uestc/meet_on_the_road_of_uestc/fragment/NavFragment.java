@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -33,6 +32,9 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -42,7 +44,6 @@ import java.util.Iterator;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.mOnPoiSearchListener;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -51,10 +52,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.internal.http.RealResponseBody;
-import okio.BufferedSink;
 
-public class NavFragment extends Fragment {
+public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener{
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -68,11 +67,17 @@ public class NavFragment extends Fragment {
     Gson mGson=new Gson();
     String location_json;
     MediaType json=MediaType.parse("application/json;charset=utf-8");
-    mOnPoiSearchListener mOnPoiSearchListener=null;
 //    onClickListener mOnClickListener=new onClickListener();
-    SearchView mSearchView;
+    android.support.v7.widget.SearchView searchPoi;
     ArrayList poiArray=null;
     String poiKey;
+    PoiSearch poiSearch;
+    PoiSearch.Query query;
+    String keywords;
+    String ctgr;
+    String city;
+    ArrayList<PoiItem> array;
+    PoiSearch.Query searchquery;
 
     @Nullable
     @Override
@@ -112,21 +117,7 @@ public class NavFragment extends Fragment {
                 }
             }
         });
-        mSearchView = getActivity().findViewById(R.id.getPoi);
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                poiKey=query;
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                poiKey=newText;
-                return false;
-            }
-        });
-        mOnPoiSearchListener=new mOnPoiSearchListener (poiKey,"","郫都区");
+        doSearch();
     }
 
     private void setUpMap(){
@@ -249,12 +240,47 @@ public class NavFragment extends Fragment {
         });
     }
 
-    public void makeMaker(){
-        poiArray=mOnPoiSearchListener.getArray();
-        Iterator it=poiArray.iterator();
-        while(it.hasNext()){
-            final Marker marker = aMap.addMarker(new MarkerOptions().position((LatLng)it.next()).title("北京").snippet("DefaultMarker"));
+    protected void doSearch(){
+        searchPoi = getActivity().findViewById(R.id.inputPoi);
+        Log.d("onEditorAction","Edit Finish");
+        searchPoi.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                keywords=query;
+                searchquery = new PoiSearch.Query(keywords, "","郫都区");
+                searchquery.setPageSize(10);
+                poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
+                poiSearch.setOnPoiSearchListener(NavFragment.this);
+                poiSearch.searchPOIAsyn();
+                Log.d("poiSearch","Search Finish");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("Search text",newText);
+                return false;
+            }
+        });
+    }
+    @Override
+    public void onPoiSearched(PoiResult poiResult, int i) {
+        array=poiResult.getPois();
+        Log.d("begin make","begin make");
+        Iterator it = array.iterator();
+        while (it.hasNext()) {
+            PoiItem poiItem=(PoiItem)it.next();
+            LatLng latLng=new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude());
+            final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("郫县").snippet("DefaultMarker"));
         }
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+    }
+    public AMap getaMap(){
+        return aMap;
     }
     @Override
     public void onDestroyView() {
