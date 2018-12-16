@@ -26,3 +26,10 @@ before_script:
 - echo y | android update sdk --no-ui --all --filter build-tools-28.0.3,android-28
 script:
 - ./gradlew assembleRelease
+deploy:
+  provider: releases
+  api_key:
+    secure: tOX5ToB5F6u2lPoDXMn9QnaR3kh1S0jrQp44Tu9FurHD+af327B2wLe9o5CaAlkX85Igz9g1s8Fjcmxri0ChTF536nEKX43L3geV4OnqBFO+9As+tdltOVqKXzGT3LVKeJKIH+6xv17FjeGhVwV49QPjUcYDKvfHxkpOYrBo2LtzvowHbY4Yr2lPqaeTuAehpx7D/AXR83twCrkJtJL0UVB9ub70CN7qNwMsocmtiXtERs3epvolQM6HhD60L42o5DW5ekuDluUmGnB16NJUOUIz+3/hrXm/oP82H6CkwwXbrCKT1xHttnd3WsyRtdEbIG9PDO82kqBOXs6x0KNF8VFMF+QDN5Sqtt0E9jdWd3uUGiNoHE/1FXzOpKXmJfKovIucnFZ0bgTbMCY65f5uS8TULxx4RWCAjlO55SnOWHmDlx7nzL4+WGtaCrgmAtUhUVg2w6M16JNjtIncYCj7SzXDMQ3e51W/BfWtj745QAhAc9fFtHc8yYH5BxusC5LrUmZqD0ouwd96dRPiXNpMNluOUbDtmBtC3YDFWiE0TdwxLsojUjqXcGpM+iuZxOaaJj9t9Mg82Lzvu9bOuvU+42/Q8Tw1YzfzKXNcNe+ju0imnHSeBJe2M4fCmKH/JXCqXALPKyEtCrwOSSF4UQ64nTQfELTgNWQSW6CABOkNcts=
+  file: app/build/outputs/apk/app-release.apk
+  on:
+    repo: Meet-on-the-road-of-UESTC/Meet-on-the-road-of-UESTC-Android
