@@ -99,15 +99,26 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="450dp">
-        <android.support.v7.widget.SearchView
+        android:layout_height="wrap_content">
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            mapbox:mtf_labelColor="#666"
+            mapbox:mtf_image="@mipmap/ic_close">
+        <EditText
+            android:imeOptions="actionSend"
             android:id="@+id/inputPoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true" />
+            android:textColor="#000"
+            android:hint="@string/enter_search_place"
+            android:textSize="15sp" />
+        </com.github.florent37.materialtextfield.MaterialTextField>
         <ListView
+            android:layout_gravity="center_horizontal"
             android:id="@+id/inputtip_list"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp">
         </ListView>

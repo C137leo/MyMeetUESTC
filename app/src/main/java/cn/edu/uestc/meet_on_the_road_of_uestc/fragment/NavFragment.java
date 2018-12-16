@@ -13,12 +13,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -86,7 +90,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     String location_json;
     MediaType json=MediaType.parse("application/json;charset=utf-8");
 //    onClickListener mOnClickListener=new onClickListener();
-    android.support.v7.widget.SearchView searchPoi;
+    EditText searchPoi;
     ArrayList poiArray=null;
     String poiKey;
     PoiSearch poiSearch;
@@ -100,6 +104,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private String address_title;
     private String address_detail;
     InputTipsAdapter mAdapter;
+
 
 
 
@@ -272,34 +277,73 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     protected void doSearch(){
         searchPoi = getActivity().findViewById(R.id.inputPoi);
-        searchPoi.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+        searchPoi.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                keywords=query;
-                searchquery = new PoiSearch.Query(keywords, "","郫都区");
-                searchquery.setPageSize(10);
-                poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
-                poiSearch.setOnPoiSearchListener(NavFragment.this);
-                poiSearch.searchPOIAsyn();
-                mInputListView.setVisibility(View.GONE);
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-            //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
-                if(newText!=null) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s!=null) {
                     mInputListView.setVisibility(View.VISIBLE);
-                    InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
+                    InputtipsQuery inputquery = new InputtipsQuery(String.valueOf(s), "成都市");
                     inputquery.setCityLimit(true);//限制在当前城市
                     Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
                     inputTips.setInputtipsListener(NavFragment.this);
                     inputTips.requestInputtipsAsyn();
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        searchPoi.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (KeyEvent.KEYCODE_ENTER == keyCode && KeyEvent.ACTION_DOWN == event.getAction()) {
+                    keywords = searchPoi.getText().toString();
+                    searchquery = new PoiSearch.Query(keywords, "", "郫都区");
+                    searchquery.setPageSize(10);
+                    poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
+                    poiSearch.setOnPoiSearchListener(NavFragment.this);
+                    poiSearch.searchPOIAsyn();
+                    mInputListView.setVisibility(View.GONE);
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
+                    return true;
+                }
                 return false;
             }
         });
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                keywords=query;
+//                searchquery = new PoiSearch.Query(keywords, "","郫都区");
+//                searchquery.setPageSize(10);
+//                poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
+//                poiSearch.setOnPoiSearchListener(NavFragment.this);
+//                poiSearch.searchPOIAsyn();
+//                mInputListView.setVisibility(View.GONE);
+//                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//            //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
+//                if(newText!=null) {
+//                    mInputListView.setVisibility(View.VISIBLE);
+//                    InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
+//                    inputquery.setCityLimit(true);//限制在当前城市
+//                    Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
+//                    inputTips.setInputtipsListener(NavFragment.this);
+//                    inputTips.requestInputtipsAsyn();
+//                }
+//                return false;
+//            }
+//        });
     }
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {

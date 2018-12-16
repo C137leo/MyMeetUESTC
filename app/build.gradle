@@ -31,7 +31,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
- 	}
+ 	    }
     }
 }
 
@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.afkT:DevUtils:1.1.8@aar'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.florent37:materialtextfield:1.0.7'
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
     //定位功能
