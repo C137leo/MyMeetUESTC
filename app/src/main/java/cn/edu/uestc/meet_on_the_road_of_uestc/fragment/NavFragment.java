@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,6 +42,8 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.Polyline;
+import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.maps.model.TileOverlayOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -53,6 +56,13 @@ import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkPath;
+import com.amap.api.services.route.WalkRouteResult;
+import com.amap.api.services.route.WalkStep;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -75,7 +85,7 @@ import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener {
+public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,RouteSearch.OnRouteSearchListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -104,9 +114,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private String address_title;
     private String address_detail;
     InputTipsAdapter mAdapter;
-
-
-
+    RouteSearch routeSearch;
 
     @Nullable
     @Override
@@ -161,7 +169,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                                                         .snippet(mAdapter.getTip_address(position)));
             }
         });
-
+        setRandomRoute();
     }
 
     private void setUpMap(){
@@ -317,33 +325,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 return false;
             }
         });
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                keywords=query;
-//                searchquery = new PoiSearch.Query(keywords, "","郫都区");
-//                searchquery.setPageSize(10);
-//                poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
-//                poiSearch.setOnPoiSearchListener(NavFragment.this);
-//                poiSearch.searchPOIAsyn();
-//                mInputListView.setVisibility(View.GONE);
-//                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//            //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
-//                if(newText!=null) {
-//                    mInputListView.setVisibility(View.VISIBLE);
-//                    InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
-//                    inputquery.setCityLimit(true);//限制在当前城市
-//                    Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
-//                    inputTips.setInputtipsListener(NavFragment.this);
-//                    inputTips.requestInputtipsAsyn();
-//                }
-//                return false;
-//            }
-//        });
     }
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
@@ -400,6 +381,47 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+    }
+
+    public void setRandomRoute(){
+        routeSearch = new RouteSearch(MyApplication.getMyContext());
+        routeSearch.setRouteSearchListener(this);
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(30.750036,103.928276),new LatLonPoint(30.750341,103.937428));
+        RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
+        routeSearch.calculateWalkRouteAsyn(query);//开始算
+    }
+
+    @Override
+    public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
+        Log.d("walkroute",String.valueOf(i));
+        aMap.clear();
+        WalkRouteResult mWalkRouteResult=walkRouteResult;
+        List<WalkPath> walkPaths=mWalkRouteResult.getPaths();
+        List<WalkStep> walkSteps=walkPaths.get(0).getSteps();
+        List<LatLng> latLngs=new ArrayList<LatLng>();
+        for(int temp1=0;temp1<walkSteps.size();temp1++) {
+            List<LatLonPoint> latLonPoints=walkSteps.get(temp1).getPolyline();
+            for (int temp = 0; temp < latLonPoints.size(); temp++) {
+                latLngs.add(new LatLng(latLonPoints.get(temp).getLatitude(), latLonPoints.get(temp).getLongitude()));
+            }
+        }
+        final Polyline polyline =aMap.addPolyline(new PolylineOptions().
+                addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
+    }
+
+    @Override
+    public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
 
     }
 
