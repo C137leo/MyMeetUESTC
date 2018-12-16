@@ -26,6 +26,7 @@ before_script:
 - echo y | android update sdk --no-ui --all --filter build-tools-28.0.3,android-28
 script:
 - ./gradlew assembleRelease
+- ls app/build/outputs
 deploy:
   provider: releases
   api_key:
@@ -36,4 +37,3 @@ deploy:
     tags: true
     all_branches: true
     repo: Meet-on-the-road-of-UESTC/Meet-on-the-road-of-UESTC-Android
-    branch: test_for_deploy
