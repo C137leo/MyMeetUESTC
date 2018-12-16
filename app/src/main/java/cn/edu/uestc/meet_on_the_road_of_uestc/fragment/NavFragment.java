@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,7 +37,12 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.TileOverlayOptions;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
@@ -63,7 +70,7 @@ import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener{
+public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -89,6 +96,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ArrayList<PoiItem> array;
     PoiSearch.Query searchquery;
     private ListView mInputListView;
+    private String address_title;
+    private String address_detail;
 
 
 
@@ -103,6 +112,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         return view;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -131,6 +141,13 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         mInputListView=getActivity().findViewById(R.id.inputtip_list);
+        mInputListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mInputListView.setVisibility(View.GONE);
+                return false;
+            }
+        });
         doSearch();
     }
 
@@ -145,8 +162,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         UiSettings mUiSettings=aMap.getUiSettings();//获取UI设置类
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
-        Log.d("test for location","test for location");
-        Log.d("TEST 2","test 2");
         mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
         mLocationOption = new AMapLocationClientOption();
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
@@ -156,12 +171,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
-                Log.d("TEST FOR LOCATION","TEXT");
                 if (aMapLocation.getErrorCode() == 0) {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + aMapLocation.getErrorCode() + ", errInfo:"
-                            + aMapLocation.getErrorInfo());
                     Latitude=aMapLocation.getLatitude();
                     Longitude=aMapLocation.getLongitude();
                     mCurLocation = new LatLng(Latitude, Longitude,false);
@@ -227,7 +237,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         TileOverlayOptions tileOverlayOptions = new TileOverlayOptions();
         tileOverlayOptions.tileProvider(heatmapTileProvider); // 设置瓦片图层的提供者
         // 向地图上添加 TileOverlayOptions 类对象
-        Log.d("HeatMap","HeatMapCreate");
         aMap.addTileOverlay(tileOverlayOptions);
     }
 
@@ -249,14 +258,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("sendLocation",response.body().toString());
             }
         });
     }
 
     protected void doSearch(){
         searchPoi = getActivity().findViewById(R.id.inputPoi);
-        Log.d("onEditorAction","Edit Finish");
         searchPoi.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -266,14 +273,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
                 poiSearch.setOnPoiSearchListener(NavFragment.this);
                 poiSearch.searchPOIAsyn();
-                Log.d("poiSearch","Search Finish");
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
             //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
-                Log.d("begin tip","new text");
                 InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
                 inputquery.setCityLimit(true);//限制在当前城市
                 Inputtips inputTips = new Inputtips(MyApplication.getMyContext(),inputquery);
@@ -286,12 +291,16 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
         array=poiResult.getPois();
-        Log.d("begin make","begin make");
         Iterator it = array.iterator();
         while (it.hasNext()) {
             PoiItem poiItem=(PoiItem)it.next();
             LatLng latLng=new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude());
-            final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title("郫县").snippet("DefaultMarker"));
+            LatLonPoint latLonPoint=new LatLonPoint(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude());
+            GeocodeSearch geocoderSearch = new GeocodeSearch(MyApplication.getMyContext());
+            geocoderSearch.setOnGeocodeSearchListener(NavFragment.this);
+            RegeocodeQuery query = new RegeocodeQuery(latLonPoint,50,GeocodeSearch.AMAP);
+            geocoderSearch.getFromLocationAsyn(query);
+            final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(poiItem.getTitle()).snippet(poiItem.getSnippet()));
         }
     }
 
@@ -309,8 +318,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 @Override
                 public void run() {
                     if(list.size()!=0) {
-                        Log.d("return right", "return right");
-                        Log.d("Test for tip", list.get(1).getName());
                         List<String> listString = new ArrayList<String>();
                         for (int i = 0; i < list.size(); i++) {
                             listString.add(list.get(i).getName());
@@ -325,6 +332,18 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         }
     }
 
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+        address_title=regeocodeResult.getRegeocodeAddress().getBuilding();
+        address_detail=regeocodeResult.getRegeocodeAddress().getFormatAddress();
+        Log.d("address_title",address_title);
+        Log.d("address_detail",address_detail);
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+    }
 
     @Override
     public void onDestroyView() {
