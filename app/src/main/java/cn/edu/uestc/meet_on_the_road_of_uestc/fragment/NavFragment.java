@@ -156,6 +156,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                                                         .snippet(mAdapter.getTip_address(position)));
             }
         });
+
     }
 
     private void setUpMap(){
@@ -280,18 +281,22 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
                 poiSearch.setOnPoiSearchListener(NavFragment.this);
                 poiSearch.searchPOIAsyn();
+                mInputListView.setVisibility(View.GONE);
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
             //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
-                mInputListView.setVisibility(View.VISIBLE);
-                InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
-                inputquery.setCityLimit(true);//限制在当前城市
-                Inputtips inputTips = new Inputtips(MyApplication.getMyContext(),inputquery);
-                inputTips.setInputtipsListener(NavFragment.this);
-                inputTips.requestInputtipsAsyn();
+                if(newText!=null) {
+                    mInputListView.setVisibility(View.VISIBLE);
+                    InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
+                    inputquery.setCityLimit(true);//限制在当前城市
+                    Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
+                    inputTips.setInputtipsListener(NavFragment.this);
+                    inputTips.requestInputtipsAsyn();
+                }
                 return false;
             }
         });
@@ -310,6 +315,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             geocoderSearch.getFromLocationAsyn(query);
             final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(poiItem.getTitle()).snippet(poiItem.getSnippet()));
         }
+        aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(array.get(0).getLatLonPoint().getLatitude(),array.get(0).getLatLonPoint().getLongitude())));
     }
 
     @Override

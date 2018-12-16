@@ -16,22 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.SearchView
-            android:id="@+id/inputPoi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true" />
-        <ListView
-            android:id="@+id/inputtip_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp">
-        </ListView>
-    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/HELP"
         android:layout_width="wrap_content"
@@ -109,5 +94,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_route"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="450dp">
+        <android.support.v7.widget.SearchView
+            android:id="@+id/inputPoi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
+        <ListView
+            android:id="@+id/inputtip_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp">
+        </ListView>
     </LinearLayout>
 </RelativeLayout>
