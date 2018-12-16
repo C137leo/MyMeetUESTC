@@ -308,14 +308,16 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             new Activity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("return right","return right");
-                    Log.d("Test for tip",list.get(1).getName());
-                    List<String> listString=new ArrayList<String>();
-                    for(int i=0;i<list.size();i++){
-                        listString.add(list.get(i).getName());
+                    if(list.size()!=0) {
+                        Log.d("return right", "return right");
+                        Log.d("Test for tip", list.get(1).getName());
+                        List<String> listString = new ArrayList<String>();
+                        for (int i = 0; i < list.size(); i++) {
+                            listString.add(list.get(i).getName());
+                        }
+                        InputTipsAdapter mAdapter = new InputTipsAdapter(MyApplication.getMyContext(), list);
+                        mInputListView.setAdapter(mAdapter);
                     }
-                    InputTipsAdapter mAdapter=new InputTipsAdapter(MyApplication.getMyContext(),list);
-                    mInputListView.setAdapter(mAdapter);
                 }
             });
         } else {
