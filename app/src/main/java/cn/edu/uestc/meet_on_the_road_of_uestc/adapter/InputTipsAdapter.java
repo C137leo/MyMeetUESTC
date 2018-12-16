@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Tip;
 
 import java.util.List;
@@ -18,6 +20,24 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 public class InputTipsAdapter extends BaseAdapter {
     private Context mContext;
     private List<Tip> mTipList;
+
+    public String getTip_address(int position) {
+        String tip_address=mTipList.get(position).getAddress();
+        return tip_address;
+    }
+
+    public LatLng getTip_Latlng(int position){
+        LatLonPoint tip_latlonpoint=mTipList.get(position).getPoint();
+        LatLng tip_latlng=new LatLng(tip_latlonpoint.getLatitude(),tip_latlonpoint.getLongitude());
+        return tip_latlng;
+    }
+
+    public String getTip_title(int position){
+        String tip_title=mTipList.get(position).getName();
+        return tip_title;
+    }
+
+    private LatLng tip_latlang;
     public InputTipsAdapter(Context context, List<Tip> tipList){
         mContext=context;
         mTipList=tipList;

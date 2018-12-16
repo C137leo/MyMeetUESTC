@@ -28,6 +28,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
@@ -98,6 +99,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private ListView mInputListView;
     private String address_title;
     private String address_detail;
+    InputTipsAdapter mAdapter;
 
 
 
@@ -141,14 +143,19 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         mInputListView=getActivity().findViewById(R.id.inputtip_list);
-        mInputListView.setOnTouchListener(new View.OnTouchListener() {
+        doSearch();
+        mInputListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mInputListView.setVisibility(View.GONE);
-                return false;
+                Log.d("position",String.valueOf(position));
+                aMap.moveCamera(CameraUpdateFactory.changeLatLng(mAdapter.getTip_Latlng(position)));
+                final Marker marker = aMap.addMarker(new MarkerOptions()
+                                                        .position(mAdapter.getTip_Latlng(position))
+                                                        .title(mAdapter.getTip_title(position))
+                                                        .snippet(mAdapter.getTip_address(position)));
             }
         });
-        doSearch();
     }
 
     private void setUpMap(){
@@ -279,6 +286,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             @Override
             public boolean onQueryTextChange(String newText) {
             //第二个参数传入null或者“”代表在全国进行检索，否则按照传入的city进行检索
+                mInputListView.setVisibility(View.VISIBLE);
                 InputtipsQuery inputquery = new InputtipsQuery(newText, "成都市");
                 inputquery.setCityLimit(true);//限制在当前城市
                 Inputtips inputTips = new Inputtips(MyApplication.getMyContext(),inputquery);
@@ -322,7 +330,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         for (int i = 0; i < list.size(); i++) {
                             listString.add(list.get(i).getName());
                         }
-                        InputTipsAdapter mAdapter = new InputTipsAdapter(MyApplication.getMyContext(), list);
+                        mAdapter = new InputTipsAdapter(MyApplication.getMyContext(), list);
                         mInputListView.setAdapter(mAdapter);
                     }
                 }
