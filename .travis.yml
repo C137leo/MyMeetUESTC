@@ -26,11 +26,12 @@ before_script:
 - echo y | android update sdk --no-ui --all --filter build-tools-28.0.3,android-28
 script:
 - ./gradlew assembleRelease
+- ls app/build/outputs/apk/release
 deploy:
   provider: releases
   api_key:
-   secure: M6hwUKq70tCgFARqavlkqxLfyD1u+sPlBxb9rwrjKHuWjPKefGzBJ0wm3iqs8o83asn8iYFavqCdXmgwnhmvarmflyGqx9hIm3pSm26tOUD+Xb28uy6QHMFECg8jxZx1NeU2Ns3ltRUWOg6ayUvIGOLCp/iFZOXoewnwF0kxoVqalXiM2Dfnhh4kQIOoG6QWbqQcn7alVcubmUJgMZM//T230gZ8HEY++YwL8J0jueNmbbPJzEhsaY7H3nFE2nxW8lYR7XD9RK8CwIwgCoMRPX90XvH9fcP+k4+CVqv+ZXl811gIitq3wtTHvbM8ZIAdKuxP5TvlE57remqgsR0XLe2FR3V5wNYg/AB3ArKO7euPawSpcKhnVth+Hasku+WceWXg14ZYnUUEisSwW054X2C8kZcm2pB6Nj2ELlHt8SAh+2Lia38gCLFK1ecL9PLIMwrknzcSy8gEul65rKiC0A26CfCbYx+5U/XWCXNxhfcQi2+VE6trqrl/UCuk4qzs212KqlBb71XGVkxSruwKSEhASP2HUj31+un/Zwmy7nzAsv9GBfmWrnJgRk+KnVlSWkAOgAYNXPKPInmfIA9e+/vLIwswGtGLoOj88M6Is7T3yhvPZcXGWsHihKO0JpfLRjJwHsFQ8vH/HYiQl38lgJ0Ws/oRcTxIRLYe3rajTgk=
-  file: app/build/outputs/apk/app-release.apk
+    secure: COBVNNio6B5sXLsShIo8nJmsMcN6vp6uZONmCQ7aWjjbKZPCVyVB2Ipdfmk0at59B0kIx7n2N7PVjajnr48/nGVK/kHwH7PP9ziTh2czpvuol1AKFusGc1UetiBPB+h3FSku/PAAXn0pt+/VxF54h0eVpx+vO6rl9wnmPN74EnQpP5jru+ntx9K4kF2yIs0QIGd+ob2BtEf/VZVf62rtH8IcKeYCKLR3xcj+dr6n65dxGS33fAk4Z2BLe4dy8QIrM+j9yrLkt/jA4TErcSbqrzGGoih2EwQg5U/08dtt+LV+ZI6aYB0AJztYSRXzABpR0zwMRlk3H2ZsSGfCc+/oDRKw6sAA/+GehkCYqy0pi2RCZWcHUm3RjWeMO47FwP7RDb1uceyt+11NwPmMbPYgnUjagynwNy5ZIbb9XLgXko54uJSpK7asVRvTScV6/ldpIu4kS7PizhnqYV2VTmLntXgH59VoqpED5/BnEwcXmGiTdo9vwWlicDoJGRNWGwSPlr1tSQQ1asa1XEwYrD/3x4eYecexttRNtlF45BG8hKQhXBFqqsu5wx3hecOrdqri8Vs27FXH+/14b1SDHs8wzIsxt50LTjLj9/4v2DsVIQ7J7FONYUJ8DDjZlKc5XCTZLx1LHf5dyq7CruW7cmTKtZdNwdvWmDYNWrD5Q5Kt1Iw=
+  file: app/build/outputs/apk/release/app-release.apk
   skip_cleanup: true
   on:
     tags: true
