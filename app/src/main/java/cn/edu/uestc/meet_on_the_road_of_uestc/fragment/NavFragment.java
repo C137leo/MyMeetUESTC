@@ -54,6 +54,9 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
+import com.amap.api.services.nearby.NearbySearch;
+import com.amap.api.services.nearby.UploadInfo;
+import com.amap.api.services.nearby.UploadInfoCallback;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.route.BusRouteResult;
@@ -74,6 +77,8 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
+import dev.DevUtils;
+import dev.utils.app.ADBUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -85,7 +90,9 @@ import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,RouteSearch.OnRouteSearchListener {
+public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
+        Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
+        RouteSearch.OnRouteSearchListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -99,7 +106,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     Gson mGson=new Gson();
     String location_json;
     MediaType json=MediaType.parse("application/json;charset=utf-8");
-//    onClickListener mOnClickListener=new onClickListener();
     EditText searchPoi;
     ArrayList poiArray=null;
     String poiKey;
@@ -115,6 +121,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private String address_detail;
     InputTipsAdapter mAdapter;
     RouteSearch routeSearch;
+    LatLonPoint mLatLonPoint;
 
     @Nullable
     @Override
@@ -133,6 +140,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         super.onActivityCreated(savedInstanceState);
         setUpMap();
         ImageView help = getActivity().findViewById(R.id.emergency_help);
+        uploadNearbyInfo();
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,6 +203,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 if (aMapLocation.getErrorCode() == 0) {
                     Latitude=aMapLocation.getLatitude();
                     Longitude=aMapLocation.getLongitude();
+                    mLatLonPoint=new LatLonPoint(Latitude,Longitude);
                     mCurLocation = new LatLng(Latitude, Longitude,false);
                     address = (aMapLocation.getProvince() + ""
                             + aMapLocation.getCity() + ""
@@ -419,6 +428,25 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         final Polyline polyline =aMap.addPolyline(new PolylineOptions().
                 addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
     }
+
+    public void uploadNearbyInfo(){
+        DevUtils.init(MyApplication.getMyContext());
+        NearbySearch mNearbySearch = NearbySearch.getInstance(MyApplication.getMyContext());
+        mNearbySearch.startUploadNearbyInfoAuto(new UploadInfoCallback() {
+            @Override
+            public UploadInfo OnUploadInfoCallback() {
+                UploadInfo loadInfo = new UploadInfo();
+                loadInfo.setCoordType(NearbySearch.AMAP);
+                //位置信息
+                loadInfo.setPoint(mLatLonPoint);
+                //用户id信息
+                loadInfo.setUserID(String.valueOf(ADBUtils.getIMEI()));
+                Log.d("Upload Info","Upload Info");
+                return loadInfo;
+            }
+        },10000);
+    }
+
 
     @Override
     public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
