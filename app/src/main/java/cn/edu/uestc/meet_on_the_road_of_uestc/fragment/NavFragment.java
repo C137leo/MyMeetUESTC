@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -82,6 +83,10 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
 import dev.DevUtils;
 import dev.utils.app.ADBUtils;
+import dev.utils.app.PhoneUtils;
+import dev.utils.app.logger.DevLogger;
+import dev.utils.app.logger.LogConfig;
+import dev.utils.app.logger.LogLevel;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -443,6 +448,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     public void uploadNearbyInfo(){
         DevUtils.init(MyApplication.getMyContext());
+        // == 初始化日志配置 ==
+        // 设置默认Logger配置
+        LogConfig logConfig = new LogConfig();
+        logConfig.logLevel = LogLevel.DEBUG;
+        logConfig.tag = "LOG_TAG";
+        DevLogger.init(logConfig);
+        // 打开 lib 内部日志
+        DevUtils.openLog();
+        DevUtils.openDebug();
         NearbySearch mNearbySearch = NearbySearch.getInstance(MyApplication.getMyContext());
         mNearbySearch.startUploadNearbyInfoAuto(new UploadInfoCallback() {
             @Override
@@ -452,7 +466,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 //位置信息
                 loadInfo.setPoint(mLatLonPoint);
                 //用户id信息
-                loadInfo.setUserID(String.valueOf(ADBUtils.getIMEI()));
+                loadInfo.setUserID(String.valueOf(PhoneUtils.getIMEI()));
+                Log.d("UserId",String.valueOf(PhoneUtils.getIMEI()));
                 Log.d("Upload Info","Upload Info");
                 return loadInfo;
             }
@@ -489,7 +504,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             if(nearbySearchResult!=null) {
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();
                 for (NearbyInfo nearbyInfo : nearbyInfoList) {
-                    Toast.makeText(MyApplication.getMyContext(), nearbyInfo.getUserID(), Toast.LENGTH_LONG).show();
+                    LatLng latLng=new LatLng(nearbyInfo.getPoint().getLatitude(),nearbyInfo.getPoint().getLongitude());
+                    final Marker marker=aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()));
                 }
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
