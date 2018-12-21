@@ -41,7 +41,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/location"
+            android:id="@+id/nearBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

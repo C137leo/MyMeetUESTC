@@ -54,7 +54,10 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
+import com.amap.api.services.nearby.NearbyInfo;
 import com.amap.api.services.nearby.NearbySearch;
+import com.amap.api.services.nearby.NearbySearchFunctionType;
+import com.amap.api.services.nearby.NearbySearchResult;
 import com.amap.api.services.nearby.UploadInfo;
 import com.amap.api.services.nearby.UploadInfoCallback;
 import com.amap.api.services.poisearch.PoiResult;
@@ -92,7 +95,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -111,6 +114,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     String poiKey;
     PoiSearch poiSearch;
     PoiSearch.Query query;
+    NearbySearch.NearbyQuery nearbyQuery;
     String keywords;
     String ctgr;
     String city;
@@ -122,6 +126,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     InputTipsAdapter mAdapter;
     RouteSearch routeSearch;
     LatLonPoint mLatLonPoint;
+    List<NearbyInfo> nearbyInfoList;
+    ImageView nearByview;
 
     @Nullable
     @Override
@@ -141,6 +147,13 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         setUpMap();
         ImageView help = getActivity().findViewById(R.id.emergency_help);
         uploadNearbyInfo();
+        nearByview=getActivity().findViewById(R.id.nearBy);
+        nearByview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchNearBy();
+            }
+        });
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,7 +233,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         mLocationClient.startLocation();
-
     }
 
     public void call(){
@@ -447,6 +459,50 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         },10000);
     }
 
+    public void searchNearBy(){
+        NearbySearch mNearbySearch = NearbySearch.getInstance(MyApplication.getMyContext());
+        mNearbySearch.addNearbyListener(this);
+        //设置搜索条件
+        nearbyQuery = new NearbySearch.NearbyQuery();
+        //设置搜索的中心点
+        nearbyQuery.setCenterPoint(new LatLonPoint(30.749125,103.931633));
+        //设置搜索的坐标体系
+        nearbyQuery.setCoordType(NearbySearch.AMAP);
+        //设置搜索半径
+        nearbyQuery.setRadius(10000);
+        //设置查询的时间
+        nearbyQuery.setTimeRange(10000);
+        //设置查询的方式驾车还是距离
+        nearbyQuery.setType(NearbySearchFunctionType.DRIVING_DISTANCE_SEARCH);
+        //调用异步查询接口
+        NearbySearch.getInstance(MyApplication.getMyContext())
+                .searchNearbyInfoAsyn(nearbyQuery);
+    }
+    @Override
+    public void onUserInfoCleared(int i) {
+
+    }
+
+    @Override
+    public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int i) {
+        if(i==1000){
+            if(nearbySearchResult!=null) {
+                nearbyInfoList = nearbySearchResult.getNearbyInfoList();
+                for (NearbyInfo nearbyInfo : nearbyInfoList) {
+                    Toast.makeText(MyApplication.getMyContext(), nearbyInfo.getUserID(), Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Log.e("NearByService error","错误码为:"+i);
+        }
+    }
+
+    @Override
+    public void onNearbyInfoUploaded(int i) {
+
+    }
 
     @Override
     public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
