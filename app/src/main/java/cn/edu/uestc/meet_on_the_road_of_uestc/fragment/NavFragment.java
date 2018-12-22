@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,8 +77,11 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
@@ -133,6 +138,11 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     LatLonPoint mLatLonPoint;
     List<NearbyInfo> nearbyInfoList;
     ImageView nearByview;
+    private Timer timer;
+    private TimerTask task;
+    HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
+    LatLonPoint nearbyLatLonPoint;
+    int isAmapClear=0;
 
     @Nullable
     @Override
@@ -153,10 +163,41 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         ImageView help = getActivity().findViewById(R.id.emergency_help);
         uploadNearbyInfo();
         nearByview=getActivity().findViewById(R.id.nearBy);
+        final int[] flag = {0};
         nearByview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchNearBy();
+                switch (flag[0]) {
+                    case 0: {
+                        timer=new Timer();
+                        Handler searchhandler = new Handler() {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                // TODO Auto-generated method stub
+                                searchNearBy();
+                                super.handleMessage(msg);
+                            }
+                        };
+                        task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                Message message = new Message();
+                                message.what = 1;
+                                searchhandler.sendMessage(message);
+                            }
+                        };
+                        timer.schedule(task, 2000, 3000);
+                        flag[0]=1;
+                        break;
+                    }
+                    case 1: {
+                        timer.cancel();
+                        clearMarker();
+                        flag[0] =0;
+                        break;
+                    }
+                }
             }
         });
         help.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +230,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 mInputListView.setVisibility(View.GONE);
                 Log.d("position",String.valueOf(position));
                 aMap.moveCamera(CameraUpdateFactory.changeLatLng(mAdapter.getTip_Latlng(position)));
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
                 final Marker marker = aMap.addMarker(new MarkerOptions()
                                                         .position(mAdapter.getTip_Latlng(position))
                                                         .title(mAdapter.getTip_title(position))
@@ -198,6 +240,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         setRandomRoute();
     }
 
+    /**
+     * 初始化高德地图
+     */
     private void setUpMap(){
         aMap = mMapView.getMap();
         HeatMapCreate();
@@ -246,6 +291,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         startActivity(intent);
     }
 
+    /**
+     * 判断获取权限是否成功
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -261,6 +312,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         }
     }
 
+    /**
+     * 初始化热点图
+     */
     public void HeatMapCreate(){
         LatLng[] latlngs = new LatLng[500];
         double x = 30.749125;
@@ -287,28 +341,34 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         aMap.addTileOverlay(tileOverlayOptions);
     }
 
-    public void sendLocationtoServer(){
-        mOkHttpClient=new OkHttpClient();
-        mCurLocation location=new mCurLocation();
-        location.setLatitude(Latitude);
-        location.setLongitude(Longitude);
-        location_json=mGson.toJson(location);
-        RequestBody mLocation=FormBody.create(json,location_json);
-        Request curLocation=new Request.Builder().url("http://47.107.162.132:80")
-                                            .post(mLocation)
-                                            .build();
-        mOkHttpClient.newCall(curLocation).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+    /**
+     * (已弃用）发送位置到服务器，现使用高德云图替代
+     */
+//    public void sendLocationtoServer(){
+//        mOkHttpClient=new OkHttpClient();
+//        mCurLocation location=new mCurLocation();
+//        location.setLatitude(Latitude);
+//        location.setLongitude(Longitude);
+//        location_json=mGson.toJson(location);
+//        RequestBody mLocation=FormBody.create(json,location_json);
+//        Request curLocation=new Request.Builder().url("http://47.107.162.132:80")
+//                                            .post(mLocation)
+//                                            .build();
+//        mOkHttpClient.newCall(curLocation).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//            }
+//        });
+//    }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-            }
-        });
-    }
-
+    /**
+     * 搜索框活动
+     */
     protected void doSearch(){
         searchPoi = getActivity().findViewById(R.id.inputPoi);
         searchPoi.addTextChangedListener(new TextWatcher() {
@@ -326,6 +386,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
                     inputTips.setInputtipsListener(NavFragment.this);
                     inputTips.requestInputtipsAsyn();
+                }else{
+                    aMap.clear(true);
                 }
             }
 
@@ -352,8 +414,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
     }
+
+    /**
+     * poi搜索结果异步回调
+     * @param poiResult 搜索结果
+     * @param i 状态码
+     */
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
+        aMap.clear(true);
         array=poiResult.getPois();
         Iterator it = array.iterator();
         while (it.hasNext()) {
@@ -374,7 +443,11 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     }
 
-
+    /**
+     * 获取输入框文字以获取提示
+     * @param list
+     * @param i
+     */
     @Override
     public void onGetInputtips(List<Tip> list, int i) {
         // 正确返回
@@ -428,10 +501,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     }
 
+    /**
+     * 步行路线搜索
+     * @param walkRouteResult 结果
+     * @param i 状态码
+     */
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
         Log.d("walkroute",String.valueOf(i));
-        aMap.clear();
+        aMap.clear(true);
         WalkRouteResult mWalkRouteResult=walkRouteResult;
         List<WalkPath> walkPaths=mWalkRouteResult.getPaths();
         List<WalkStep> walkSteps=walkPaths.get(0).getSteps();
@@ -446,6 +524,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
     }
 
+    /**
+     * 上传位置信息到服务器以获取附近的人
+     */
     public void uploadNearbyInfo(){
         DevUtils.init(MyApplication.getMyContext());
         // == 初始化日志配置 ==
@@ -474,6 +555,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         },10000);
     }
 
+    /**
+     * 搜素附近的人
+     */
     public void searchNearBy(){
         NearbySearch mNearbySearch = NearbySearch.getInstance(MyApplication.getMyContext());
         mNearbySearch.addNearbyListener(this);
@@ -493,19 +577,51 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         NearbySearch.getInstance(MyApplication.getMyContext())
                 .searchNearbyInfoAsyn(nearbyQuery);
     }
+
+    /**
+     * 清除地图上的点标记
+     */
+    public void clearMarker(){
+        aMap.clear(true);
+        isAmapClear=1;
+    }
     @Override
     public void onUserInfoCleared(int i) {
 
     }
 
+    /**
+     * 搜索结果异步回调
+     * @param nearbySearchResult
+     * @param i
+     */
     @Override
     public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int i) {
         if(i==1000){
             if(nearbySearchResult!=null) {
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();
                 for (NearbyInfo nearbyInfo : nearbyInfoList) {
-                    LatLng latLng=new LatLng(nearbyInfo.getPoint().getLatitude(),nearbyInfo.getPoint().getLongitude());
-                    final Marker marker=aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()));
+                    if(nearByUserMap==null){
+                        nearByUserMap=new HashMap<String,Marker>();
+                        LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
+                        nearByUserMap.put(nearbyInfo.getUserID(),marker);
+                    }else {
+                        if (nearByUserMap.containsKey(nearbyInfo.getUserID())) {
+                            if(nearbyInfo.getPoint().getLatitude() == nearbyLatLonPoint.getLatitude() && nearbyInfo.getPoint().getLongitude() == nearbyLatLonPoint.getLongitude()) {
+                                LatLng mLatLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
+                                Marker marker = nearByUserMap.get(nearbyInfo.getUserID());
+                                marker.setPosition(mLatLng);
+                            }else if(isAmapClear==1){
+                                aMap.addMarker(nearByUserMap.get(nearbyInfo.getUserID()).getOptions());
+                            }
+                        } else {
+                            nearbyLatLonPoint = nearbyInfo.getPoint();
+                            LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
+                            Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
+                            nearByUserMap.put(nearbyInfo.getUserID(), marker);
+                        }
+                    }
                 }
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();

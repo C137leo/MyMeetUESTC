@@ -3,7 +3,6 @@ package cn.edu.uestc.meet_on_the_road_of_uestc;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +14,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Stu;
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;

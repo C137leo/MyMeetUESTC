@@ -14,14 +14,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.util.List;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.BinPic;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
