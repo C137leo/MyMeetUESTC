@@ -73,14 +73,32 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.baidu.trace.LBSTraceClient;
+import com.baidu.trace.Trace;
+import com.baidu.trace.api.entity.OnEntityListener;
+import com.baidu.trace.api.track.HistoryTrackRequest;
+import com.baidu.trace.api.track.HistoryTrackResponse;
+import com.baidu.trace.api.track.OnTrackListener;
+import com.baidu.trace.model.CoordType;
+import com.baidu.trace.model.OnTraceListener;
+import com.baidu.trace.model.ProcessOption;
+import com.baidu.trace.model.PushMessage;
+import com.baidu.trace.model.SortType;
+import com.baidu.trace.model.TransportMode;
 import com.google.gson.Gson;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,6 +110,7 @@ import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
 import dev.utils.app.logger.LogConfig;
 import dev.utils.app.logger.LogLevel;
+import dev.utils.common.HttpURLConnectionUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -101,9 +120,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.baidu.trace.model.SortType.asc;
+
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,OnTraceListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -139,6 +160,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
     LatLonPoint nearbyLatLonPoint;
     int isAmapClear=0;
+    LBSTraceClient mTraceClient;
+    ImageView run;
+    Trace mTrace;
+    long serviceId = 207968;
+
+
 
     @Nullable
     @Override
@@ -232,6 +259,29 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         setRandomRoute();
+        run=getActivity().findViewById(R.id.run);
+        int[] runflag = {0};
+        run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (runflag[0]){
+                    case 0:
+                        traceService();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                searchHistoryTrace();
+                            }
+                        },2000);
+                        runflag[0]++;
+                        break;
+                    case 1:
+                        mTraceClient.stopGather(NavFragment.this);
+                        runflag[0]--;
+                        break;
+                }
+            }
+        });
     }
 
     /**
@@ -653,6 +703,125 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     @Override
     public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
 
+    }
+
+    public void traceService(){
+        DevUtils.init(MyApplication.getMyContext());
+        // 是否需要对象存储服务，默认为：false，关闭对象存储服务。注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
+        boolean isNeedObjectStorage = true;
+        //entity标识
+        String entityName = PhoneUtils.getIMEI();
+        // 初始化轨迹服务
+        mTrace = new Trace(serviceId, entityName, isNeedObjectStorage);
+        // 初始化轨迹服务客户端
+        mTraceClient = new LBSTraceClient(MyApplication.getMyContext());
+        // 定位周期(单位:秒)
+        int gatherInterval = 5;
+        // 打包回传周期(单位:秒)
+        int packInterval = 10;
+        // 设置定位和打包周期
+        mTraceClient.setInterval(gatherInterval, packInterval);
+        // 开启服务
+        mTraceClient.startTrace(mTrace, NavFragment.this);
+
+    }
+
+    @Override
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+        super.dump(prefix, fd, writer, args);
+    }
+
+    @Override
+    public void onBindServiceCallback(int i, String s) {
+
+    }
+
+    @Override
+    public void onStartTraceCallback(int i, String s) {
+        if(i==0){
+            // 开启采集
+            mTraceClient.startGather(NavFragment.this);
+        }else{
+            Log.e("traceService",i+s);
+        }
+    }
+
+    @Override
+    public void onStopTraceCallback(int i, String s) {
+        Log.d("stopTrace",i+s);
+    }
+
+    @Override
+    public void onStartGatherCallback(int i, String s) {
+        HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
+            @Override
+            public void onResponse(long time) {
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); //转换为北京时间
+                Date date=new Date(time);
+                String formatTime=sdf.format(date);
+                Log.d("TraceStartTime",formatTime);
+            }
+
+            @Override
+            public void onFail(Exception e) {
+                Log.d("TraceTimeFail","获取时间失败");
+            }
+        });
+    }
+
+    @Override
+    public void onStopGatherCallback(int i, String s) {
+        HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
+            @Override
+            public void onResponse(long time) {
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); //转换为北京时间
+                Date date=new Date(time);
+                String formatTime=sdf.format(date);
+                Log.d("StopTraceTime",formatTime);
+            }
+
+            @Override
+            public void onFail(Exception e) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onPushCallback(byte b, PushMessage pushMessage) {
+
+    }
+
+    @Override
+    public void onInitBOSCallback(int i, String s) {
+
+    }
+
+
+    public void searchHistoryTrace(){
+        DevUtils.init(MyApplication.getMyContext());
+        //entity标识
+        String entityName = PhoneUtils.getIMEI();
+        //是否返回精简的结果（0 : 将只返回经纬度，1 : 将返回经纬度及其他属性信息）
+        int simpleReturn = 1;
+        //开始时间（Unix时间戳）
+        int startTime = (int) (System.currentTimeMillis() / 1000 - 12 * 60 * 60);
+        //结束时间（Unix时间戳）
+        int endTime = (int) (System.currentTimeMillis() / 1000);
+        //分页大小
+        int pageSize = 1000;
+        //分页索引
+        int pageIndex = 1;
+        //轨迹查询监听器
+        OnTrackListener trackListener = new OnTrackListener() {
+            @Override
+            public void onHistoryTrackCallback(HistoryTrackResponse historyTrackResponse) {
+                Log.d("searchHistoryTrack",String.valueOf(historyTrackResponse.getSize())+","+historyTrackResponse.getStatus()+historyTrackResponse.getMessage());
+            }
+        };
+        ProcessOption processOption=new ProcessOption(true,true,false,0,TransportMode.driving);
+        //查询历史轨迹
+        mTraceClient.queryHistoryTrack(new HistoryTrackRequest(0,serviceId,entityName,startTime,endTime,true,processOption,null,SortType.asc,CoordType.bd09ll,pageIndex,pageSize),trackListener);
     }
 
     @Override

@@ -84,6 +84,9 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_goal"/>
         <ImageView
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/run"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
