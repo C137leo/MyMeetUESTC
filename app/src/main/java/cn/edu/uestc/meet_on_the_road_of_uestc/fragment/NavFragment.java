@@ -87,6 +87,8 @@ import com.baidu.trace.model.SortType;
 import com.baidu.trace.model.TransportMode;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -106,6 +108,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
 import dev.DevUtils;
+import dev.utils.app.ADBUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
 import dev.utils.app.logger.LogConfig;
@@ -121,6 +124,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static com.baidu.trace.model.SortType.asc;
+import static java.lang.Enum.valueOf;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
@@ -164,6 +168,10 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView run;
     Trace mTrace;
     long serviceId = 207968;
+    JSONObject tracetime;
+    private long startTime;
+    private long stopTime;
+    private OkHttpClient okHttpClient;
 
 
 
@@ -756,10 +764,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
             @Override
             public void onResponse(long time) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); //转换为北京时间
-                Date date=new Date(time);
-                String formatTime=sdf.format(date);
-                Log.d("TraceStartTime",formatTime);
+                startTime=time;
+                Log.d("TraceStartTime",String.valueOf(startTime));
             }
 
             @Override
@@ -774,10 +780,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
             @Override
             public void onResponse(long time) {
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); //转换为北京时间
-                Date date=new Date(time);
-                String formatTime=sdf.format(date);
-                Log.d("StopTraceTime",formatTime);
+                stopTime=time;
+                Log.d("StopTraceTime",String.valueOf(stopTime));
             }
 
             @Override
@@ -785,6 +789,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             }
         });
+        okHttpClient=new OkHttpClient();
+        RequestBody requestBody=RequestBody.create(json,String.valueOf(tracetime));
     }
 
     @Override
@@ -806,6 +812,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         int simpleReturn = 1;
         //开始时间（Unix时间戳）
         int startTime = (int) (System.currentTimeMillis() / 1000 - 12 * 60 * 60);
+        Log.d("currentTIMR",String.valueOf(startTime));
         //结束时间（Unix时间戳）
         int endTime = (int) (System.currentTimeMillis() / 1000);
         //分页大小
@@ -824,6 +831,17 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         mTraceClient.queryHistoryTrack(new HistoryTrackRequest(0,serviceId,entityName,startTime,endTime,true,processOption,null,SortType.asc,CoordType.bd09ll,pageIndex,pageSize),trackListener);
     }
 
+    public void postTraceTime(){
+        DevUtils.init(MyApplication.getMyContext());
+        tracetime=new JSONObject();
+        try {
+            tracetime.put("DeviceIMEI", PhoneUtils.getIMEI());
+            tracetime.put("starttime",startTime);
+            tracetime.put("stopTraceTime",stopTime);
+        }catch (Exception e){
+
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
