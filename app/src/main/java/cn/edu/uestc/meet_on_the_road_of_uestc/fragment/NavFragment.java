@@ -169,7 +169,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         Handler searchhandler = new Handler() {
                             @Override
                             public void handleMessage(Message msg) {
-                                // TODO Auto-generated method stub
                                 searchNearBy();
                                 super.handleMessage(msg);
                             }
@@ -177,7 +176,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         task = new TimerTask() {
                             @Override
                             public void run() {
-                                // TODO Auto-generated method stub
                                 Message message = new Message();
                                 message.what = 1;
                                 searchhandler.sendMessage(message);
