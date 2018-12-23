@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -126,8 +127,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     PoiSearch.Query query;
     NearbySearch.NearbyQuery nearbyQuery;
     String keywords;
-    String ctgr;
-    String city;
     ArrayList<PoiItem> array;
     PoiSearch.Query searchquery;
     private ListView mInputListView;
@@ -247,42 +246,62 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         aMap = mMapView.getMap();
         HeatMapCreate();
         MyLocationStyle myLocationStyle;
-        myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
+        myLocationStyle = new MyLocationStyle();
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         aMap.getUiSettings().setMyLocationButtonEnabled(false);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         UiSettings mUiSettings=aMap.getUiSettings();//获取UI设置类
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
-        mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setMockEnable(true);
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.setLocationListener(new AMapLocationListener() {
+        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation.getErrorCode() == 0) {
-                    Latitude=aMapLocation.getLatitude();
-                    Longitude=aMapLocation.getLongitude();
+            public void onMyLocationChange(Location location) {
+                if(location.getExtras().getInt(MyLocationStyle.ERROR_CODE)==0){
+                    Latitude=location.getLatitude();
+                    Longitude=location.getLongitude();
                     mLatLonPoint=new LatLonPoint(Latitude,Longitude);
-                    mCurLocation = new LatLng(Latitude, Longitude,false);
-                    address = (aMapLocation.getProvince() + ""
-                            + aMapLocation.getCity() + ""
-                            + aMapLocation.getProvince() + ""
-                            + aMapLocation.getDistrict() + ""
-                            + aMapLocation.getStreet() + ""
-                            + aMapLocation.getStreetNum());
-                } else {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + aMapLocation.getErrorCode() + ", errInfo:"
-                            + aMapLocation.getErrorInfo());
+                    mCurLocation=new LatLng(Latitude,Longitude,false);
+                }else{
+                    Log.e("AmapError","location Error, ErrCode:"+location.getExtras().getInt(MyLocationStyle.ERROR_CODE));
                 }
             }
         });
-        mLocationClient.startLocation();
+        //定位监听器第一次获取位置需要一定时间，设置postDelayed来延迟移动相机视角
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
+            }
+        },2000);
+//        mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
+//        mLocationOption = new AMapLocationClientOption();
+//        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+//        mLocationOption.setNeedAddress(true);
+//        mLocationOption.setMockEnable(true);
+//        mLocationClient.setLocationOption(mLocationOption);
+//        mLocationClient.setLocationListener(new AMapLocationListener() {
+//            @Override
+//            public void onLocationChanged(AMapLocation aMapLocation) {
+//                if (aMapLocation.getErrorCode() == 0) {
+//                    Latitude=aMapLocation.getLatitude();
+//                    Longitude=aMapLocation.getLongitude();
+//                    mLatLonPoint=new LatLonPoint(Latitude,Longitude);
+//                    mCurLocation = new LatLng(Latitude, Longitude,false);
+//                    address = (aMapLocation.getProvince() + ""
+//                            + aMapLocation.getCity() + ""
+//                            + aMapLocation.getProvince() + ""
+//                            + aMapLocation.getDistrict() + ""
+//                            + aMapLocation.getStreet() + ""
+//                            + aMapLocation.getStreetNum());
+//                } else {
+//                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+//                    Log.e("AmapError", "location Error, ErrCode:"
+//                            + aMapLocation.getErrorCode() + ", errInfo:"
+//                            + aMapLocation.getErrorInfo());
+//                }
+//            }
+//        });
+//        mLocationClient.startLocation();
     }
 
     public void call(){
