@@ -103,10 +103,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.traceTime;
 import dev.DevUtils;
 import dev.utils.app.ADBUtils;
 import dev.utils.app.PhoneUtils;
@@ -141,7 +143,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private double Longitude;
     Gson mGson=new Gson();
     String location_json;
-    MediaType json=MediaType.parse("application/json;charset=utf-8");
+    MediaType mediaTypeJson=MediaType.parse("application/json;charset=utf-8");
     EditText searchPoi;
     ArrayList poiArray=null;
     String poiKey;
@@ -168,10 +170,11 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView run;
     Trace mTrace;
     long serviceId = 207968;
-    JSONObject tracetime;
+    String traceTimeJson;
     private long startTime;
     private long stopTime;
     private OkHttpClient okHttpClient;
+    traceTime traceTime;
 
 
 
@@ -789,8 +792,33 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             }
         });
-        okHttpClient=new OkHttpClient();
-        RequestBody requestBody=RequestBody.create(json,String.valueOf(tracetime));
+        okHttpClient=new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10,TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
+        Gson gson=new Gson();
+        traceTimeJson=gson.toJson(traceTime);
+        //MediaType  设置Content-Type 标头中包含的媒体类型值
+        RequestBody requestBody = FormBody.create(mediaTypeJson, traceTimeJson);
+        Request request = new Request.Builder()
+                .url("https://www.happydoudou.xyz/tools")//请求的url
+                .post(requestBody)
+                .build();
+        //创建/Call
+        Call call = okHttpClient.newCall(request);
+        //加入队列 异步操作
+        call.enqueue(new Callback() {
+            //请求错误回调方法
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("postTraceError","上传路径失败");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("PostResponse",response.body().toString());
+            }
+        });
     }
 
     @Override
@@ -831,16 +859,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         mTraceClient.queryHistoryTrack(new HistoryTrackRequest(0,serviceId,entityName,startTime,endTime,true,processOption,null,SortType.asc,CoordType.bd09ll,pageIndex,pageSize),trackListener);
     }
 
-    public void postTraceTime(){
+    public void setTraceTimeJson(){
         DevUtils.init(MyApplication.getMyContext());
-        tracetime=new JSONObject();
-        try {
-            tracetime.put("DeviceIMEI", PhoneUtils.getIMEI());
-            tracetime.put("starttime",startTime);
-            tracetime.put("stopTraceTime",stopTime);
-        }catch (Exception e){
-
-        }
+        traceTime traceTime=new traceTime(PhoneUtils.getIMEI(),startTime,stopTime);
     }
     @Override
     public void onDestroyView() {
