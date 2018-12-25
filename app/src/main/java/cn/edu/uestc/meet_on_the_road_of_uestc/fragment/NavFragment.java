@@ -117,7 +117,7 @@ import static java.lang.Enum.valueOf;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -660,12 +660,19 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         }
                     }
                 }
+                aMap.setOnMarkerClickListener(this);
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
             }
         }else{
             Log.e("NearByService error","错误码为:"+i);
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return false;
     }
 
     @Override
