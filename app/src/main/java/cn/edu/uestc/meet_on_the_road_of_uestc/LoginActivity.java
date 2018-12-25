@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.IOException;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        CrashReport.initCrashReport(getApplicationContext());
         setContentView(R.layout.activity_login);
         login=findViewById(R.id.login_button);
         login_account=findViewById(R.id.login_account);

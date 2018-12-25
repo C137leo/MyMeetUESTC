@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.edu.uestc.meet_on_the_road_of_uestc">
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -22,6 +23,8 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".MyApplication"
@@ -43,13 +46,17 @@
         <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6">
             //开发者申请的key
         </meta-data>
-        <service
-            android:name="com.baidu.trace.LBSTraceService"
-            android:enabled="true"
-            android:process=":remote">
-        </service>
+        <!-- 配置APP ID -->
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="2b7wEblNUn15Gr3ed0AMYi9pWKqEtp5x" />       //key:开发者申请的Key
+            android:name="BUGLY_APPID"
+            android:value="da5ca25ce3" />
+        <!-- 配置APP渠道号 -->
+        <meta-data
+            android:name="BUGLY_APP_CHANNEL"
+            android:value="origin" />
+        <!-- 配置Bugly调试模式（true或者false）-->
+        <meta-data
+            android:name="BUGLY_ENABLE_DEBUG"
+            android:value="true" />
     </application>
 </manifest>
