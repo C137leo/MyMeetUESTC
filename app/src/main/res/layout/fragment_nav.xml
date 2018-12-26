@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_goal"/>
         <ImageView
+
             android:clickable="true"
             android:focusable="true"
             android:id="@+id/run"
@@ -103,21 +104,11 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.github.florent37.materialtextfield.MaterialTextField
+        <android.support.v7.widget.SearchView
             android:layout_gravity="center_horizontal"
+            android:id="@+id/search_view"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            mapbox:mtf_labelColor="#666"
-            mapbox:mtf_image="@mipmap/ic_close">
-        <EditText
-            android:imeOptions="actionSend"
-            android:id="@+id/inputPoi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:hint="@string/enter_search_place"
-            android:textSize="15sp" />
-        </com.github.florent37.materialtextfield.MaterialTextField>
+            android:layout_height="wrap_content" />
         <ListView
             android:layout_gravity="center_horizontal"
             android:id="@+id/inputtip_list"

@@ -30,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -73,6 +74,21 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
+import com.amap.api.track.AMapTrackClient;
+import com.amap.api.track.ErrorCode;
+import com.amap.api.track.OnTrackLifecycleListener;
+import com.amap.api.track.TrackParam;
+import com.amap.api.track.query.model.AddTerminalRequest;
+import com.amap.api.track.query.model.AddTerminalResponse;
+import com.amap.api.track.query.model.AddTrackResponse;
+import com.amap.api.track.query.model.DistanceResponse;
+import com.amap.api.track.query.model.HistoryTrackResponse;
+import com.amap.api.track.query.model.LatestPointResponse;
+import com.amap.api.track.query.model.OnTrackListener;
+import com.amap.api.track.query.model.ParamErrorResponse;
+import com.amap.api.track.query.model.QueryTerminalRequest;
+import com.amap.api.track.query.model.QueryTerminalResponse;
+import com.amap.api.track.query.model.QueryTrackResponse;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -117,7 +133,7 @@ import static java.lang.Enum.valueOf;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener,OnTrackLifecycleListener {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -131,7 +147,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     Gson mGson=new Gson();
     String location_json;
     MediaType mediaTypeJson=MediaType.parse("application/json;charset=utf-8");
-    EditText searchPoi;
+    android.support.v7.widget.SearchView searchPoi;
     ArrayList poiArray=null;
     String poiKey;
     PoiSearch poiSearch;
@@ -154,12 +170,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     LatLonPoint nearbyLatLonPoint;
     int isAmapClear=0;
     ImageView run;
-    long serviceId = 207968;
     String traceTimeJson;
     private long startTime;
     private long stopTime;
     private OkHttpClient okHttpClient;
+    long serviceID=16004;
     traceTime traceTime;
+    final AMapTrackClient aMapTrackClient = new AMapTrackClient(MyApplication.getMyContext());
+    MyLocationStyle myLocationStyle;
+
 
 
 
@@ -236,6 +255,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     Toast.makeText(getActivity(), "当前信号不佳，请稍候...", Toast.LENGTH_SHORT).show();
                 } else {
                     aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
                 }
             }
         });
@@ -256,6 +276,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         });
         setRandomRoute();
         run = getActivity().findViewById(R.id.run);
+        run.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                beginRun();
+            }
+        });
     }
     /**
      * 初始化高德地图
@@ -263,7 +289,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private void setUpMap(){
         aMap = mMapView.getMap();
         HeatMapCreate();
-        MyLocationStyle myLocationStyle;
         myLocationStyle = new MyLocationStyle();
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);//连续定位、蓝点不会移动到地图中心点，定位点依照设备方向旋转，并且蓝点会跟随设备移动。
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
@@ -407,47 +432,35 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      * 搜索框活动
      */
     protected void doSearch(){
-        searchPoi = getActivity().findViewById(R.id.inputPoi);
-        searchPoi.addTextChangedListener(new TextWatcher() {
+        searchPoi = getActivity().findViewById(R.id.search_view);
+        searchPoi.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public boolean onQueryTextSubmit(String query) {
+                keywords = query;
+                searchquery = new PoiSearch.Query(keywords, "", "郫都区");
+                searchquery.setPageSize(10);
+                poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
+                poiSearch.setOnPoiSearchListener(NavFragment.this);
+                poiSearch.searchPOIAsyn();
+                mInputListView.setVisibility(View.GONE);
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
+                return true;
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s!=null) {
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    mInputListView.setVisibility(View.GONE);
+                    aMap.clear(true);
+                } else {
                     mInputListView.setVisibility(View.VISIBLE);
-                    InputtipsQuery inputquery = new InputtipsQuery(String.valueOf(s), "成都市");
+                    InputtipsQuery inputquery = new InputtipsQuery(String.valueOf(newText), "成都市");
                     inputquery.setCityLimit(true);//限制在当前城市
                     Inputtips inputTips = new Inputtips(MyApplication.getMyContext(), inputquery);
                     inputTips.setInputtipsListener(NavFragment.this);
                     inputTips.requestInputtipsAsyn();
-                }else{
-                    aMap.clear(true);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        searchPoi.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (KeyEvent.KEYCODE_ENTER == keyCode && KeyEvent.ACTION_DOWN == event.getAction()) {
-                    keywords = searchPoi.getText().toString();
-                    searchquery = new PoiSearch.Query(keywords, "", "郫都区");
-                    searchquery.setPageSize(10);
-                    poiSearch = new PoiSearch(MyApplication.getMyContext(), searchquery);
-                    poiSearch.setOnPoiSearchListener(NavFragment.this);
-                    poiSearch.searchPOIAsyn();
-                    mInputListView.setVisibility(View.GONE);
-                    aMap.moveCamera(CameraUpdateFactory.zoomTo(15));//设置默认缩放级别
-                    return true;
-                }
-                return false;
+                return  false;
             }
         });
     }
@@ -642,12 +655,14 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         nearByUserMap=new HashMap<String,Marker>();
                         LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
+                        marker.setClickable(true);
                         nearByUserMap.put(nearbyInfo.getUserID(),marker);
                     }else {
                         if (nearByUserMap.containsKey(nearbyInfo.getUserID())) {
                             if(nearbyInfo.getPoint().getLatitude() == nearbyLatLonPoint.getLatitude() && nearbyInfo.getPoint().getLongitude() == nearbyLatLonPoint.getLongitude()) {
                                 LatLng mLatLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                                 Marker marker = nearByUserMap.get(nearbyInfo.getUserID());
+                                marker.setClickable(true);
                                 marker.setPosition(mLatLng);
                             }else if(isAmapClear==1){
                                 aMap.addMarker(nearByUserMap.get(nearbyInfo.getUserID()).getOptions());
@@ -656,6 +671,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                             nearbyLatLonPoint = nearbyInfo.getPoint();
                             LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                             Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
+                            marker.setClickable(true);
                             nearByUserMap.put(nearbyInfo.getUserID(), marker);
                         }
                     }
@@ -667,6 +683,180 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         }else{
             Log.e("NearByService error","错误码为:"+i);
         }
+    }
+
+    public void beginRun(){
+        setupTrackService();
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
+        aMap.setMyLocationStyle(myLocationStyle);
+    }
+    public void setupTrackService(){
+        DevUtils.init(MyApplication.getMyContext());
+        final String terminalName = PhoneUtils.getIMEI();   // 唯一标识某个用户或某台设备的名称
+        aMapTrackClient.queryTerminal(new QueryTerminalRequest(serviceID, terminalName), new OnTrackListener() {
+            @Override
+            public void onQueryTerminalCallback(QueryTerminalResponse queryTerminalResponse) {
+                if (queryTerminalResponse.isSuccess()) {
+                    if (queryTerminalResponse.getTid() <= 0) {
+                        // terminal还不存在，先创建
+                        aMapTrackClient.addTerminal(new AddTerminalRequest(terminalName, serviceID), new OnTrackListener() {
+
+                            @Override
+                            public void onCreateTerminalCallback(AddTerminalResponse addTerminalResponse) {
+                                if (addTerminalResponse.isSuccess()) {
+                                    // 创建完成，开启猎鹰服务
+                                    long terminalId = addTerminalResponse.getTid();
+                                    aMapTrackClient.startTrack(new TrackParam(serviceID, terminalId), NavFragment.this);
+                                    Log.d("StartTerminal","开启猎鹰服务成功");
+                                } else {
+                                    // 请求失败
+                                    Log.e("addTerminal",addTerminalResponse.getErrorMsg());
+                                }
+                            }
+
+                            @Override
+                            public void onQueryTerminalCallback(QueryTerminalResponse queryTerminalResponse) {
+
+                            }
+
+                            @Override
+                            public void onDistanceCallback(DistanceResponse distanceResponse) {
+
+                            }
+
+                            @Override
+                            public void onLatestPointCallback(LatestPointResponse latestPointResponse) {
+
+                            }
+
+                            @Override
+                            public void onHistoryTrackCallback(HistoryTrackResponse historyTrackResponse) {
+
+                            }
+
+                            @Override
+                            public void onQueryTrackCallback(QueryTrackResponse queryTrackResponse) {
+
+                            }
+
+                            @Override
+                            public void onAddTrackCallback(AddTrackResponse addTrackResponse) {
+
+                            }
+
+                            @Override
+                            public void onParamErrorCallback(ParamErrorResponse paramErrorResponse) {
+
+                            }
+                        });
+                    } else {
+                        // terminal已经存在，直接开启猎鹰服务
+                        long terminalId = queryTerminalResponse.getTid();
+                        aMapTrackClient.startTrack(new TrackParam(serviceID, terminalId), NavFragment.this);
+                    }
+                } else {
+                    // 请求失败
+                    Log.e("请求失败",queryTerminalResponse.getErrorMsg());
+                }
+            }
+
+            @Override
+            public void onCreateTerminalCallback(AddTerminalResponse addTerminalResponse) {
+
+            }
+
+            @Override
+            public void onDistanceCallback(DistanceResponse distanceResponse) {
+
+            }
+
+            @Override
+            public void onLatestPointCallback(LatestPointResponse latestPointResponse) {
+
+            }
+
+            @Override
+            public void onHistoryTrackCallback(HistoryTrackResponse historyTrackResponse) {
+
+            }
+
+            @Override
+            public void onQueryTrackCallback(QueryTrackResponse queryTrackResponse) {
+
+            }
+
+            @Override
+            public void onAddTrackCallback(AddTrackResponse addTrackResponse) {
+
+            }
+
+            @Override
+            public void onParamErrorCallback(ParamErrorResponse paramErrorResponse) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBindServiceCallback(int i, String s) {
+
+    }
+
+    @Override
+    public void onStartGatherCallback(int i, String s) {
+        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
+                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
+            HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
+                @Override
+                public void onResponse(long time) {
+                    startTime=time;
+                }
+
+                @Override
+                public void onFail(Exception e) {
+                    Log.d("getNetTime","获取网络时间失败");
+                }
+            });
+            Log.d("TrackService","StartGather Successfully");
+        } else {
+            Log.e("TrackService",i+";"+s);
+        }
+    }
+
+    @Override
+    public void onStartTrackCallback(int i, String s) {
+        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
+                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
+            Log.d("TrackService","StartTrack Successfully");
+        } else {
+            Log.e("TrackService",i+";"+s);
+        }
+    }
+
+    @Override
+    public void onStopGatherCallback(int i, String s) {
+        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
+                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
+            HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
+                @Override
+                public void onResponse(long time) {
+                    stopTime=time;
+                }
+
+                @Override
+                public void onFail(Exception e) {
+                    Log.d("getNetTime","获取网络时间失败");
+                }
+            });
+            Log.d("TrackService","StopGather Successfully");
+        } else {
+            Log.e("TrackService",i+";"+s);
+        }
+    }
+
+    @Override
+    public void onStopTrackCallback(int i, String s) {
+
     }
 
     @Override

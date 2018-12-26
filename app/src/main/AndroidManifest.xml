@@ -42,6 +42,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <service android:name="com.amap.api.track.AMapTrackService" />
         <service android:name="com.amap.api.location.APSService"></service>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6">
             //开发者申请的key
