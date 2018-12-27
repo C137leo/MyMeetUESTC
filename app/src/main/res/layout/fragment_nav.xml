@@ -29,7 +29,7 @@
             android:id="@+id/emergency_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:src="@mipmap/ic_help" />
+           mapbox:srcCompat="@mipmap/ic_help" />
     </RelativeLayout>
 
 
@@ -49,7 +49,7 @@
             android:clickable="true"
             android:cropToPadding="false"
             android:focusable="true"
-            android:src="@mipmap/ic_nearby" />
+            mapbox:srcCompat="@mipmap/ic_nearby" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             android:adjustViewBounds="false"
             android:clickable="true"
             android:focusable="true"
-            android:src="@mipmap/ic_hot" />
+            mapbox:srcCompat="@mipmap/ic_hot" />
 
         <ImageView
             android:clickable="true"
@@ -69,7 +69,7 @@
             android:id="@+id/find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_mylocation" />
+            mapbox:srcCompat="@mipmap/ic_mylocation" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +82,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_goal"/>
+            mapbox:srcCompat="@mipmap/ic_goal"/>
         <ImageView
 
             android:clickable="true"
@@ -91,13 +91,13 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_run"/>
+            mapbox:srcCompat="@mipmap/ic_run"/>
         <ImageView
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_route"/>
+            mapbox:srcCompat="@mipmap/ic_route"/>
     </LinearLayout>
 
     <LinearLayout
