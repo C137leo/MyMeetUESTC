@@ -71,7 +71,7 @@ public class InputTipsAdapter extends BaseAdapter {
         holder.mAddress=convertView.findViewById(R.id.address);
         holder.mName.setText(mTipList.get(position).getName());
         holder.mAddress.setText(mTipList.get(position).getAddress());
-        Log.d("begin convertview","begin convertview");
+//        Log.d("begin convertview","begin convertview");
         return convertView;
     }
 

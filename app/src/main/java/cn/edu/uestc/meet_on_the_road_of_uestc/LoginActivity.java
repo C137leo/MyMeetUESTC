@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText login_password;
     CheckBox remember_password;
     OkHttpClient mOkHttpClient;
-
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext());
@@ -50,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             String password=pref.getString("password","");
             login_account.setText(account);
             login_password.setText(password);
+            remember_password.setChecked(true);
         }
         Login();
     }
@@ -62,9 +62,10 @@ public class LoginActivity extends AppCompatActivity {
                 String password=login_password.getText().toString();
                 editor.putString("account",account);
                 editor.putString("password",password);
-                editor.putBoolean("remember",false);
                 if(remember_password.isChecked()){
                     editor.putBoolean("remember",true);
+                }else{
+                    editor.putBoolean("remember",false);
                 }
                 editor.apply();
                 sendUserId(new okhttp3.Callback(){

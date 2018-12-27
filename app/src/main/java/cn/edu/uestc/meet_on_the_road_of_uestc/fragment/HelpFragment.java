@@ -3,19 +3,57 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.Help_FragmentAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.Help_RecyclerViewAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Help_Info;
 
 public class HelpFragment extends Fragment {
 
-
+    private List<Help_Info> mList;
+    ViewPager mViewPager;
+    TabLayout mTabLayout;
+    List<Help_InfoFragment> fragments;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return getLayoutInflater().inflate(R.layout.fragment_help,container,false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewPager=getActivity().findViewById(R.id.help_viewPager);
+        mTabLayout=getActivity().findViewById(R.id.help_tabLayout);
+        initViewPager();
+    }
+    private void initViewPager(){
+        List<String> titles=new ArrayList<>();
+        titles.add("最新发布");
+        titles.add("附近帮帮");
+        for(int i=0;i<titles.size();i++){
+            mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
+        }
+        fragments=new ArrayList<>();
+        for(int i=0;i<titles.size();i++){
+            fragments.add(new Help_InfoFragment());
+        }
+        mViewPager.setAdapter(new Help_FragmentAdapter(getActivity().getSupportFragmentManager(),titles,fragments));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 }
