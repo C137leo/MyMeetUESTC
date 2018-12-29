@@ -93,8 +93,11 @@
             android:layout_height="wrap_content"
             mapbox:srcCompat="@mipmap/ic_run"/>
         <ImageView
+            android:id="@+id/setRoute"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             mapbox:srcCompat="@mipmap/ic_route"/>

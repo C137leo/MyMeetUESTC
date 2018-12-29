@@ -151,6 +151,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     traceTime traceTime;
     final AMapTrackClient aMapTrackClient = new AMapTrackClient(MyApplication.getMyContext());
     MyLocationStyle myLocationStyle;
+    ImageView setRoute;
 
 
 
@@ -247,7 +248,23 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         .snippet(mAdapter.getTip_address(position)));
             }
         });
-        setRandomRoute();
+        setRoute=getActivity().findViewById(R.id.setRoute);
+        setRoute.setOnClickListener(new View.OnClickListener() {
+            int flag=0;
+            @Override
+            public void onClick(View v) {
+                switch (flag){
+                    case 0:
+                        setRandomRoute();
+                        flag++;
+                        break;
+                    case 1:
+                        aMap.clear(true);
+                        flag--;
+                        break;
+                }
+            }
+        });
         run = getActivity().findViewById(R.id.run);
         run.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,4 +14,5 @@
     <string name="forget_password">忘记密码</string>
     <string name="remember_password">记住密码</string>
     <string name="enter_search_place">请输入搜索的地点</string>
+    <string name="distance">距离</string>
 </resources>
