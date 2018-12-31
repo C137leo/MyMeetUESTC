@@ -172,6 +172,14 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setUpMap();
+        DevUtils.init(MyApplication.getMyContext());
+        LogConfig logConfig = new LogConfig();
+        logConfig.logLevel = LogLevel.DEBUG;
+        logConfig.tag = "LOG_TAG";
+        DevLogger.init(logConfig);
+        // 打开 lib 内部日志
+        DevUtils.openLog();
+        DevUtils.openDebug();
         ImageView help = getActivity().findViewById(R.id.emergency_help);
         uploadNearbyInfo();
         nearByview = getActivity().findViewById(R.id.nearBy);
@@ -571,13 +579,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         DevUtils.init(MyApplication.getMyContext());
         // == 初始化日志配置 ==
         // 设置默认Logger配置
-        LogConfig logConfig = new LogConfig();
-        logConfig.logLevel = LogLevel.DEBUG;
-        logConfig.tag = "LOG_TAG";
-        DevLogger.init(logConfig);
-        // 打开 lib 内部日志
-        DevUtils.openLog();
-        DevUtils.openDebug();
         NearbySearch mNearbySearch = NearbySearch.getInstance(MyApplication.getMyContext());
         mNearbySearch.startUploadNearbyInfoAuto(new UploadInfoCallback() {
             @Override
@@ -690,7 +691,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     if (queryTerminalResponse.getTid() <= 0) {
                         // terminal还不存在，先创建
                         aMapTrackClient.addTerminal(new AddTerminalRequest(terminalName, serviceID), new OnTrackListener() {
-
                             @Override
                             public void onCreateTerminalCallback(AddTerminalResponse addTerminalResponse) {
                                 if (addTerminalResponse.isSuccess()) {
