@@ -13,6 +13,11 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.HomeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.NavFragment;
 
+/**
+ * Happy New Year!
+ * Authored by ray
+ * 2019.1.1 00:00
+ */
 public class MainActivity extends CheckPermissionsActivity{
     //获取管理类
     FragmentManager mFragmentManager=getSupportFragmentManager();
