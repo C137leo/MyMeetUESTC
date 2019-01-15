@@ -82,6 +82,7 @@ import com.amap.api.track.query.model.QueryTrackResponse;
 import com.google.gson.Gson;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,18 +96,24 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.bean.traceTime;
+import cn.edu.uestc.meet_on_the_road_of_uestc.util.UploadInformation;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
 import dev.utils.app.logger.LogConfig;
 import dev.utils.app.logger.LogLevel;
 import dev.utils.common.HttpURLConnectionUtils;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener,OnTrackLifecycleListener {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener,OnTrackLifecycleListener,UploadInformation {
     private MapView mMapView;
     public AMapLocationClient mLocationClient;
     //声明AMapLocationClientOption对象
@@ -148,10 +155,11 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private long stopTime;
     private OkHttpClient okHttpClient;
     long serviceID=16004;
-    traceTime traceTime;
+    traceTime mtraceTime;
     final AMapTrackClient aMapTrackClient = new AMapTrackClient(MyApplication.getMyContext());
     MyLocationStyle myLocationStyle;
     ImageView setRoute;
+    String server_info="https://www,happydoudou,xyz";
 
 
 
@@ -872,8 +880,28 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     public void setTraceTimeJson(){
         DevUtils.init(MyApplication.getMyContext());
-        traceTime traceTime=new traceTime(PhoneUtils.getIMEI(),startTime,stopTime);
+        traceTime mtraceTime=new traceTime(PhoneUtils.getIMEI(),startTime,stopTime);
     }
+
+    @Override
+    public void uploadInformation() {
+        String postInfo=mGson.toJson(mtraceTime);
+        RequestBody requestBody=RequestBody.create(mediaTypeJson,postInfo);
+        Request request=new Request.Builder().url(server_info)
+                .post(requestBody).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("uploadtraceInfo","Upload failure");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("uploadtraceInfo",response.body().string());
+            }
+        });
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -42,7 +42,7 @@ public class CheckPermissionsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT >= 23
+        if (Build.VERSION.SDK_INT >= 24
                 && getApplicationInfo().targetSdkVersion >= 23) {
             if (isNeedCheck) {
                 checkPermissions(needPermissions);
@@ -58,19 +58,19 @@ public class CheckPermissionsActivity extends AppCompatActivity {
      */
     private void checkPermissions(String... permissions) {
         try {
-            if (Build.VERSION.SDK_INT >= 23
+            if (Build.VERSION.SDK_INT >= 24
                     && getApplicationInfo().targetSdkVersion >= 23) {
                 List<String> needRequestPermissonList = findDeniedPermissions(permissions);
                 if (null != needRequestPermissonList
                         && needRequestPermissonList.size() > 0) {
                     String[] array = needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]);
-                    Method method = getClass().getMethod("requestPermissions", new Class[]{String[].class,
-                            int.class});
+                    Method method = getClass().getMethod("requestPermissions", String[].class,
+                            int.class);
 
                     method.invoke(this, array, PERMISSON_REQUESTCODE);
                 }
             }
-        } catch (Throwable e) {
+        } catch (Throwable ignored) {
         }
     }
 
@@ -84,19 +84,19 @@ public class CheckPermissionsActivity extends AppCompatActivity {
      */
     private List<String> findDeniedPermissions(String[] permissions) {
         List<String> needRequestPermissonList = new ArrayList<String>();
-        if (Build.VERSION.SDK_INT >= 23
+        if (Build.VERSION.SDK_INT >= 24
                 && getApplicationInfo().targetSdkVersion >= 23){
             try {
                 for (String perm : permissions) {
                     Method checkSelfMethod = getClass().getMethod("checkSelfPermission", String.class);
                     Method shouldShowRequestPermissionRationaleMethod = getClass().getMethod("shouldShowRequestPermissionRationale",
                             String.class);
-                    if ((Integer)checkSelfMethod.invoke(this, perm) != PackageManager.PERMISSION_GRANTED
-                            || (Boolean)shouldShowRequestPermissionRationaleMethod.invoke(this, perm)) {
+                    if ((Integer) checkSelfMethod.invoke(this, perm) != PackageManager.PERMISSION_GRANTED
+                            || (Boolean) shouldShowRequestPermissionRationaleMethod.invoke(this, perm)) {
                         needRequestPermissonList.add(perm);
                     }
                 }
-            } catch (Throwable e) {
+            } catch (Exception e) {
 
             }
         }
