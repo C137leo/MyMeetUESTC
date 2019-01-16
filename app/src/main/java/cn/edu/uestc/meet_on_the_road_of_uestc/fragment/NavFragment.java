@@ -198,7 +198,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 switch (flag[0]) {
                     case 0: {
                         timer = new Timer();
-                        Handler searchhandler = new Handler() {
+                        final Handler searchhandler = new Handler() {
                             @Override
                             public void handleMessage(Message msg) {
                                 searchNearBy();
@@ -505,7 +505,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      * @param i
      */
     @Override
-    public void onGetInputtips(List<Tip> list, int i) {
+    public void onGetInputtips(final List<Tip> list, int i) {
         // 正确返回
         if (i == 1000) {
             new Activity().runOnUiThread(new Runnable() {

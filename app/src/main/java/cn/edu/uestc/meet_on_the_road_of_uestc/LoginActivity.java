@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void sendUserId(okhttp3.Callback callback) {
+    public void sendUserId(final okhttp3.Callback callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {

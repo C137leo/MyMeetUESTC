@@ -34,19 +34,30 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".SplashActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        <activity android:name=".LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <service android:name="com.amap.api.track.AMapTrackService" />
-        <service android:name="com.amap.api.location.APSService"></service>
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6">
-            //开发者申请的key
-        </meta-data>
+        <service android:name="com.amap.api.location.APSService"/>
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6"/>
         <!-- 配置APP ID -->
         <meta-data
             android:name="BUGLY_APPID"

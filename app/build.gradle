@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
+apply from: 'tinker-support.gradle'
+apply plugin: 'bugly'
 
+bugly {
+    appId = 'da5ca25ce3' // 注册时分配的App ID
+    appKey = '9a968308-7410-4abc-b640-a6b398c98c8e' // 注册时分配的App Key
+}
 android {
     compileSdkVersion 28
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     defaultConfig {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -33,6 +35,9 @@ android {
             signingConfig signingConfigs.releaseConfig
  	    }
     }
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
 }
 
 dependencies {
@@ -53,6 +58,11 @@ dependencies {
     implementation 'com.amap.api:3dmap:latest.integration'
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
-    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //NDK库
+    implementation "com.android.support:multidex:1.0.3" // 多dex配置
+    //注释掉原有bugly的仓库
+    //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.3.4
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.6'
+    // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
+    implementation 'com.tencent.tinker:tinker-android-lib:1.9.11'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
 }
