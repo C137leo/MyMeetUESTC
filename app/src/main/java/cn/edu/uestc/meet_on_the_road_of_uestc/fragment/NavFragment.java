@@ -189,8 +189,12 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         DevUtils.openLog();
         DevUtils.openDebug();
         ImageView help = getActivity().findViewById(R.id.emergency_help);
-        uploadNearbyInfo();
         nearByview = getActivity().findViewById(R.id.nearBy);
+        /**
+         * FLAG代表附近的人的状态
+         * 0 关闭
+         * 1 开启状态
+         */
         final int[] flag = {0};
         nearByview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +205,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         final Handler searchhandler = new Handler() {
                             @Override
                             public void handleMessage(Message msg) {
+                                uploadNearbyInfo();
                                 searchNearBy();
                                 super.handleMessage(msg);
                             }
@@ -221,6 +226,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         timer.cancel();
                         clearMarker();
                         flag[0] = 0;
+                        NearbySearch.getInstance(MyApplication.getMyContext())
+                                .clearUserInfoAsyn();
+                        NearbySearch.destroy();
                         break;
                     }
                 }

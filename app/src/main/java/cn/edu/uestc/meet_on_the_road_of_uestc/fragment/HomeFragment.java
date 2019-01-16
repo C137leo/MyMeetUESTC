@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.bean.BinPic;
 import okhttp3.Call;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
         for(BinPic.ImagesBean imagesBean: urlList.getImages()){
             url_bing="http://www.bing.com"+imagesBean.getUrl();
         }
-        pref=PreferenceManager.getDefaultSharedPreferences(getActivity());
+        pref=PreferenceManager.getDefaultSharedPreferences(MyApplication.getMyContext());
         editor=pref.edit();
         editor.putString("loadBingpic",url_bing);
         editor.apply();

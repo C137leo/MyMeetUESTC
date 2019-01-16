@@ -42,11 +42,6 @@ public class MainActivity extends CheckPermissionsActivity{
         setContentView(R.layout.activity_main);
         //添加事物 默认：首页
         FragmentTransaction mTransaction=mFragmentManager.beginTransaction();
-        mTransaction.add(R.id.container_content,navFragment);
-        mTransaction.add(R.id.container_content,meFragment);
-        mTransaction.add(R.id.container_content,homeFragment);
-        mTransaction.add(R.id.container_content,helpFragment);
-        mTransaction.add(R.id.container_content,appointmentFragment);
         mTransaction.replace(R.id.container_content,homeFragment);
         mTransaction.commit();  //提交
         initMenuListener();

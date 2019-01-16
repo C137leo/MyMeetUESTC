@@ -10,12 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
@@ -48,12 +50,47 @@ public class HelpFragment extends Fragment {
         titles.add("附近帮帮");
         for(int i=0;i<titles.size();i++){
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
+        }if(fragments==null) {
+            fragments = new ArrayList<>();
+            for (int i = 0; i < titles.size(); i++) {
+                fragments.add(new Help_InfoFragment());
+            }
         }
-        fragments=new ArrayList<>();
-        for(int i=0;i<titles.size();i++){
-            fragments.add(new Help_InfoFragment());
-        }
-        mViewPager.setAdapter(new Help_FragmentAdapter(getActivity().getSupportFragmentManager(),titles,fragments));
+        Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getActivity().getSupportFragmentManager(),titles,fragments);
+        mViewPager.setAdapter(help_fragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("LifeCycle","Start");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Lifecycle","Resume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("LifeCycle","Destory");
     }
 }
