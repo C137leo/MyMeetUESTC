@@ -12,3 +12,4 @@
 /app/release
 MEET_ON_THE_ROAD.jks
 /app/bakApk
+gradle.properties
