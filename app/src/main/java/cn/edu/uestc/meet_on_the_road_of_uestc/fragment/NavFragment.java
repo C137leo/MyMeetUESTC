@@ -253,7 +253,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     Toast.makeText(getActivity(), "当前信号不佳，请稍候...", Toast.LENGTH_SHORT).show();
                 } else {
                     aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
-                    aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置默认缩放级别
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置缩放级别
                 }
             }
         });
@@ -290,10 +290,25 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         run = getActivity().findViewById(R.id.run);
+        /**
+         * 是否处在跑步状态判断
+         * 0 不处于跑步状态
+         * 1 处于跑步状态
+         */
+        final int[] run_flag = {0};
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                beginRun();
+                switch (run_flag[0]) {
+                    case 0:
+                        beginRun();
+                        run_flag[0] =1;
+                        break;
+                    case 1:
+                        stopRun();
+                        run_flag[0]=0;
+                        break;
+                }
             }
         });
     }
@@ -696,6 +711,13 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         setupTrackService();
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置缩放级别
+    }
+    public void stopRun(){
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER);
+        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置缩放级别
     }
     public void setupTrackService(){
         DevUtils.init(MyApplication.getMyContext());
