@@ -1,16 +1,20 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.adapter;
 
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.Help_InfoFragment;
 
-public class Help_FragmentAdapter extends FragmentPagerAdapter {
+public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     private List<String> mTitle;
     private List<Help_InfoFragment> help_infoFragments;
     public Help_FragmentAdapter(FragmentManager fragmentManager,List<String> mTitle, List<Help_InfoFragment> help_infoFragments){
@@ -21,6 +25,7 @@ public class Help_FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
+        Log.d("Help_Fragment getItem","GetItem");
         return help_infoFragments.get(i);
     }
 
@@ -33,5 +38,14 @@ public class Help_FragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mTitle.get(position);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return PagerAdapter.POSITION_NONE;
+    }
+
+    @Override
+    public void restoreState(Parcelable state, ClassLoader loader) {
     }
 }

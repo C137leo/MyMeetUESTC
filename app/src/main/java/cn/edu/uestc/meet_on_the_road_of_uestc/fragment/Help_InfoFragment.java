@@ -53,19 +53,16 @@ public class Help_InfoFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("LifeCycle","Viewpager Start");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("LifeCycle","Viewpager Resume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("LifeCycle","Viewpager Pause");
     }
 
     @Override
@@ -76,6 +73,5 @@ public class Help_InfoFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("LifeCycle","Viewpager Destory");
     }
 }

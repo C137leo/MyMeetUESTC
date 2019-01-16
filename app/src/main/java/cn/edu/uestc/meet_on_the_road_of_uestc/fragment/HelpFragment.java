@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,13 +51,12 @@ public class HelpFragment extends Fragment {
         titles.add("附近帮帮");
         for(int i=0;i<titles.size();i++){
             mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
-        }if(fragments==null) {
-            fragments = new ArrayList<>();
-            for (int i = 0; i < titles.size(); i++) {
-                fragments.add(new Help_InfoFragment());
-            }
         }
-        Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getActivity().getSupportFragmentManager(),titles,fragments);
+        fragments = new ArrayList<>();
+        for (int i = 0; i < titles.size(); i++) {
+            fragments.add(new Help_InfoFragment());
+        }
+        Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
         mViewPager.setAdapter(help_fragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -64,13 +64,11 @@ public class HelpFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("LifeCycle","Start");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("Lifecycle","Resume");
     }
 
     @Override
@@ -91,6 +89,5 @@ public class HelpFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("LifeCycle","Destory");
     }
 }
