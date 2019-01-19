@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.amap.api.maps.model.MyLocationStyle;
-
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.bean.Help_Info;
 
 public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;

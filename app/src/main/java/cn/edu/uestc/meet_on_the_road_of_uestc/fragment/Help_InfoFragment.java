@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.Help_RecyclerViewAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter.Help_RecyclerViewAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.bean.Help_Info;
 
 public class Help_InfoFragment extends Fragment {
     private List<Help_Info> mList;

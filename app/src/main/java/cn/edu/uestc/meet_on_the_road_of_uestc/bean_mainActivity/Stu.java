@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.bean;
+package cn.edu.uestc.meet_on_the_road_of_uestc.bean_mainActivity;
 
 public class Stu {
     public String username;

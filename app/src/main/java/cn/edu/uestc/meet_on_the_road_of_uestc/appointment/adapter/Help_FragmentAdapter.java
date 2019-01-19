@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
