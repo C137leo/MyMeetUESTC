@@ -15,4 +15,10 @@
     <string name="remember_password">记住密码</string>
     <string name="enter_search_place">请输入搜索的地点</string>
     <string name="distance">距离</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="registerPassword">密码</string>
+    <string name="regosterStuID">学号</string>
+    <string name="registerName">姓名</string>
+    <string name="registerAccount">用户名</string>
+    <string name="registerByStuID">学号注册</string>
 </resources>

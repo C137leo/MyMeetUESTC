@@ -425,6 +425,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                mInputListView.setVisibility(View.VISIBLE);
                 if (newText.isEmpty()) {
                     mInputListView.setVisibility(View.GONE);
                     aMap.clear(true);
@@ -519,7 +520,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         LatLonPoint walkDestination=walk_destination.get(random.nextInt(walk_destination.size()));
         routeSearch = new RouteSearch(MyApplication.getMyContext());
         routeSearch.setRouteSearchListener(this);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),walkDestination);
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(22.961672,113.328277));
         RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
         routeSearch.calculateWalkRouteAsyn(query);//开始算
     }
@@ -547,7 +548,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             WalkRouteResult mWalkRouteResult = walkRouteResult;
             List<WalkPath> walkPaths = mWalkRouteResult.getPaths();
             List<WalkStep> walkSteps = walkPaths.get(0).getSteps();
-            List<LatLng> latLngs = new ArrayList<LatLng>();
+            final List<LatLng> latLngs = new ArrayList<LatLng>();
             for (int temp1 = 0; temp1 < walkSteps.size(); temp1++) {
                 List<LatLonPoint> latLonPoints = walkSteps.get(temp1).getPolyline();
                 for (int temp = 0; temp < latLonPoints.size(); temp++) {
@@ -557,7 +558,33 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             final Polyline polyline = aMap.addPolyline(new PolylineOptions().
                     addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
             aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            LatLonPoint regeocodeSearchLatlonPoint=new LatLonPoint(latLngs.get((latLngs.size()-1)).latitude,latLngs.get((latLngs.size()-1)).longitude); //将路径规划终点的坐标取出设置一个LatlonPoint
+            GeocodeSearch geocodeSearch=new GeocodeSearch(MyApplication.getMyContext());
+            RegeocodeQuery query=new RegeocodeQuery(regeocodeSearchLatlonPoint,50,GeocodeSearch.AMAP);
+            geocodeSearch.getFromLocationAsyn(query);
+            final String[] ending = {null};
+            final String[] endingDetails={null};
+            geocodeSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
+                @Override
+                public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+                    if(i==1000){
+                        ending[0] =regeocodeResult.getRegeocodeAddress().getAois().get(0).getAoiName();
+                        endingDetails[0]= regeocodeResult.getRegeocodeAddress().getRoads().get(0).getName();
+                        Log.d("Regeocode",ending[0]+","+endingDetails[0]);
+                        Toast.makeText(MyApplication.getMyContext(),"路径规划完成", Toast.LENGTH_SHORT).show();
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(regeocodeResult.getRegeocodeQuery().getPoint().getLatitude(),regeocodeResult.getRegeocodeQuery().getPoint().getLongitude()))
+                                .title(ending[0])
+                                .snippet(endingDetails[0]));
+                    }else{
+                        Toast.makeText(MyApplication.getMyContext(),"错误码为"+String.valueOf(i)+",请反馈给开发者哦(⊙o⊙)哦",Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                @Override
+                public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+                }
+            });
         }else if(i==3003) {
             Toast.makeText(MyApplication.getMyContext(),"起终点距离过长",Toast.LENGTH_SHORT).show();
         }else{
