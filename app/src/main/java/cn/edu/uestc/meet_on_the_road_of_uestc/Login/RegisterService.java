@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,10 +28,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class RegisterService extends AppCompatActivity {
-    private String registerAccount;
-    private String registerName;
-    private String registerStuID;
-    private String registerPassword;
+    private String registerAccount=null;
+    private String registerName=null;
+    private String registerStuID=null;
+    private String registerPassword=null;
     private EditText ETregisterAccount;
     private EditText ETregisterName;
     private EditText ETregisterStuID;
@@ -78,14 +79,11 @@ public class RegisterService extends AppCompatActivity {
                     Log.e("NetWorkError","注册失败");
                     Toast.makeText(MyApplication.getMyContext(),"网络错误，注册失败",Toast.LENGTH_SHORT).show();
                 }
-
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d("Register Server",response.body().string());
-                    Toast.makeText(MyApplication.getMyContext(),"注册成功",Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(RegisterService.this,LoginActivity.class);
                     startActivity(intent);
-                    onDestroy();
                 }
             });
         }
