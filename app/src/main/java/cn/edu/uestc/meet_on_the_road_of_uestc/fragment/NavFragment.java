@@ -159,7 +159,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     final AMapTrackClient aMapTrackClient = new AMapTrackClient(MyApplication.getMyContext());
     MyLocationStyle myLocationStyle;
     ImageView setRoute;
-    String server_info="https://www,happydoudou,xyz";
+    String server_info="https://www.happydoudou.xyz";
 
 
 
