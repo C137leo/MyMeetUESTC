@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.appointment;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.Help_InfoFragment;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter.Help_FragmentAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.bean.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_FragmentAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.bean.Help_Info;
 
 public class HelpFragment extends Fragment {
 

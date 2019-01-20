@@ -23,4 +23,6 @@
     <string name="registerByStuID">学号注册</string>
     <string name="registerDocument">《用户注册协议》</string>
     <string name="agreeDocument">阅读并同意</string>
+    <string name="before_you_start">Before you start</string>
+    <string name="setGoal">设定目标</string>
 </resources>

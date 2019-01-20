@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.AppointmentFragment;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.HelpFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.HelpFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.home.HomeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;

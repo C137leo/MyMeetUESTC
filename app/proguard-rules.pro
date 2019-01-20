@@ -55,3 +55,7 @@
 -dontwarn com.tencent.tinker.**
 -keep class com.tencent.tinker.** { *; }
  -keep class android.support.**{*;}
+-keepattributes InnerClasses,Signature
+-keepattributes *Annotation*
+-keep class cn.addapp.pickers.entity.** { *;}
+
