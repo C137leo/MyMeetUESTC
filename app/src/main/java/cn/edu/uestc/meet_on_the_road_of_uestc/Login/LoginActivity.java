@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc;
+package cn.edu.uestc.meet_on_the_road_of_uestc.Login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,13 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.IOException;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Stu;
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean_mainActivity.Stu;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText login_password;
     CheckBox remember_password;
     OkHttpClient mOkHttpClient;
+    TextView registerAccount;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext());
@@ -44,6 +48,14 @@ public class LoginActivity extends AppCompatActivity {
         editor=pref.edit();
         Log.d("activity_login","This is a TEST");
         Boolean isRemember=pref.getBoolean("remember",false);
+        registerAccount=findViewById(R.id.registerAccount);
+        registerAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,RegisterService.class);
+                startActivity(intent);
+            }
+        });
         if(isRemember){
             String account=pref.getString("account","");
             String password=pref.getString("password","");
@@ -81,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                            });
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(LoginActivity.this,MainActivity.class);
+                intent.setClass(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

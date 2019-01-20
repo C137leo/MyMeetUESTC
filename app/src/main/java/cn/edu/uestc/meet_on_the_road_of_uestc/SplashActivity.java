@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.Login.LoginActivity;
+
 public class SplashActivity extends AppCompatActivity {
     protected Handler mHandler=new Handler();
     protected void onCreate(Bundle savedInstanceState){
@@ -15,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(SplashActivity.this,LoginActivity.class);
+                intent.setClass(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         },2000);

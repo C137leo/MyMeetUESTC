@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.fragment;
+package cn.edu.uestc.meet_on_the_road_of_uestc.navigation;
 
 
 import android.Manifest;
@@ -89,14 +89,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.adapter.InputTipsAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.traceTime;
-import cn.edu.uestc.meet_on_the_road_of_uestc.util.UploadInformation;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
+import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
@@ -345,35 +346,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
             }
         },2000);
-//        mLocationClient=new AMapLocationClient(MyApplication.getMyContext());
-//        mLocationOption = new AMapLocationClientOption();
-//        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-//        mLocationOption.setNeedAddress(true);
-//        mLocationOption.setMockEnable(true);
-//        mLocationClient.setLocationOption(mLocationOption);
-//        mLocationClient.setLocationListener(new AMapLocationListener() {
-//            @Override
-//            public void onLocationChanged(AMapLocation aMapLocation) {
-//                if (aMapLocation.getErrorCode() == 0) {
-//                    Latitude=aMapLocation.getLatitude();
-//                    Longitude=aMapLocation.getLongitude();
-//                    mLatLonPoint=new LatLonPoint(Latitude,Longitude);
-//                    mCurLocation = new LatLng(Latitude, Longitude,false);
-//                    address = (aMapLocation.getProvince() + ""
-//                            + aMapLocation.getCity() + ""
-//                            + aMapLocation.getProvince() + ""
-//                            + aMapLocation.getDistrict() + ""
-//                            + aMapLocation.getStreet() + ""
-//                            + aMapLocation.getStreetNum());
-//                } else {
-//                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-//                    Log.e("AmapError", "location Error, ErrCode:"
-//                            + aMapLocation.getErrorCode() + ", errInfo:"
-//                            + aMapLocation.getErrorInfo());
-//                }
-//            }
-//        });
-//        mLocationClient.startLocation();
     }
 
     public void call(){
@@ -433,31 +405,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     }
 
     /**
-     * (已弃用）发送位置到服务器，现使用高德云图替代
-     */
-//    public void sendLocationtoServer(){
-//        mOkHttpClient=new OkHttpClient();
-//        mCurLocation location=new mCurLocation();
-//        location.setLatitude(Latitude);
-//        location.setLongitude(Longitude);
-//        location_json=mGson.toJson(location);
-//        RequestBody mLocation=FormBody.create(json,location_json);
-//        Request curLocation=new Request.Builder().url("http://47.107.162.132:80")
-//                                            .post(mLocation)
-//                                            .build();
-//        mOkHttpClient.newCall(curLocation).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//            }
-//        });
-//    }
-
-    /**
      * 搜索框活动
      */
     protected void doSearch(){
@@ -478,6 +425,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                mInputListView.setVisibility(View.VISIBLE);
                 if (newText.isEmpty()) {
                     mInputListView.setVisibility(View.GONE);
                     aMap.clear(true);
@@ -563,9 +511,16 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     }
 
     public void setRandomRoute(){
+        List<LatLonPoint> walk_destination=new ArrayList<>();
+        walk_destination.add(new LatLonPoint(30.75102,103.932212));
+        walk_destination.add(new LatLonPoint(30.752615,103.936043));
+        walk_destination.add(new LatLonPoint(30.750341,103.937428));
+        walk_destination.add(new LatLonPoint(30.746161,103.926923));
+        Random random=new Random();
+        LatLonPoint walkDestination=walk_destination.get(random.nextInt(walk_destination.size()));
         routeSearch = new RouteSearch(MyApplication.getMyContext());
         routeSearch.setRouteSearchListener(this);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(30.750036,103.928276),new LatLonPoint(30.750341,103.937428));
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(22.961672,113.328277));
         RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
         routeSearch.calculateWalkRouteAsyn(query);//开始算
     }
@@ -587,21 +542,55 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      */
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
-        Log.d("walkroute",String.valueOf(i));
-        aMap.clear(true);
-        WalkRouteResult mWalkRouteResult=walkRouteResult;
-        List<WalkPath> walkPaths=mWalkRouteResult.getPaths();
-        List<WalkStep> walkSteps=walkPaths.get(0).getSteps();
-        List<LatLng> latLngs=new ArrayList<LatLng>();
-        for(int temp1=0;temp1<walkSteps.size();temp1++) {
-            List<LatLonPoint> latLonPoints=walkSteps.get(temp1).getPolyline();
-            for (int temp = 0; temp < latLonPoints.size(); temp++) {
-                latLngs.add(new LatLng(latLonPoints.get(temp).getLatitude(), latLonPoints.get(temp).getLongitude()));
+        if(i==1000) {
+            Log.d("walkroute", String.valueOf(i));
+            aMap.clear(true);
+            WalkRouteResult mWalkRouteResult = walkRouteResult;
+            List<WalkPath> walkPaths = mWalkRouteResult.getPaths();
+            List<WalkStep> walkSteps = walkPaths.get(0).getSteps();
+            final List<LatLng> latLngs = new ArrayList<LatLng>();
+            for (int temp1 = 0; temp1 < walkSteps.size(); temp1++) {
+                List<LatLonPoint> latLonPoints = walkSteps.get(temp1).getPolyline();
+                for (int temp = 0; temp < latLonPoints.size(); temp++) {
+                    latLngs.add(new LatLng(latLonPoints.get(temp).getLatitude(), latLonPoints.get(temp).getLongitude()));
+                }
+            }
+            final Polyline polyline = aMap.addPolyline(new PolylineOptions().
+                    addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            LatLonPoint regeocodeSearchLatlonPoint=new LatLonPoint(latLngs.get((latLngs.size()-1)).latitude,latLngs.get((latLngs.size()-1)).longitude); //将路径规划终点的坐标取出设置一个LatlonPoint
+            GeocodeSearch geocodeSearch=new GeocodeSearch(MyApplication.getMyContext());
+            RegeocodeQuery query=new RegeocodeQuery(regeocodeSearchLatlonPoint,50,GeocodeSearch.AMAP);
+            geocodeSearch.getFromLocationAsyn(query);
+            final String[] ending = {null};
+            final String[] endingDetails={null};
+            geocodeSearch.setOnGeocodeSearchListener(new GeocodeSearch.OnGeocodeSearchListener() {
+                @Override
+                public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
+                    if(i==1000){
+                        ending[0] =regeocodeResult.getRegeocodeAddress().getAois().get(0).getAoiName();
+                        endingDetails[0]= regeocodeResult.getRegeocodeAddress().getRoads().get(0).getName();
+                        Log.d("Regeocode",ending[0]+","+endingDetails[0]);
+                        Toast.makeText(MyApplication.getMyContext(),"路径规划完成", Toast.LENGTH_SHORT).show();
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(regeocodeResult.getRegeocodeQuery().getPoint().getLatitude(),regeocodeResult.getRegeocodeQuery().getPoint().getLongitude()))
+                                .title(ending[0])
+                                .snippet(endingDetails[0]));
+                    }else{
+                        Toast.makeText(MyApplication.getMyContext(),"错误码为"+String.valueOf(i)+",请反馈给开发者哦(⊙o⊙)哦",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+                }
+            });
+        }else if(i==3003) {
+            Toast.makeText(MyApplication.getMyContext(),"起终点距离过长",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MyApplication.getMyContext(),"错误码为:"+String.valueOf(i)+",请进行反馈",Toast.LENGTH_SHORT).show();
             }
         }
-        final Polyline polyline =aMap.addPolyline(new PolylineOptions().
-                addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
-    }
 
     /**
      * 上传位置信息到服务器以获取附近的人

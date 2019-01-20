@@ -1,18 +1,17 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 
 import java.util.List;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.fragment.Help_InfoFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.Help_InfoFragment;
 
 public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     private List<String> mTitle;
