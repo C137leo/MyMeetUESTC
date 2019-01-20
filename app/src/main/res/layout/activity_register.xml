@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFCEC"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:id="@+id/linearLayoutInput"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="90sp"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -77,7 +78,25 @@
         <Button
             android:text="@string/sign_up"
             android:id="@+id/buttonSignUp"
-            android:layout_width="200dp"
+            android:layout_width="300sp"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/agreeCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agreeDocument"
+            android:layout_marginTop="610sp"/>
+        <TextView
+            android:id="@+id/registerDocument"
+            android:layout_marginTop="610sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registerDocument" />
+    </LinearLayout>
 </RelativeLayout>

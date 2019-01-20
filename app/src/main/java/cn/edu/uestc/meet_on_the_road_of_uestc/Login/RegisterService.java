@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,6 +37,7 @@ public class RegisterService extends AppCompatActivity {
     private EditText ETregisterStuID;
     private EditText ETregisterPassword;
     private Button registerButton;
+    private CheckBox agreeDocument;
     String server="https://www.happydoudou.xyz";
     OkHttpClient okHttpClient;
     Gson gson;
@@ -50,10 +51,15 @@ public class RegisterService extends AppCompatActivity {
         ETregisterPassword=findViewById(R.id.registerPassword);
         ETregisterStuID=findViewById(R.id.registerStuID);
         registerButton=findViewById(R.id.buttonSignUp);
+        agreeDocument=findViewById(R.id.agreeCheckbox);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register();
+                if(agreeDocument.isChecked()) {
+                    register();
+                }else{
+                    Toast.makeText(MyApplication.getMyContext(),"请阅读并同意《用户注册协议》",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -63,7 +69,8 @@ public class RegisterService extends AppCompatActivity {
         registerName=ETregisterName.getText().toString();
         registerStuID=ETregisterStuID.getText().toString();
         registerPassword=ETregisterPassword.getText().toString();
-        if(registerAccount!=null&&registerName!=null&&registerPassword!=null&&registerStuID!=null){
+        Log.d("registerAccount",ETregisterAccount.getText().toString());
+        if(!registerAccount.equals("") && !registerName.equals("") &&!registerPassword.equals("")&&!registerStuID.equals("")){
             okHttpClient=new OkHttpClient();
             gson=new Gson();
             final registerInfo registerInfo=new registerInfo(registerAccount,registerName,registerStuID,registerPassword);
@@ -86,6 +93,20 @@ public class RegisterService extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        }else{
+            if(registerAccount.isEmpty()){
+                Toast.makeText(MyApplication.getMyContext(),"用户名为空",Toast.LENGTH_SHORT).show();
+            }
+            if(registerName.isEmpty()){
+                Toast.makeText(MyApplication.getMyContext(),"姓名为空",Toast.LENGTH_SHORT).show();
+            }
+            if(registerStuID.isEmpty()){
+                Toast.makeText(MyApplication.getMyContext(),"学号为空",Toast.LENGTH_SHORT).show();
+            }
+
+            if(registerPassword.isEmpty()){
+                Toast.makeText(MyApplication.getMyContext(),"密码为空",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
