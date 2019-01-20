@@ -4,28 +4,38 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_background_yellow"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="20sp"
-        android:src="@drawable/ic_back" />
-    <TextView
-        android:layout_marginTop="70sp"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/setGoal"/></RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_background_yellow" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="20sp"
+            android:src="@drawable/ic_back" />
+        <TextView
+            android:layout_marginTop="70sp"
+            android:textSize="30sp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setGoal"/>
+    </RelativeLayout>
+
     <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/setGoalViewpager"
+        android:layout_width="300sp"
+        android:layout_height="550sp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v4.view.PagerTitleStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v4.view.PagerTitleStrip>
+    </android.support.v4.view.ViewPager>
 </RelativeLayout>

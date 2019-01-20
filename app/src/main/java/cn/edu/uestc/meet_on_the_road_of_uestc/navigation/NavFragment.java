@@ -161,7 +161,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     MyLocationStyle myLocationStyle;
     ImageView setRoute;
     String server_info="https://www.happydoudou.xyz";
-
+    ImageView setGoal;
 
 
 
@@ -189,6 +189,14 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         // 打开 lib 内部日志
         DevUtils.openLog();
         DevUtils.openDebug();
+        setGoal=getActivity().findViewById(R.id.setGoal);
+        setGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),SetGoalActivity.class);
+                startActivity(intent);
+            }
+        });
         ImageView help = getActivity().findViewById(R.id.emergency_help);
         nearByview = getActivity().findViewById(R.id.nearBy);
         /**
