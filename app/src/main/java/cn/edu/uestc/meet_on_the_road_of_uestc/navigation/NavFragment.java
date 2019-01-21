@@ -558,7 +558,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 }
             }
             final Polyline polyline = aMap.addPolyline(new PolylineOptions().
-                    addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
+                    addAll(latLngs).width(10).color(Color.rgb(250,206,93)));
             aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
             LatLonPoint regeocodeSearchLatlonPoint=new LatLonPoint(latLngs.get((latLngs.size()-1)).latitude,latLngs.get((latLngs.size()-1)).longitude); //将路径规划终点的坐标取出设置一个LatlonPoint
             GeocodeSearch geocodeSearch=new GeocodeSearch(MyApplication.getMyContext());
