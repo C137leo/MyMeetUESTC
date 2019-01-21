@@ -19,21 +19,21 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
 @SuppressLint("ValidFragment")
-public class GoalSetFragment extends Fragment {
+public class TimeSetFragment extends Fragment {
     String[] goalList;
     View view;
     @SuppressLint("ValidFragment")
-    public GoalSetFragment(String[] goalList){
+    public TimeSetFragment(String[] goalList){
         this.goalList=goalList;
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
         if(view!=null){
+            Log.d("checkViewgroup","checkViewGroup");
             ViewGroup mViewGroup=(ViewGroup)view.getParent();
             if(mViewGroup!=null) {
+                Log.d("removeView","removeView");
                 mViewGroup.removeView(view);
             }
         }
@@ -59,10 +59,11 @@ public class GoalSetFragment extends Fragment {
         lineConfig.setAlpha(100);
         lineConfig.setThick(ConvertUtils.toPx(MyApplication.getMyContext(),3));
         pickTimeGoal.setLineConfig(lineConfig);
+        timeGoal.setText("Test");
         pickTimeGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
-                timeGoal.setText(s);
+                timeGoal.setText("Test");
             }
         });
     }
