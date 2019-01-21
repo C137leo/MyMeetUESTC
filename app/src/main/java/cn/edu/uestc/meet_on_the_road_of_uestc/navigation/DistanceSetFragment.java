@@ -18,6 +18,7 @@ import cn.addapp.pickers.widget.WheelListView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
+@SuppressLint("ValidFragment")
 public class DistanceSetFragment extends Fragment {
     String[] goalList;
     View view;
@@ -36,7 +37,7 @@ public class DistanceSetFragment extends Fragment {
                 mViewGroup.removeView(view);
             }
         }
-        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal, container, false);
+        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal_distance, container, false);
         return view;
     }
 
@@ -46,19 +47,19 @@ public class DistanceSetFragment extends Fragment {
         for(String List:goalList){
             Log.d("goalList",List);
         }
-        WheelListView pickTimeGoal;
+        WheelListView pickDistanceGoal;
         final TextView timeGoal;
         super.onActivityCreated(savedInstanceState);
-        timeGoal=getActivity().findViewById(R.id.timeGoal);
-        pickTimeGoal=getActivity().findViewById(R.id.pickTimeGoal);
-        pickTimeGoal.setItems(goalList);
-        pickTimeGoal.setSelectedTextColor(0xFFFF00FF);
+        timeGoal=getActivity().findViewById(R.id.distanceGoal);
+        pickDistanceGoal=getActivity().findViewById(R.id.pickDistanceGoal);
+        pickDistanceGoal.setItems(goalList);
+        pickDistanceGoal.setSelectedTextColor(0xFFFF00FF);
         LineConfig lineConfig=new LineConfig();
         lineConfig.setColor(Color.parseColor("#26A1BD"));
         lineConfig.setAlpha(100);
         lineConfig.setThick(ConvertUtils.toPx(MyApplication.getMyContext(),3));
-        pickTimeGoal.setLineConfig(lineConfig);
-        pickTimeGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
+        pickDistanceGoal.setLineConfig(lineConfig);
+        pickDistanceGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
                 timeGoal.setText(s);

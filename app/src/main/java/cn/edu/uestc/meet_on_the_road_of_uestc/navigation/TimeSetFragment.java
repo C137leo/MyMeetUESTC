@@ -37,7 +37,7 @@ public class TimeSetFragment extends Fragment {
                 mViewGroup.removeView(view);
             }
         }
-        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal, container, false);
+        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal_time, container, false);
         return view;
     }
 
@@ -63,7 +63,7 @@ public class TimeSetFragment extends Fragment {
         pickTimeGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
-                timeGoal.setText("Test");
+                timeGoal.setText(s);
             }
         });
     }
