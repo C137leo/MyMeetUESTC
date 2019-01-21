@@ -56,6 +56,7 @@
         </provider>
         <activity android:name=".Login.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Login.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".navigation.run_activity.RunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <service android:name="com.amap.api.track.AMapTrackService" />
         <service android:name="com.amap.api.location.APSService"/>

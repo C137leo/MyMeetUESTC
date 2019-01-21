@@ -93,11 +93,13 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.RunActivity;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
@@ -307,17 +309,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         final int[] run_flag = {0};
         run.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (run_flag[0]) {
-                    case 0:
-                        beginRun();
-                        run_flag[0] =1;
-                        break;
-                    case 1:
-                        stopRun();
-                        run_flag[0]=0;
-                        break;
-                }
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), RunActivity.class);
+                startActivity(intent);
             }
         });
     }
