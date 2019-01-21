@@ -44,9 +44,6 @@ public class DistanceSetFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        for(String List:goalList){
-            Log.d("goalList",List);
-        }
         WheelListView pickDistanceGoal;
         final TextView timeGoal;
         super.onActivityCreated(savedInstanceState);
@@ -57,6 +54,8 @@ public class DistanceSetFragment extends Fragment {
         LineConfig lineConfig=new LineConfig();
         lineConfig.setColor(Color.parseColor("#26A1BD"));
         lineConfig.setAlpha(100);
+        pickDistanceGoal.setSelectedIndex(2);
+        pickDistanceGoal.setOffset(3);
         lineConfig.setThick(ConvertUtils.toPx(MyApplication.getMyContext(),3));
         pickDistanceGoal.setLineConfig(lineConfig);
         pickDistanceGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {

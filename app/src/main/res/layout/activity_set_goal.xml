@@ -8,8 +8,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="125sp"
             android:src="@mipmap/ic_background_yellow" />
         <ImageView
             android:layout_width="wrap_content"
@@ -27,13 +28,26 @@
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
+        android:layout_marginBottom="60sp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/setGoalViewpager"
         android:layout_width="300sp"
-        android:layout_height="550sp">
+        android:layout_height="500sp">
         <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pagerTitleStrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </android.support.v4.view.ViewPager>
+
+    <Button
+        android:background="@drawable/drawable_cilck"
+        android:id="@+id/pick_startRun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/setGoalViewpager"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:text="@string/start_running" />
 </RelativeLayout>

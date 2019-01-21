@@ -55,6 +55,8 @@ public class TimeSetFragment extends Fragment {
         pickTimeGoal.setItems(goalList);
         pickTimeGoal.setSelectedTextColor(0xFFFF00FF);
         LineConfig lineConfig=new LineConfig();
+        pickTimeGoal.setSelectedIndex(4);
+        pickTimeGoal.setOffset(3);
         lineConfig.setColor(Color.parseColor("#26A1BD"));
         lineConfig.setAlpha(100);
         lineConfig.setThick(ConvertUtils.toPx(MyApplication.getMyContext(),3));
