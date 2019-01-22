@@ -39,7 +39,7 @@
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** {*;}
 -keep class com.google.gson.** {*;}
-#这句非常重要，主要是滤掉  自己写的bean包 下的所有.class文件不进行混淆编译 
+#这句非常重要，主要是滤掉自己写的bean包下的所有.class文件不进行混淆编译 
 #对Gson解析bean类，进行保护。
 -keep class cn.edu.uestc.meet_on_the_road_of_uestc.bean.** {*;}
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -58,4 +58,13 @@
 -keepattributes InnerClasses,Signature
 -keepattributes *Annotation*
 -keep class cn.addapp.pickers.entity.** { *;}
+#grennDao
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
 
+# If you do not use SQLCipher:
+-dontwarn org.greenrobot.greendao.database.**
+# If you do not use Rx:
+-dontwarn rx.**

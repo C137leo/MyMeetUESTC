@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
+import com.amap.api.track.AMapTrackClient;
 import com.autonavi.ae.gmap.GLMapEngine;
 
 import java.util.ArrayList;
@@ -69,6 +71,7 @@ public class RunningActivity extends AppCompatActivity {
         }
         setmRunningMapView();
     }
+
 
     public void setmRunningMapView(){
         MyLocationStyle myLocationStyle;
@@ -128,6 +131,7 @@ public class RunningActivity extends AppCompatActivity {
                 });
                 Intent intent=new Intent(RunningActivity.this,FinishRunActivity.class);
                 intent.putExtra("runTime",showTime);
+                intent.putExtra("startRunTimr",startTraceTime);
                 startActivityForResult(intent,1);
                 finish();
             }
@@ -145,10 +149,6 @@ public class RunningActivity extends AppCompatActivity {
                  }
              }
          });
-    }
-
-    public List<LatLng> getMyRunningRoute() {
-        return myRunningRoute;
     }
 
     @Override

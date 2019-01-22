@@ -9,7 +9,12 @@ import android.widget.Button;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.track.AMapTrackClient;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
@@ -44,5 +49,10 @@ public class FinishRunActivity extends AppCompatActivity implements UploadInform
     @Override
     public void uploadInformation() {
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.bean.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Help_Info;
 
 public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
