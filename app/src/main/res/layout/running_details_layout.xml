@@ -97,12 +97,12 @@
             android:layout_marginRight="50sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="暂停跑步"/>
+            android:text="@string/pause_running"/>
         <Button
             android:id="@+id/stopRun"
             android:background="@drawable/drawable_cilck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="结束跑步"/>
+            android:text="@string/stop_running"/>
     </LinearLayout>
 </RelativeLayout>

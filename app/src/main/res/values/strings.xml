@@ -29,4 +29,9 @@
     <string name="distanceText">距离</string>
     <string name="timeText">时间</string>
     <string name="speedText">速度</string>
+    <string name="total_distance">总距离</string>
+    <string name="total_time">总时间</string>
+    <string name="ave_distance">平均速度</string>
+    <string name="pause_running">暂停跑步</string>
+    <string name="stop_running">结束跑步</string>
 </resources>
