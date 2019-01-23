@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -20,6 +21,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Stu;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -36,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox remember_password;
     OkHttpClient mOkHttpClient;
     TextView registerAccount;
+    String account;
+    String password;
+    MediaType mediaTypeJson=MediaType.parse("application/json;charset=utf-8");
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext());
@@ -70,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String account=login_account.getText().toString();
-                String password=login_password.getText().toString();
+                account=login_account.getText().toString();
+                password=login_password.getText().toString();
                 editor.putString("account",account);
                 editor.putString("password",password);
                 if(remember_password.isChecked()){
@@ -84,17 +89,18 @@ public class LoginActivity extends AppCompatActivity {
                                @Override
                                public void onResponse(Call call, Response response) throws IOException {
                                    String responDat=response.body().string();
+                                   Intent intent=new Intent();
+                                   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                   intent.setClass(LoginActivity.this, MainActivity.class);
+                                   startActivity(intent);
                                }
 
                                @Override
                                public void onFailure(Call call, IOException e) {
                                    Log.d("postFaulier","posterror");
+                                   Toast.makeText(LoginActivity.this,"网络错误",Toast.LENGTH_LONG).show();
                                }
                            });
-                Intent intent=new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
     }

@@ -29,6 +29,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
         public final static Property StuPassWord = new Property(2, String.class, "StuPassWord", false, "STU_PASS_WORD");
         public final static Property StuSignature = new Property(3, String.class, "StuSignature", false, "STU_SIGNATURE");
         public final static Property StuGrade = new Property(4, int.class, "StuGrade", false, "STU_GRADE");
+        public final static Property IsRemember = new Property(5, boolean.class, "isRemember", false, "IS_REMEMBER");
     }
 
     private DaoSession daoSession;
@@ -51,7 +52,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
                 "\"STU_NAME\" TEXT," + // 1: StuName
                 "\"STU_PASS_WORD\" TEXT," + // 2: StuPassWord
                 "\"STU_SIGNATURE\" TEXT," + // 3: StuSignature
-                "\"STU_GRADE\" INTEGER NOT NULL );"); // 4: StuGrade
+                "\"STU_GRADE\" INTEGER NOT NULL ," + // 4: StuGrade
+                "\"IS_REMEMBER\" INTEGER NOT NULL );"); // 5: isRemember
     }
 
     /** Drops the underlying database table. */
@@ -84,6 +86,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
+        stmt.bindLong(6, entity.getIsRemember() ? 1L: 0L);
     }
 
     @Override
@@ -110,6 +113,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
+        stmt.bindLong(6, entity.getIsRemember() ? 1L: 0L);
     }
 
     @Override
@@ -130,7 +134,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // StuName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // StuPassWord
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // StuSignature
-            cursor.getInt(offset + 4) // StuGrade
+            cursor.getInt(offset + 4), // StuGrade
+            cursor.getShort(offset + 5) != 0 // isRemember
         );
         return entity;
     }
@@ -142,6 +147,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, Long> {
         entity.setStuPassWord(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStuSignature(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setStuGrade(cursor.getInt(offset + 4));
+        entity.setIsRemember(cursor.getShort(offset + 5) != 0);
      }
     
     @Override

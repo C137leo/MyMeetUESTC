@@ -25,6 +25,7 @@ public class StuInfo {
     private String StuPassWord;
     private String StuSignature;
     private int StuGrade;
+    private boolean isRemember;
     @ToMany(referencedJoinProperty =  "stuID")
     private List<traceInfo> traceInfoList;
     /** Used to resolve relations */
@@ -33,14 +34,15 @@ public class StuInfo {
     /** Used for active entity operations. */
     @Generated(hash = 348921390)
     private transient StuInfoDao myDao;
-    @Generated(hash = 923814444)
-    public StuInfo(Long StuID, String StuName, String StuPassWord,
-            String StuSignature, int StuGrade) {
+    @Generated(hash = 948336827)
+    public StuInfo(Long StuID, String StuName, String StuPassWord, String StuSignature, int StuGrade,
+            boolean isRemember) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
         this.StuSignature = StuSignature;
         this.StuGrade = StuGrade;
+        this.isRemember = isRemember;
     }
     @Generated(hash = 724382685)
     public StuInfo() {
@@ -140,6 +142,12 @@ public class StuInfo {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getStuInfoDao() : null;
+    }
+    public boolean getIsRemember() {
+        return this.isRemember;
+    }
+    public void setIsRemember(boolean isRemember) {
+        this.isRemember = isRemember;
     }
 
 }
