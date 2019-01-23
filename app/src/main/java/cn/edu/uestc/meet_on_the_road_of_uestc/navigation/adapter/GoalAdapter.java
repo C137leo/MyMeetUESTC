@@ -2,11 +2,11 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 public class GoalAdapter extends FragmentPagerAdapter {
 
@@ -61,7 +61,7 @@ public class GoalAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Fragment getItem(int i) {
         return null;
     }
 
@@ -70,8 +70,8 @@ public class GoalAdapter extends FragmentPagerAdapter {
         return 0;
     }
 
-    @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         return null;
     }
 }
+

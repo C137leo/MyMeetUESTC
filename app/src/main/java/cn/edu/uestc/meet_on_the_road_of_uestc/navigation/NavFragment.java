@@ -93,6 +93,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.ChoosePathActivety;
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
@@ -280,6 +282,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             public void onClick(View v) {
                 switch (flag){
                     case 0:
+                        //加入了intent跳转到别的界面
+                        Intent intent=new Intent(getActivity(),ChoosePathActivety.class);
+                        startActivity(intent);
                         setRandomRoute();
                         flag++;
                         break;
@@ -512,15 +517,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     public void setRandomRoute(){
         List<LatLonPoint> walk_destination=new ArrayList<>();
-        walk_destination.add(new LatLonPoint(30.75102,103.932212));
-        walk_destination.add(new LatLonPoint(30.752615,103.936043));
-        walk_destination.add(new LatLonPoint(30.750341,103.937428));
-        walk_destination.add(new LatLonPoint(30.746161,103.926923));
+        walk_destination.add(new LatLonPoint(103.92749042406999,30.7500597670574));
+        walk_destination.add(new LatLonPoint(103.92459744525641,30.74887216885518));
+        walk_destination.add(new LatLonPoint(103.92529279024448,30.749786842603832));
+        walk_destination.add(new LatLonPoint(103.92618557917031,30.749071332899383));
         Random random=new Random();
         LatLonPoint walkDestination=walk_destination.get(random.nextInt(walk_destination.size()));
         routeSearch = new RouteSearch(MyApplication.getMyContext());
         routeSearch.setRouteSearchListener(this);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(22.961672,113.328277));
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(103.92628859365496,30.749963875211044));
         RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
         routeSearch.calculateWalkRouteAsyn(query);//开始算
     }
