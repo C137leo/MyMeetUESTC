@@ -98,7 +98,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.RunningActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.BeforeRunCalculate;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
@@ -309,7 +309,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         run.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), RunningActivity.class);
+                Intent intent=new Intent(getActivity(), BeforeRunCalculate.class);
                 startActivity(intent);
             }
         });
