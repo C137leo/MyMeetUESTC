@@ -22,6 +22,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 public class DistanceSetFragment extends Fragment {
     String[] goalList;
     View view;
+    static String distance;
     @SuppressLint("ValidFragment")
     public DistanceSetFragment(String[] goalList){
         this.goalList=goalList;
@@ -61,6 +62,7 @@ public class DistanceSetFragment extends Fragment {
         pickDistanceGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
+                distance=s;
                 timeGoal.setText(s);
             }
         });
@@ -88,5 +90,9 @@ public class DistanceSetFragment extends Fragment {
     public void onDestroy() {
         Log.d("LifeCycle","onDestory");
         super.onDestroy();
+    }
+
+    public static String getDistance() {
+        return distance;
     }
 }

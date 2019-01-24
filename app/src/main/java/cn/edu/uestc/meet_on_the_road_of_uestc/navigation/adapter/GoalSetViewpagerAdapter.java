@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import java.util.List;
 
 public class GoalSetViewpagerAdapter extends FragmentStatePagerAdapter {
+    private static int showingFragment;
     private List<Fragment> timeSetFragments;
     private FragmentManager fragmentManager;
     private List<String> fragment_titles;
@@ -38,4 +40,13 @@ public class GoalSetViewpagerAdapter extends FragmentStatePagerAdapter {
         return fragment_titles.get(position);
     }
 
+    public static int getShowingFragment() {
+        return showingFragment;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        showingFragment=position;
+        super.setPrimaryItem(container, position, object);
+    }
 }

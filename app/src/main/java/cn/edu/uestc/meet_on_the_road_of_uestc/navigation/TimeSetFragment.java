@@ -22,6 +22,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 public class TimeSetFragment extends Fragment {
     String[] goalList;
     View view;
+    static String time;
     @SuppressLint("ValidFragment")
     public TimeSetFragment(String[] goalList){
         this.goalList=goalList;
@@ -65,6 +66,7 @@ public class TimeSetFragment extends Fragment {
         pickTimeGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
+                time=s;
                 timeGoal.setText(s);
             }
         });
@@ -92,5 +94,9 @@ public class TimeSetFragment extends Fragment {
     public void onDestroy() {
         Log.d("LifeCycle","onDestory");
         super.onDestroy();
+    }
+
+    public static String getTime() {
+        return time;
     }
 }
