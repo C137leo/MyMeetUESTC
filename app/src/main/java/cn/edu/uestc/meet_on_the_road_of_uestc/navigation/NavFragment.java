@@ -93,8 +93,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.ChoosePathActivety;
-import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.ChoosePathActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
@@ -292,7 +291,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 switch (flag){
                     case 0:
                         //加入了intent跳转到别的界面
-                        Intent intent=new Intent(getActivity(),ChoosePathActivety.class);
+                        Intent intent=new Intent(getActivity(),ChoosePathActivity.class);
                         startActivity(intent);
                         setRandomRoute();
                         flag++;

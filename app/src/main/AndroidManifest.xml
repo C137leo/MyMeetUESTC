@@ -58,11 +58,12 @@
         <activity android:name=".Login.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <service android:name="com.amap.api.track.AMapTrackService" />
         <service android:name="com.amap.api.location.APSService"/>
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6"/>
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="7be6fe20eb1ca175c1ef16590e700a5e"/>
         <!-- 配置APP ID -->
         <meta-data
             android:name="BUGLY_APPID"
