@@ -54,8 +54,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
-        <activity android:name=".Login.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".Login.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".login.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".login.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

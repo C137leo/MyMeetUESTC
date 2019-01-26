@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.Login;
+package cn.edu.uestc.meet_on_the_road_of_uestc.login;
 
 import android.content.Intent;
 import android.os.Bundle;
