@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.registerInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.registerInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import okhttp3.Call;

@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.bean;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.entity;
 
 public class Help_Info {
     private String distance;

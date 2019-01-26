@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Stu;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
