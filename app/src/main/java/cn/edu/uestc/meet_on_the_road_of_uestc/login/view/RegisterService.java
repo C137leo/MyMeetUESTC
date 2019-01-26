@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.login;
+package cn.edu.uestc.meet_on_the_road_of_uestc.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,7 +88,7 @@ public class RegisterService extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d("Register Server",response.body().string());
-                    Intent intent=new Intent(RegisterService.this,LoginActivity.class);
+                    Intent intent=new Intent(RegisterService.this, LoginActivity.class);
                     startActivity(intent);
                 }
             });

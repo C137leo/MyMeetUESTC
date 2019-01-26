@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.login.LoginActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
     protected Handler mHandler=new Handler();

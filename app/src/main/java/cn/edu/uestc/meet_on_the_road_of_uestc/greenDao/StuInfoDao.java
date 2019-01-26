@@ -29,9 +29,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         public final static Property StuPassWord = new Property(2, String.class, "StuPassWord", false, "STU_PASS_WORD");
         public final static Property StuSignature = new Property(3, String.class, "StuSignature", false, "STU_SIGNATURE");
         public final static Property StuGrade = new Property(4, int.class, "StuGrade", false, "STU_GRADE");
-        public final static Property IsRemember = new Property(5, boolean.class, "isRemember", false, "IS_REMEMBER");
-        public final static Property MLatitude = new Property(6, Long.class, "mLatitude", false, "M_LATITUDE");
-        public final static Property MLontitude = new Property(7, Long.class, "mLontitude", false, "M_LONTITUDE");
+        public final static Property MLatitude = new Property(5, Long.class, "mLatitude", false, "M_LATITUDE");
+        public final static Property MLontitude = new Property(6, Long.class, "mLontitude", false, "M_LONTITUDE");
     }
 
     private DaoSession daoSession;
@@ -55,9 +54,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
                 "\"STU_PASS_WORD\" TEXT," + // 2: StuPassWord
                 "\"STU_SIGNATURE\" TEXT," + // 3: StuSignature
                 "\"STU_GRADE\" INTEGER NOT NULL ," + // 4: StuGrade
-                "\"IS_REMEMBER\" INTEGER NOT NULL ," + // 5: isRemember
-                "\"M_LATITUDE\" INTEGER," + // 6: mLatitude
-                "\"M_LONTITUDE\" INTEGER);"); // 7: mLontitude
+                "\"M_LATITUDE\" INTEGER," + // 5: mLatitude
+                "\"M_LONTITUDE\" INTEGER);"); // 6: mLontitude
     }
 
     /** Drops the underlying database table. */
@@ -90,16 +88,15 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
-        stmt.bindLong(6, entity.getIsRemember() ? 1L: 0L);
  
         Long mLatitude = entity.getMLatitude();
         if (mLatitude != null) {
-            stmt.bindLong(7, mLatitude);
+            stmt.bindLong(6, mLatitude);
         }
  
         Long mLontitude = entity.getMLontitude();
         if (mLontitude != null) {
-            stmt.bindLong(8, mLontitude);
+            stmt.bindLong(7, mLontitude);
         }
     }
 
@@ -127,16 +124,15 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
-        stmt.bindLong(6, entity.getIsRemember() ? 1L: 0L);
  
         Long mLatitude = entity.getMLatitude();
         if (mLatitude != null) {
-            stmt.bindLong(7, mLatitude);
+            stmt.bindLong(6, mLatitude);
         }
  
         Long mLontitude = entity.getMLontitude();
         if (mLontitude != null) {
-            stmt.bindLong(8, mLontitude);
+            stmt.bindLong(7, mLontitude);
         }
     }
 
@@ -159,9 +155,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // StuPassWord
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // StuSignature
             cursor.getInt(offset + 4), // StuGrade
-            cursor.getShort(offset + 5) != 0, // isRemember
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // mLatitude
-            cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7) // mLontitude
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // mLatitude
+            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // mLontitude
         );
         return entity;
     }
@@ -173,9 +168,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         entity.setStuPassWord(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStuSignature(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setStuGrade(cursor.getInt(offset + 4));
-        entity.setIsRemember(cursor.getShort(offset + 5) != 0);
-        entity.setMLatitude(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
-        entity.setMLontitude(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
+        entity.setMLatitude(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
+        entity.setMLontitude(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
      }
     
     @Override

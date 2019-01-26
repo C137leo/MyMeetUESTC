@@ -24,7 +24,6 @@ public class StuInfo {
     private String StuPassWord;
     private String StuSignature;
     private int StuGrade;
-    private boolean isRemember;
     private Long mLatitude;
     private Long mLontitude;
     @ToMany(referencedJoinProperty =  "stuID")
@@ -35,16 +34,14 @@ public class StuInfo {
     /** Used for active entity operations. */
     @Generated(hash = 348921390)
     private transient StuInfoDao myDao;
-    @Generated(hash = 1671144098)
+    @Generated(hash = 996357772)
     public StuInfo(String StuID, String StuName, String StuPassWord,
-            String StuSignature, int StuGrade, boolean isRemember, Long mLatitude,
-            Long mLontitude) {
+            String StuSignature, int StuGrade, Long mLatitude, Long mLontitude) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
         this.StuSignature = StuSignature;
         this.StuGrade = StuGrade;
-        this.isRemember = isRemember;
         this.mLatitude = mLatitude;
         this.mLontitude = mLontitude;
     }
@@ -80,12 +77,6 @@ public class StuInfo {
     }
     public void setStuGrade(int StuGrade) {
         this.StuGrade = StuGrade;
-    }
-    public boolean getIsRemember() {
-        return this.isRemember;
-    }
-    public void setIsRemember(boolean isRemember) {
-        this.isRemember = isRemember;
     }
     public Long getMLatitude() {
         return this.mLatitude;
