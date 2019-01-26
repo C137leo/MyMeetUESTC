@@ -2,7 +2,6 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,7 +15,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.Login.bean.registerInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.registerInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import okhttp3.Call;

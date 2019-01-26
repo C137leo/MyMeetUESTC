@@ -100,6 +100,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.BeforeRunCalculate;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
@@ -163,7 +164,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     MyLocationStyle myLocationStyle;
     ImageView setRoute;
     String server_info="https://www.happydoudou.xyz";
-
+    ImageView setGoal;
 
 
 
@@ -191,6 +192,14 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         // 打开 lib 内部日志
         DevUtils.openLog();
         DevUtils.openDebug();
+        setGoal=getActivity().findViewById(R.id.setGoal);
+        setGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),SetGoalActivity.class);
+                startActivity(intent);
+            }
+        });
         ImageView help = getActivity().findViewById(R.id.emergency_help);
         nearByview = getActivity().findViewById(R.id.nearBy);
         /**
@@ -304,17 +313,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         final int[] run_flag = {0};
         run.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (run_flag[0]) {
-                    case 0:
-                        beginRun();
-                        run_flag[0] =1;
-                        break;
-                    case 1:
-                        stopRun();
-                        run_flag[0]=0;
-                        break;
-                }
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), BeforeRunCalculate.class);
+                startActivity(intent);
             }
         });
     }
@@ -561,7 +562,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 }
             }
             final Polyline polyline = aMap.addPolyline(new PolylineOptions().
-                    addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
+                    addAll(latLngs).width(10).color(Color.rgb(250,206,93)));
             aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
             LatLonPoint regeocodeSearchLatlonPoint=new LatLonPoint(latLngs.get((latLngs.size()-1)).latitude,latLngs.get((latLngs.size()-1)).longitude); //将路径规划终点的坐标取出设置一个LatlonPoint
             GeocodeSearch geocodeSearch=new GeocodeSearch(MyApplication.getMyContext());

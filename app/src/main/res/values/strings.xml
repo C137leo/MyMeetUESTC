@@ -25,4 +25,13 @@
     <string name="agreeDocument">阅读并同意</string>
     <string name="before_you_start">Before you start</string>
     <string name="setGoal">设定目标</string>
+    <string name="start_running">Start Running</string>
+    <string name="distanceText">距离</string>
+    <string name="timeText">时间</string>
+    <string name="speedText">速度</string>
+    <string name="total_distance">总距离</string>
+    <string name="total_time">总时间</string>
+    <string name="ave_distance">平均速度</string>
+    <string name="pause_running">暂停跑步</string>
+    <string name="stop_running">结束跑步</string>
 </resources>

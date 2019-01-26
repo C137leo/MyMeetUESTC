@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 apply from: 'tinker-support.gradle'
 apply plugin: 'bugly'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 bugly {
     appId = 'da5ca25ce3' // 注册时分配的App ID
     appKey = '9a968308-7410-4abc-b640-a6b398c98c8e' // 注册时分配的App Key
 }
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
     defaultConfig {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -15,9 +16,9 @@ android {
         }
         applicationId "cn.edu.uestc.meet_on_the_road_of_uestc"
         minSdkVersion 24
-        targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.0"
+        targetSdkVersion 27
+        versionCode 3
+        versionName "0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -38,15 +39,22 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
     }
+    greendao{
+        schemaVersion 1 // 数据库版本号
+        daoPackage  'cn.edu.uestc.meet_on_the_road_of_uestc.greenDao'//greenDao 自动生成的代码保存的包名
+        targetGenDir   'src/main/java' //自动生成的代码存储的路径，默认是 build/generated/source/greendao.
+        generateTests false //true的时候自动生成测试单元
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.6"
     implementation("com.squareup.okhttp3:okhttp:3.12.0")
-    //noinspection GradleCompatible
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.florent37:materialtextfield:1.0.7'
@@ -56,6 +64,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.afkT:DevUtils:1.1.8@aar'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.android.support:percent:27.1.1'
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
     //搜索功能
@@ -67,5 +77,5 @@ dependencies {
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.11'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
-    implementation 'com.github.addappcn:android-pickers:1.0.0'
+    implementation 'com.github.addappcn:android-pickers:1.0.3'
 }

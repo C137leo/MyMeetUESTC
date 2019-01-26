@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RunningDetails">
+        <attr name="topImage" format="reference"/>
+        <attr name="distanceText" format="string"/>
+        <attr name="distanceTextSize" format="dimension"/>
+        <attr name="distanceTextColor" format="color"/>
+        <attr name="distance" format="string"/>
+        <attr name="distanceColor" format="color"/>
+        <attr name="distanceSize" format="dimension"/>
+        <attr name="timeText" format="string"/>
+        <attr name="timeTextColor" format="color"/>
+        <attr name="timeTextSize" format="dimension"/>
+        <attr name="time" format="string"/>
+        <attr name="timeColor" format="color"/>
+        <attr name="timeSize" format="dimension"/>
+        <attr name="speedText" format="string"/>
+        <attr name="speedTextColor" format="color"/>
+        <attr name="speedTextSize" format="dimension"/>
+        <attr name="speed" format="string"/>
+        <attr name="speedColor" format="color"/>
+        <attr name="speedSize" format="dimension"/>
+        <attr name="progressBarColor" format="color"/>
+        <attr name="leftButtonText" format="string"/>
+        <attr name="leftButtonTextSize" format="dimension"/>
+        <attr name="leftButtonTextColor" format="color"/>
+        <attr name="rightButtonText" format="string"/>
+        <attr name="rightButtonTextSize" format="dimension"/>
+        <attr name="rightButtonTextColor" format="color"/>
+    </declare-styleable>
+</resources>

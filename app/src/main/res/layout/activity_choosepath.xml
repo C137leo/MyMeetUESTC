@@ -136,7 +136,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_gravity="bottom"
-                mapbox:srcCompat="@mipmap/peoplewholikethispath" />
+                mapbox:srcCompat="@mipmap/peoplewholikethispath"
+                />
              <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

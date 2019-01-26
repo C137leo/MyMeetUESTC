@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.Login.bean;
+package cn.edu.uestc.meet_on_the_road_of_uestc.bean;
 
 public class registerInfo {
     private String registerAccount;

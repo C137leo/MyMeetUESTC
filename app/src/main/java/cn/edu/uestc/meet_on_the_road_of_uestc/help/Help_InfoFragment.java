@@ -16,7 +16,7 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_RecyclerViewAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.bean.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.bean.Help_Info;
 
 public class Help_InfoFragment extends Fragment {
     private List<Help_Info> mList;
