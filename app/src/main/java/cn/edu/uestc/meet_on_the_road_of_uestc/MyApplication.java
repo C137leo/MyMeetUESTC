@@ -1,6 +1,5 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc;
 
-import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,10 +9,6 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoMaster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import dev.DevUtils;
-import dev.utils.app.ADBUtils;
-
-import org.greenrobot.greendao.AbstractDaoMaster;
-import org.greenrobot.greendao.database.Database;
 
 public class MyApplication extends TinkerApplication {
 
