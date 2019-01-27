@@ -1,9 +1,9 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.model;
 
-import android.app.Application;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
 public class HelpModel implements IHelpModel{
@@ -11,7 +11,7 @@ public class HelpModel implements IHelpModel{
     MyApplication myApplication;
 
     public HelpModel() {
-        daoSession = myApplication.getDaoSession();
+        daoSession = GreenDaoHelper.getDaoSession();
     }
 
     public void setMyApplication(MyApplication myApplication){

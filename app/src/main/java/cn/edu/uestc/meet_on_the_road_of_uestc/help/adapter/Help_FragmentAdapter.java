@@ -47,4 +47,5 @@ public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
+
 }

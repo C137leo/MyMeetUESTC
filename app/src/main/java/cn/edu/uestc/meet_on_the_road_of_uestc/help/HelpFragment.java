@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class HelpFragment extends Fragment {
 
     private List<HelpInfo> mList;
     ViewPager mViewPager;
-    TabLayout mTabLayout;
+    PagerTitleStrip helpTitle;
     List<Help_InfoFragment> fragments;
     @Nullable
     @Override
@@ -34,23 +35,19 @@ public class HelpFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewPager=getActivity().findViewById(R.id.help_viewPager);
-        mTabLayout=getActivity().findViewById(R.id.help_tabLayout);
+        helpTitle=getActivity().findViewById(R.id.helpTitle);
         initViewPager();
     }
     private void initViewPager(){
         List<String> titles=new ArrayList<>();
         titles.add("最新发布");
         titles.add("附近帮帮");
-        for(int i=0;i<titles.size();i++){
-            mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(i)));
-        }
         fragments = new ArrayList<>();
         for (int i = 0; i < titles.size(); i++) {
             fragments.add(new Help_InfoFragment());
         }
         Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
         mViewPager.setAdapter(help_fragmentAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
