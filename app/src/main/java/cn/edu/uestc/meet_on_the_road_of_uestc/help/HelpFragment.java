@@ -16,6 +16,7 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.view.Help_InfoFragment;
 
 public class HelpFragment extends Fragment {
 

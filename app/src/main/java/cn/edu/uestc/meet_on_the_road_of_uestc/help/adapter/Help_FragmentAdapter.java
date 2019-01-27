@@ -11,7 +11,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.Help_InfoFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.view.Help_InfoFragment;
 
 public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     private List<String> mTitle;

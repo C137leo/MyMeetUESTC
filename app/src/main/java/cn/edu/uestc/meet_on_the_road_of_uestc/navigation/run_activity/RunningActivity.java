@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 import dev.utils.common.DateUtils;
 import dev.utils.common.HttpURLConnectionUtils;
@@ -78,7 +79,7 @@ public class RunningActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
-        mDaoSession=((MyApplication)getApplication()).getDaoSession(); //初始化DaoSession对数据库进行管理
+        mDaoSession= GreenDaoHelper.getDaoSession(); //初始化DaoSession对数据库进行管理
         //获取地图控件引用
         distanceText=findViewById(R.id.distanceDetail);
         timeText=findViewById(R.id.timeDetail);

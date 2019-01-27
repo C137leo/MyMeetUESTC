@@ -16,6 +16,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter.StuInfoPrenster;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         CrashReport.initCrashReport(getApplicationContext());
         setContentView(R.layout.activity_login);
-        daoSession=((MyApplication)getApplication()).getDaoSession();
+        daoSession= GreenDaoHelper.getDaoSession();
         login=findViewById(R.id.login_button);
         login_account=findViewById(R.id.login_account);
         login_password=findViewById(R.id.login_password);

@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +17,9 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_RecyclerViewAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.view.IView;
 
-public class Help_InfoFragment extends Fragment {
+public class Help_InfoFragment extends Fragment implements IView {
     private List<HelpInfo> mList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
@@ -47,6 +48,11 @@ public class Help_InfoFragment extends Fragment {
         HelpInfo data2=new HelpInfo("RAY","重金求子","10","10");
         mList.add(data1);
         mList.add(data2);
+    }
+
+    @Override
+    public void showData() {
+
     }
 
     @Override
