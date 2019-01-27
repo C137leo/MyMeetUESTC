@@ -16,10 +16,10 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_RecyclerViewAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
 public class Help_InfoFragment extends Fragment {
-    private List<Help_Info> mList;
+    private List<HelpInfo> mList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
     @Nullable
@@ -42,9 +42,9 @@ public class Help_InfoFragment extends Fragment {
         help_recyclerViewAdapter.notifyDataSetChanged();
     }
     public void initHelpData(){
-        mList=new ArrayList<Help_Info>();
-        Help_Info data1=new Help_Info("ray","重金求子","10","10");
-        Help_Info data2=new Help_Info("RAY","重金求子","10","10");
+        mList=new ArrayList<HelpInfo>();
+        HelpInfo data1=new HelpInfo("ray","重金求子","10","10");
+        HelpInfo data2=new HelpInfo("RAY","重金求子","10","10");
         mList.add(data1);
         mList.add(data2);
     }

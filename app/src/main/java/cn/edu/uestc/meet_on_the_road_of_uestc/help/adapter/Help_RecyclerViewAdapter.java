@@ -12,12 +12,12 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
 public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Help_Info> mList;
-    public Help_RecyclerViewAdapter(Context context,List<Help_Info> mList){
+    private List<HelpInfo> mList;
+    public Help_RecyclerViewAdapter(Context context,List<HelpInfo> mList){
         this.mContext=context;
         this.mList=mList;
     }

@@ -15,11 +15,11 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter.Help_FragmentAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.Help_Info;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
 public class HelpFragment extends Fragment {
 
-    private List<Help_Info> mList;
+    private List<HelpInfo> mList;
     ViewPager mViewPager;
     TabLayout mTabLayout;
     List<Help_InfoFragment> fragments;

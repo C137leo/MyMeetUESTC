@@ -11,7 +11,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import dev.DevUtils;
 
 public class MyApplication extends TinkerApplication {
-
     public MyApplication(){
         super(ShareConstants.TINKER_ENABLE_ALL, "cn.edu.uestc.meet_on_the_road_of_uestc.MyApplicationLike",
                 "com.tencent.tinker.loader.TinkerLoader", false);
@@ -22,6 +21,7 @@ public class MyApplication extends TinkerApplication {
         super.onCreate();
         context = getApplicationContext();
         DevUtils.init(getApplicationContext());
+        initGreenDao();
     }
     public static Context getMyContext(){
         return context;

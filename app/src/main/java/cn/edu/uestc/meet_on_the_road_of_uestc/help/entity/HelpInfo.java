@@ -1,12 +1,15 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.entity;
 
-public class Help_Info {
+public class HelpInfo {
+    private int isPay;
+    private String stuID;
+    private Long UID;
     private String distance;
     private String owner_name;
     private String good_title;
     private String publish_time;
 
-    public Help_Info(String owner_name,String good_title,String publish_time,String distance){
+    public HelpInfo(String owner_name, String good_title, String publish_time, String distance){
         this.distance=distance;
         this.owner_name=owner_name;
         this.good_title=good_title;
@@ -42,5 +45,21 @@ public class Help_Info {
 
     public void setPublish_time(String publish_time) {
         this.publish_time = publish_time;
+    }
+
+    public Long getUID() {
+        return UID;
+    }
+
+    public void setUID(Long UID) {
+        this.UID = UID;
+    }
+
+    public int getIsPay() {
+        return isPay;
+    }
+
+    public void setIsPay(int isPay) {
+        this.isPay = isPay;
     }
 }
