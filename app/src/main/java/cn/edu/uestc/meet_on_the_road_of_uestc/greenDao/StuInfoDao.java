@@ -29,8 +29,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         public final static Property StuPassWord = new Property(2, String.class, "StuPassWord", false, "STU_PASS_WORD");
         public final static Property StuSignature = new Property(3, String.class, "StuSignature", false, "STU_SIGNATURE");
         public final static Property StuGrade = new Property(4, int.class, "StuGrade", false, "STU_GRADE");
-        public final static Property MLatitude = new Property(5, Long.class, "mLatitude", false, "M_LATITUDE");
-        public final static Property MLontitude = new Property(6, Long.class, "mLontitude", false, "M_LONTITUDE");
+        public final static Property MLatitude = new Property(5, double.class, "mLatitude", false, "M_LATITUDE");
+        public final static Property MLontitude = new Property(6, double.class, "mLontitude", false, "M_LONTITUDE");
     }
 
     private DaoSession daoSession;
@@ -54,8 +54,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
                 "\"STU_PASS_WORD\" TEXT," + // 2: StuPassWord
                 "\"STU_SIGNATURE\" TEXT," + // 3: StuSignature
                 "\"STU_GRADE\" INTEGER NOT NULL ," + // 4: StuGrade
-                "\"M_LATITUDE\" INTEGER," + // 5: mLatitude
-                "\"M_LONTITUDE\" INTEGER);"); // 6: mLontitude
+                "\"M_LATITUDE\" REAL NOT NULL ," + // 5: mLatitude
+                "\"M_LONTITUDE\" REAL NOT NULL );"); // 6: mLontitude
     }
 
     /** Drops the underlying database table. */
@@ -88,16 +88,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
- 
-        Long mLatitude = entity.getMLatitude();
-        if (mLatitude != null) {
-            stmt.bindLong(6, mLatitude);
-        }
- 
-        Long mLontitude = entity.getMLontitude();
-        if (mLontitude != null) {
-            stmt.bindLong(7, mLontitude);
-        }
+        stmt.bindDouble(6, entity.getMLatitude());
+        stmt.bindDouble(7, entity.getMLontitude());
     }
 
     @Override
@@ -124,16 +116,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
- 
-        Long mLatitude = entity.getMLatitude();
-        if (mLatitude != null) {
-            stmt.bindLong(6, mLatitude);
-        }
- 
-        Long mLontitude = entity.getMLontitude();
-        if (mLontitude != null) {
-            stmt.bindLong(7, mLontitude);
-        }
+        stmt.bindDouble(6, entity.getMLatitude());
+        stmt.bindDouble(7, entity.getMLontitude());
     }
 
     @Override
@@ -155,8 +139,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // StuPassWord
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // StuSignature
             cursor.getInt(offset + 4), // StuGrade
-            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // mLatitude
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // mLontitude
+            cursor.getDouble(offset + 5), // mLatitude
+            cursor.getDouble(offset + 6) // mLontitude
         );
         return entity;
     }
@@ -168,8 +152,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         entity.setStuPassWord(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStuSignature(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setStuGrade(cursor.getInt(offset + 4));
-        entity.setMLatitude(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
-        entity.setMLontitude(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
+        entity.setMLatitude(cursor.getDouble(offset + 5));
+        entity.setMLontitude(cursor.getDouble(offset + 6));
      }
     
     @Override

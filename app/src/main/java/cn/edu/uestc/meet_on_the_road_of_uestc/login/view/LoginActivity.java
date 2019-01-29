@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
@@ -23,7 +23,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter.StuInfoPrenster;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Button login;
@@ -83,11 +83,19 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putBoolean("remember", false);
                 }
                 editor.apply();
+                stuInfoPrenster.attachView(iView);
+                stuInfoPrenster.getStuInfo(account,password);
             }
         });
-        stu=stuInfoPrenster.getDataInDatabase();
-        StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade(),stu.getmLatitude(),stu.getmLontitude());
-        daoSession.insert(stuInfo);
     }
 
+    private IView iView=new IView() {
+        @Override
+        public void loginSuccess(Stu stu) {
+            StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade(),stu.getmLatitude(),stu.getmLontitude());
+            daoSession.insertOrReplace(stuInfo);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            finish();
+        }
+    };
 }
