@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help.model;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model;
 
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;

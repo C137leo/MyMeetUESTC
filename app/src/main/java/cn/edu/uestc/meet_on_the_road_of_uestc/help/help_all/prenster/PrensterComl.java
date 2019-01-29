@@ -1,10 +1,9 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help.prenster;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.model.HelpModel;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.service.RetrofitHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

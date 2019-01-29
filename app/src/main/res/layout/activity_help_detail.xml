@@ -8,6 +8,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_back"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="10dp"/>
+
+    <RelativeLayout
+        android:alpha="0.9"
+        android:layout_centerInParent="true"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:background="@drawable/shape_corners">
+        <TextView
+            android:id="@+id/help_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="帮助标题"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/help_title"
+            android:text="作者"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="70dp"
+            android:text="发布时间"/>
+        <ImageView
+            android:layout_marginTop="80dp"
+            android:layout_alignLeft="@id/help_title"
+            android:layout_marginEnd="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_line"/>
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@id/help_title"
+            android:layout_marginEnd="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="帮助详情"
+            android:layout_marginTop="100dp"/>
+    </RelativeLayout>
 </RelativeLayout>

@@ -1,8 +1,7 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help.service;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.service;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;

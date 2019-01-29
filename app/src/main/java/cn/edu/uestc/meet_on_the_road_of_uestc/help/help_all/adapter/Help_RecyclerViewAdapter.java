@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
