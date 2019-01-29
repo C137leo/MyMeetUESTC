@@ -23,8 +23,8 @@ public class HelpFragment extends Fragment {
 
     private List<HelpInfo> mList;
     ViewPager mViewPager;
-    PagerTitleStrip helpTitle;
     List<Help_InfoFragment> fragments;
+    TabLayout tabLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class HelpFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewPager=getActivity().findViewById(R.id.help_viewPager);
-        helpTitle=getActivity().findViewById(R.id.helpTitle);
+        tabLayout=getActivity().findViewById(R.id.tabTitle);
         initViewPager();
     }
     private void initViewPager(){
@@ -48,6 +48,7 @@ public class HelpFragment extends Fragment {
         }
         Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
         mViewPager.setAdapter(help_fragmentAdapter);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

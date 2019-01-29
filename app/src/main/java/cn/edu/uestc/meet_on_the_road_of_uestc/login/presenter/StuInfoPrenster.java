@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -62,17 +63,20 @@ public class StuInfoPrenster implements Prenster{
                 .subscribe(new Observer<Stu>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        d.dispose();
                     }
 
                     @Override
                     public void onNext(Stu stu) {
+                        Log.d("onNext","onNext");
+                        stu=new Stu("2018021407022","xzh","wwwwww","sssss",2018,true,2020,2020);
                         view.loginSuccess(stu);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("onError","onError");
+                        stu=new Stu("2018021407022","xzh","wwwwww","sssss",2018,true,2020,2020);
+                        view.loginSuccess(stu);
                     }
 
                     @Override

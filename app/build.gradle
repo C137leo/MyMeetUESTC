@@ -69,6 +69,7 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2' // add GreenDao library
     implementation 'com.squareup.retrofit2:retrofit:2.5.0' //retrofit网络框架
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2' // 用Gson解析json的转换器
+    implementation 'com.android.support:cardview-v7:27.1.1'
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
     //搜索功能

@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity{
             StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade(),stu.getmLatitude(),stu.getmLontitude());
             daoSession.insertOrReplace(stuInfo);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
             finish();
         }
     };

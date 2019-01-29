@@ -165,6 +165,8 @@ public class RunningActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(long time) {
                         stopTraceTime=time;
+                        changeTheLatLngListToString();
+                        setDataIndb();
                     }
 
                     @Override
@@ -172,8 +174,6 @@ public class RunningActivity extends AppCompatActivity {
                         Toast.makeText(RunningActivity.this,"获取结束时间失败，跑步结束失败，请稍后再试",Toast.LENGTH_SHORT).show();
                     }
                 });
-                changeTheLatLngListToString();
-                setDataIndb();
                 Intent intent=new Intent(RunningActivity.this,FinishRunActivity.class);
                 intent.putExtra("runTime",showTime);
                 intent.putExtra("startRunTime",startTraceTime);
