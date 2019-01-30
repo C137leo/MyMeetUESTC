@@ -65,7 +65,9 @@ dependencies {
     implementation 'com.github.afkT:DevUtils:1.1.8@aar'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.android.support:percent:27.1.1'
-    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'org.greenrobot:greendao:3.2.2' // add GreenDao library
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0' //retrofit网络框架
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2' // 用Gson解析json的转换器
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
     //搜索功能

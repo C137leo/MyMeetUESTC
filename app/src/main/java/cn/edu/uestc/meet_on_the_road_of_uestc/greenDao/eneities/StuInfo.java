@@ -8,24 +8,24 @@ import org.greenrobot.greendao.annotation.ToMany;
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
-
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.StuInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.traceInfoDao;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.StuInfoDao;
 
 
 @Entity
 public class StuInfo {
 
 
-    @Id(autoincrement = true)
-    private Long StuID;
+    @Id(autoincrement = false)
+    private String StuID;
     @Property
     private String StuName;
     private String StuPassWord;
     private String StuSignature;
     private int StuGrade;
-    private boolean isRemember;
+    private Long mLatitude;
+    private Long mLontitude;
     @ToMany(referencedJoinProperty =  "stuID")
     private List<traceInfo> traceInfoList;
     /** Used to resolve relations */
@@ -34,23 +34,24 @@ public class StuInfo {
     /** Used for active entity operations. */
     @Generated(hash = 348921390)
     private transient StuInfoDao myDao;
-    @Generated(hash = 948336827)
-    public StuInfo(Long StuID, String StuName, String StuPassWord, String StuSignature, int StuGrade,
-            boolean isRemember) {
+    @Generated(hash = 996357772)
+    public StuInfo(String StuID, String StuName, String StuPassWord,
+            String StuSignature, int StuGrade, Long mLatitude, Long mLontitude) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
         this.StuSignature = StuSignature;
         this.StuGrade = StuGrade;
-        this.isRemember = isRemember;
+        this.mLatitude = mLatitude;
+        this.mLontitude = mLontitude;
     }
     @Generated(hash = 724382685)
     public StuInfo() {
     }
-    public Long getStuID() {
+    public String getStuID() {
         return this.StuID;
     }
-    public void setStuID(Long StuID) {
+    public void setStuID(String StuID) {
         this.StuID = StuID;
     }
     public String getStuName() {
@@ -76,6 +77,18 @@ public class StuInfo {
     }
     public void setStuGrade(int StuGrade) {
         this.StuGrade = StuGrade;
+    }
+    public Long getMLatitude() {
+        return this.mLatitude;
+    }
+    public void setMLatitude(Long mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+    public Long getMLontitude() {
+        return this.mLontitude;
+    }
+    public void setMLontitude(Long mLontitude) {
+        this.mLontitude = mLontitude;
     }
     /**
      * To-many relationship, resolved on first access (and after reset).
@@ -143,11 +156,4 @@ public class StuInfo {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getStuInfoDao() : null;
     }
-    public boolean getIsRemember() {
-        return this.isRemember;
-    }
-    public void setIsRemember(boolean isRemember) {
-        this.isRemember = isRemember;
-    }
-
 }

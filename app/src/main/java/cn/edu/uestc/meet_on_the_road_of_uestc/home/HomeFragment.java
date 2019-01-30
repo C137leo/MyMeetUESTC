@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.BinPic;
+import cn.edu.uestc.meet_on_the_road_of_uestc.entity.BinPic;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

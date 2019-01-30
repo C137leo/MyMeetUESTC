@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.Login;
+package cn.edu.uestc.meet_on_the_road_of_uestc.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.bean.registerInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.registerInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import okhttp3.Call;
@@ -88,7 +88,7 @@ public class RegisterService extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d("Register Server",response.body().string());
-                    Intent intent=new Intent(RegisterService.this,LoginActivity.class);
+                    Intent intent=new Intent(RegisterService.this, LoginActivity.class);
                     startActivity(intent);
                 }
             });

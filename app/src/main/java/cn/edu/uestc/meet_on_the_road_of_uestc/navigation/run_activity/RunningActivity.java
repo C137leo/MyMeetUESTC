@@ -3,12 +3,9 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.RectF;
 import android.location.Location;
-import android.media.TimedText;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.TimeUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,30 +15,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
-import com.amap.api.track.AMapTrackClient;
-import com.autonavi.ae.gmap.GLMapEngine;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 import dev.utils.common.DateUtils;
 import dev.utils.common.HttpURLConnectionUtils;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -52,10 +46,10 @@ public class RunningActivity extends AppCompatActivity {
     TextView speedText;
     MapView mMapView=null;
     AMap aMap;
-    List<LatLng> myRunningRoute=new ArrayList<>();
-    LatLng oldLatlng;
-    LatLng newLatlng;
-    List<LatLng> polylineList=new ArrayList<>();
+    List<LatLng> myRunningRoute=new ArrayList<>(); //跑步路径储存List
+    LatLng oldLatlng; //跑步前一秒的纬度
+    LatLng newLatlng; //跑步后一秒纬度
+    List<LatLng> polylineList=new ArrayList<>();  //跑步路径绘制储存list
     Button pauseRunning;
     Button stopRunning;
     ProgressBar mProgressBar;
@@ -75,10 +69,16 @@ public class RunningActivity extends AppCompatActivity {
     String setTime;
     boolean isModel;
     boolean isPause=false;
+    DaoSession mDaoSession;
+    String date;
+    String latitude=null;
+    String lontitude=null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
+        mDaoSession=((MyApplication)getApplication()).getDaoSession(); //初始化DaoSession对数据库进行管理
         //获取地图控件引用
         distanceText=findViewById(R.id.distanceDetail);
         timeText=findViewById(R.id.timeDetail);
@@ -116,10 +116,14 @@ public class RunningActivity extends AppCompatActivity {
 
             @Override
             public void onFail(Exception e) {
-                Toast.makeText(RunningActivity.this,"开始时间获取失败，跑步不能开始",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RunningActivity.this,"开始时间获取失败，跑步开始失败",Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
+        date=DateUtils.getDateNow();
+        /**
+         * 设置获取轨迹坐标的list集合，以及绘制跑步的路线
+         */
         aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
@@ -167,6 +171,8 @@ public class RunningActivity extends AppCompatActivity {
                         Toast.makeText(RunningActivity.this,"获取结束时间失败，跑步结束失败，请稍后再试",Toast.LENGTH_SHORT).show();
                     }
                 });
+                changeTheLatLngListToString();
+                setDataIndb();
                 Intent intent=new Intent(RunningActivity.this,FinishRunActivity.class);
                 intent.putExtra("runTime",showTime);
                 intent.putExtra("startRunTime",startTraceTime);
@@ -193,7 +199,21 @@ public class RunningActivity extends AppCompatActivity {
              }
          });
     }
+    public void setDataIndb(){
+        traceInfo traceInfo=new traceInfo(date,"2018021407022",latitude,lontitude,20.00,20.00,startTraceTime,stopTraceTime,(stopTraceTime-startTraceTime));
 
+    }
+
+    /**
+     * 将list内的数据转换合并为string类型方便数据库储存
+     */
+
+    public void changeTheLatLngListToString(){
+        for(LatLng latLng:myRunningRoute){
+            latitude=latitude+","+latLng.latitude;
+            lontitude=lontitude+","+latLng.longitude;
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
