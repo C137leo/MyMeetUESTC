@@ -26,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -64,21 +62,6 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.amap.api.services.route.WalkStep;
-import com.amap.api.track.AMapTrackClient;
-import com.amap.api.track.ErrorCode;
-import com.amap.api.track.OnTrackLifecycleListener;
-import com.amap.api.track.TrackParam;
-import com.amap.api.track.query.model.AddTerminalRequest;
-import com.amap.api.track.query.model.AddTerminalResponse;
-import com.amap.api.track.query.model.AddTrackResponse;
-import com.amap.api.track.query.model.DistanceResponse;
-import com.amap.api.track.query.model.HistoryTrackResponse;
-import com.amap.api.track.query.model.LatestPointResponse;
-import com.amap.api.track.query.model.OnTrackListener;
-import com.amap.api.track.query.model.ParamErrorResponse;
-import com.amap.api.track.query.model.QueryTerminalRequest;
-import com.amap.api.track.query.model.QueryTerminalResponse;
-import com.amap.api.track.query.model.QueryTrackResponse;
 import com.google.gson.Gson;
 
 import java.io.FileDescriptor;
@@ -116,11 +99,8 @@ import okhttp3.Response;
 
 public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListener,
         Inputtips.InputtipsListener,GeocodeSearch.OnGeocodeSearchListener,
-        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener,OnTrackLifecycleListener,UploadInformation {
+        RouteSearch.OnRouteSearchListener,NearbySearch.NearbyListener,AMap.OnMarkerClickListener,UploadInformation {
     private MapView mMapView;
-    public AMapLocationClient mLocationClient;
-    //声明AMapLocationClientOption对象
-    public AMapLocationClientOption mLocationOption = null;
     private LatLng mCurLocation;
     private String address;
     AMap aMap;
@@ -159,7 +139,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     private OkHttpClient okHttpClient;
     long serviceID=16004;
     traceTime mtraceTime;
-    final AMapTrackClient aMapTrackClient = new AMapTrackClient(MyApplication.getMyContext());
     MyLocationStyle myLocationStyle;
     ImageView setRoute;
     String server_info="https://www.happydoudou.xyz";
@@ -702,7 +681,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     }
 
     public void beginRun(){
-        setupTrackService();
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置缩放级别
@@ -712,173 +690,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(mCurLocation));
         aMap.moveCamera(CameraUpdateFactory.zoomTo(19));//设置缩放级别
-    }
-    public void setupTrackService(){
-        DevUtils.init(MyApplication.getMyContext());
-        final String terminalName = PhoneUtils.getIMEI();   // 唯一标识某个用户或某台设备的名称
-        aMapTrackClient.queryTerminal(new QueryTerminalRequest(serviceID, terminalName), new OnTrackListener() {
-            @Override
-            public void onQueryTerminalCallback(QueryTerminalResponse queryTerminalResponse) {
-                if (queryTerminalResponse.isSuccess()) {
-                    if (queryTerminalResponse.getTid() <= 0) {
-                        // terminal还不存在，先创建
-                        aMapTrackClient.addTerminal(new AddTerminalRequest(terminalName, serviceID), new OnTrackListener() {
-                            @Override
-                            public void onCreateTerminalCallback(AddTerminalResponse addTerminalResponse) {
-                                if (addTerminalResponse.isSuccess()) {
-                                    // 创建完成，开启猎鹰服务
-                                    long terminalId = addTerminalResponse.getTid();
-                                    aMapTrackClient.startTrack(new TrackParam(serviceID, terminalId), NavFragment.this);
-                                    Log.d("StartTerminal","开启猎鹰服务成功");
-                                } else {
-                                    // 请求失败
-                                    Log.e("addTerminal",addTerminalResponse.getErrorMsg());
-                                }
-                            }
-
-                            @Override
-                            public void onQueryTerminalCallback(QueryTerminalResponse queryTerminalResponse) {
-
-                            }
-
-                            @Override
-                            public void onDistanceCallback(DistanceResponse distanceResponse) {
-
-                            }
-
-                            @Override
-                            public void onLatestPointCallback(LatestPointResponse latestPointResponse) {
-
-                            }
-
-                            @Override
-                            public void onHistoryTrackCallback(HistoryTrackResponse historyTrackResponse) {
-
-                            }
-
-                            @Override
-                            public void onQueryTrackCallback(QueryTrackResponse queryTrackResponse) {
-
-                            }
-
-                            @Override
-                            public void onAddTrackCallback(AddTrackResponse addTrackResponse) {
-
-                            }
-
-                            @Override
-                            public void onParamErrorCallback(ParamErrorResponse paramErrorResponse) {
-
-                            }
-                        });
-                    } else {
-                        // terminal已经存在，直接开启猎鹰服务
-                        long terminalId = queryTerminalResponse.getTid();
-                        aMapTrackClient.startTrack(new TrackParam(serviceID, terminalId), NavFragment.this);
-                    }
-                } else {
-                    // 请求失败
-                    Log.e("请求失败",queryTerminalResponse.getErrorMsg());
-                }
-            }
-
-            @Override
-            public void onCreateTerminalCallback(AddTerminalResponse addTerminalResponse) {
-
-            }
-
-            @Override
-            public void onDistanceCallback(DistanceResponse distanceResponse) {
-
-            }
-
-            @Override
-            public void onLatestPointCallback(LatestPointResponse latestPointResponse) {
-
-            }
-
-            @Override
-            public void onHistoryTrackCallback(HistoryTrackResponse historyTrackResponse) {
-
-            }
-
-            @Override
-            public void onQueryTrackCallback(QueryTrackResponse queryTrackResponse) {
-
-            }
-
-            @Override
-            public void onAddTrackCallback(AddTrackResponse addTrackResponse) {
-
-            }
-
-            @Override
-            public void onParamErrorCallback(ParamErrorResponse paramErrorResponse) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onBindServiceCallback(int i, String s) {
-
-    }
-
-    @Override
-    public void onStartGatherCallback(int i, String s) {
-        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
-                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
-            HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
-                @Override
-                public void onResponse(long time) {
-                    startTime=time;
-                }
-
-                @Override
-                public void onFail(Exception e) {
-                    Log.d("getNetTime","获取网络时间失败");
-                }
-            });
-            Log.d("TrackService","StartGather Successfully");
-        } else {
-            Log.e("TrackService",i+";"+s);
-        }
-    }
-
-    @Override
-    public void onStartTrackCallback(int i, String s) {
-        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
-                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
-            Log.d("TrackService","StartTrack Successfully");
-        } else {
-            Log.e("TrackService",i+";"+s);
-        }
-    }
-
-    @Override
-    public void onStopGatherCallback(int i, String s) {
-        if (i == ErrorCode.TrackListen.START_GATHER_SUCEE ||
-                i == ErrorCode.TrackListen.START_GATHER_ALREADY_STARTED){
-            HttpURLConnectionUtils.getNetTime(new HttpURLConnectionUtils.TimeCallBack() {
-                @Override
-                public void onResponse(long time) {
-                    stopTime=time;
-                }
-
-                @Override
-                public void onFail(Exception e) {
-                    Log.d("getNetTime","获取网络时间失败");
-                }
-            });
-            Log.d("TrackService","StopGather Successfully");
-        } else {
-            Log.e("TrackService",i+";"+s);
-        }
-    }
-
-    @Override
-    public void onStopTrackCallback(int i, String s) {
-
     }
 
     @Override

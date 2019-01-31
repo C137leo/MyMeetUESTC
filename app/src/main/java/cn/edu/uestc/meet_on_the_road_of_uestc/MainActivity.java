@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.AppointmentFragment;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.HelpFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.HelpAllFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.home.HomeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
@@ -22,7 +22,7 @@ public class MainActivity extends CheckPermissionsActivity{
     //获取管理类
     FragmentManager mFragmentManager=getSupportFragmentManager();
     AppointmentFragment appointmentFragment=new AppointmentFragment();
-    HelpFragment helpFragment=new HelpFragment();
+    HelpAllFragment helpAllFragment =new HelpAllFragment();
     HomeFragment homeFragment=new HomeFragment();
     MeFragment meFragment=new MeFragment();
     NavFragment navFragment=new NavFragment();
@@ -76,7 +76,7 @@ public class MainActivity extends CheckPermissionsActivity{
                     break;
                 case R.id.menu_help:
                     mFragmentManager.beginTransaction()
-                            .replace(R.id.container_content,helpFragment)
+                            .replace(R.id.container_content, helpAllFragment)
                             .commit();
                     break;
                 case R.id.menu_appointment:

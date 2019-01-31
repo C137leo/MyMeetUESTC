@@ -3,6 +3,8 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter;
 import android.content.Intent;
 import android.view.View;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.IView;
+
 public interface Prenster {
 
     void onCreate();
@@ -13,7 +15,7 @@ public interface Prenster {
 
     void pause();//暂时没用到
 
-    void attachView(View view);
+    void attachView(IView view);
 
     void attachIncomingIntent(Intent intent);//暂时没用到
 }

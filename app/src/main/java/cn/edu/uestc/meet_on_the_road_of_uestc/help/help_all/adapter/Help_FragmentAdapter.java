@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.help.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.Help_InfoFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.Help_InfoFragment;
 
 public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     private List<String> mTitle;
@@ -47,4 +47,5 @@ public class Help_FragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public void restoreState(Parcelable state, ClassLoader loader) {
     }
+
 }

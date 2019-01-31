@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10sp"
             android:layout_marginTop="20sp"
-            android:src="@drawable/ic_back" />
+            android:src="@mipmap/ic_back" />
         <TextView
             android:layout_marginTop="70sp"
             android:textSize="30sp"
