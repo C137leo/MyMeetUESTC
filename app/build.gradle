@@ -8,7 +8,7 @@ bugly {
     appKey = '9a968308-7410-4abc-b640-a6b398c98c8e' // 注册时分配的App Key
 }
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
     defaultConfig {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -16,7 +16,7 @@ android {
         }
         applicationId "cn.edu.uestc.meet_on_the_road_of_uestc"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 3
         versionName "0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -72,6 +72,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     //3D地图so及jar
     implementation 'com.amap.api:3dmap:latest.integration'
+    //定位功能
+    implementation 'com.amap.api:location:latest.integration'
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
     implementation "com.android.support:multidex:1.0.3" // 多dex配置
