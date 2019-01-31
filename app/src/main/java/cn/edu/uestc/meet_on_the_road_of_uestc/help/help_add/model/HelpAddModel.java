@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
@@ -13,7 +14,7 @@ public class HelpAddModel implements IModel{
     List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
     private String stuID;
     private String stuName;
-    HelpAddPrenster helpAddPrenster=new HelpAddPrenster();
+    HelpAddPrenster helpAddPrenster=new HelpAddPrenster(MyApplication.getMyContext());
     @Override
     public void writeDataBases() {
 

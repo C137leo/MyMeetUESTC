@@ -11,4 +11,5 @@ public interface IPrenster {
     void getTips();
     void getTime();
     void getStuInfoSuccess(String stuID,String stuName);
+    void getLatLngFromView(double latitude,double longitude);
 }
