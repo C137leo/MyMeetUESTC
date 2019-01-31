@@ -41,14 +41,24 @@
             android:minLines="5"
             android:hint="说点什么"
             android:theme="@style/add_help_edittext"/>
-        <EditText
-            android:id="@+id/help_add_location"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="添加位置"
-            android:theme="@style/add_help_edittext"/>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/help_add_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="添加位置"
+                android:theme="@style/add_help_edittext"/>
+            <ListView
+                android:id="@+id/add_help_location_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+        </LinearLayout>
 
         <com.amap.api.maps.MapView
+            android:id="@+id/help_add_map"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="200sp"></com.amap.api.maps.MapView>

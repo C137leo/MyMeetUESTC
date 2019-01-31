@@ -10,7 +10,6 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.track.AMapTrackClient;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

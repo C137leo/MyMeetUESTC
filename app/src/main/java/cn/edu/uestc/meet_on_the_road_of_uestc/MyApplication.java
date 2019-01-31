@@ -28,5 +28,4 @@ public class MyApplication extends TinkerApplication {
     public static Context getMyContext(){
         return context;
     }
-
 }

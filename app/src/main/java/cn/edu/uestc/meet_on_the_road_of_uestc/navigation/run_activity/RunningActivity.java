@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
@@ -54,20 +53,12 @@ public class RunningActivity extends AppCompatActivity {
     Button pauseRunning;
     Button stopRunning;
     ProgressBar mProgressBar;
-    Long totalDistance;
-    Long totalTime;
     Long startTraceTime;
     Long stopTraceTime;
-    Long runTime;
-    Long newTime;
-    Long oldTime;
-    Runnable getShowTime;
     Disposable disposable;
     int showTime=0;
     int flag_running=1; //判断是否处于跑步状态，1：正在跑步 2：暂停
     int flag_pause=0; //判断是否按下了暂停按钮，1：按下 2：未按下
-    String runModel;
-    String setTime;
     boolean isModel;
     boolean isPause=false;
     DaoSession mDaoSession;

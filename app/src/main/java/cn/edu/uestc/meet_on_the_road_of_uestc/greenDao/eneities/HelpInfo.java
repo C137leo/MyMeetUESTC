@@ -16,9 +16,10 @@ public class HelpInfo {
     String good_title;
     String publish_time;
     int isPay;
-    @Generated(hash = 253783286)
+    String good_detail;
+    @Generated(hash = 2020779476)
     public HelpInfo(Long UID, String StuID, String distance, String owner_name,
-            String good_title, String publish_time, int isPay) {
+            String good_title, String publish_time, int isPay, String good_detail) {
         this.UID = UID;
         this.StuID = StuID;
         this.distance = distance;
@@ -26,6 +27,7 @@ public class HelpInfo {
         this.good_title = good_title;
         this.publish_time = publish_time;
         this.isPay = isPay;
+        this.good_detail = good_detail;
     }
     @Generated(hash = 498075579)
     public HelpInfo() {
@@ -35,6 +37,12 @@ public class HelpInfo {
     }
     public void setUID(Long UID) {
         this.UID = UID;
+    }
+    public String getStuID() {
+        return this.StuID;
+    }
+    public void setStuID(String StuID) {
+        this.StuID = StuID;
     }
     public String getDistance() {
         return this.distance;
@@ -66,11 +74,10 @@ public class HelpInfo {
     public void setIsPay(int isPay) {
         this.isPay = isPay;
     }
-    public String getStuID() {
-        return this.StuID;
+    public String getGood_detail() {
+        return this.good_detail;
     }
-    public void setStuID(String StuID) {
-        this.StuID = StuID;
+    public void setGood_detail(String good_detail) {
+        this.good_detail = good_detail;
     }
-
 }

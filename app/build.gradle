@@ -8,15 +8,15 @@ bugly {
     appKey = '9a968308-7410-4abc-b640-a6b398c98c8e' // 注册时分配的App Key
 }
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
         }
         applicationId "cn.edu.uestc.meet_on_the_road_of_uestc"
-        minSdkVersion 24
-        targetSdkVersion 27
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode 3
         versionName "0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

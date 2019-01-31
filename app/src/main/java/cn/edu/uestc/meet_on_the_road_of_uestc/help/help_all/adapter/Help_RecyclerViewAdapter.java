@@ -28,10 +28,12 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.good_title.setText(mList.get(i).getGood_title());
-        myViewHolder.publish_name.setText(mList.get(i).getOwner_name());
-        myViewHolder.distance.setText(mList.get(i).getDistance());
-        myViewHolder.publish_time.setText(mList.get(i).getPublish_time());
+        if(mList!=null) {
+            myViewHolder.good_title.setText(mList.get(i).getGood_title());
+            myViewHolder.publish_name.setText(mList.get(i).getOwner_name());
+            myViewHolder.publish_time.setText(mList.get(i).getPublish_time());
+            myViewHolder.distance.setText("20");
+        }
     }
 
     @Override

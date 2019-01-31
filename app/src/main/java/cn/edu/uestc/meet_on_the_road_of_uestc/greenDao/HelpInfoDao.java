@@ -31,6 +31,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
         public final static Property Good_title = new Property(4, String.class, "good_title", false, "GOOD_TITLE");
         public final static Property Publish_time = new Property(5, String.class, "publish_time", false, "PUBLISH_TIME");
         public final static Property IsPay = new Property(6, int.class, "isPay", false, "IS_PAY");
+        public final static Property Good_detail = new Property(7, String.class, "good_detail", false, "GOOD_DETAIL");
     }
 
 
@@ -52,7 +53,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
                 "\"OWNER_NAME\" TEXT," + // 3: owner_name
                 "\"GOOD_TITLE\" TEXT," + // 4: good_title
                 "\"PUBLISH_TIME\" TEXT," + // 5: publish_time
-                "\"IS_PAY\" INTEGER NOT NULL );"); // 6: isPay
+                "\"IS_PAY\" INTEGER NOT NULL ," + // 6: isPay
+                "\"GOOD_DETAIL\" TEXT);"); // 7: good_detail
     }
 
     /** Drops the underlying database table. */
@@ -95,6 +97,11 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
             stmt.bindString(6, publish_time);
         }
         stmt.bindLong(7, entity.getIsPay());
+ 
+        String good_detail = entity.getGood_detail();
+        if (good_detail != null) {
+            stmt.bindString(8, good_detail);
+        }
     }
 
     @Override
@@ -131,6 +138,11 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
             stmt.bindString(6, publish_time);
         }
         stmt.bindLong(7, entity.getIsPay());
+ 
+        String good_detail = entity.getGood_detail();
+        if (good_detail != null) {
+            stmt.bindString(8, good_detail);
+        }
     }
 
     @Override
@@ -147,7 +159,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // owner_name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // good_title
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // publish_time
-            cursor.getInt(offset + 6) // isPay
+            cursor.getInt(offset + 6), // isPay
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // good_detail
         );
         return entity;
     }
@@ -161,6 +174,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
         entity.setGood_title(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPublish_time(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setIsPay(cursor.getInt(offset + 6));
+        entity.setGood_detail(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override

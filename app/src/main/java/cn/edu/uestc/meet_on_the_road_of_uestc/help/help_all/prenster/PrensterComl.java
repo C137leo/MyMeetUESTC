@@ -3,7 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.service.RetrofitHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,22 +25,6 @@ public class PrensterComl implements IPrenster{
 
             @Override
             public void onFailure(Call<HelpInfo> call, Throwable t) {
-
-            }
-        });
-    }
-
-    @Override
-    public void postData(HelpInfo helpInfo) {
-        retrofitService=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).postGoodData(helpInfo);
-        retrofitService.enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
-
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
 
             }
         });

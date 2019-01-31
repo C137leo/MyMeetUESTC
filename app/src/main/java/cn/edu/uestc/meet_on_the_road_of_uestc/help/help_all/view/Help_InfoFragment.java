@@ -18,7 +18,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
-public class Help_InfoFragment extends Fragment implements IView {
+public class Help_InfoFragment extends Fragment {
     private List<HelpInfo> mList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
@@ -42,16 +42,8 @@ public class Help_InfoFragment extends Fragment implements IView {
         help_recyclerViewAdapter.notifyDataSetChanged();
     }
     public void initHelpData(){
-        mList=new ArrayList<HelpInfo>();
-        HelpInfo data1=new HelpInfo("ray","重金求子","10","10");
-        HelpInfo data2=new HelpInfo("RAY","重金求子","10","10");
-        mList.add(data1);
-        mList.add(data2);
-    }
-
-    @Override
-    public void showData() {
-
+        mList=new ArrayList<>();
+        mList.add(new HelpInfo(1,"2018","ray","he","hello",20,20,"hello"));
     }
 
     @Override
