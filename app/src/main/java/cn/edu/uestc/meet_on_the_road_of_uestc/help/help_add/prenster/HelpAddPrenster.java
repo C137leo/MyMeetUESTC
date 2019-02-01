@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.prenster;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -10,8 +11,13 @@ import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.amap.api.services.help.Inputtips;
+import com.amap.api.services.help.InputtipsQuery;
+import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+
+import java.util.List;
 
 import javax.crypto.spec.IvParameterSpec;
 
@@ -29,7 +35,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
-public class HelpAddPrenster implements IPrenster, PoiSearch.OnPoiSearchListener , GeocodeSearch.OnGeocodeSearchListener {
+public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, GeocodeSearch.OnGeocodeSearchListener {
     private Context mContext;
     HelpInfo helpInfo;
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance(MyApplication.getMyContext());
@@ -121,6 +127,13 @@ public class HelpAddPrenster implements IPrenster, PoiSearch.OnPoiSearchListener
         geocoderSearch.getFromLocationAsyn(query);
     }
 
+    public void getTipsInListView(String inputLocation){
+        InputtipsQuery inputquery = new InputtipsQuery(inputLocation, "成都市");
+        inputquery.setCityLimit(true);//限制在当前城市
+        Inputtips inputTips = new Inputtips(mContext, inputquery);
+        inputTips.setInputtipsListener(this);
+        inputTips.requestInputtipsAsyn();
+    }
     /**
      * 逆地理编码，坐标转地址，来自高德
      * @param regeocodeResult 逆地理编码结果
@@ -139,18 +152,19 @@ public class HelpAddPrenster implements IPrenster, PoiSearch.OnPoiSearchListener
     }
 
     /**
-     * 继承poisearchlistener实现的poi搜索方法
-     * @param poiResult poi搜索得到结果
-     * @param i 响应吗，1000即成功
+     * 获取提示列表
+     * @param list 提示列表
+     * @param i 状态码，1000即成功
      */
     @Override
-    public void onPoiSearched(PoiResult poiResult, int i) {
-
-    }
-
-    @Override
-    public void onPoiItemSearched(PoiItem poiItem, int i) {
-
+    public void onGetInputtips(List<Tip> list, int i) {
+        if(i==1000){
+            if (list.get(0).getPoiID()!=null){
+                iView.getTipList(list);
+            }
+        }else{
+            Toast.makeText(mContext,"网络错误，检查网络后重试",Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
