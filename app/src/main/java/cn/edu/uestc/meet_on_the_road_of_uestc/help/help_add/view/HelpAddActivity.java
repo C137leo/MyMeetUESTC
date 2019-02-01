@@ -9,7 +9,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.amap.api.maps.AMap;
@@ -39,6 +41,8 @@ public class HelpAddActivity extends AppCompatActivity {
     private String good_title;
     private String good_detail;
     private String publish_location;
+    ImageView help_add_back;
+    Button help_add_confirm;
     AMap aMap;
     static List<Tip> tipList=new ArrayList<>();
     InputTipsListViewAdapter listViewAdapter=new InputTipsListViewAdapter(HelpAddActivity.this,tipList);
@@ -46,6 +50,14 @@ public class HelpAddActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_add);
+        help_add_back=findViewById(R.id.help_add_back);
+        help_add_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        help_add_confirm=findViewById(R.id.publish_help_button);
         good_title_edittext=findViewById(R.id.help_add_title);
         good_detail_edittext=findViewById(R.id.help_add_detail);
         publish_location_edittext=findViewById(R.id.help_add_location);
