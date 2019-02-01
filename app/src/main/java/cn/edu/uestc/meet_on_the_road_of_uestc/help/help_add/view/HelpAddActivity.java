@@ -7,12 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -21,6 +25,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Tip;
 
 import java.util.ArrayList;
@@ -139,7 +144,16 @@ public class HelpAddActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+            }
+        });
+        publish_location_edittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_DONE){
+                    inputTipsListView.setVisibility(View.GONE);
+                    helpAddPrenster.getPoiSearch(String.valueOf(v.getText()));
+                }
+                return false;
             }
         });
     }
@@ -172,7 +186,22 @@ public class HelpAddActivity extends AppCompatActivity {
             HelpAddActivity.tipList=tipList;
             listViewAdapter.updateListData(tipList);
         }
+
+        @Override
+        public void setPoiSearchLocation(PoiItem poiItem) {
+            if(poiItem!=null) {
+                final Marker marker = aMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(poiItem.getLatLonPoint().getLatitude(), poiItem.getLatLonPoint().getLongitude()))
+                        .title(poiItem.getTitle()).snippet(poiItem.getSnippet()));
+                aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(poiItem.getLatLonPoint().getLatitude(), poiItem.getLatLonPoint().getLongitude())));
+            }else{
+                Toast.makeText(HelpAddActivity.this,"地图位置获取失败，将不展现于地图上",Toast.LENGTH_SHORT).show();
+            }
+        }
     };
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
