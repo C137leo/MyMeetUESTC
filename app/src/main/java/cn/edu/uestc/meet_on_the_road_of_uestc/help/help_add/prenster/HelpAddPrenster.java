@@ -17,12 +17,17 @@ import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.spec.IvParameterSpec;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.model.HelpAddModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
 import dev.DevUtils;
@@ -42,13 +47,16 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     IView iView;
     private int isPay;
     private String stuID;
-    private String owner_name;
     private String good_title;
     private String publish_time;
-    private double latitude;
-    private double longitude;
     private String good_detail;
     private String publish_location;
+    double latitude;
+    double longitude;
+    DaoSession daoSession= GreenDaoHelper.getDaoSession();
+    List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
+    private String stuName;
+
     public HelpAddPrenster(Context context){
         this.mContext=context;
     }
@@ -58,42 +66,30 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     }
 
     @Override
-    public void getDataFromView(String good_title, String good_detail, String publish_location) {
-        this.good_title=good_title;
-        this.good_detail=good_detail;
-        this.publish_location=publish_location;
-    }
-
-    @Override
-    public void getTime() {
-        publish_time = DateUtils.getDateNow();
-    }
-
-    @Override
-    public void getStuInfoSuccess(String stuID, String stuName) {
-        this.stuID=stuID;
-        this.owner_name=stuName;
-    }
-
-    @Override
-    public void initPostData() {
-        HelpInfo helpInfo=new HelpInfo();
+    public void initPostInfo(String good_title, String good_detail, String publish_location) {
+        iView.showInProgress();
+        stuInfoList=daoSession.loadAll(StuInfo.class);
+        this.stuID=stuInfoList.get(0).getStuID();
+        this.stuName=stuInfoList.get(0).getStuName();
+        helpInfo=new HelpInfo(1,stuID,stuName,good_title, DateUtils.getDateNow(),publish_location,good_detail);
+        postData();
     }
 
     @Override
     public void postData() {
+        Log.d("Retrofit","beginPost");
         Observable<ResponseBody> observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).postGoodData(helpInfo);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        iView.addSuccess(); //因为目前没有responseBody，所以临时解决办法
                     }
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-
+                        Log.d("Retrofit","onNext");
                     }
 
                     @Override
@@ -103,15 +99,12 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
 
                     @Override
                     public void onComplete() {
+                        Log.d("Retrofit","onComplete");
                         iView.addSuccess();
                     }
                 });
     }
 
-    @Override
-    public void getTips() {
-
-    }
 
     /**
      * 通过输入框中地址获取地图位置
@@ -130,6 +123,12 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         poiSearch.searchPOIAsyn();
         Log.d("poiSearch","开始poi搜索");
     }
+
+    /**
+     * 获取初始化activity时的位置
+     * @param latitude 初始化的经度
+     * @param longitude 初始化的纬度
+     */
 
     @Override
     public void getLatLngFromView(double latitude, double longitude) {

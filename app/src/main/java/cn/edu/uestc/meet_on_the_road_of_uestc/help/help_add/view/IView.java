@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface IView {
     void addSuccess();
-    void getInputData();
     void updateLocationEdittext(String location);
     void getTipList(List<Tip> tipList);
     void setPoiSearchLocation(PoiItem poiItem);
+    void showInProgress();
+    void addError();
 }

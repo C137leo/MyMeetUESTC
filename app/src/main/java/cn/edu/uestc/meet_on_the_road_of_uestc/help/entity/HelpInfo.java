@@ -1,7 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.entity;
 
 public class HelpInfo {
-    private int isPay;
+    private int isPay;  //0代表不需要，1代表需要
     private String stuID;
     private String owner_name;
     private String good_title;

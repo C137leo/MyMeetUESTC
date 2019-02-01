@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class HelpAddActivity extends AppCompatActivity {
     ImageView help_add_back;
     Button help_add_confirm;
     AMap aMap;
+    ProgressBar addHelpProgress;
     static List<Tip> tipList=new ArrayList<>();
     InputTipsListViewAdapter listViewAdapter=new InputTipsListViewAdapter(HelpAddActivity.this,tipList);
     @Override
@@ -66,13 +68,17 @@ public class HelpAddActivity extends AppCompatActivity {
         help_add_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                helpAddPrenster.initPostData();
+                good_title=good_title_edittext.getText().toString();
+                good_detail=good_detail_edittext.getText().toString();
+                publish_location=publish_location_edittext.getText().toString();
+                helpAddPrenster.initPostInfo(good_title,good_detail,publish_location);
             }
         });
         good_title_edittext=findViewById(R.id.help_add_title);
         good_detail_edittext=findViewById(R.id.help_add_detail);
         publish_location_edittext=findViewById(R.id.help_add_location);
         mapView=findViewById(R.id.help_add_map);
+        addHelpProgress=findViewById(R.id.add_help_progress);
         inputTipsListView=findViewById(R.id.add_help_location_tips);
         inputTipsListView.setAdapter(listViewAdapter); //初始化listview的adapter
         listviewOnItemListener();
@@ -160,20 +166,22 @@ public class HelpAddActivity extends AppCompatActivity {
 
 
     IView iView=new IView() {
+        /**
+         * 信息提交成功
+         */
         @Override
         public void addSuccess() {
+            addHelpProgress.setVisibility(View.GONE);
+            Toast.makeText(HelpAddActivity.this,"提交成功",Toast.LENGTH_SHORT).show();
             finish();
         }
 
         /**
-         * 获取详情框中所填数据
+         * 信息提交失败
          */
         @Override
-        public void getInputData() {
-            good_title=good_title_edittext.getText().toString();
-            good_detail=good_detail_edittext.getText().toString();
-            publish_location=publish_location_edittext.getText().toString();
-            helpAddPrenster.getDataFromView(good_title,good_detail,publish_location);
+        public void addError() {
+            Toast.makeText(HelpAddActivity.this,"网络错误，请稍后重试",Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -197,6 +205,11 @@ public class HelpAddActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(HelpAddActivity.this,"地图位置获取失败，将不展现于地图上",Toast.LENGTH_SHORT).show();
             }
+        }
+
+        @Override
+        public void showInProgress() {
+            addHelpProgress.setVisibility(View.VISIBLE);
         }
     };
 
