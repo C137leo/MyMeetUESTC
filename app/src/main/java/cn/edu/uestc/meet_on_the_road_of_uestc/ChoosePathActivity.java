@@ -52,6 +52,7 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
         }
         //开始定位
         location();
+        //开始设置路线
     }
 
     private void location() {
