@@ -170,6 +170,7 @@ public class HelpAddActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        inputTipsListView.setVisibility(View.GONE);
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mapView.onDestroy();
     }
@@ -182,6 +183,7 @@ public class HelpAddActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        inputTipsListView.setVisibility(View.GONE);
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
         mapView.onPause();
     }
