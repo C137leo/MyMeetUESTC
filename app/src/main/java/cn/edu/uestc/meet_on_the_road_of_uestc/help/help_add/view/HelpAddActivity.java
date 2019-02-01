@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,6 +27,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.Text;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.help.Tip;
 
@@ -68,10 +70,15 @@ public class HelpAddActivity extends AppCompatActivity {
         help_add_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                good_title=good_title_edittext.getText().toString();
-                good_detail=good_detail_edittext.getText().toString();
-                publish_location=publish_location_edittext.getText().toString();
-                helpAddPrenster.initPostInfo(good_title,good_detail,publish_location);
+                if(!(TextUtils.isEmpty(good_title_edittext.getText()) && TextUtils.isEmpty(good_detail_edittext.getText()) &&TextUtils.isEmpty(publish_location_edittext.getText())))
+                {
+                    good_title = good_title_edittext.getText().toString();
+                    good_detail = good_detail_edittext.getText().toString();
+                    publish_location = publish_location_edittext.getText().toString();
+                    helpAddPrenster.initPostInfo(good_title, good_detail, publish_location);
+                }else{
+                    Toast.makeText(HelpAddActivity.this,"请完善信息再进行提交",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         good_title_edittext=findViewById(R.id.help_add_title);
