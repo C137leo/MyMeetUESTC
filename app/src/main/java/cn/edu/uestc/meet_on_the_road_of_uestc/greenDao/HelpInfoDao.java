@@ -26,7 +26,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     public static class Properties {
         public final static Property UID = new Property(0, Long.class, "UID", true, "_id");
         public final static Property StuID = new Property(1, String.class, "StuID", false, "STU_ID");
-        public final static Property Distance = new Property(2, String.class, "distance", false, "DISTANCE");
+        public final static Property Location = new Property(2, String.class, "location", false, "LOCATION");
         public final static Property Owner_name = new Property(3, String.class, "owner_name", false, "OWNER_NAME");
         public final static Property Good_title = new Property(4, String.class, "good_title", false, "GOOD_TITLE");
         public final static Property Publish_time = new Property(5, String.class, "publish_time", false, "PUBLISH_TIME");
@@ -49,7 +49,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"HELP_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: UID
                 "\"STU_ID\" TEXT," + // 1: StuID
-                "\"DISTANCE\" TEXT," + // 2: distance
+                "\"LOCATION\" TEXT," + // 2: location
                 "\"OWNER_NAME\" TEXT," + // 3: owner_name
                 "\"GOOD_TITLE\" TEXT," + // 4: good_title
                 "\"PUBLISH_TIME\" TEXT," + // 5: publish_time
@@ -77,9 +77,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
             stmt.bindString(2, StuID);
         }
  
-        String distance = entity.getDistance();
-        if (distance != null) {
-            stmt.bindString(3, distance);
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(3, location);
         }
  
         String owner_name = entity.getOwner_name();
@@ -118,9 +118,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
             stmt.bindString(2, StuID);
         }
  
-        String distance = entity.getDistance();
-        if (distance != null) {
-            stmt.bindString(3, distance);
+        String location = entity.getLocation();
+        if (location != null) {
+            stmt.bindString(3, location);
         }
  
         String owner_name = entity.getOwner_name();
@@ -155,7 +155,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
         HelpInfo entity = new HelpInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // UID
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // StuID
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // distance
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // location
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // owner_name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // good_title
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // publish_time
@@ -169,7 +169,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     public void readEntity(Cursor cursor, HelpInfo entity, int offset) {
         entity.setUID(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setStuID(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setDistance(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setLocation(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setOwner_name(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setGood_title(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPublish_time(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));

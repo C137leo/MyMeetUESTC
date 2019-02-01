@@ -58,6 +58,12 @@ public class HelpAddActivity extends AppCompatActivity {
             }
         });
         help_add_confirm=findViewById(R.id.publish_help_button);
+        help_add_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpAddPrenster.initPostData();
+            }
+        });
         good_title_edittext=findViewById(R.id.help_add_title);
         good_detail_edittext=findViewById(R.id.help_add_detail);
         publish_location_edittext=findViewById(R.id.help_add_location);
