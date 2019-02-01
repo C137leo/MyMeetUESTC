@@ -8,6 +8,5 @@ public interface IView {
     void addSuccess();
     void getInputData();
     void updateLocationEdittext(String location);
-    void listenLocationEdittext();
     void getTipList(List<Tip> tipList);
 }

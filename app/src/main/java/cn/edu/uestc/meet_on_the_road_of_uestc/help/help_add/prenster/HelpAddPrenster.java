@@ -128,7 +128,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     }
 
     public void getTipsInListView(String inputLocation){
-        InputtipsQuery inputquery = new InputtipsQuery(inputLocation, "成都市");
+        InputtipsQuery inputquery = new InputtipsQuery(inputLocation, "");
         inputquery.setCityLimit(true);//限制在当前城市
         Inputtips inputTips = new Inputtips(mContext, inputquery);
         inputTips.setInputtipsListener(this);
@@ -160,9 +160,12 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     public void onGetInputtips(List<Tip> list, int i) {
         if(i==1000){
             if (list.get(0).getPoiID()!=null){
+                Log.d("getTipList","getTipList");
+                Log.d("getTipList",list.get(0).getName());
                 iView.getTipList(list);
             }
         }else{
+            Log.e("getInpuTips","错误码为"+i);
             Toast.makeText(mContext,"网络错误，检查网络后重试",Toast.LENGTH_SHORT).show();
         }
     }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.help.Tip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
@@ -38,7 +40,7 @@ public class HelpAddActivity extends AppCompatActivity {
     private String good_detail;
     private String publish_location;
     AMap aMap;
-    List<Tip> tipList;
+    static List<Tip> tipList=new ArrayList<>();
     InputTipsListViewAdapter listViewAdapter=new InputTipsListViewAdapter(HelpAddActivity.this,tipList);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class HelpAddActivity extends AppCompatActivity {
         inputTipsListView=findViewById(R.id.add_help_location_tips);
         inputTipsListView.setAdapter(listViewAdapter); //初始化listview的adapter
         listviewOnItemListener();
+        listenLocationEdittext();
         mapView.onCreate(savedInstanceState);
         helpAddPrenster.attchView(iView);
         if (aMap == null) {
@@ -77,6 +80,8 @@ public class HelpAddActivity extends AppCompatActivity {
                 final Marker marker = aMap.addMarker(new MarkerOptions()
                         .position(new LatLng(tipList.get(position).getPoint().getLatitude(),tipList.get(position).getPoint().getLongitude()))
                         .title(tipList.get(position).getName()).snippet(tipList.get(position).getAddress()));
+                aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(tipList.get(position).getPoint().getLatitude(),tipList.get(position).getPoint().getLongitude())));
+                publish_location_edittext.setText(tipList.get(position).getName());
                 inputTipsListView.setVisibility(View.GONE);
             }
         });
@@ -92,6 +97,35 @@ public class HelpAddActivity extends AppCompatActivity {
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         aMap.moveCamera(CameraUpdateFactory.zoomTo(17));//设置默认缩放级别
     }
+
+    /**
+     * 监听输入框输入变化
+     */
+    public void listenLocationEdittext() {
+        publish_location_edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length()!=0) {
+                    helpAddPrenster.getTipsInListView(String.valueOf(s));
+                    inputTipsListView.setVisibility(View.VISIBLE);
+                    Log.d("inputInEditText", String.valueOf(s));
+                }else{
+                    inputTipsListView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     IView iView=new IView() {
         @Override
@@ -116,27 +150,8 @@ public class HelpAddActivity extends AppCompatActivity {
         }
 
         @Override
-        public void listenLocationEdittext() {
-            publish_location_edittext.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    helpAddPrenster.getTipsInListView((String) s);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
-
-        @Override
         public void getTipList(List<Tip> tipList) {
+            HelpAddActivity.tipList=tipList;
             listViewAdapter.updateListData(tipList);
         }
     };

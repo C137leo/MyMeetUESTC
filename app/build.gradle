@@ -20,6 +20,7 @@ android {
         versionCode 3
         versionName "0.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     signingConfigs {
         releaseConfig {

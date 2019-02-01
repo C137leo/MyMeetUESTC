@@ -41,12 +41,13 @@ public class InputTipsListViewAdapter extends BaseAdapter {
         Holder holder = null;
         if(convertView==null){
             holder=new Holder();
-            convertView= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_add_help_inputtips,parent);
+            convertView= LayoutInflater.from(mContext).inflate(R.layout.adapter_add_help_inputtips,null);
             convertView.setTag(holder);
         }else {
             holder=(Holder)convertView.getTag();
         }
         holder.add_help_inputtips=convertView.findViewById(R.id.add_help_inputtips);
+        holder.add_help_inputtips.setText(tipList.get(position).getName());
         return convertView;
     }
 
@@ -54,6 +55,7 @@ public class InputTipsListViewAdapter extends BaseAdapter {
         this.tipList=tipList;
         notifyDataSetChanged();
     }
+
     class Holder{
         TextView add_help_inputtips;
     }
