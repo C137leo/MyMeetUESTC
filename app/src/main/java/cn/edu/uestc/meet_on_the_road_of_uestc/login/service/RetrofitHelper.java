@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
@@ -28,10 +29,12 @@ public class RetrofitHelper {
         mRetrofit=new Retrofit.Builder()
                 .baseUrl("https://www.happydoudou.xyz/")
                 .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
     }
     public RetrofitService getRetrofitService(){
+        startRetrofitService();
         return mRetrofit.create(RetrofitService.class);
     }
 }

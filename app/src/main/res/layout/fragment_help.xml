@@ -1,23 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/help_tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="fixed">
-    </android.support.design.widget.TabLayout>
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@mipmap/ic_help_tab_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="40sp"
+                android:text="帮帮酱"/>
+        </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/help_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/help_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_help_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="580dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_help_add"
+        app:backgroundTint="@color/white"
+        app:elevation="6dp"
+        app:fabSize="mini"
+        app:pressedTranslationZ="10dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/my_help_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="640dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_help_myself"
+        app:backgroundTint="@color/white"
+        app:elevation="6dp"
+        app:fabSize="mini"
+        app:pressedTranslationZ="10dp" />
+</RelativeLayout>

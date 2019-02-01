@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 import dev.utils.common.DateUtils;
 import dev.utils.common.HttpURLConnectionUtils;
@@ -53,20 +53,12 @@ public class RunningActivity extends AppCompatActivity {
     Button pauseRunning;
     Button stopRunning;
     ProgressBar mProgressBar;
-    Long totalDistance;
-    Long totalTime;
     Long startTraceTime;
     Long stopTraceTime;
-    Long runTime;
-    Long newTime;
-    Long oldTime;
-    Runnable getShowTime;
     Disposable disposable;
     int showTime=0;
     int flag_running=1; //判断是否处于跑步状态，1：正在跑步 2：暂停
     int flag_pause=0; //判断是否按下了暂停按钮，1：按下 2：未按下
-    String runModel;
-    String setTime;
     boolean isModel;
     boolean isPause=false;
     DaoSession mDaoSession;
@@ -78,7 +70,7 @@ public class RunningActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
-        mDaoSession=((MyApplication)getApplication()).getDaoSession(); //初始化DaoSession对数据库进行管理
+        mDaoSession= GreenDaoHelper.getDaoSession(); //初始化DaoSession对数据库进行管理
         //获取地图控件引用
         distanceText=findViewById(R.id.distanceDetail);
         timeText=findViewById(R.id.timeDetail);
@@ -164,6 +156,8 @@ public class RunningActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(long time) {
                         stopTraceTime=time;
+                        changeTheLatLngListToString();
+                        setDataIndb();
                     }
 
                     @Override
@@ -171,8 +165,6 @@ public class RunningActivity extends AppCompatActivity {
                         Toast.makeText(RunningActivity.this,"获取结束时间失败，跑步结束失败，请稍后再试",Toast.LENGTH_SHORT).show();
                     }
                 });
-                changeTheLatLngListToString();
-                setDataIndb();
                 Intent intent=new Intent(RunningActivity.this,FinishRunActivity.class);
                 intent.putExtra("runTime",showTime);
                 intent.putExtra("startRunTime",startTraceTime);

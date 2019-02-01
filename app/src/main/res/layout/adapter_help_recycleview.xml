@@ -34,11 +34,11 @@
 
     <ImageView
 
-        android:layout_width="47dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="250sp"
-        android:src="@drawable/ic_trace" />
+        android:layout_marginStart="280dp"
+        android:src="@mipmap/ic_trace" />
 
         <TextView
             android:layout_gravity="center_vertical"
@@ -47,4 +47,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/distance" />
+
+
 </FrameLayout>

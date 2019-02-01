@@ -24,8 +24,8 @@ public class StuInfo {
     private String StuPassWord;
     private String StuSignature;
     private int StuGrade;
-    private Long mLatitude;
-    private Long mLontitude;
+    private double mLatitude;
+    private double mLontitude;
     @ToMany(referencedJoinProperty =  "stuID")
     private List<traceInfo> traceInfoList;
     /** Used to resolve relations */
@@ -34,9 +34,10 @@ public class StuInfo {
     /** Used for active entity operations. */
     @Generated(hash = 348921390)
     private transient StuInfoDao myDao;
-    @Generated(hash = 996357772)
+    @Generated(hash = 104385949)
     public StuInfo(String StuID, String StuName, String StuPassWord,
-            String StuSignature, int StuGrade, Long mLatitude, Long mLontitude) {
+            String StuSignature, int StuGrade, double mLatitude,
+            double mLontitude) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
@@ -78,16 +79,16 @@ public class StuInfo {
     public void setStuGrade(int StuGrade) {
         this.StuGrade = StuGrade;
     }
-    public Long getMLatitude() {
+    public double getMLatitude() {
         return this.mLatitude;
     }
-    public void setMLatitude(Long mLatitude) {
+    public void setMLatitude(double mLatitude) {
         this.mLatitude = mLatitude;
     }
-    public Long getMLontitude() {
+    public double getMLontitude() {
         return this.mLontitude;
     }
-    public void setMLontitude(Long mLontitude) {
+    public void setMLontitude(double mLontitude) {
         this.mLontitude = mLontitude;
     }
     /**

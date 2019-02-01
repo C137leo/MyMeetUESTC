@@ -8,9 +8,19 @@ public class Stu {
     private String StuSignature;
     private int StuGrade;
     private boolean isRemember;
-    private Long mLatitude;
-    private Long mLontitude;
+    private double mLatitude;
+    private double mLontitude;
 
+    public Stu(String StuID,String StuName,String StuPassWord,String StuSignature,int StuGrade,boolean isRemember,double mLatitude,double mLontitude){
+        this.StuID=StuID;
+        this.StuName=StuName;
+        this.StuPassWord=StuPassWord;
+        this.StuSignature=StuSignature;
+        this.StuGrade=StuGrade;
+        this.isRemember=isRemember;
+        this.mLatitude=mLatitude;
+        this.mLontitude=mLontitude;
+    }
     public String getStuID() {
         return StuID;
     }
@@ -59,19 +69,19 @@ public class Stu {
         isRemember = remember;
     }
 
-    public Long getmLatitude() {
+    public double getmLatitude() {
         return mLatitude;
     }
 
-    public void setmLatitude(Long mLatitude) {
+    public void setmLatitude(double mLatitude) {
         this.mLatitude = mLatitude;
     }
 
-    public Long getmLontitude() {
+    public double getmLontitude() {
         return mLontitude;
     }
 
-    public void setmLontitude(Long mLontitude) {
+    public void setmLontitude(double mLontitude) {
         this.mLontitude = mLontitude;
     }
 }
