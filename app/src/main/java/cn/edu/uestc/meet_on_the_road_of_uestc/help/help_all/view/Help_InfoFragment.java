@@ -15,9 +15,9 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 
 public class Help_InfoFragment extends Fragment {
@@ -48,7 +48,7 @@ public class Help_InfoFragment extends Fragment {
 
     IView iView=new IView() {
         @Override
-        public void updateData(List<HelpInfo> helpInfoList) {
+        public void updateData(List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList) {
             help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
         }
     };

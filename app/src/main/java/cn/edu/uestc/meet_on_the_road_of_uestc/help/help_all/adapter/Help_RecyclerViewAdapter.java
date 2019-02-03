@@ -12,12 +12,12 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 
 public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
-    private List<HelpInfo> mList;
-    public Help_RecyclerViewAdapter(Context context,List<HelpInfo> mList){
+    private List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList;
+    public Help_RecyclerViewAdapter(Context context,List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList){
         this.mContext=context;
         this.mList=mList;
     }

@@ -17,9 +17,9 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.HelpAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.Help_InfoFragment;
 
