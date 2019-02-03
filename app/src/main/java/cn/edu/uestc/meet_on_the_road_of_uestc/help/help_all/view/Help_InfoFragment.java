@@ -18,12 +18,14 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 
 public class Help_InfoFragment extends Fragment {
-    private List<HelpInfo> mList;
+    private List<HelpInfo> mList=new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
     Help_RecyclerViewAdapter help_recyclerViewAdapter;
+    PrensterComl prensterComl=new PrensterComl(MyApplication.getMyContext());
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class Help_InfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initHelpData();
+        prensterComl.attchView(iView);
         help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -44,9 +46,6 @@ public class Help_InfoFragment extends Fragment {
         help_recyclerViewAdapter.notifyDataSetChanged();
     }
     public void initHelpData(){
-        mList=new ArrayList<>();
-        mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
-        mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
     }
     IView iView=new IView() {
         @Override

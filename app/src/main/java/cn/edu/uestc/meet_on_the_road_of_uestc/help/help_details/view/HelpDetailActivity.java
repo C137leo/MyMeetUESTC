@@ -13,5 +13,15 @@ public class HelpDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help_detail);
     }
 
+    IView iView=new IView() {
+        @Override
+        public void showData() {
 
+        }
+
+        @Override
+        public void searchData() {
+
+        }
+    };
 }

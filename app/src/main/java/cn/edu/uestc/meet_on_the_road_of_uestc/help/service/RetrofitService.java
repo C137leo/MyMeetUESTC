@@ -16,5 +16,5 @@ public interface RetrofitService {
     Observable<ResponseBody> postGoodData(@Body HelpInfo helpInfo);
 
     @GET("helpInfo/getData")
-    Call<HelpInfo> getGoodsData();
+    Observable<ResponseBody> getGoodsData();
 }

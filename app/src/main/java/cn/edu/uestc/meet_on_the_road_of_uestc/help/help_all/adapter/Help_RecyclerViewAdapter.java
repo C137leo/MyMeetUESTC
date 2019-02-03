@@ -49,9 +49,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     public void updateDataInFragment(List<HelpInfo> helpInfoList){
-        for(HelpInfo helpInfo:helpInfoList){
-            mList.add(helpInfo);
-        }
+        mList.addAll(helpInfoList);
         notifyDataSetChanged();
     }
     class MyViewHolder extends RecyclerView.ViewHolder{

@@ -52,5 +52,11 @@
             android:layout_height="wrap_content"
             android:text="帮助详情"
             android:layout_marginTop="100dp"/>
+        <com.amap.api.maps.MapView
+            android:id="@+id/help_add_map"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"></com.amap.api.maps.MapView>
     </RelativeLayout>
 </RelativeLayout>
