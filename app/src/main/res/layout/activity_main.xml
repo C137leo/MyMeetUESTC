@@ -25,11 +25,13 @@
             android:clickable="true"
             android:focusable="true">
             <ImageView
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_navigation_bottombar"/>
             <TextView
-                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,12 +48,14 @@
             android:clickable="true"
             android:focusable="true">
             <ImageView
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_appointment_bottombar"/>
             <TextView
-                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_appointment"
@@ -67,11 +71,13 @@
             android:clickable="true"
             android:focusable="true">
             <ImageView
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_home_bottombar"/>
             <TextView
-                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_home"
@@ -87,10 +93,12 @@
             android:clickable="true"
             android:focusable="true">
             <ImageView
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_help_bottombar"/>
             <TextView
+                android:textSize="12sp"
                 android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,11 +115,13 @@
             android:clickable="true"
             android:focusable="true">
             <ImageView
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_me_bottombar"/>
             <TextView
-                android:layout_marginTop="3.5dp"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_me"
