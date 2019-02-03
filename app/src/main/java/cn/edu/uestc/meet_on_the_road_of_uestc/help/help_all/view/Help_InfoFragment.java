@@ -15,6 +15,7 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
@@ -22,6 +23,7 @@ public class Help_InfoFragment extends Fragment {
     private List<HelpInfo> mList;
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
+    Help_RecyclerViewAdapter help_recyclerViewAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class Help_InfoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initHelpData();
-        Help_RecyclerViewAdapter help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
+        help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setAdapter(help_recyclerViewAdapter);
@@ -46,7 +48,12 @@ public class Help_InfoFragment extends Fragment {
         mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
         mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
     }
-
+    IView iView=new IView() {
+        @Override
+        public void updateData(List<HelpInfo> helpInfoList) {
+            help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
+        }
+    };
     @Override
     public void onStart() {
         super.onStart();

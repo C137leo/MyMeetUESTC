@@ -48,6 +48,12 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         return myViewHolder;
     }
 
+    public void updateDataInFragment(List<HelpInfo> helpInfoList){
+        for(HelpInfo helpInfo:helpInfoList){
+            mList.add(helpInfo);
+        }
+        notifyDataSetChanged();
+    }
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView good_title;
         TextView publish_name;
