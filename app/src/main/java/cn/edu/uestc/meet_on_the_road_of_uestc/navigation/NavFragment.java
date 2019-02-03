@@ -496,15 +496,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     public void setRandomRoute(){
         List<LatLonPoint> walk_destination=new ArrayList<>();
-        walk_destination.add(new LatLonPoint(30.75533739247437,103.93463802298358));
-        walk_destination.add(new LatLonPoint(30.755226753366486,103.93298149043406));
-        walk_destination.add(new LatLonPoint(30.75472518787249,103.93341064387641));
-        walk_destination.add(new LatLonPoint(30.754378515982434,103.93408870644636));
+        walk_destination.add(new LatLonPoint(37.32816246525063,115.591305507701));
+        walk_destination.add(new LatLonPoint(37.328085683440804,115.59197069553669));
+        walk_destination.add(new LatLonPoint(37.32858049817199,115.59211017040546));
+        walk_destination.add(new LatLonPoint(37.32901601321207,115.59217454342182));
         Random random=new Random();
         LatLonPoint walkDestination=walk_destination.get(random.nextInt(walk_destination.size()));
         routeSearch = new RouteSearch(MyApplication.getMyContext());
         routeSearch.setRouteSearchListener(this);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(30.754267875772726,103.93314456887312));
+        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(37.32901601321207,115.59217454342182));
         RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
         routeSearch.calculateWalkRouteAsyn(query);//开始算
     }
