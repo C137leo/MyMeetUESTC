@@ -44,6 +44,7 @@ public class Help_InfoFragment extends Fragment {
     public void initHelpData(){
         mList=new ArrayList<>();
         mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
+        mList.add(new HelpInfo(1,"2018","ray","he","hello","hhh","hello"));
     }
 
     @Override
