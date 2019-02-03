@@ -43,10 +43,9 @@ public class Help_InfoFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setAdapter(help_recyclerViewAdapter);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        help_recyclerViewAdapter.notifyDataSetChanged();
+        prensterComl.getData();
     }
-    public void initHelpData(){
-    }
+
     IView iView=new IView() {
         @Override
         public void updateData(List<HelpInfo> helpInfoList) {

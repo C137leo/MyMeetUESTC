@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.IView;
@@ -24,7 +25,7 @@ import retrofit2.Response;
 public class PrensterComl implements IPrenster{
     HelpInfo helpInfo;
 
-    Observable<ResponseBody> observable;
+    Observable<HelpInfo> observable;
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance(MyApplication.getMyContext());
     HelpModel helpModel=new HelpModel();
     private Context context;
@@ -44,21 +45,31 @@ public class PrensterComl implements IPrenster{
         observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).getGoodsData();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<HelpInfo>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
                         /**
                          * 临时测试代码
                          **/
                         for(int i=0;i<2;i++){
-                            helpInfo=new HelpInfo(1,String.valueOf(i),"ray","he","hello","hhh","hello");
+                            helpInfo=new HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
                             helpInfoList.add(helpInfo);
-                            helpModel.saveGoodsData(helpInfo);
+                            cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                            helpModel.saveGoodsData(helpInfo1);
+                        }
+                        iView.updateData(helpInfoList);
+                    }
+
+                    @Override
+                    public void onNext(HelpInfo helpInfo) {
+                        /**
+                         * 临时测试代码
+                         **/
+                        for(int i=0;i<2;i++){
+                            helpInfo=new HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                            helpInfoList.add(helpInfo);
+                            cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                            helpModel.saveGoodsData(helpInfo1);
                         }
                     }
 
