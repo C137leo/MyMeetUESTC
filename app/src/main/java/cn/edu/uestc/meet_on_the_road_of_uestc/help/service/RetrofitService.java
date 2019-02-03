@@ -13,7 +13,7 @@ import retrofit2.http.Part;
 public interface RetrofitService {
 
     @POST("helpInfo/postHelpData")
-    Observable<ResponseBody> postGoodData(@Body HelpInfo helpInfo);
+    Observable<ResponseBody> postGoodData(@Body cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo helpInfo);
 
     @GET("helpInfo/getData")
     Observable<HelpInfo> getGoodsData();

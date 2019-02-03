@@ -25,8 +25,8 @@ import javax.crypto.spec.IvParameterSpec;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.model.HelpAddModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
@@ -42,7 +42,7 @@ import okhttp3.ResponseBody;
 
 public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, GeocodeSearch.OnGeocodeSearchListener , PoiSearch.OnPoiSearchListener {
     private Context mContext;
-    HelpInfo helpInfo;
+    cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo helpInfo;
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance(MyApplication.getMyContext());
     IView iView;
     private int isPay;
@@ -53,7 +53,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     private String publish_location;
     double latitude;
     double longitude;
-    DaoSession daoSession= GreenDaoHelper.getDaoSession();
+    private DaoSession daoSession= GreenDaoHelper.getDaoSession();
     List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
     private String stuName;
 
