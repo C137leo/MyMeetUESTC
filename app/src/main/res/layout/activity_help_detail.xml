@@ -5,6 +5,7 @@
     android:background="@mipmap/help_details_background">
 
     <ImageView
+        android:id="@+id/help_detail_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_back"

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -28,6 +30,7 @@ public class HelpDetailActivity extends AppCompatActivity {
     TextView helpDetail;
     PoiItem helpPoiItem;
     MapView mMapView;
+    ImageView helpDetailBack;
     AMap aMap;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +44,13 @@ public class HelpDetailActivity extends AppCompatActivity {
         helpDetailAuthor=findViewById(R.id.help_detail_author);
         helpPublishTime=findViewById(R.id.help_detail_publish_time);
         helpDetail=findViewById(R.id.help_detail);
+        helpDetailBack=findViewById(R.id.help_detail_back);
+        helpDetailBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         if(aMap==null){
             aMap=mMapView.getMap();
         }
