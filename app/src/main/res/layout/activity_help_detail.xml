@@ -40,6 +40,7 @@
             android:layout_marginStart="70dp"
             android:text="发布时间"/>
         <ImageView
+            android:id="@+id/dividerLineAddDetail"
             android:layout_marginTop="80dp"
             android:layout_alignLeft="@id/help_detail_title"
             android:layout_marginEnd="10dp"
@@ -55,11 +56,13 @@
             android:layout_height="wrap_content"
             android:text="帮助详情"
             android:layout_marginTop="100dp"/>
-        <com.amap.api.maps.MapView
-            android:id="@+id/help_add_map"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="200sp"></com.amap.api.maps.MapView>
     </RelativeLayout>
+    <com.amap.api.maps.MapView
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:id="@+id/help_detail_map"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"></com.amap.api.maps.MapView>
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster;
 
+import android.util.Log;
+
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
@@ -34,6 +36,7 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
     @Override
     public void searchDetailData(Long UID) {
         List<HelpInfo> helpInfoList= daoSession.getHelpInfoDao().queryBuilder().where(HelpInfoDao.Properties.UID.eq(UID)).list();
+        Log.d("queryGreendao",String.valueOf(helpInfoList.isEmpty()));
         helpInfo=helpInfoList.get(0);
         iView.showData(helpInfo);
     }
@@ -45,6 +48,7 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
         query.setPageNum(1);
         PoiSearch poiSearch = new PoiSearch(MyApplication.getMyContext(), query);
         poiSearch.setOnPoiSearchListener(this);
+        poiSearch.searchPOIAsyn();
     }
 
     /**
@@ -54,9 +58,11 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
      */
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
+        Log.d("ErrorCode",String.valueOf(i));
         if(i==1000){
+            Log.d("SearchPoi","SarchSuccessfully");
             PoiItem poiItem=poiResult.getPois().get(0);
-            iView.setAmapLocation(new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude()));
+            iView.setAmapLocation(poiItem);
         }
     }
 
