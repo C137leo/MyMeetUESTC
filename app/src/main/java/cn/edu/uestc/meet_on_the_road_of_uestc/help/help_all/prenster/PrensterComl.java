@@ -64,7 +64,7 @@ public class PrensterComl implements IPrenster{
                          * 临时测试代码
                          **/
                         for(int i=0;i<2;i++){
-                            helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                            helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(101),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
                             helpInfoList.add(helpInfo);
                             helpModel.saveGoodsData(helpInfo);
                         }

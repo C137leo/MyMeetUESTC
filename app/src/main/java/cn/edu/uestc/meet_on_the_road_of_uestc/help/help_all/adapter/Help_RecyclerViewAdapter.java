@@ -32,7 +32,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClickListener(myViewHolder.itemView,i);
+                onItemClickListener.onItemClickListener(myViewHolder.itemView,i,mList.get(i).getUID());
             }
         });
         if(mList!=null) {
@@ -81,6 +81,6 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     public interface onItemClickListener{
-        public void onItemClickListener(View view,int position);
+        public void onItemClickListener(View view,int position,Long UID);
     }
 }

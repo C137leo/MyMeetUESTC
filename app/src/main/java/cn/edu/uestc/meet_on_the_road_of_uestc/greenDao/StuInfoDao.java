@@ -33,8 +33,6 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         public final static Property MLontitude = new Property(6, double.class, "mLontitude", false, "M_LONTITUDE");
     }
 
-    private DaoSession daoSession;
-
 
     public StuInfoDao(DaoConfig config) {
         super(config);
@@ -42,7 +40,6 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
     
     public StuInfoDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
-        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -118,12 +115,6 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         stmt.bindLong(5, entity.getStuGrade());
         stmt.bindDouble(6, entity.getMLatitude());
         stmt.bindDouble(7, entity.getMLontitude());
-    }
-
-    @Override
-    protected final void attachEntity(StuInfo entity) {
-        super.attachEntity(entity);
-        entity.__setDaoSession(daoSession);
     }
 
     @Override
