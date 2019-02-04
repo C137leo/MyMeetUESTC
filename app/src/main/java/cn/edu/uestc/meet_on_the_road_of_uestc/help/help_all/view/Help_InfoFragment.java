@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +43,17 @@ public class Help_InfoFragment extends Fragment {
         help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        help_recyclerViewAdapter.setOnItemClickListener(new Help_RecyclerViewAdapter.onItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                Toast.makeText(getActivity(),"点击成功"+position,Toast.LENGTH_SHORT).show();
+            }
+        });
         mRecyclerView.setAdapter(help_recyclerViewAdapter);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         prensterComl.getData();
     }
+
 
     IView iView=new IView() {
         @Override
