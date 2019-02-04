@@ -10,4 +10,5 @@ public interface IPrenster {
     void attchView(IView view);
     void onCreate();
     void searchDetailData(Long UID);
+    void searchLocation();
 }

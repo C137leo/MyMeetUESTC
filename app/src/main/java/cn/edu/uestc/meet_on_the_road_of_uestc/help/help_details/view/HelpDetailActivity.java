@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.LatLng;
+
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster.HelpDetailPrenster;
@@ -16,6 +18,7 @@ public class HelpDetailActivity extends AppCompatActivity {
     TextView helpDetailAuthor;
     TextView helpPublishTime;
     TextView helpDetail;
+    LatLng helpLatLng;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,7 @@ public class HelpDetailActivity extends AppCompatActivity {
         helpDetailPrenster.attchView(iView);
         dataUID=getIntent().getLongExtra("UID",0L);
         helpDetailPrenster.searchDetailData(dataUID);
+        helpDetailPrenster.searchLocation();
         helpDetailPrenster.attchView(iView);
         helpDetailPrenster.searchDetailData(dataUID);
     }
@@ -43,6 +47,11 @@ public class HelpDetailActivity extends AppCompatActivity {
         @Override
         public void searchData() {
 
+        }
+
+        @Override
+        public void setAmapLocation(LatLng latLng) {
+            helpLatLng=latLng;
         }
     };
 }
