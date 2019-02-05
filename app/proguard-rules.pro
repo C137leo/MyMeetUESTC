@@ -76,3 +76,7 @@ public static java.lang.String TABLENAME;
 -dontwarn org.greenrobot.greendao.database.**
 # If you do not use Rx:
 -dontwarn rx.**
+# 极光服务
+-keep public class cn.jiguang.analytics.android.api.** {
+   *;
+}
