@@ -46,7 +46,7 @@ public class Help_InfoFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         help_recyclerViewAdapter.setOnItemClickListener(new Help_RecyclerViewAdapter.onItemClickListener() {
             @Override
-            public void onItemClickListener(View view, int position,Long UID) {
+            public void onItemClickListener(View view, int position,String UID) {
                 Intent intent=new Intent(getActivity(), HelpDetailActivity.class);
                 intent.putExtra("UID",UID);
                 Log.d("UID",String.valueOf(UID));

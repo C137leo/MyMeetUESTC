@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class HelpInfo {
     @Id(autoincrement = false)
-    Long UID;
+    String UID;
     @Property
     String StuID;
     String location;
@@ -17,8 +17,8 @@ public class HelpInfo {
     String publish_time;
     int isPay;
     String good_detail;
-    @Generated(hash = 1969325273)
-    public HelpInfo(Long UID, String StuID, String location, String owner_name,
+    @Generated(hash = 254620700)
+    public HelpInfo(String UID, String StuID, String location, String owner_name,
             String good_title, String publish_time, int isPay, String good_detail) {
         this.UID = UID;
         this.StuID = StuID;
@@ -32,10 +32,10 @@ public class HelpInfo {
     @Generated(hash = 498075579)
     public HelpInfo() {
     }
-    public Long getUID() {
+    public String getUID() {
         return this.UID;
     }
-    public void setUID(Long UID) {
+    public void setUID(String UID) {
         this.UID = UID;
     }
     public String getStuID() {

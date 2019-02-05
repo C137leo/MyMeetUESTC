@@ -31,6 +31,8 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.model.HelpAddModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
 import dev.DevUtils;
+import dev.utils.app.AppCommonUtils;
+import dev.utils.common.AssistUtils;
 import dev.utils.common.DateUtils;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -55,6 +57,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     double longitude;
     private DaoSession daoSession= GreenDaoHelper.getDaoSession();
     List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
+    HelpAddModel helpAddModel=new HelpAddModel();
     private String stuName;
 
     public HelpAddPrenster(Context context){
@@ -71,7 +74,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         stuInfoList=daoSession.loadAll(StuInfo.class);
         this.stuID=stuInfoList.get(0).getStuID();
         this.stuName=stuInfoList.get(0).getStuName();
-        helpInfo=new HelpInfo(100L,"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,1,good_detail);
         postData();
     }
 
@@ -99,6 +102,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
 
                     @Override
                     public void onComplete() {
+                        helpAddModel.writeDataBases(helpInfo);
                         Log.d("Retrofit","onComplete");
                         iView.addSuccess();
                     }

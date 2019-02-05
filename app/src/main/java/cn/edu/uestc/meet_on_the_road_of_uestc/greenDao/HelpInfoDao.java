@@ -15,7 +15,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 /** 
  * DAO for table "HELP_INFO".
 */
-public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
+public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
 
     public static final String TABLENAME = "HELP_INFO";
 
@@ -24,7 +24,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property UID = new Property(0, Long.class, "UID", true, "_id");
+        public final static Property UID = new Property(0, String.class, "UID", true, "UID");
         public final static Property StuID = new Property(1, String.class, "StuID", false, "STU_ID");
         public final static Property Location = new Property(2, String.class, "location", false, "LOCATION");
         public final static Property Owner_name = new Property(3, String.class, "owner_name", false, "OWNER_NAME");
@@ -47,7 +47,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"HELP_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY ," + // 0: UID
+                "\"UID\" TEXT PRIMARY KEY NOT NULL ," + // 0: UID
                 "\"STU_ID\" TEXT," + // 1: StuID
                 "\"LOCATION\" TEXT," + // 2: location
                 "\"OWNER_NAME\" TEXT," + // 3: owner_name
@@ -67,9 +67,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     protected final void bindValues(DatabaseStatement stmt, HelpInfo entity) {
         stmt.clearBindings();
  
-        Long UID = entity.getUID();
+        String UID = entity.getUID();
         if (UID != null) {
-            stmt.bindLong(1, UID);
+            stmt.bindString(1, UID);
         }
  
         String StuID = entity.getStuID();
@@ -108,9 +108,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     protected final void bindValues(SQLiteStatement stmt, HelpInfo entity) {
         stmt.clearBindings();
  
-        Long UID = entity.getUID();
+        String UID = entity.getUID();
         if (UID != null) {
-            stmt.bindLong(1, UID);
+            stmt.bindString(1, UID);
         }
  
         String StuID = entity.getStuID();
@@ -146,14 +146,14 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
     }
 
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
     public HelpInfo readEntity(Cursor cursor, int offset) {
         HelpInfo entity = new HelpInfo( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // UID
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // UID
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // StuID
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // location
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // owner_name
@@ -167,7 +167,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
      
     @Override
     public void readEntity(Cursor cursor, HelpInfo entity, int offset) {
-        entity.setUID(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setUID(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setStuID(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setLocation(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setOwner_name(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
@@ -178,13 +178,12 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
      }
     
     @Override
-    protected final Long updateKeyAfterInsert(HelpInfo entity, long rowId) {
-        entity.setUID(rowId);
-        return rowId;
+    protected final String updateKeyAfterInsert(HelpInfo entity, long rowId) {
+        return entity.getUID();
     }
     
     @Override
-    public Long getKey(HelpInfo entity) {
+    public String getKey(HelpInfo entity) {
         if(entity != null) {
             return entity.getUID();
         } else {

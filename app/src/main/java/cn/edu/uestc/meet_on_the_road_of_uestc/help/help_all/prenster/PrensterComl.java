@@ -12,6 +12,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
+import dev.utils.common.AssistUtils;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
@@ -50,10 +51,11 @@ public class PrensterComl implements IPrenster{
                         /**
                          * 临时测试代码
                          **/
-                        HelpInfo helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(100),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                        
+                        HelpInfo helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
                         helpInfoList.add(helpInfo);
                         helpModel.saveGoodsData(helpInfo);
-                        HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(Long.valueOf(101),"2018021407022","电子科技大学清水河校区","九州","你好","2018",1,"hhhhhhhhh");
+                        HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","电子科技大学清水河校区","九州","你好","2018",1,"hhhhhhhhh");
                         helpInfoList.add(helpInfo1);
                         helpModel.saveGoodsData(helpInfo1);
                         Log.d("subscribe","onSubscribe");

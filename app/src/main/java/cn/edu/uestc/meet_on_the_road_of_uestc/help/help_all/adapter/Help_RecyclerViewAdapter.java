@@ -81,6 +81,6 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     public interface onItemClickListener{
-        public void onItemClickListener(View view,int position,Long UID);
+        public void onItemClickListener(View view,int position,String UID);
     }
 }

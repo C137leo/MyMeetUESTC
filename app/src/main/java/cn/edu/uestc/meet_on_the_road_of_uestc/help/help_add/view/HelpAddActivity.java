@@ -76,6 +76,7 @@ public class HelpAddActivity extends AppCompatActivity {
                     good_detail = good_detail_edittext.getText().toString();
                     publish_location = publish_location_edittext.getText().toString();
                     helpAddPrenster.initPostInfo(good_title, good_detail, publish_location);
+
                 }else{
                     Toast.makeText(HelpAddActivity.this,"请完善信息再进行提交",Toast.LENGTH_SHORT).show();
                 }
