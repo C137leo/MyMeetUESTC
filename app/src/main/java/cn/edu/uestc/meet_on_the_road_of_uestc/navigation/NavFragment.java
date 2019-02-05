@@ -81,6 +81,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.prenster.NavPrenster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.BeforeRunCalculate;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
@@ -142,7 +143,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView setRoute;
     String server_info="https://www.happydoudou.xyz";
     ImageView setGoal;
-
+    NavPrenster navPrenster=new NavPrenster();
 
 
     @Nullable
@@ -208,6 +209,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                             }
                         };
                         timer.schedule(task, 2000, 3000);
+                        nearByview.setImageResource(R.mipmap.ic_nearby_open);
                         flag[0] = 1;
                         break;
                     }
@@ -215,6 +217,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         timer.cancel();
                         clearMarker();
                         flag[0] = 0;
+                        nearByview.setImageResource(R.mipmap.ic_nearby_close);
                         NearbySearch.getInstance(MyApplication.getMyContext())
                                 .clearUserInfoAsyn();
                         NearbySearch.destroy();
@@ -588,7 +591,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 //位置信息
                 loadInfo.setPoint(mLatLonPoint);
                 //用户id信息
-                loadInfo.setUserID(String.valueOf(PhoneUtils.getIMEI()));
+                loadInfo.setUserID(navPrenster.getStuId());
                 Log.d("UserId",String.valueOf(PhoneUtils.getIMEI()));
                 Log.d("Upload Info","Upload Info");
                 return loadInfo;
@@ -605,7 +608,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         //设置搜索条件
         nearbyQuery = new NearbySearch.NearbyQuery();
         //设置搜索的中心点
-        nearbyQuery.setCenterPoint(new LatLonPoint(30.749125,103.931633));
+        nearbyQuery.setCenterPoint(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude));
         //设置搜索的坐标体系
         nearbyQuery.setCoordType(NearbySearch.AMAP);
         //设置搜索半径
