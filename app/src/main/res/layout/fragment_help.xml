@@ -41,7 +41,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_help_button"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="580dp"
+        android:layout_marginTop="540dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_help_add"
@@ -52,7 +52,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/my_help_button"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="600dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_help_myself"

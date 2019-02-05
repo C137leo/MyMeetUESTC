@@ -12,12 +12,13 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 
 public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
-    private List<HelpInfo> mList;
-    public Help_RecyclerViewAdapter(Context context,List<HelpInfo> mList){
+    private List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList;
+    public onItemClickListener onItemClickListener;
+    public Help_RecyclerViewAdapter(Context context,List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList){
         this.mContext=context;
         this.mList=mList;
     }
@@ -27,7 +28,13 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClickListener(myViewHolder.itemView,i,mList.get(i).getUID());
+            }
+        });
         if(mList!=null) {
             myViewHolder.good_title.setText(mList.get(i).getGood_title());
             myViewHolder.publish_name.setText(mList.get(i).getOwner_name());
@@ -48,11 +55,21 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         return myViewHolder;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    public void updateDataInFragment(List<HelpInfo> helpInfoList){
+        mList.addAll(helpInfoList);
+        notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(onItemClickListener onItemClickListener){
+        this.onItemClickListener=onItemClickListener;
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView good_title;
         TextView publish_name;
         TextView distance;
         TextView publish_time;
+        private onItemClickListener onItemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             good_title=itemView.findViewById(R.id.goods_title);
@@ -60,5 +77,10 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
             distance=itemView.findViewById(R.id.distance);
             publish_time=itemView.findViewById(R.id.publish_time);
         }
-}
+
+    }
+
+    public interface onItemClickListener{
+        public void onItemClickListener(View view,int position,Long UID);
+    }
 }

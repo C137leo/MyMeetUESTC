@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.AppointmentFragment;
@@ -26,11 +27,11 @@ public class MainActivity extends CheckPermissionsActivity{
     HomeFragment homeFragment=new HomeFragment();
     MeFragment meFragment=new MeFragment();
     NavFragment navFragment=new NavFragment();
-    RelativeLayout mNav;
-    RelativeLayout mHome;
-    RelativeLayout mHelp;
-    RelativeLayout mAppointment;
-    RelativeLayout mMe;
+    LinearLayout mNav;
+    LinearLayout mHome;
+    LinearLayout mHelp;
+    LinearLayout mAppointment;
+    LinearLayout mMe;
     onClickListener monClickListener=new onClickListener();
     Intent serviceIntent = null;
 

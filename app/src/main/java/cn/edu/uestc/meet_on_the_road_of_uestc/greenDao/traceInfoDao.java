@@ -1,6 +1,5 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.greenDao;
 
-import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
@@ -9,8 +8,6 @@ import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 
@@ -38,7 +35,6 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         public final static Property Time = new Property(8, Long.class, "time", false, "TIME");
     }
 
-    private Query<traceInfo> stuInfo_TraceInfoListQuery;
 
     public traceInfoDao(DaoConfig config) {
         super(config);
@@ -211,18 +207,4 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         return true;
     }
     
-    /** Internal query to resolve the "traceInfoList" to-many relationship of StuInfo. */
-    public List<traceInfo> _queryStuInfo_TraceInfoList(String stuID) {
-        synchronized (this) {
-            if (stuInfo_TraceInfoListQuery == null) {
-                QueryBuilder<traceInfo> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.StuID.eq(null));
-                stuInfo_TraceInfoListQuery = queryBuilder.build();
-            }
-        }
-        Query<traceInfo> query = stuInfo_TraceInfoListQuery.forCurrentThread();
-        query.setParameter(0, stuID);
-        return query.list();
-    }
-
 }

@@ -1,6 +1,5 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.prenster;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.IView;
 
 public interface IPrenster {
