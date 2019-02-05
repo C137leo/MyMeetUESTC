@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,6 +29,7 @@ public class Help_InfoFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
     Help_RecyclerViewAdapter help_recyclerViewAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
     PrensterComl prensterComl=new PrensterComl(MyApplication.getMyContext());
     @Nullable
     @Override
@@ -41,6 +43,14 @@ public class Help_InfoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         prensterComl.attchView(iView);
+        swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                prensterComl.getData();
+            }
+        });
         help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -61,8 +71,15 @@ public class Help_InfoFragment extends Fragment {
 
     IView iView=new IView() {
         @Override
+        public void hideRefershing() {
+            Log.d("stopRefreshing","stopRefreshing");
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+        @Override
         public void updateData(List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList) {
             help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
+
         }
     };
     @Override

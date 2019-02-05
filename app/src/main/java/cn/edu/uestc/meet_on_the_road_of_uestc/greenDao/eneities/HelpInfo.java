@@ -8,15 +8,15 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class HelpInfo {
     @Id(autoincrement = false)
-    String UID;
+    private String UID;
     @Property
-    String StuID;
-    String location;
-    String owner_name;
-    String good_title;
-    String publish_time;
-    int isPay;
-    String good_detail;
+    private String StuID;
+    private String location;
+    private String owner_name;
+    private String good_title;
+    private String publish_time;
+    private int isPay;
+    private String good_detail;
     @Generated(hash = 254620700)
     public HelpInfo(String UID, String StuID, String location, String owner_name,
             String good_title, String publish_time, int isPay, String good_detail) {

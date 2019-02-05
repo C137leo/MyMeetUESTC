@@ -51,7 +51,7 @@ public class PrensterComl implements IPrenster{
                         /**
                          * 临时测试代码
                          **/
-                        
+                        Log.d("UID",AssistUtils.getRandomUUID());
                         HelpInfo helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
                         helpInfoList.add(helpInfo);
                         helpModel.saveGoodsData(helpInfo);
@@ -60,6 +60,7 @@ public class PrensterComl implements IPrenster{
                         helpModel.saveGoodsData(helpInfo1);
                         Log.d("subscribe","onSubscribe");
                         iView.updateData(helpInfoList);
+                        iView.hideRefershing();
                     }
 
                     @Override
@@ -75,6 +76,7 @@ public class PrensterComl implements IPrenster{
                     @Override
                     public void onComplete() {
                         iView.updateData(helpInfoList);
+                        iView.hideRefershing();
                     }
                 });
     }
