@@ -14,6 +14,6 @@ import retrofit2.http.Query;
  * MVP模式封装Retrofit+RxJava网络框架
  */
 public interface RetrofitService {
-    @POST("/check.php")
+    @POST("login_part/check.php")
     Observable<Stu> getSearchStudent(@Body PostLogin postLogin);
 }
