@@ -8,6 +8,7 @@ import android.view.View;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.LoginActivity;
@@ -56,8 +57,9 @@ public class StuInfoPrenster implements Prenster{
 
     }
     public void getStuInfo(String StuId,String password) {
+        PostLogin postLogin=new PostLogin(StuId,password);
         onCreate();
-        Observable<Stu> observable=dataManager.getSearchStudent(StuId,password);
+        Observable<Stu> observable=dataManager.getSearchStudent(postLogin);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Stu>() {
