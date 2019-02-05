@@ -70,7 +70,7 @@ public class StuInfoPrenster implements Prenster{
                     @Override
                     public void onNext(Stu stu) {
                         Log.d("onNext","onNext");
-                        stu=new Stu("2018021407022","xzh","wwwwww","sssss",2018,true,2020,2020);
+                        stu=new Stu("2018021407022","肖梓涵","wwwwww","重金求子",2018,true,2020,2020);
                         view.loginSuccess(stu);
                     }
 

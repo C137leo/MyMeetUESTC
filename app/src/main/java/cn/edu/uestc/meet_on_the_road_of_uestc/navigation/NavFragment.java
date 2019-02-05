@@ -592,7 +592,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 loadInfo.setPoint(mLatLonPoint);
                 //用户id信息
                 loadInfo.setUserID(navPrenster.getStuId());
-                Log.d("UserId",String.valueOf(PhoneUtils.getIMEI()));
+                Log.d("UserId",navPrenster.getStuId());
                 Log.d("Upload Info","Upload Info");
                 return loadInfo;
             }
