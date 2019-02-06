@@ -34,7 +34,7 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
     }
 
     @Override
-    public void searchDetailData(Long UID) {
+    public void searchDetailData(String UID) {
         List<HelpInfo> helpInfoList= daoSession.getHelpInfoDao().queryBuilder().where(HelpInfoDao.Properties.UID.eq(UID)).list();
         Log.d("queryGreendao",String.valueOf(helpInfoList.isEmpty()));
         helpInfo=helpInfoList.get(0);

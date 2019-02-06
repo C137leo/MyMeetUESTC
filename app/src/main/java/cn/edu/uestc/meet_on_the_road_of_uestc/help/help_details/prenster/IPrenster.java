@@ -9,6 +9,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.IView;
 public interface IPrenster {
     void attchView(IView view);
     void onCreate();
-    void searchDetailData(Long UID);
+    void searchDetailData(String UID);
     void searchLocation();
 }

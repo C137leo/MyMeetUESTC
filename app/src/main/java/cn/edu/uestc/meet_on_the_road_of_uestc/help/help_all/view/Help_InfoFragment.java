@@ -59,7 +59,7 @@ public class Help_InfoFragment extends Fragment {
             public void onItemClickListener(View view, int position,String UID) {
                 Intent intent=new Intent(getActivity(), HelpDetailActivity.class);
                 intent.putExtra("UID",UID);
-                Log.d("UID",String.valueOf(UID));
+                Log.d("UID",UID);
                 startActivity(intent);
             }
         });

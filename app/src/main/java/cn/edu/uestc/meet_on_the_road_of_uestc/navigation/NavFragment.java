@@ -78,6 +78,7 @@ import java.util.TimerTask;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InfoWindowAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
@@ -641,6 +642,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      */
     @Override
     public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int i) {
+        InfoWindowAdapter infoWindowAdapter=new InfoWindowAdapter();
+        aMap.setInfoWindowAdapter(infoWindowAdapter);
         if(i==1000){
             if(nearbySearchResult!=null) {
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();

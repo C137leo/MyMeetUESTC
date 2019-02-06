@@ -23,7 +23,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster.HelpDet
 
 public class HelpDetailActivity extends AppCompatActivity {
     HelpDetailPrenster helpDetailPrenster=new HelpDetailPrenster();
-    Long dataUID;
+    String dataUID;
     TextView helpDetailTitle;
     TextView helpDetailAuthor;
     TextView helpPublishTime;
@@ -56,7 +56,7 @@ public class HelpDetailActivity extends AppCompatActivity {
         }
         setUpMap();
         helpDetailPrenster.attchView(iView);
-        dataUID=getIntent().getLongExtra("UID",0L);
+        dataUID=getIntent().getStringExtra("UID");
         Log.d("getIntent",String.valueOf(dataUID));
         helpDetailPrenster.searchDetailData(dataUID);
         helpDetailPrenster.searchLocation();
