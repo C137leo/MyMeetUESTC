@@ -22,6 +22,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [
+                JPUSH_PKGNAME : "cn.edu.uestc.meet_on_the_road_of_uestc", //JPush
                 JPUSH_APPKEY : "d240a417f22da27f1922aba3", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
@@ -92,4 +93,6 @@ dependencies {
     implementation 'com.github.addappcn:android-pickers:1.0.3'
     implementation 'cn.jiguang.sdk:janalytics:1.2.2' // 极光jAnalytics
     implementation 'cn.jiguang.sdk:jcore:1.2.7' // 极光jCore
+    implementation 'cn.jiguang.sdk:jpush:3.1.8'  // 此处以JPush 3.1.6 版本为例。
+
 }
