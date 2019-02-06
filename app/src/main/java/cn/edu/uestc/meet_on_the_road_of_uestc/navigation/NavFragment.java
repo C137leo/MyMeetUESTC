@@ -129,7 +129,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView nearByview;
     private Timer timer;
     private TimerTask task;
-    static HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
+    static HashMap<String,Marker> nearByUserMap;
     LatLonPoint nearbyLatLonPoint;
     int isAmapClear=0;
     ImageView run;
@@ -145,6 +145,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView setGoal;
     NavPrenster navPrenster=new NavPrenster();
     List newarByMarketId=new ArrayList();
+    Marker currentMarker;
 
     @Nullable
     @Override
@@ -295,6 +296,16 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 startActivity(intent);
             }
         });
+        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if(currentMarker.isInfoWindowShown()){
+                    Log.d("hideMarket","hideMarket");
+                    currentMarker.hideInfoWindow();
+                }
+            }
+        });
+        aMap.setOnMarkerClickListener(this);
         aMap.setInfoWindowAdapter(new InfoWindowAdapter());
     }
     /**
@@ -648,14 +659,16 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();
                 for (NearbyInfo nearbyInfo : nearbyInfoList) {
                     if(nearByUserMap==null){
+                        Log.d("nearByInfo",nearbyInfo.getUserID());
                         nearByUserMap=new HashMap<String,Marker>();
                         LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
                         marker.setClickable(true);
                         nearByUserMap.put(nearbyInfo.getUserID(),marker);
                     }else {
+                        nearbyLatLonPoint = nearbyInfo.getPoint();
                         if (nearByUserMap.containsKey(nearbyInfo.getUserID())) {
-                            if(nearbyInfo.getPoint().getLatitude() == nearbyLatLonPoint.getLatitude() && nearbyInfo.getPoint().getLongitude() == nearbyLatLonPoint.getLongitude()) {
+                            if(nearbyInfo.getPoint().getLatitude() != nearbyLatLonPoint.getLatitude() || nearbyInfo.getPoint().getLongitude() != nearbyLatLonPoint.getLongitude()) {
                                 LatLng mLatLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                                 Marker marker = nearByUserMap.get(nearbyInfo.getUserID());
                                 marker.setClickable(true);
@@ -664,7 +677,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                                 aMap.addMarker(nearByUserMap.get(nearbyInfo.getUserID()).getOptions());
                             }
                         } else {
-                            nearbyLatLonPoint = nearbyInfo.getPoint();
                             LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                             Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
                             marker.setClickable(true);
@@ -673,7 +685,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     }
                 }
                 getMarketId();
-                aMap.setOnMarkerClickListener(this);
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
             }
@@ -698,8 +709,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        currentMarker=marker;
         marker.showInfoWindow();
-        return false;
+        return true;
     }
 
     @Override

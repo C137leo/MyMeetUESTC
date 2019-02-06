@@ -35,6 +35,7 @@ public class InfoWindowAdapter implements AMap.InfoWindowAdapter {
     public View getInfoWindow(Marker marker) {
         initView();
         if(NavFragment.getMarketId().containsKey(marker.getTitle())) {
+            getStuInfo();
             Log.d("NearByMarket", "showNearByMarket");
             initData(marker);
             return view;
@@ -60,7 +61,7 @@ public class InfoWindowAdapter implements AMap.InfoWindowAdapter {
     private void initData(Marker marker){
         infowindow_stuName.setText(stuInfo.getStuName());
         infowindow_sign.setText(stuInfo.getStuSignature());
-        infowindow_grade.setText(stuInfo.getStuGrade());
+        infowindow_grade.setText(String.valueOf(stuInfo.getStuGrade()));
     }
     private void initView(){
         view= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.navigation_infowindow,null);
