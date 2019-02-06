@@ -80,3 +80,12 @@ public static java.lang.String TABLENAME;
 -keep public class cn.jiguang.analytics.android.api.** {
    *;
 }
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
