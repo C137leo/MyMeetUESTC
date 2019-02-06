@@ -89,7 +89,6 @@ import dev.utils.app.PhoneUtils;
 import dev.utils.app.logger.DevLogger;
 import dev.utils.app.logger.LogConfig;
 import dev.utils.app.logger.LogLevel;
-import dev.utils.common.HttpURLConnectionUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -130,7 +129,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView nearByview;
     private Timer timer;
     private TimerTask task;
-    HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
+    static HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
     LatLonPoint nearbyLatLonPoint;
     int isAmapClear=0;
     ImageView run;
@@ -145,7 +144,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     String server_info="https://www.happydoudou.xyz";
     ImageView setGoal;
     NavPrenster navPrenster=new NavPrenster();
-
+    List newarByMarketId=new ArrayList();
 
     @Nullable
     @Override
@@ -296,6 +295,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 startActivity(intent);
             }
         });
+        aMap.setInfoWindowAdapter(new InfoWindowAdapter());
     }
     /**
      * 初始化高德地图
@@ -642,8 +642,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      */
     @Override
     public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int i) {
-        InfoWindowAdapter infoWindowAdapter=new InfoWindowAdapter();
-        aMap.setInfoWindowAdapter(infoWindowAdapter);
+
         if(i==1000){
             if(nearbySearchResult!=null) {
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();
@@ -673,6 +672,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         }
                     }
                 }
+                getMarketId();
                 aMap.setOnMarkerClickListener(this);
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
@@ -681,7 +681,9 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             Log.e("NearByService error","错误码为:"+i);
         }
     }
-
+    public static HashMap<String,Marker> getMarketId(){
+        return nearByUserMap;
+    }
     public void beginRun(){
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);
