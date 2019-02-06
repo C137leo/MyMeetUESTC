@@ -21,6 +21,11 @@ android {
         versionName "0.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "cn.edu.uestc.meet_on_the_road_of_uestc", //JPush
+                JPUSH_APPKEY : "d240a417f22da27f1922aba3", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     signingConfigs {
         releaseConfig {
@@ -86,4 +91,8 @@ dependencies {
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.11'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     implementation 'com.github.addappcn:android-pickers:1.0.3'
+    implementation 'cn.jiguang.sdk:janalytics:1.2.2' // 极光jAnalytics
+    implementation 'cn.jiguang.sdk:jcore:1.2.7' // 极光jCore
+    implementation 'cn.jiguang.sdk:jpush:3.1.8'  // 此处以JPush 3.1.6 版本为例。
+
 }
