@@ -2,8 +2,8 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.entity;
 
 
 public class NetWorkStatus {
-    private int scode;
-    private String smsg;
+    private int errcode;
+    private String errmsg;
     private String StuID; //学号(主键)
     private String StuName; //姓名
     private String StuPassWord; //密码
@@ -11,9 +11,9 @@ public class NetWorkStatus {
     private int StuGrade; //年级
     private String NickName; //昵称
 
-    public NetWorkStatus(int scode, String smsg, String stuID, String stuName, String stuPassWord, String stuSignature, int stuGrade, String nickName) {
-        this.scode = scode;
-        this.smsg = smsg;
+    public NetWorkStatus(int errcode, String errmsg, String stuID, String stuName, String stuPassWord, String stuSignature, int stuGrade, String nickName) {
+        this.errcode = errcode;
+        this.errmsg = errmsg;
         StuID = stuID;
         StuName = stuName;
         StuPassWord = stuPassWord;
@@ -22,20 +22,20 @@ public class NetWorkStatus {
         NickName = nickName;
     }
 
-    public int getScode() {
-        return scode;
+    public int getErrcode() {
+        return errcode;
     }
 
-    public void setScode(int scode) {
-        this.scode = scode;
+    public void setErrcode(int errcode) {
+        this.errcode = errcode;
     }
 
-    public String getSmsg() {
-        return smsg;
+    public String getErrmsg() {
+        return errmsg;
     }
 
-    public void setSmsg(String smsg) {
-        this.smsg = smsg;
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
     }
 
     public String getStuID() {

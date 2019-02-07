@@ -4,27 +4,27 @@ import java.lang.ref.PhantomReference;
 
 public class RegisterStatus {
 
-    private int scode;
-    private String smsg;
+    private int errcode;
+    private String errmsg;
 
-    public RegisterStatus(int scode, String smsg) {
-        this.scode = scode;
-        this.smsg = smsg;
+    public RegisterStatus(int errcode, String errmsg) {
+        this.errcode = errcode;
+        this.errmsg = errmsg;
     }
 
-    public int getScode() {
-        return scode;
+    public int getErrcode() {
+        return errcode;
     }
 
-    public void setScode(int scode) {
-        this.scode = scode;
+    public void setErrcode(int errcode) {
+        this.errcode = errcode;
     }
 
-    public String getSmsg() {
-        return smsg;
+    public String getErrmsg() {
+        return errmsg;
     }
 
-    public void setSmsg(String smsg) {
-        this.smsg = smsg;
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
     }
 }

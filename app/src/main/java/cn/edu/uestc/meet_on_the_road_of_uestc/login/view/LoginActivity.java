@@ -20,6 +20,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter.StuInfoPrenster;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.register.view.RegisterActivity;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
@@ -56,8 +57,8 @@ public class LoginActivity extends AppCompatActivity{
         registerAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent=new Intent(LoginActivity.this, RegisterService.class);
-//                startActivity(intent);
+                Intent intent=new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
         if(isRemember){
@@ -83,7 +84,9 @@ public class LoginActivity extends AppCompatActivity{
                 } else {
                     editor.putBoolean("remember", false);
                 }
+                stuInfoPrenster.getStuInfo(account,password);
                 editor.apply();
+
             }
         });
     }
