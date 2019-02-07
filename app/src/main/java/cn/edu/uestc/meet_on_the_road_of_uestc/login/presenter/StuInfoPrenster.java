@@ -8,6 +8,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.model.LoginModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.IView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -20,6 +21,7 @@ public class StuInfoPrenster implements Prenster{
     Context mContext;
     IView view;
     Disposable disposable;
+    LoginModel loginModel=new LoginModel();
     @Override
     public void onCreate() {
         dataManager=new DataManager(MyApplication.getMyContext());
@@ -64,8 +66,8 @@ public class StuInfoPrenster implements Prenster{
                     @Override
                     public void onNext(NetWorkStatus netWorkStatus) {
                         if(netWorkStatus.getScode()==100){
-                            StuInfo stu=new StuInfo(netWorkStatus.getStuID(),netWorkStatus.getStuName(),netWorkStatus.getStuPassWord(),netWorkStatus.getStuSignature(),netWorkStatus.getStuGrade());
-                            view.loginSuccess(stu);
+                            loginModel.writeDtabases(netWorkStatus);
+                            view.loginSuccess();
                         }else{
                             Log.e("loginError",netWorkStatus.getSmsg());
                             view.loginError(netWorkStatus.getSmsg());

@@ -29,6 +29,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         public final static Property StuPassWord = new Property(2, String.class, "StuPassWord", false, "STU_PASS_WORD");
         public final static Property StuSignature = new Property(3, String.class, "StuSignature", false, "STU_SIGNATURE");
         public final static Property StuGrade = new Property(4, int.class, "StuGrade", false, "STU_GRADE");
+        public final static Property NickName = new Property(5, String.class, "NickName", false, "NICK_NAME");
     }
 
 
@@ -48,7 +49,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
                 "\"STU_NAME\" TEXT," + // 1: StuName
                 "\"STU_PASS_WORD\" TEXT," + // 2: StuPassWord
                 "\"STU_SIGNATURE\" TEXT," + // 3: StuSignature
-                "\"STU_GRADE\" INTEGER NOT NULL );"); // 4: StuGrade
+                "\"STU_GRADE\" INTEGER NOT NULL ," + // 4: StuGrade
+                "\"NICK_NAME\" TEXT);"); // 5: NickName
     }
 
     /** Drops the underlying database table. */
@@ -81,6 +83,11 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
+ 
+        String NickName = entity.getNickName();
+        if (NickName != null) {
+            stmt.bindString(6, NickName);
+        }
     }
 
     @Override
@@ -107,6 +114,11 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             stmt.bindString(4, StuSignature);
         }
         stmt.bindLong(5, entity.getStuGrade());
+ 
+        String NickName = entity.getNickName();
+        if (NickName != null) {
+            stmt.bindString(6, NickName);
+        }
     }
 
     @Override
@@ -121,7 +133,8 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // StuName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // StuPassWord
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // StuSignature
-            cursor.getInt(offset + 4) // StuGrade
+            cursor.getInt(offset + 4), // StuGrade
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // NickName
         );
         return entity;
     }
@@ -133,6 +146,7 @@ public class StuInfoDao extends AbstractDao<StuInfo, String> {
         entity.setStuPassWord(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStuSignature(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setStuGrade(cursor.getInt(offset + 4));
+        entity.setNickName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override

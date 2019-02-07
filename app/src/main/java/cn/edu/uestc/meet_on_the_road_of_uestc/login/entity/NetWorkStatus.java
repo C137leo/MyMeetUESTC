@@ -9,8 +9,9 @@ public class NetWorkStatus {
     private String StuPassWord; //密码
     private String StuSignature; //个性签名
     private int StuGrade; //年级
+    private String NickName; //昵称
 
-    public NetWorkStatus(int scode, String smsg, String stuID, String stuName, String stuPassWord, String stuSignature, int stuGrade) {
+    public NetWorkStatus(int scode, String smsg, String stuID, String stuName, String stuPassWord, String stuSignature, int stuGrade, String nickName) {
         this.scode = scode;
         this.smsg = smsg;
         StuID = stuID;
@@ -18,6 +19,7 @@ public class NetWorkStatus {
         StuPassWord = stuPassWord;
         StuSignature = stuSignature;
         StuGrade = stuGrade;
+        NickName = nickName;
     }
 
     public int getScode() {
@@ -74,5 +76,13 @@ public class NetWorkStatus {
 
     public void setStuGrade(int stuGrade) {
         StuGrade = stuGrade;
+    }
+
+    public String getNickName() {
+        return NickName;
+    }
+
+    public void setNickName(String nickName) {
+        NickName = nickName;
     }
 }

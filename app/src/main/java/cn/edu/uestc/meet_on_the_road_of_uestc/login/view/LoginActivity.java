@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity{
         registerAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this, RegisterService.class);
-                startActivity(intent);
+//                Intent intent=new Intent(LoginActivity.this, RegisterService.class);
+//                startActivity(intent);
             }
         });
         if(isRemember){
@@ -90,10 +90,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private IView iView=new IView() {
         @Override
-        public void loginSuccess(StuInfo stu) {
-            stuInfoPrenster.getStuInfo(account,password);
-            StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade());
-            daoSession.insertOrReplace(stuInfo);
+        public void loginSuccess() {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

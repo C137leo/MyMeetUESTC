@@ -24,14 +24,16 @@ public class StuInfo {
     private String StuPassWord; //密码
     private String StuSignature; //个性签名
     private int StuGrade; //年级
-    @Generated(hash = 1780703135)
+    private String NickName; //昵称
+    @Generated(hash = 684544900)
     public StuInfo(String StuID, String StuName, String StuPassWord,
-            String StuSignature, int StuGrade) {
+            String StuSignature, int StuGrade, String NickName) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
         this.StuSignature = StuSignature;
         this.StuGrade = StuGrade;
+        this.NickName = NickName;
     }
     @Generated(hash = 724382685)
     public StuInfo() {
@@ -65,5 +67,11 @@ public class StuInfo {
     }
     public void setStuGrade(int StuGrade) {
         this.StuGrade = StuGrade;
+    }
+    public String getNickName() {
+        return this.NickName;
+    }
+    public void setNickName(String NickName) {
+        this.NickName = NickName;
     }
 }

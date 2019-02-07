@@ -6,6 +6,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.RegisterStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.service.RetrofitHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.service.RetrofitService;
 import io.reactivex.Observable;
@@ -26,7 +27,7 @@ public class DataManager implements RetrofitService{
     }
 
     @Override
-    public Observable<NetWorkStatus> registerAccount(StuInfo stuInfo) {
+    public Observable<RegisterStatus> registerAccount(StuInfo stuInfo) {
         return retrofitService.registerAccount(stuInfo);
     }
 }
