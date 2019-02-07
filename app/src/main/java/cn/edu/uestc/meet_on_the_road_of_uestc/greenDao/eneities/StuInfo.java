@@ -18,25 +18,20 @@ public class StuInfo {
 
 
     @Id(autoincrement = false)
-    private String StuID;
+    private String StuID; //学号(主键)
     @Property
-    private String StuName;
-    private String StuPassWord;
-    private String StuSignature;
-    private int StuGrade;
-    private double mLatitude;
-    private double mLontitude;
-    @Generated(hash = 104385949)
+    private String StuName; //姓名
+    private String StuPassWord; //密码
+    private String StuSignature; //个性签名
+    private int StuGrade; //年级
+    @Generated(hash = 1780703135)
     public StuInfo(String StuID, String StuName, String StuPassWord,
-            String StuSignature, int StuGrade, double mLatitude,
-            double mLontitude) {
+            String StuSignature, int StuGrade) {
         this.StuID = StuID;
         this.StuName = StuName;
         this.StuPassWord = StuPassWord;
         this.StuSignature = StuSignature;
         this.StuGrade = StuGrade;
-        this.mLatitude = mLatitude;
-        this.mLontitude = mLontitude;
     }
     @Generated(hash = 724382685)
     public StuInfo() {
@@ -70,17 +65,5 @@ public class StuInfo {
     }
     public void setStuGrade(int StuGrade) {
         this.StuGrade = StuGrade;
-    }
-    public double getMLatitude() {
-        return this.mLatitude;
-    }
-    public void setMLatitude(double mLatitude) {
-        this.mLatitude = mLatitude;
-    }
-    public double getMLontitude() {
-        return this.mLontitude;
-    }
-    public void setMLontitude(double mLontitude) {
-        this.mLontitude = mLontitude;
     }
 }

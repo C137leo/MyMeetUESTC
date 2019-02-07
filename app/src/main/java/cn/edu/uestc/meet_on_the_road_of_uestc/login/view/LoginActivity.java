@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -18,7 +19,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter.StuInfoPrenster;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity{
     String account;
     String password;
     DaoSession daoSession;
-    Stu stu;
+    StuInfo stuInfo;
     StuInfoPrenster stuInfoPrenster=new StuInfoPrenster();
     MediaType mediaTypeJson=MediaType.parse("application/json;charset=utf-8");
     protected void onCreate(Bundle savedInstanceState){
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         daoSession= GreenDaoHelper.getDaoSession();
         login=findViewById(R.id.login_button);
+        stuInfoPrenster.attachView(iView);
         login_account=findViewById(R.id.login_account);
         login_password=findViewById(R.id.login_password);
         remember_password=findViewById(R.id.remember_password);
@@ -83,20 +84,24 @@ public class LoginActivity extends AppCompatActivity{
                     editor.putBoolean("remember", false);
                 }
                 editor.apply();
-                stuInfoPrenster.attachView(iView);
-                stuInfoPrenster.getStuInfo(account,password);
             }
         });
     }
 
     private IView iView=new IView() {
         @Override
-        public void loginSuccess(Stu stu) {
-            StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade(),stu.getmLatitude(),stu.getmLontitude());
+        public void loginSuccess(StuInfo stu) {
+            stuInfoPrenster.getStuInfo(account,password);
+            StuInfo stuInfo=new StuInfo(stu.getStuID(),stu.getStuName(),stu.getStuPassWord(),stu.getStuSignature(),stu.getStuGrade());
             daoSession.insertOrReplace(stuInfo);
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+        }
+
+        @Override
+        public void loginError(String errmsg) {
+            Toast.makeText(LoginActivity.this,errmsg,Toast.LENGTH_SHORT).show();
         }
     };
 }
