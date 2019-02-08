@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         public void registerSuccess() {
             Log.d("RegisterSuccess","RegisterSuccessfully");
             registerProgress.setVisibility(View.GONE);
-            onDestroy();
+            finish();
         }
 
         @Override
