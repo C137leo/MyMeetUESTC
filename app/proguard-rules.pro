@@ -47,8 +47,8 @@
 -keep class com.google.gson.** {*;}
 #这句非常重要，主要是滤掉自己写的bean包下的所有.class文件不进行混淆编译 
 #对Gson解析bean类，进行保护。
--keep class cn.edu.uestc.meet_on_the_road_of_uestc.help.bean.** {*;}
--keep class cn.edu.uestc.meet_on_the_road_of_uestc.login.bean.** {*;}
+-keep class cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.** {*;}
+-keep class cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.** {*;}
 -keep class cn.edu.uestc.meet_on_the_road_of_uestc.entity.** {*;}
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -87,3 +87,34 @@ public static java.lang.String TABLENAME;
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+
+#----------retrofit--------------
+#-keepclassmembernames,allowobfuscation interface * {
+#    @retrofit2.http.* <methods>;
+#}
+#-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+#
+
+-keep class retrofit2.** { *; }
+-dontwarn retrofit2.**
+-keepattributes Signature
+-keepattributes Exceptions
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+
+
+
