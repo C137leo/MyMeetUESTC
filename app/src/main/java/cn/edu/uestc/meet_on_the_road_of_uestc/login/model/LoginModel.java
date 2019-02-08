@@ -9,7 +9,7 @@ public class LoginModel  implements IModel{
     DaoSession daoSession= GreenDaoHelper.getDaoSession();
     @Override
     public void writeDtabases(NetWorkStatus netWorkStatus) {
-        StuInfo stuInfo=new StuInfo(netWorkStatus.getStuID(),netWorkStatus.getStuName(),netWorkStatus.getStuPassWord(),netWorkStatus.getStuSignature(),netWorkStatus.getStuGrade(),netWorkStatus.getNickName());
-        daoSession.getStuInfoDao().insert(stuInfo);
+        StuInfo stuInfo=new StuInfo(netWorkStatus.getInfo().getStuID(),netWorkStatus.getInfo().getStuName(),netWorkStatus.getInfo().getStuPassWord(),netWorkStatus.getInfo().getStuSignature(),netWorkStatus.getInfo().getStuGrade(),netWorkStatus.getInfo().getNickName());
+        daoSession.getStuInfoDao().insertOrReplace(stuInfo);
     }
 }

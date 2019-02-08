@@ -125,4 +125,11 @@
             app:srcCompat="@mipmap/if_font_login" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/loginProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

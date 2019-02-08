@@ -65,18 +65,19 @@ public class StuInfoPrenster implements Prenster{
 
                     @Override
                     public void onNext(NetWorkStatus netWorkStatus) {
-                        if(netWorkStatus.getScode()==100){
+                        if(netWorkStatus.getCode().getErrcode()==100){
                             loginModel.writeDtabases(netWorkStatus);
                             view.loginSuccess();
                         }else{
-                            Log.e("loginError",netWorkStatus.getSmsg());
-                            view.loginError(netWorkStatus.getSmsg());
+                            Log.e("loginError", netWorkStatus.getCode().getErrmsg());
+                            view.loginError(netWorkStatus.getCode().getErrmsg());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("onError","onError");
+                        e.printStackTrace();
+                        view.netWorkError();
                     }
 
                     @Override

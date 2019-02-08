@@ -6,4 +6,5 @@ public interface IView {
 
     void registerSuccess();
     void registerError(String errmsg);
+    void netWorkError();
 }

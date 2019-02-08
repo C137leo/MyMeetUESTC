@@ -46,13 +46,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".login.view.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".login.view.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_details.view.HelpDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_add.view.HelpAddActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".login.register.view.RegisterActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6"/>
         <!-- 配置APP ID -->
         <meta-data

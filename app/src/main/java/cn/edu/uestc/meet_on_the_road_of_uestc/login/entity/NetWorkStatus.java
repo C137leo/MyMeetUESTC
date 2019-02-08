@@ -2,87 +2,120 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.entity;
 
 
 public class NetWorkStatus {
-    private int errcode;
-    private String errmsg;
-    private String StuID; //学号(主键)
-    private String StuName; //姓名
-    private String StuPassWord; //密码
-    private String StuSignature; //个性签名
-    private int StuGrade; //年级
-    private String NickName; //昵称
 
-    public NetWorkStatus(int errcode, String errmsg, String stuID, String stuName, String stuPassWord, String stuSignature, int stuGrade, String nickName) {
-        this.errcode = errcode;
-        this.errmsg = errmsg;
-        StuID = stuID;
-        StuName = stuName;
-        StuPassWord = stuPassWord;
-        StuSignature = stuSignature;
-        StuGrade = stuGrade;
-        NickName = nickName;
+    /**
+     * code : {"errcode":100,"errmsg":"登陆成功"}
+     * info : {"StuID":"","StuName":"电子科技大学","StuGrade":"0","StuPassWord":"123456","StuSignature":"","NickName":""}
+     */
+
+    private CodeBean code;
+    private InfoBean info;
+
+    public CodeBean getCode() {
+        return code;
     }
 
-    public int getErrcode() {
-        return errcode;
+    public void setCode(CodeBean code) {
+        this.code = code;
     }
 
-    public void setErrcode(int errcode) {
-        this.errcode = errcode;
+    public InfoBean getInfo() {
+        return info;
     }
 
-    public String getErrmsg() {
-        return errmsg;
+    public void setInfo(InfoBean info) {
+        this.info = info;
     }
 
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
+    public static class CodeBean {
+        /**
+         * errcode : 100
+         * errmsg : 登陆成功
+         */
+
+        private int errcode;
+        private String errmsg;
+
+        public int getErrcode() {
+            return errcode;
+        }
+
+        public void setErrcode(int errcode) {
+            this.errcode = errcode;
+        }
+
+        public String getErrmsg() {
+            return errmsg;
+        }
+
+        public void setErrmsg(String errmsg) {
+            this.errmsg = errmsg;
+        }
     }
 
-    public String getStuID() {
-        return StuID;
-    }
+    public static class InfoBean {
+        /**
+         * StuID :
+         * StuName : 电子科技大学
+         * StuGrade : 0
+         * StuPassWord : 123456
+         * StuSignature :
+         * NickName :
+         */
 
-    public void setStuID(String stuID) {
-        StuID = stuID;
-    }
+        private String StuID;
+        private String StuName;
+        private int StuGrade;
+        private String StuPassWord;
+        private String StuSignature;
+        private String NickName;
 
-    public String getStuName() {
-        return StuName;
-    }
+        public String getStuID() {
+            return StuID;
+        }
 
-    public void setStuName(String stuName) {
-        StuName = stuName;
-    }
+        public void setStuID(String StuID) {
+            this.StuID = StuID;
+        }
 
-    public String getStuPassWord() {
-        return StuPassWord;
-    }
+        public String getStuName() {
+            return StuName;
+        }
 
-    public void setStuPassWord(String stuPassWord) {
-        StuPassWord = stuPassWord;
-    }
+        public void setStuName(String StuName) {
+            this.StuName = StuName;
+        }
 
-    public String getStuSignature() {
-        return StuSignature;
-    }
+        public int getStuGrade() {
+            return StuGrade;
+        }
 
-    public void setStuSignature(String stuSignature) {
-        StuSignature = stuSignature;
-    }
+        public void setStuGrade(int StuGrade) {
+            this.StuGrade = StuGrade;
+        }
 
-    public int getStuGrade() {
-        return StuGrade;
-    }
+        public String getStuPassWord() {
+            return StuPassWord;
+        }
 
-    public void setStuGrade(int stuGrade) {
-        StuGrade = stuGrade;
-    }
+        public void setStuPassWord(String StuPassWord) {
+            this.StuPassWord = StuPassWord;
+        }
 
-    public String getNickName() {
-        return NickName;
-    }
+        public String getStuSignature() {
+            return StuSignature;
+        }
 
-    public void setNickName(String nickName) {
-        NickName = nickName;
+        public void setStuSignature(String StuSignature) {
+            this.StuSignature = StuSignature;
+        }
+
+        public String getNickName() {
+            return NickName;
+        }
+
+        public void setNickName(String NickName) {
+            this.NickName = NickName;
+        }
     }
 }

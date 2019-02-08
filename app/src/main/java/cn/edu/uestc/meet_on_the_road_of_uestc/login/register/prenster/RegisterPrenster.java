@@ -36,17 +36,18 @@ public class RegisterPrenster implements IPrenster{
 
                     @Override
                     public void onNext(RegisterStatus registerStatus) {
-                        if(registerStatus.getScode()==100){
+                        if(registerStatus.getErrcode()==105){
                             iView.registerSuccess();
                         }else{
-                            iView.registerError(registerStatus.getSmsg());
-                            Log.e("registerError",registerStatus.getSmsg());
+                            iView.registerError(registerStatus.getErrmsg());
+                            Log.e("registerError",registerStatus.getErrmsg());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
+                        iView.netWorkError();
                     }
 
                     @Override
