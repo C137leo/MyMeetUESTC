@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(registerDocument.isChecked()) {
                     Log.d("register","Register");
-                    registerPrenster.registerccount(new StuInfo(registerStuID.getText().toString(), registerStuName.getText().toString(), registerPassword.getText().toString(), "", 0, registerNickName.getText().toString()));
+                    registerPrenster.registerccount(new StuInfo(registerStuID.getText().toString(), registerStuName.getText().toString(), registerPassword.getText().toString(), "", 0, registerNickName.getText().toString(),""));
                     registerProgress.setVisibility(View.VISIBLE);
                 }else{
                     Toast.makeText(RegisterActivity.this,"请阅读并同意隐私政策",Toast.LENGTH_SHORT).show();

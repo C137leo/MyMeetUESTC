@@ -32,6 +32,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         public final static Property Publish_time = new Property(5, String.class, "publish_time", false, "PUBLISH_TIME");
         public final static Property IsPay = new Property(6, int.class, "isPay", false, "IS_PAY");
         public final static Property Good_detail = new Property(7, String.class, "good_detail", false, "GOOD_DETAIL");
+        public final static Property IsFinish = new Property(8, int.class, "isFinish", false, "IS_FINISH");
+        public final static Property WhoFinishIt = new Property(9, String.class, "whoFinishIt", false, "WHO_FINISH_IT");
     }
 
 
@@ -54,7 +56,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
                 "\"GOOD_TITLE\" TEXT," + // 4: good_title
                 "\"PUBLISH_TIME\" TEXT," + // 5: publish_time
                 "\"IS_PAY\" INTEGER NOT NULL ," + // 6: isPay
-                "\"GOOD_DETAIL\" TEXT);"); // 7: good_detail
+                "\"GOOD_DETAIL\" TEXT," + // 7: good_detail
+                "\"IS_FINISH\" INTEGER NOT NULL ," + // 8: isFinish
+                "\"WHO_FINISH_IT\" TEXT);"); // 9: whoFinishIt
     }
 
     /** Drops the underlying database table. */
@@ -102,6 +106,12 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (good_detail != null) {
             stmt.bindString(8, good_detail);
         }
+        stmt.bindLong(9, entity.getIsFinish());
+ 
+        String whoFinishIt = entity.getWhoFinishIt();
+        if (whoFinishIt != null) {
+            stmt.bindString(10, whoFinishIt);
+        }
     }
 
     @Override
@@ -143,6 +153,12 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (good_detail != null) {
             stmt.bindString(8, good_detail);
         }
+        stmt.bindLong(9, entity.getIsFinish());
+ 
+        String whoFinishIt = entity.getWhoFinishIt();
+        if (whoFinishIt != null) {
+            stmt.bindString(10, whoFinishIt);
+        }
     }
 
     @Override
@@ -160,7 +176,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // good_title
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // publish_time
             cursor.getInt(offset + 6), // isPay
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // good_detail
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // good_detail
+            cursor.getInt(offset + 8), // isFinish
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // whoFinishIt
         );
         return entity;
     }
@@ -175,6 +193,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         entity.setPublish_time(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setIsPay(cursor.getInt(offset + 6));
         entity.setGood_detail(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setIsFinish(cursor.getInt(offset + 8));
+        entity.setWhoFinishIt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     @Override

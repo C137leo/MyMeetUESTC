@@ -2,7 +2,6 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster;
 
 import android.util.Log;
 
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -10,7 +9,6 @@ import com.amap.api.services.poisearch.PoiSearch;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoMaster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;

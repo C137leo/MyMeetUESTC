@@ -52,10 +52,10 @@ public class PrensterComl implements IPrenster{
                          * 临时测试代码
                          **/
                         Log.d("UID",AssistUtils.getRandomUUID());
-                        HelpInfo helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh");
+                        HelpInfo helpInfo=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","祈福名都","肖梓涵","你好","2018",1,"hhhhhhhhh",0,"");
                         helpInfoList.add(helpInfo);
                         helpModel.saveGoodsData(helpInfo);
-                        HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","电子科技大学清水河校区","九州","你好","2018",1,"hhhhhhhhh");
+                        HelpInfo helpInfo1=new cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo(AssistUtils.getRandomUUID(),"2018021407022","电子科技大学清水河校区","九州","你好","2018",1,"hhhhhhhhh",0,"");
                         helpInfoList.add(helpInfo1);
                         helpModel.saveGoodsData(helpInfo1);
                         Log.d("subscribe","onSubscribe");

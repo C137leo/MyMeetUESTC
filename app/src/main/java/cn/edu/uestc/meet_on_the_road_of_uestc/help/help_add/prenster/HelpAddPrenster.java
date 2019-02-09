@@ -74,7 +74,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         stuInfoList=daoSession.loadAll(StuInfo.class);
         this.stuID=stuInfoList.get(0).getStuID();
         this.stuName=stuInfoList.get(0).getStuName();
-        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,1,good_detail);
+        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,1,good_detail,0,"");
         postData();
     }
 

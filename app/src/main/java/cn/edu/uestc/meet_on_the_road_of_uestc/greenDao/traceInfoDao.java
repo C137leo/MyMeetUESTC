@@ -33,6 +33,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         public final static Property StartTime = new Property(6, Long.class, "startTime", false, "START_TIME");
         public final static Property StopTime = new Property(7, Long.class, "stopTime", false, "STOP_TIME");
         public final static Property Time = new Property(8, Long.class, "time", false, "TIME");
+        public final static Property Distance = new Property(9, double.class, "distance", false, "DISTANCE");
     }
 
 
@@ -56,7 +57,8 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
                 "\"AVG_SPEED\" REAL NOT NULL ," + // 5: avgSpeed
                 "\"START_TIME\" INTEGER," + // 6: startTime
                 "\"STOP_TIME\" INTEGER," + // 7: stopTime
-                "\"TIME\" INTEGER);"); // 8: time
+                "\"TIME\" INTEGER," + // 8: time
+                "\"DISTANCE\" REAL NOT NULL );"); // 9: distance
     }
 
     /** Drops the underlying database table. */
@@ -105,6 +107,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         if (time != null) {
             stmt.bindLong(9, time);
         }
+        stmt.bindDouble(10, entity.getDistance());
     }
 
     @Override
@@ -147,6 +150,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         if (time != null) {
             stmt.bindLong(9, time);
         }
+        stmt.bindDouble(10, entity.getDistance());
     }
 
     @Override
@@ -165,7 +169,8 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
             cursor.getDouble(offset + 5), // avgSpeed
             cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // startTime
             cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7), // stopTime
-            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8) // time
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // time
+            cursor.getDouble(offset + 9) // distance
         );
         return entity;
     }
@@ -181,6 +186,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         entity.setStartTime(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
         entity.setStopTime(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
         entity.setTime(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
+        entity.setDistance(cursor.getDouble(offset + 9));
      }
     
     @Override

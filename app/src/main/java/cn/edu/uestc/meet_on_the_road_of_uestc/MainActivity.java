@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.AppointmentFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.HelpAllFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.home.HomeFragment;
-import cn.edu.uestc.meet_on_the_road_of_uestc.me.MeFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.me.view.MeFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
 
 /**
