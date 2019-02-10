@@ -18,6 +18,6 @@ public interface RetrofitService {
     @POST("bbj/bbj_in.php")
     Observable<PostHelpAddStatus> postGoodData(@Body cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo helpInfo);
 
-    @GET("helpInfo/getData")
-    Observable<HelpInfo> getGoodsData();
+    @GET("bbj/bbj_out.php")
+    Observable<ResponseBody> getGoodsData();
 }

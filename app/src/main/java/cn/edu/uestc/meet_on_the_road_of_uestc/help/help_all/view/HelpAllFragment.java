@@ -15,19 +15,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.HelpAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.Help_InfoFragment;
 
 public class HelpAllFragment extends Fragment{
 
     private List<HelpInfo> mList;
     ViewPager mViewPager;
-    List<Help_InfoFragment> fragments;
+    List fragments;
     TabLayout tabLayout;
     FloatingActionButton helpAddButton;
     FloatingActionButton helpMyself;
@@ -60,11 +58,11 @@ public class HelpAllFragment extends Fragment{
         titles.add("最新发布");
         titles.add("附近帮帮");
         fragments = new ArrayList<>();
-        for (int i = 0; i < titles.size(); i++) {
-            fragments.add(new Help_InfoFragment());
-        }
+        fragments.add(new HelpInfoLatestFragment());
+        fragments.add(new HelpInfoNearbyFragment());
         help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
         mViewPager.setAdapter(help_fragmentAdapter);
+        mViewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(mViewPager);
     }
 

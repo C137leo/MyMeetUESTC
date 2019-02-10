@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -56,7 +57,9 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     public void updateDataInFragment(List<HelpInfo> helpInfoList){
-        mList.addAll(helpInfoList);
+        HashSet<HelpInfo> helpInfoHashSet=new HashSet<>(helpInfoList);
+        mList.clear();
+        mList.addAll(helpInfoHashSet);
         notifyDataSetChanged();
     }
 

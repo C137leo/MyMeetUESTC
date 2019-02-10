@@ -23,7 +23,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_Recycle
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.HelpDetailActivity;
 
-public class Help_InfoFragment extends Fragment {
+public class HelpInfoNearbyFragment extends Fragment {
     private List<HelpInfo> mList=new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
@@ -33,8 +33,8 @@ public class Help_InfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.fragment_viewpager_help,container,false);
-        mRecyclerView=view.findViewById(R.id.good_info);
+        View view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.fragment_viewpager_help_nearby,container,false);
+        mRecyclerView=view.findViewById(R.id.good_info_nearby);
         return view;
     }
 
@@ -42,10 +42,11 @@ public class Help_InfoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         prensterComl.attchView(iView);
-        swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout);
+        swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout_nearby);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Log.d("onRefresh","onRefresh");
                 swipeRefreshLayout.setRefreshing(true);
                 prensterComl.getData();
             }
@@ -78,7 +79,7 @@ public class Help_InfoFragment extends Fragment {
         @Override
         public void updateData(List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList) {
             help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
-
+            swipeRefreshLayout.setRefreshing(false);
         }
     };
     @Override
