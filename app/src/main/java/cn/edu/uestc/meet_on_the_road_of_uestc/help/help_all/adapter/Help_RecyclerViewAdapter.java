@@ -61,7 +61,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         HashSet<HelpInfo> helpInfoHashSet=new HashSet<>(helpInfoList);
         mList.clear();
         mList.addAll(helpInfoHashSet);
-        Collections.reverse(mList);
+        Collections.sort(mList);
         notifyDataSetChanged();
     }
 

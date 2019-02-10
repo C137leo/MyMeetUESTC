@@ -9,5 +9,5 @@ public interface IPrenster {
 
     void getData();
     void attchView(IView iView);
-    void adjustDataByTime(List<HelpInfo> helpInfoList);
+    void getDataFromDatabases();
 }

@@ -107,10 +107,10 @@ public class HelpInfo implements Comparable<HelpInfo>{
     public int compareTo(@NonNull HelpInfo helpInfo) {
         if(DateUtils.parseLong(helpInfo.getPublish_time())>DateUtils.parseLong(getPublish_time())){
             Log.d("adjust","adjust");
-            return -1;
+            return 1;
         }else{
             Log.d("adjust","adjust");
-            return 1;
+            return -1;
         }
     }
 }

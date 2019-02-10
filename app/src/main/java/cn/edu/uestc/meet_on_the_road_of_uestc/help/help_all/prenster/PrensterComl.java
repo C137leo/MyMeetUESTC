@@ -17,6 +17,8 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.IView;
@@ -43,6 +45,7 @@ public class PrensterComl implements IPrenster{
     JsonArray jsonArray;
     Gson gson=new Gson();
     Disposable disposable;
+    DaoSession daoSession= GreenDaoHelper.getDaoSession();
     public PrensterComl(Context context){
         this.context=context;
     }
@@ -77,7 +80,7 @@ public class PrensterComl implements IPrenster{
                             helpInfoList.add(helpInfo);
                             helpModel.saveGoodsData(helpInfo);
                         }
-                        adjustDataByTime(helpInfoList);
+                        getDataFromDatabases();
                     }
 
                     @Override
@@ -94,8 +97,9 @@ public class PrensterComl implements IPrenster{
     }
 
     @Override
-    public void adjustDataByTime(List<HelpInfo> helpInfoList) {
-        Collections.sort(helpInfoList);
-        iView.updateData(helpInfoList);
+    public void getDataFromDatabases() {
+        List<HelpInfo> helpInfos=new ArrayList<>();
+        helpInfos= daoSession.queryBuilder(HelpInfo.class).where(HelpInfoDao.Properties.IsFinish.eq(0)).list();
+        iView.updateData(helpInfos);
     }
 }
