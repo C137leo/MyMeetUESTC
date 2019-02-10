@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         HashSet<HelpInfo> helpInfoHashSet=new HashSet<>(helpInfoList);
         mList.clear();
         mList.addAll(helpInfoHashSet);
+        Collections.reverse(mList);
         notifyDataSetChanged();
     }
 

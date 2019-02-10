@@ -10,6 +10,9 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -35,7 +38,6 @@ public class PrensterComl implements IPrenster{
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance(MyApplication.getMyContext());
     HelpModel helpModel=new HelpModel();
     private Context context;
-    List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList=new ArrayList<>();
     IView iView;
     JsonParser jsonParser=new JsonParser();
     JsonArray jsonArray;
@@ -63,8 +65,8 @@ public class PrensterComl implements IPrenster{
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
+                        List<HelpInfo> helpInfoList=new ArrayList<>();
                         Log.d("getResponse","getResponse");
-                        List<HelpInfo> helpInfos=new ArrayList<>();
                         try {
                             jsonArray=jsonParser.parse(responseBody.string()).getAsJsonArray();
                         } catch (IOException e) {
@@ -72,10 +74,10 @@ public class PrensterComl implements IPrenster{
                         }
                         for(JsonElement jsonElement:jsonArray){
                             HelpInfo helpInfo=gson.fromJson(jsonElement,HelpInfo.class);
-                            helpInfos.add(helpInfo);
+                            helpInfoList.add(helpInfo);
                             helpModel.saveGoodsData(helpInfo);
                         }
-                        iView.updateData(helpInfos);
+                        adjustDataByTime(helpInfoList);
                     }
 
                     @Override
@@ -89,5 +91,11 @@ public class PrensterComl implements IPrenster{
                         disposable.dispose();
                     }
                 });
+    }
+
+    @Override
+    public void adjustDataByTime(List<HelpInfo> helpInfoList) {
+        Collections.sort(helpInfoList);
+        iView.updateData(helpInfoList);
     }
 }

@@ -1,12 +1,17 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
+import dev.utils.common.DateUtils;
+
 @Entity
-public class HelpInfo {
+public class HelpInfo implements Comparable<HelpInfo>{
     @Id(autoincrement = false)
     private String UID; //唯一标识符
     @Property
@@ -98,4 +103,14 @@ public class HelpInfo {
         this.whoFinishIt = whoFinishIt;
     }
 
+    @Override
+    public int compareTo(@NonNull HelpInfo helpInfo) {
+        if(DateUtils.parseLong(helpInfo.getPublish_time())>DateUtils.parseLong(getPublish_time())){
+            Log.d("adjust","adjust");
+            return -1;
+        }else{
+            Log.d("adjust","adjust");
+            return 1;
+        }
+    }
 }
