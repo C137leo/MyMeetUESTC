@@ -100,6 +100,11 @@ public class PrensterComl implements IPrenster{
     public void getDataFromDatabases() {
         List<HelpInfo> helpInfos=new ArrayList<>();
         helpInfos= daoSession.queryBuilder(HelpInfo.class).where(HelpInfoDao.Properties.IsFinish.eq(0)).list();
+        Log.d("size", String.valueOf(helpInfos.size()));
+        for(HelpInfo helpInfo:daoSession.getHelpInfoDao().loadAll()){
+            Log.d("isFinish",String.valueOf(helpInfo.getIsFinish()));
+        }
+        Log.d("helpInfosSize", String.valueOf(helpInfos.size()));
         iView.updateData(helpInfos);
     }
 }

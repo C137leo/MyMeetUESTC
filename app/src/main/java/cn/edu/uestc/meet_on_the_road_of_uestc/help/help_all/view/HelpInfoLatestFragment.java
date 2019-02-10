@@ -41,7 +41,7 @@ public class HelpInfoLatestFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        prensterComl.attchView(iView);
+        prensterComl.attchView(iViewLatest);
         swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout_latest_nearby);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -69,7 +69,7 @@ public class HelpInfoLatestFragment extends Fragment {
     }
 
 
-    IView iView=new IView() {
+    IView iViewLatest=new IView() {
         @Override
         public void hideRefershing() {
             Log.d("stopRefreshing","stopRefreshing");

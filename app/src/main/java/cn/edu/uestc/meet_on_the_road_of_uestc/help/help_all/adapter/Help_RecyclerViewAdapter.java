@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,9 +59,10 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
     }
 
     public void updateDataInFragment(List<HelpInfo> helpInfoList){
-        HashSet<HelpInfo> helpInfoHashSet=new HashSet<>(helpInfoList);
         mList.clear();
-        mList.addAll(helpInfoHashSet);
+        Log.d("ListSizeAfterClear",String.valueOf(mList.size()));
+        mList.addAll(helpInfoList);
+        Log.d("ListSizeAfterAdd",String.valueOf(mList.size()));
         Collections.sort(mList);
         notifyDataSetChanged();
     }
