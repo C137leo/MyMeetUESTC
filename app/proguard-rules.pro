@@ -50,6 +50,7 @@
 -keep class cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.** {*;}
 -keep class cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.** {*;}
 -keep class cn.edu.uestc.meet_on_the_road_of_uestc.entity.** {*;}
+-keep class cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.** {*;}
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;

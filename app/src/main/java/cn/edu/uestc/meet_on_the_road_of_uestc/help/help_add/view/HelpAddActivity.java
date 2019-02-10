@@ -184,14 +184,6 @@ public class HelpAddActivity extends AppCompatActivity {
             finish();
         }
 
-        /**
-         * 信息提交失败
-         */
-        @Override
-        public void addError() {
-            Toast.makeText(HelpAddActivity.this,"网络错误，请稍后重试",Toast.LENGTH_SHORT).show();
-        }
-
         @Override
         public void updateLocationEdittext(String location) {
             publish_location_edittext.setText(location);
@@ -218,6 +210,16 @@ public class HelpAddActivity extends AppCompatActivity {
         @Override
         public void showInProgress() {
             addHelpProgress.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         * 信息提交失败
+         * @param errMsg 错误信息
+         */
+        @Override
+        public void addError(String errMsg) {
+            addHelpProgress.setVisibility(View.GONE);
+            Toast.makeText(HelpAddActivity.this,errMsg,Toast.LENGTH_SHORT).show();
         }
     };
 

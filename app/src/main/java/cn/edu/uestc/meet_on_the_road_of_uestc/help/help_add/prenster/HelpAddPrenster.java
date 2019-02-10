@@ -27,6 +27,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.model.HelpAddModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
@@ -50,7 +51,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     private int isPay;
     private String stuID;
     private String good_title;
-    private String publish_time;
+    private String publish_time=DateUtils.getDateNow();
     private String good_detail;
     private String publish_location;
     double latitude;
@@ -59,6 +60,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
     HelpAddModel helpAddModel=new HelpAddModel();
     private String stuName;
+    Disposable disposable;
 
     public HelpAddPrenster(Context context){
         this.mContext=context;
@@ -74,37 +76,41 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         stuInfoList=daoSession.loadAll(StuInfo.class);
         this.stuID=stuInfoList.get(0).getStuID();
         this.stuName=stuInfoList.get(0).getStuName();
-        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,1,good_detail,0,"");
+        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,0,good_detail,0,"");
         postData();
     }
 
     @Override
     public void postData() {
         Log.d("Retrofit","beginPost");
-        Observable<ResponseBody> observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).postGoodData(helpInfo);
+        Observable<PostHelpAddStatus> observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).postGoodData(helpInfo);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<PostHelpAddStatus>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        iView.addSuccess(); //因为目前没有responseBody，所以临时解决办法
+                        disposable=d;
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-                        Log.d("Retrofit","onNext");
+                    public void onNext(PostHelpAddStatus postHelpAddStatus) {
+                        if(postHelpAddStatus.getErrcode()==106) {
+                            iView.addSuccess();
+                            helpAddModel.writeDataBases(helpInfo);
+                        }else{
+                            iView.addError(postHelpAddStatus.getErrmsg());
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onComplete() {
-                        helpAddModel.writeDataBases(helpInfo);
-                        Log.d("Retrofit","onComplete");
-                        iView.addSuccess();
+                        disposable.dispose();
                     }
                 });
     }

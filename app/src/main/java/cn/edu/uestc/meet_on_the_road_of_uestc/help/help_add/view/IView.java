@@ -11,5 +11,5 @@ public interface IView {
     void getTipList(List<Tip> tipList);
     void setPoiSearchLocation(PoiItem poiItem);
     void showInProgress();
-    void addError();
+    void addError(String errMsg);
 }
