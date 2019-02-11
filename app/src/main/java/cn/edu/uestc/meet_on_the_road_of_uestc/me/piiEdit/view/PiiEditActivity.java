@@ -45,8 +45,7 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
     PiiEditPrenster piiEditPrenster=new PiiEditPrenster(PiiEditActivity.this);
     Uri contentUri;
     ImageView testIamgeview;
-    Uri mCutUri;
-    File cutfile;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +62,11 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
         circleImageView.setOnClickListener(this);
         pop_camera.setOnClickListener(this);
         pop_pic.setOnClickListener(this);
+        piiEditPrenster.attchView(iView);
+        if(piiEditPrenster.isImageChange()!=null){
+            circleImageView.setImageURI(piiEditPrenster.isImageChange());
+        }
+
     }
 
     @Override
@@ -110,129 +114,29 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
         switch (requestCode){
             case CAMERA_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    startActivityForResult(CutForCamera(tempFile.getPath(),tempFile.getName()),CROP_PHOTO);
+                    startActivityForResult(piiEditPrenster.CutForCamera(tempFile.getPath(),tempFile.getName()),CROP_PHOTO);
                     popupWindowSetImage.dismiss();
                     break;
                 }
             case ALBUM_REQUEST_CODE:
                 if(resultCode == RESULT_OK){
                     Log.d("uploadFile","uploadFile");
-                    startActivityForResult(CutForPhoto(data.getData()),CROP_PHOTO);
+                    startActivityForResult(piiEditPrenster.CutForPhoto(data.getData()),CROP_PHOTO);
                     popupWindowSetImage.dismiss();
                     break;
                 }
             case CROP_PHOTO:
-                piiEditPrenster.uploadImag(cutfile.getPath());
+                piiEditPrenster.uploadImag(Environment.getExternalStorageDirectory().getPath()+"/"+GreenDaoHelper.getDaoSession().getStuInfoDao().loadAll().get(0).getStuID()+".png");
         }
     }
 
-    /**
-     * 拍照之后，启动裁剪
-     * @param camerapath 路径
-     * @param imgname img 的名字
-     * @return
-     */
-    @NonNull
-    private Intent CutForCamera(String camerapath,String imgname) {
-        try {
 
-            //设置裁剪之后的图片路径文件
-             cutfile = new File(Environment.getExternalStorageDirectory().getPath(),
-                    "cutcamera.png"); //随便命名一个
-            if (cutfile.exists()){ //如果已经存在，则先删除,这里应该是上传到服务器，然后再删除本地的，没服务器，只能这样了
-                cutfile.delete();
-            }
-            cutfile.createNewFile();
-            //初始化 uri
-            Uri imageUri = null; //返回来的 uri
-            Uri outputUri = null; //真实的 uri
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            //拍照留下的图片
-            File camerafile = new File(camerapath);
-            if (Build.VERSION.SDK_INT >= 24) {
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                imageUri = FileProvider.getUriForFile(PiiEditActivity.this,
-                        "cn.edu.uestc.meet_on_the_road_of_uestc",
-                        camerafile);
-            } else {
-                imageUri = Uri.fromFile(camerafile);
-            }
-            outputUri = Uri.fromFile(cutfile);
-            //把这个 uri 提供出去，就可以解析成 bitmap了
-            mCutUri = outputUri;
-            // crop为true是设置在开启的intent中设置显示的view可以剪裁
-            intent.putExtra("crop",true);
-            // aspectX,aspectY 是宽高的比例，这里设置正方形
-            intent.putExtra("aspectX",1);
-            intent.putExtra("aspectY",1);
-            //设置要裁剪的宽高
-            intent.putExtra("outputX", 200);
-            intent.putExtra("outputY",200);
-            intent.putExtra("scale",true);
-            //如果图片过大，会导致oom，这里设置为false
-            intent.putExtra("return-data",false);
-            if (imageUri != null) {
-                intent.setDataAndType(imageUri, "image/*");
-            }
-            if (outputUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
-            }
-            intent.putExtra("noFaceDetection", true);
-            //压缩图片
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            return intent;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    /**
-     * 图片裁剪
-     * @param uri
-     * @return
-     */
-    @NonNull
-    private Intent CutForPhoto(Uri uri) {
-        try {
-            //直接裁剪
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            //设置裁剪之后的图片路径文件
-            cutfile = new File(Environment.getExternalStorageDirectory().getPath(),
-                    "cutcamera.png"); //随便命名一个
-            if (cutfile.exists()){ //如果已经存在，则先删除,这里应该是上传到服务器，然后再删除本地的，没服务器，只能这样了
-                cutfile.delete();
-            }
-            cutfile.createNewFile();
-            //初始化 uri
-            Uri imageUri = uri; //返回来的 uri
-            Uri outputUri = null; //真实的 uri
-            outputUri = Uri.fromFile(cutfile);
-            mCutUri = outputUri;
-            // crop为true是设置在开启的intent中设置显示的view可以剪裁
-            intent.putExtra("crop",true);
-            // aspectX,aspectY 是宽高的比例，这里设置正方形
-            intent.putExtra("aspectX",1);
-            intent.putExtra("aspectY",1);
-            //设置要裁剪的宽高
-            intent.putExtra("outputX", 200); //200dp
-            intent.putExtra("outputY",200);
-            intent.putExtra("scale",true);
-            //如果图片过大，会导致oom，这里设置为false
-            intent.putExtra("return-data",false);
-            if (imageUri != null) {
-                intent.setDataAndType(imageUri, "image/*");
-            }
-            if (outputUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
-            }
-            intent.putExtra("noFaceDetection", true);
-            //压缩图片
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            return intent;
-        } catch (IOException e) {
-            e.printStackTrace();
+    IView iView=new IView() {
+        @Override
+        public void setImage(Uri uri,String path) {
+            circleImageView.setImageURI(uri);
+            piiEditPrenster.savePicture(path);
         }
-        return null;
-    }
+    };
 }

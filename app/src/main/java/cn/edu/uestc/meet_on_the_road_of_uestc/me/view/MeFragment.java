@@ -13,11 +13,12 @@ import android.widget.TextView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.piiEdit.view.PiiEditActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.presenter.MePrenster;
 
 public class MeFragment extends Fragment {
-    MePrenster mePrenster=new MePrenster();
+    MePrenster mePrenster=new MePrenster(getActivity());
     View view;
     TextView pii_name;
     TextView pii_major;
@@ -25,6 +26,7 @@ public class MeFragment extends Fragment {
     TextView pii_signature;
     TextView pii_nickname;
     ImageView pii_edit;
+    CircleImageView circleImageView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class MeFragment extends Fragment {
             }
         });
         mePrenster.attchView(iView);
+        circleImageView=getActivity().findViewById(R.id.pii_image);
+        if(mePrenster.isImageChange()!=null){
+            circleImageView.setImageURI(mePrenster.isImageChange());
+        }
         mePrenster.getStuInfo();
     }
 
@@ -67,4 +73,12 @@ public class MeFragment extends Fragment {
 
         }
     };
+
+    @Override
+    public void onResume() {
+        if(mePrenster.isImageChange()!=null){
+            circleImageView.setImageURI(mePrenster.isImageChange());
+        }
+        super.onResume();
+    }
 }
