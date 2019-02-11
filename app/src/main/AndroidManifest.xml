@@ -55,6 +55,16 @@
         <activity android:name=".login.register.view.RegisterActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".me.piiEdit.view.PiiEditActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6"/>
+        <!-- 相机共享目录 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.edu.uestc.meet_on_the_road_of_uestc"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camerapaths" />
+        </provider>
         <!-- 配置APP ID -->
         <meta-data
             android:name="BUGLY_APPID"
