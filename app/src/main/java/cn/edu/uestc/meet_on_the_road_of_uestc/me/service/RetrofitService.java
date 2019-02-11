@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.me.service;
 
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -15,4 +16,7 @@ public interface RetrofitService {
     @POST("pii/post.php")
     @Multipart
     Observable<ResponseBody> uploadImage(@Part MultipartBody.Part requestBody);
+
+    @POST("pii/changePii")
+    Observable<ResponseBody> changePii(@Body StuInfo stuInfo);
 }

@@ -5,4 +5,6 @@ import android.net.Uri;
 public interface IView {
 
     void setImage(Uri uri,String path);
+    void changeSuccess();
+    void changeError(String errMsg);
 }

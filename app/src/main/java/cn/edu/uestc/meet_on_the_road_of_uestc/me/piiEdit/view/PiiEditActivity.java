@@ -15,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +46,7 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
     File tempFile;
     PiiEditPrenster piiEditPrenster=new PiiEditPrenster(PiiEditActivity.this);
     Uri contentUri;
-    ImageView testIamgeview;
-
+    Button editCommit;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,6 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
         edit_signature=findViewById(R.id.pii_edit_signature);
         edit_back=findViewById(R.id.pii_edit_back);
         circleImageView=findViewById(R.id.pii_edit_icon);
-        testIamgeview=findViewById(R.id.test_pic);
         popupWindowSetImage=new PopupWindowSetImage(PiiEditActivity.this);
         edit_back.setOnClickListener(this);
         pop_pic=popupWindowSetImage.getContentView().findViewById(R.id.pop_pic);
@@ -66,12 +66,20 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
         if(piiEditPrenster.isImageChange()!=null){
             circleImageView.setImageURI(piiEditPrenster.isImageChange());
         }
-
+        initData();
+        editCommit=findViewById(R.id.pii_edit_commit);
+        editCommit.setOnClickListener(this);
     }
-
+    public void initData(){
+        edit_nickName.setText(piiEditPrenster.getNickName());
+        edit_signature.setText(piiEditPrenster.getSignature());
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.pii_edit_commit:
+                piiEditPrenster.changePiiCommit(edit_nickName.getText().toString(),edit_signature.getText().toString());
+                Toast.makeText(PiiEditActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
             case R.id.pii_edit_back: {
                 finish();
                 break;
@@ -137,6 +145,17 @@ public class PiiEditActivity extends AppCompatActivity implements View.OnClickLi
         public void setImage(Uri uri,String path) {
             circleImageView.setImageURI(uri);
             piiEditPrenster.savePicture(path);
+        }
+
+        @Override
+        public void changeSuccess() {
+            Toast.makeText(PiiEditActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        @Override
+        public void changeError(String errMsg) {
+            Toast.makeText(PiiEditActivity.this,errMsg,Toast.LENGTH_SHORT).show();
         }
     };
 }

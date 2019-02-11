@@ -17,6 +17,8 @@ import java.io.IOException;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.piiEdit.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.service.RetrofitHelper;
 import io.reactivex.Observable;
@@ -35,6 +37,8 @@ public class PiiEditPrenster implements IPrenster{
     private File cutfile;
     private Uri mCutUri;
     IView iView;
+    Disposable disposableForChange;
+    Disposable disposableForUpload;
     public PiiEditPrenster(Context context){
         this.context=context;
     }
@@ -42,6 +46,50 @@ public class PiiEditPrenster implements IPrenster{
     @Override
     public void attchView(IView iView) {
         this.iView=iView;
+    }
+
+    @Override
+    public String getNickName() {
+        return GreenDaoHelper.getDaoSession().getStuInfoDao().loadAll().get(0).getNickName();
+    }
+
+    @Override
+    public String getSignature() {
+        return GreenDaoHelper.getDaoSession().getStuInfoDao().loadAll().get(0).getStuSignature();
+    }
+
+    @Override
+    public void changePiiCommit(String nickName, String signature) {
+        DaoSession daoSession=GreenDaoHelper.getDaoSession();
+        StuInfo stuInfo=daoSession.getStuInfoDao().loadAll().get(0);
+        stuInfo.setNickName(nickName);
+        stuInfo.setStuSignature(signature);
+        daoSession.insertOrReplace(stuInfo);
+        Observable<ResponseBody> observable=retrofitHelper.initRetrofitService()
+                .changePii(stuInfo);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposableForChange=d;
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        iView.changeSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposableForChange.dispose();
+                    }
+                });
     }
 
     @Override
@@ -59,6 +107,7 @@ public class PiiEditPrenster implements IPrenster{
                     @Override
                     public void onSubscribe(Disposable d) {
                         iView.setImage(FileProvider.getUriForFile(context,"cn.edu.uestc.meet_on_the_road_of_uestc",cutfile),cutfile.getPath());
+                        disposableForUpload=d;
                     }
 
                     @Override
@@ -77,7 +126,7 @@ public class PiiEditPrenster implements IPrenster{
 
                     @Override
                     public void onComplete() {
-
+                        disposableForChange.dispose();
                     }
                 });
     }

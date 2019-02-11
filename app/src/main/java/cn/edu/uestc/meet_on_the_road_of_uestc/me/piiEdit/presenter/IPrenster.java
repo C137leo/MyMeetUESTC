@@ -16,4 +16,7 @@ public interface IPrenster {
     void attchView(IView iView);
     void savePicture(String path);
     Uri isImageChange();
+    String getNickName();
+    String getSignature();
+    void changePiiCommit(String nickName,String signature);
 }
