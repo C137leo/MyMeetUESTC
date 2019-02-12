@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="@drawable/custom_info_bubble"
+    android:layout_height="150dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
+                android:id="@+id/infowindow_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/ic_icontest" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/infowindow_stuname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姚大美人"
+                        android:layout_marginTop="20dp"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/infowindow_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500m"
+                        android:textSize="12sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/infowindow_major"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="通信学院"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:id="@+id/infowindow_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="大一"
+                        android:textSize="12sp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="他/她说:"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/infowindow_signature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开心快乐每一天"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

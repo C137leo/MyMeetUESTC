@@ -1,6 +1,5 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.greenDao;
 
-import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
@@ -9,8 +8,6 @@ import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 
@@ -36,9 +33,9 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         public final static Property StartTime = new Property(6, Long.class, "startTime", false, "START_TIME");
         public final static Property StopTime = new Property(7, Long.class, "stopTime", false, "STOP_TIME");
         public final static Property Time = new Property(8, Long.class, "time", false, "TIME");
+        public final static Property Distance = new Property(9, double.class, "distance", false, "DISTANCE");
     }
 
-    private Query<traceInfo> stuInfo_TraceInfoListQuery;
 
     public traceInfoDao(DaoConfig config) {
         super(config);
@@ -60,7 +57,8 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
                 "\"AVG_SPEED\" REAL NOT NULL ," + // 5: avgSpeed
                 "\"START_TIME\" INTEGER," + // 6: startTime
                 "\"STOP_TIME\" INTEGER," + // 7: stopTime
-                "\"TIME\" INTEGER);"); // 8: time
+                "\"TIME\" INTEGER," + // 8: time
+                "\"DISTANCE\" REAL NOT NULL );"); // 9: distance
     }
 
     /** Drops the underlying database table. */
@@ -109,6 +107,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         if (time != null) {
             stmt.bindLong(9, time);
         }
+        stmt.bindDouble(10, entity.getDistance());
     }
 
     @Override
@@ -151,6 +150,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         if (time != null) {
             stmt.bindLong(9, time);
         }
+        stmt.bindDouble(10, entity.getDistance());
     }
 
     @Override
@@ -169,7 +169,8 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
             cursor.getDouble(offset + 5), // avgSpeed
             cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // startTime
             cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7), // stopTime
-            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8) // time
+            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // time
+            cursor.getDouble(offset + 9) // distance
         );
         return entity;
     }
@@ -185,6 +186,7 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         entity.setStartTime(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
         entity.setStopTime(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
         entity.setTime(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
+        entity.setDistance(cursor.getDouble(offset + 9));
      }
     
     @Override
@@ -211,18 +213,4 @@ public class traceInfoDao extends AbstractDao<traceInfo, String> {
         return true;
     }
     
-    /** Internal query to resolve the "traceInfoList" to-many relationship of StuInfo. */
-    public List<traceInfo> _queryStuInfo_TraceInfoList(String stuID) {
-        synchronized (this) {
-            if (stuInfo_TraceInfoListQuery == null) {
-                QueryBuilder<traceInfo> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.StuID.eq(null));
-                stuInfo_TraceInfoListQuery = queryBuilder.build();
-            }
-        }
-        Query<traceInfo> query = stuInfo_TraceInfoListQuery.forCurrentThread();
-        query.setParameter(0, stuID);
-        return query.list();
-    }
-
 }

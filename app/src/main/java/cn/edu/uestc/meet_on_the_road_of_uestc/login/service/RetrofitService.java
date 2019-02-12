@@ -1,17 +1,22 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.login.service;
 
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.RegisterStatus;
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import okhttp3.ResponseBody;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
  * MVP模式封装Retrofit+RxJava网络框架
  */
 public interface RetrofitService {
-    @GET("Stu/search")
-    Observable<Stu> getSearchStudent(@Query("stuId") String stuId,
-                                     @Query("password") String password);
+    @POST("login_part/check.php")
+    Observable<NetWorkStatus> getSearchStudent(@Body PostLogin postLogin);
+
+    @POST("login_part/register.php")
+    Observable<RegisterStatus> registerAccount(@Body StuInfo stuInfo);
 }

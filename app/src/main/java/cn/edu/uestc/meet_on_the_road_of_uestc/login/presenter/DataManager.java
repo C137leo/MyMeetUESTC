@@ -3,10 +3,14 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.presenter;
 import android.content.Context;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
-import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.Stu;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
+import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.RegisterStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.service.RetrofitHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.service.RetrofitService;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public class DataManager implements RetrofitService{
 
@@ -18,7 +22,12 @@ public class DataManager implements RetrofitService{
     }
 
     @Override
-    public Observable<Stu> getSearchStudent(String stuId, String password) {
-        return retrofitService.getSearchStudent(stuId,password);
+    public Observable<NetWorkStatus> getSearchStudent(PostLogin postLogin) {
+        return retrofitService.getSearchStudent(postLogin);
+    }
+
+    @Override
+    public Observable<RegisterStatus> registerAccount(StuInfo stuInfo) {
+        return retrofitService.registerAccount(stuInfo);
     }
 }
