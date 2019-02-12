@@ -48,6 +48,7 @@
         <activity android:name=".login.view.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".choosepath.activity.ChoosePathActivityPathItem" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

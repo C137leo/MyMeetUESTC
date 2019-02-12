@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
 public class ChoosePathActivityPathItem  extends AppCompatActivity {
     @Override
