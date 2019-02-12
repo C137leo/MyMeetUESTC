@@ -86,7 +86,6 @@
                 <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@mipmap/ic_icontest"
                     android:id="@+id/publish_help_accept_image"
                     android:layout_marginStart="10dp"/>
                 <LinearLayout
@@ -104,19 +103,16 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="公共与管理学院"
                         android:id="@+id/publish_help_accept_major"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="大一"
                         android:id="@+id/publish_help_accept_grade"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/publish_help_accept_status"
-                    android:text="已接受帮帮"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="240dp"/>
             </RelativeLayout>

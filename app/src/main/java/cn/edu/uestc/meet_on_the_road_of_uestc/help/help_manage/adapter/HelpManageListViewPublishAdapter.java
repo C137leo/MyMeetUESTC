@@ -40,19 +40,19 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         holder.publishHelpOwner.setText(listViewData.get(position).getPublishHelpOwner());
         holder.publishHelpTime.setText(listViewData.get(position).getPublishHelpTime());
         if(listViewData.get(position).getPublishHelpAcceptStatus()==0){
-            holder.publishHelpAcceptName.setText("还未接受");
+            holder.publishHelpAcceptName.setText("还未接受帮帮");
         }else if(listViewData.get(position).getPublishHelpAcceptStatus()==1){
             holder.publishHelpAcceptName.setText(listViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptGrade.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptGrade()));
             holder.publishHelpAcceptMajor.setText(listViewData.get(position).getPublishHelpAcceptMajor());
             holder.publishHelpAcceptTime.setText(listViewData.get(position).getPublishHelpAcceptTime());
-            holder.publishHelpAcceptStatus.setText("正在进行");
+            holder.publishHelpAcceptStatus.setText("正在进行帮帮");
         }else if(listViewData.get(position).getPublishHelpAcceptStatus()==2){
             holder.publishHelpAcceptName.setText(listViewData.get(position).getPublishHelpAcceptName());
-            holder.publishHelpAcceptGrade.setText(listViewData.get(position).getPublishHelpAcceptGrade());
-            holder.publishHelpAcceptMajor.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptMajor()));
+            holder.publishHelpAcceptGrade.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptGrade()));
+            holder.publishHelpAcceptMajor.setText(listViewData.get(position).getPublishHelpAcceptMajor());
             holder.publishHelpAcceptTime.setText(listViewData.get(position).getPublishHelpAcceptTime());
-            holder.publishHelpAcceptStatus.setText("已完成");
+            holder.publishHelpAcceptStatus.setText("已完成帮帮");
         }
     }
 
