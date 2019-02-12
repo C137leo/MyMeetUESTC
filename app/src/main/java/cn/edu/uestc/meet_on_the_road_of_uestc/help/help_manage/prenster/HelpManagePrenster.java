@@ -45,8 +45,8 @@ public class HelpManagePrenster implements IPrenster{
         if(helpManageViewpagerActivity==null){
             helpManageViewpagerActivity=new ArrayList<>();
         }
-        helpManageViewpagerActivity.add(new HelpManagePublishViewpagerFragment());
         helpManageViewpagerActivity.add(new HelpManageAcceptViewpagerFragment());
+        helpManageViewpagerActivity.add(new HelpManagePublishViewpagerFragment());
         List<String> viewpagerTitle=new ArrayList();
         viewpagerTitle.add("我接受的");
         viewpagerTitle.add("我发布的");
