@@ -24,7 +24,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity;
         import java.util.List;
         import java.util.Random;
         import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
-
+        import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 public class ChoosePathActivity  extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
     //AMap是地图对象
