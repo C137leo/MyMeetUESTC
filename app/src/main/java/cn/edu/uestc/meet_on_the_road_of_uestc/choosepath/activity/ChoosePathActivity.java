@@ -1,5 +1,6 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc;
+package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity;
 
+        import android.graphics.Color;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
         import android.util.Log;
@@ -15,9 +16,14 @@ package cn.edu.uestc.meet_on_the_road_of_uestc;
         import com.amap.api.maps.MapView;
         import com.amap.api.maps.UiSettings;
         import com.amap.api.maps.model.LatLng;
-
+        import com.amap.api.maps.model.Polyline;
+        import com.amap.api.maps.model.PolylineOptions;
         import java.text.SimpleDateFormat;
+        import java.util.ArrayList;
         import java.util.Date;
+        import java.util.List;
+        import java.util.Random;
+        import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
 
 public class ChoosePathActivity  extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
@@ -32,6 +38,7 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
     private OnLocationChangedListener mListener = null;
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
+    NavFragment navFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,8 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
         //开始定位
         location();
         //开始设置路线
+        setRoute();
+
     }
 
     private void location() {
@@ -78,6 +87,18 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+    }
+
+    public void setRoute(){
+        List<LatLng> latLngs = new ArrayList<LatLng>();
+        latLngs.add(new LatLng(37.32816246525063,115.591305507701));
+        latLngs.add(new LatLng(37.328085683440804,115.59197069553669));
+        latLngs.add(new LatLng(37.32858049817199,115.59211017040546));
+        latLngs.add(new LatLng(37.32901601321207,115.59217454342182));
+        Random random=new Random();
+        final Polyline polyline =aMap.addPolyline(new PolylineOptions().
+                addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
+
     }
 
     @Override
@@ -175,5 +196,10 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
     @Override
     public void deactivate() {
         mListener = null;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

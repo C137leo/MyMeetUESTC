@@ -58,9 +58,10 @@
         <activity android:name=".login.view.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".choosepath.activity.ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <meta-data android:name="com.amap.api.v2.apikey" android:value="7be6fe20eb1ca175c1ef16590e700a5e"/>
         <!-- 配置APP ID -->
         <meta-data
