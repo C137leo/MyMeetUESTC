@@ -15,7 +15,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 /** 
  * DAO for table "HELP_INFO".
 */
-public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
+public class HelpInfoDao extends AbstractDao<HelpInfo, Long> {
 
     public static final String TABLENAME = "HELP_INFO";
 
@@ -24,16 +24,14 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property UID = new Property(0, String.class, "UID", true, "UID");
+        public final static Property UID = new Property(0, Long.class, "UID", true, "_id");
         public final static Property StuID = new Property(1, String.class, "StuID", false, "STU_ID");
-        public final static Property Location = new Property(2, String.class, "location", false, "LOCATION");
+        public final static Property Distance = new Property(2, String.class, "distance", false, "DISTANCE");
         public final static Property Owner_name = new Property(3, String.class, "owner_name", false, "OWNER_NAME");
         public final static Property Good_title = new Property(4, String.class, "good_title", false, "GOOD_TITLE");
         public final static Property Publish_time = new Property(5, String.class, "publish_time", false, "PUBLISH_TIME");
         public final static Property IsPay = new Property(6, int.class, "isPay", false, "IS_PAY");
         public final static Property Good_detail = new Property(7, String.class, "good_detail", false, "GOOD_DETAIL");
-        public final static Property IsFinish = new Property(8, int.class, "isFinish", false, "IS_FINISH");
-        public final static Property WhoFinishIt = new Property(9, String.class, "whoFinishIt", false, "WHO_FINISH_IT");
     }
 
 
@@ -49,16 +47,14 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"HELP_INFO\" (" + //
-                "\"UID\" TEXT PRIMARY KEY NOT NULL ," + // 0: UID
+                "\"_id\" INTEGER PRIMARY KEY ," + // 0: UID
                 "\"STU_ID\" TEXT," + // 1: StuID
-                "\"LOCATION\" TEXT," + // 2: location
+                "\"DISTANCE\" TEXT," + // 2: distance
                 "\"OWNER_NAME\" TEXT," + // 3: owner_name
                 "\"GOOD_TITLE\" TEXT," + // 4: good_title
                 "\"PUBLISH_TIME\" TEXT," + // 5: publish_time
                 "\"IS_PAY\" INTEGER NOT NULL ," + // 6: isPay
-                "\"GOOD_DETAIL\" TEXT," + // 7: good_detail
-                "\"IS_FINISH\" INTEGER NOT NULL ," + // 8: isFinish
-                "\"WHO_FINISH_IT\" TEXT);"); // 9: whoFinishIt
+                "\"GOOD_DETAIL\" TEXT);"); // 7: good_detail
     }
 
     /** Drops the underlying database table. */
@@ -71,9 +67,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
     protected final void bindValues(DatabaseStatement stmt, HelpInfo entity) {
         stmt.clearBindings();
  
-        String UID = entity.getUID();
+        Long UID = entity.getUID();
         if (UID != null) {
-            stmt.bindString(1, UID);
+            stmt.bindLong(1, UID);
         }
  
         String StuID = entity.getStuID();
@@ -81,9 +77,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             stmt.bindString(2, StuID);
         }
  
-        String location = entity.getLocation();
-        if (location != null) {
-            stmt.bindString(3, location);
+        String distance = entity.getDistance();
+        if (distance != null) {
+            stmt.bindString(3, distance);
         }
  
         String owner_name = entity.getOwner_name();
@@ -105,12 +101,6 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         String good_detail = entity.getGood_detail();
         if (good_detail != null) {
             stmt.bindString(8, good_detail);
-        }
-        stmt.bindLong(9, entity.getIsFinish());
- 
-        String whoFinishIt = entity.getWhoFinishIt();
-        if (whoFinishIt != null) {
-            stmt.bindString(10, whoFinishIt);
         }
     }
 
@@ -118,9 +108,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
     protected final void bindValues(SQLiteStatement stmt, HelpInfo entity) {
         stmt.clearBindings();
  
-        String UID = entity.getUID();
+        Long UID = entity.getUID();
         if (UID != null) {
-            stmt.bindString(1, UID);
+            stmt.bindLong(1, UID);
         }
  
         String StuID = entity.getStuID();
@@ -128,9 +118,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             stmt.bindString(2, StuID);
         }
  
-        String location = entity.getLocation();
-        if (location != null) {
-            stmt.bindString(3, location);
+        String distance = entity.getDistance();
+        if (distance != null) {
+            stmt.bindString(3, distance);
         }
  
         String owner_name = entity.getOwner_name();
@@ -153,57 +143,48 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (good_detail != null) {
             stmt.bindString(8, good_detail);
         }
-        stmt.bindLong(9, entity.getIsFinish());
- 
-        String whoFinishIt = entity.getWhoFinishIt();
-        if (whoFinishIt != null) {
-            stmt.bindString(10, whoFinishIt);
-        }
     }
 
     @Override
-    public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public HelpInfo readEntity(Cursor cursor, int offset) {
         HelpInfo entity = new HelpInfo( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // UID
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // UID
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // StuID
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // location
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // distance
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // owner_name
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // good_title
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // publish_time
             cursor.getInt(offset + 6), // isPay
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // good_detail
-            cursor.getInt(offset + 8), // isFinish
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // whoFinishIt
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // good_detail
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, HelpInfo entity, int offset) {
-        entity.setUID(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setUID(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setStuID(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setLocation(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDistance(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setOwner_name(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setGood_title(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPublish_time(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setIsPay(cursor.getInt(offset + 6));
         entity.setGood_detail(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setIsFinish(cursor.getInt(offset + 8));
-        entity.setWhoFinishIt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     @Override
-    protected final String updateKeyAfterInsert(HelpInfo entity, long rowId) {
-        return entity.getUID();
+    protected final Long updateKeyAfterInsert(HelpInfo entity, long rowId) {
+        entity.setUID(rowId);
+        return rowId;
     }
     
     @Override
-    public String getKey(HelpInfo entity) {
+    public Long getKey(HelpInfo entity) {
         if(entity != null) {
             return entity.getUID();
         } else {

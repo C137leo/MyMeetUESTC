@@ -4,11 +4,8 @@ import android.view.View;
 
 import java.net.ContentHandler;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.IView;
-
 public interface IPrenster {
-    void attchView(IView view);
+    void attchView(View view);
     void onCreate();
-    void searchDetailData(String UID);
-    void searchLocation();
+    void searchDetailData(Long UID);
 }

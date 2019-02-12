@@ -20,11 +20,10 @@ public class traceInfo {
     private Long startTime;
     private Long stopTime;
     private Long time;
-    private double distance;
-    @Generated(hash = 1729753035)
+    @Generated(hash = 144956802)
     public traceInfo(String date, String stuID, String latitude, String lontitude,
-            double speed, double avgSpeed, Long startTime, Long stopTime, Long time,
-            double distance) {
+            double speed, double avgSpeed, Long startTime, Long stopTime,
+            Long time) {
         this.date = date;
         this.stuID = stuID;
         this.latitude = latitude;
@@ -34,7 +33,6 @@ public class traceInfo {
         this.startTime = startTime;
         this.stopTime = stopTime;
         this.time = time;
-        this.distance = distance;
     }
     @Generated(hash = 594904309)
     public traceInfo() {
@@ -93,11 +91,6 @@ public class traceInfo {
     public void setTime(Long time) {
         this.time = time;
     }
-    public double getDistance() {
-        return this.distance;
-    }
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
+
 
 }

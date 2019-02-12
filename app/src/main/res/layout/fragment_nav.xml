@@ -51,7 +51,7 @@
             android:clickable="true"
             android:cropToPadding="false"
             android:focusable="true"
-            mapbox:srcCompat="@mipmap/ic_nearby_close" />
+            mapbox:srcCompat="@mipmap/ic_nearby" />
 
         <ImageView
             android:layout_width="wrap_content"

@@ -79,11 +79,9 @@ import java.util.TimerTask;
 import cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity.ChoosePathActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InfoWindowAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.Interface.UploadInformation;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.prenster.NavPrenster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.run_activity.BeforeRunCalculate;
 import dev.DevUtils;
 import dev.utils.app.PhoneUtils;
@@ -130,7 +128,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView nearByview;
     private Timer timer;
     private TimerTask task;
-    static HashMap<String,Marker> nearByUserMap;
+    HashMap<String,Marker> nearByUserMap=new HashMap<String,Marker>();
     LatLonPoint nearbyLatLonPoint;
     int isAmapClear=0;
     ImageView run;
@@ -144,9 +142,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     ImageView setRoute;
     String server_info="https://www.happydoudou.xyz";
     ImageView setGoal;
-    NavPrenster navPrenster=new NavPrenster();
-    List newarByMarketId=new ArrayList();
-    Marker currentMarker;
+
+
 
     @Nullable
     @Override
@@ -211,7 +208,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                             }
                         };
                         timer.schedule(task, 2000, 3000);
-                        nearByview.setImageResource(R.mipmap.ic_nearby_open);
                         flag[0] = 1;
                         break;
                     }
@@ -219,7 +215,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         timer.cancel();
                         clearMarker();
                         flag[0] = 0;
-                        nearByview.setImageResource(R.mipmap.ic_nearby_close);
                         NearbySearch.getInstance(MyApplication.getMyContext())
                                 .clearUserInfoAsyn();
                         NearbySearch.destroy();
@@ -300,17 +295,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 startActivity(intent);
             }
         });
-        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                if(currentMarker.isInfoWindowShown()){
-                    Log.d("hideMarket","hideMarket");
-                    currentMarker.hideInfoWindow();
-                }
-            }
-        });
-        aMap.setOnMarkerClickListener(this);
-        aMap.setInfoWindowAdapter(new InfoWindowAdapter());
     }
     /**
      * 初始化高德地图
@@ -607,8 +591,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                 //位置信息
                 loadInfo.setPoint(mLatLonPoint);
                 //用户id信息
-                loadInfo.setUserID(navPrenster.getStuId());
-                Log.d("UserId",navPrenster.getStuId());
+                loadInfo.setUserID(String.valueOf(PhoneUtils.getIMEI()));
+                Log.d("UserId",String.valueOf(PhoneUtils.getIMEI()));
                 Log.d("Upload Info","Upload Info");
                 return loadInfo;
             }
@@ -624,7 +608,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         //设置搜索条件
         nearbyQuery = new NearbySearch.NearbyQuery();
         //设置搜索的中心点
-        nearbyQuery.setCenterPoint(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude));
+        nearbyQuery.setCenterPoint(new LatLonPoint(30.749125,103.931633));
         //设置搜索的坐标体系
         nearbyQuery.setCoordType(NearbySearch.AMAP);
         //设置搜索半径
@@ -657,22 +641,19 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
      */
     @Override
     public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int i) {
-
         if(i==1000){
             if(nearbySearchResult!=null) {
                 nearbyInfoList = nearbySearchResult.getNearbyInfoList();
                 for (NearbyInfo nearbyInfo : nearbyInfoList) {
                     if(nearByUserMap==null){
-                        Log.d("nearByInfo",nearbyInfo.getUserID());
                         nearByUserMap=new HashMap<String,Marker>();
                         LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
                         marker.setClickable(true);
                         nearByUserMap.put(nearbyInfo.getUserID(),marker);
                     }else {
-                        nearbyLatLonPoint = nearbyInfo.getPoint();
                         if (nearByUserMap.containsKey(nearbyInfo.getUserID())) {
-                            if(nearbyInfo.getPoint().getLatitude() != nearbyLatLonPoint.getLatitude() || nearbyInfo.getPoint().getLongitude() != nearbyLatLonPoint.getLongitude()) {
+                            if(nearbyInfo.getPoint().getLatitude() == nearbyLatLonPoint.getLatitude() && nearbyInfo.getPoint().getLongitude() == nearbyLatLonPoint.getLongitude()) {
                                 LatLng mLatLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                                 Marker marker = nearByUserMap.get(nearbyInfo.getUserID());
                                 marker.setClickable(true);
@@ -681,6 +662,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                                 aMap.addMarker(nearByUserMap.get(nearbyInfo.getUserID()).getOptions());
                             }
                         } else {
+                            nearbyLatLonPoint = nearbyInfo.getPoint();
                             LatLng latLng = new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude());
                             Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(nearbyInfo.getUserID()).snippet(String.valueOf(nearbyInfo.getDistance())));
                             marker.setClickable(true);
@@ -688,7 +670,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                         }
                     }
                 }
-                getMarketId();
+                aMap.setOnMarkerClickListener(this);
             }else{
                 Toast.makeText(MyApplication.getMyContext(),"未搜索到周边的人",Toast.LENGTH_SHORT).show();
             }
@@ -696,9 +678,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             Log.e("NearByService error","错误码为:"+i);
         }
     }
-    public static HashMap<String,Marker> getMarketId(){
-        return nearByUserMap;
-    }
+
     public void beginRun(){
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_MAP_ROTATE);
         aMap.setMyLocationStyle(myLocationStyle);
@@ -713,9 +693,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        currentMarker=marker;
         marker.showInfoWindow();
-        return true;
+        return false;
     }
 
     @Override

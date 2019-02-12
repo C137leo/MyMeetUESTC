@@ -15,23 +15,21 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MainActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.HelpAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.Help_InfoFragment;
 
-public class HelpAllFragment extends Fragment{
+public class HelpAllFragment extends Fragment implements IView{
 
     private List<HelpInfo> mList;
     ViewPager mViewPager;
-    List fragments;
+    List<Help_InfoFragment> fragments;
     TabLayout tabLayout;
     FloatingActionButton helpAddButton;
     FloatingActionButton helpMyself;
-    PrensterComl prensterComl=new PrensterComl(getActivity());
-    Help_FragmentAdapter help_fragmentAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,13 +43,6 @@ public class HelpAllFragment extends Fragment{
         tabLayout=getActivity().findViewById(R.id.tabTitle);
         helpAddButton=getActivity().findViewById(R.id.add_help_button);
         helpMyself=getActivity().findViewById(R.id.my_help_button);
-        helpMyself.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), HelpManageActivity.class);
-                startActivity(intent);
-            }
-        });
         helpAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,14 +57,18 @@ public class HelpAllFragment extends Fragment{
         titles.add("最新发布");
         titles.add("附近帮帮");
         fragments = new ArrayList<>();
-        fragments.add(new HelpInfoLatestFragment());
-        fragments.add(new HelpInfoNearbyFragment());
-        help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
+        for (int i = 0; i < titles.size(); i++) {
+            fragments.add(new Help_InfoFragment());
+        }
+        Help_FragmentAdapter help_fragmentAdapter=new Help_FragmentAdapter(getChildFragmentManager(),titles,fragments);
         mViewPager.setAdapter(help_fragmentAdapter);
-        mViewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    public void updateData() {
+
+    }
 
     @Override
     public void onStart() {

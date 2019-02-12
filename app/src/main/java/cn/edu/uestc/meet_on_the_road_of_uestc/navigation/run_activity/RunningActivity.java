@@ -192,7 +192,7 @@ public class RunningActivity extends AppCompatActivity {
          });
     }
     public void setDataIndb(){
-        traceInfo traceInfo=new traceInfo(date,"2018021407022",latitude,lontitude,20.00,20.00,startTraceTime,stopTraceTime,(stopTraceTime-startTraceTime),20);
+        traceInfo traceInfo=new traceInfo(date,"2018021407022",latitude,lontitude,20.00,20.00,startTraceTime,stopTraceTime,(stopTraceTime-startTraceTime));
 
     }
 

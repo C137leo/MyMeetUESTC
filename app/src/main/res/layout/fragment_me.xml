@@ -1,78 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
     <RelativeLayout
-        android:background="@mipmap/person_information_topbar"
+        android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
-            android:id="@+id/pii_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:src="@mipmap/ic_icontest"
-            />
         <LinearLayout
-            android:layout_alignTop="@id/pii_image"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="130dp">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textSize="25sp"
-                    android:id="@+id/pii_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="姚大美人"/>
-                <ImageView
-                    android:id="@+id/pii_edit"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_pii_edit"/>
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/trace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pii_name" />
-            <TextView
-                android:textSize="12sp"
-                android:id="@+id/pii_major"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="公共管理学院"/>
-            <TextView
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/pii_grade"
-                android:text="大一"/>
-            <LinearLayout
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="个人签名："/>
-                <TextView
-                    android:textSize="15sp"
-                    android:text="开心快乐每一天!"
-                    android:id="@+id/pii_signature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                app:srcCompat="@drawable/ic_trace"/>
         </LinearLayout>
     </RelativeLayout>
-
-
 </RelativeLayout>

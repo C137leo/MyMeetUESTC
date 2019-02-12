@@ -2,38 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <RelativeLayout
-        android:id="@+id/registerTopBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_background_yellow">
-        <ImageView
-            android:id="@+id/registerBack"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_back"/>
-        <TextView
-            android:layout_centerInParent="true"
-            android:textSize="30sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/registerByStuID"/>
-    </RelativeLayout>
+    android:background="#FFFCEC"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:layout_below="@id/registerTopBar"
         android:id="@+id/linearLayoutInput"
-        android:layout_marginTop="60sp"
+        android:layout_marginTop="90sp"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputLayout
+        <TextView
+            android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registerByStuID"/>
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="300sp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:mtf_labelColor="#666">
             <EditText
                 android:id="@+id/registerAccount"
                 android:layout_width="match_parent"
@@ -41,12 +27,12 @@
                 android:hint="@string/registerAccount"
                 android:textColor="#333"
                 android:textSize="15sp"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="10dp"
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="300sp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:mtf_labelColor="#666">
             <EditText
                 android:id="@+id/registerName"
                 android:layout_width="match_parent"
@@ -55,12 +41,12 @@
                 android:textColor="#333"
                 android:textSize="15sp"
                 />
-        </android.support.design.widget.TextInputLayout>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="10dp"
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_height="wrap_content"
-            android:layout_width="300sp">
+            android:layout_width="300sp"
+            app:mtf_labelColor="#666">
             <EditText
                 android:id="@+id/registerStuID"
                 android:layout_width="match_parent"
@@ -68,40 +54,34 @@
                 android:hint="@string/regosterStuID"
                 android:textColor="#333"
                 android:textSize="15sp"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.github.florent37.materialtextfield.MaterialTextField>
 
-        <android.support.design.widget.TextInputLayout
+        <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="300sp"
-            android:layout_marginTop="10dp"
-
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:mtf_labelColor="#666">
             <EditText
                 android:id="@+id/registerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/registerPassword"
                 android:textColor="#333"
-                android:textSize="15sp"
-                android:inputType="textPassword"/>
-        </android.support.design.widget.TextInputLayout>
+                android:textSize="15sp"/>
+        </com.github.florent37.materialtextfield.MaterialTextField>
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/signUpLayout"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/linearLayoutInput"
+        android:layout_marginTop="550sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
-            android:background="@drawable/shape_gradient_loginbutton"
             android:text="@string/sign_up"
             android:id="@+id/buttonSignUp"
             android:layout_width="300sp"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <LinearLayout
-        android:layout_below="@id/signUpLayout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -110,19 +90,13 @@
             android:id="@+id/agreeCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/agreeDocument" />
+            android:text="@string/agreeDocument"
+            android:layout_marginTop="610sp"/>
         <TextView
-            android:textColor="@color/blue"
             android:id="@+id/registerDocument"
+            android:layout_marginTop="610sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="《用户注册协议》"/>
+            android:text="@string/registerDocument" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/registerProgreeBar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
 </RelativeLayout>

@@ -7,7 +7,6 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/ic_background_yellow">
         <ImageView
-            android:id="@+id/help_add_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_back"
@@ -21,11 +20,12 @@
             android:textSize="40sp"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
         android:layout_width="300dp"
-        android:layout_height="600dp">
+        android:layout_height="600dp"
+        android:orientation="vertical">
         <EditText
             android:id="@+id/help_add_title"
             android:singleLine="true"
@@ -34,7 +34,6 @@
             android:layout_height="wrap_content"
             android:hint="输入标题" />
         <EditText
-            android:layout_below="@id/help_add_title"
             android:id="@+id/help_add_detail"
             android:gravity="bottom"
             android:layout_width="match_parent"
@@ -42,36 +41,11 @@
             android:minLines="5"
             android:hint="说点什么"
             android:theme="@style/add_help_edittext"/>
-
         <LinearLayout
-            android:layout_marginTop="230dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.amap.api.maps.MapView
-                android:id="@+id/help_add_map"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="200sp"></com.amap.api.maps.MapView>
-
-            <Button
-                android:layout_marginTop="20dp"
-                android:id="@+id/publish_help_button"
-                android:layout_below="@id/help_add_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/drawable_cilck"
-                android:text="发布"
-                android:textSize="20sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/help_add_location_layout"
-            android:layout_below="@id/help_add_detail"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:singleLine="true"
                 android:id="@+id/help_add_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,20 +53,24 @@
                 android:theme="@style/add_help_edittext"/>
 
             <ListView
-                android:divider="@color/black"
-                android:dividerHeight="1px"
                 android:id="@+id/add_help_location_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"></ListView>
+                android:visibility="gone"></ListView>
         </LinearLayout>
 
+        <com.amap.api.maps.MapView
+            android:id="@+id/help_add_map"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"></com.amap.api.maps.MapView>
 
-    </RelativeLayout>
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_help_progress"/>
+        <Button
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="发布"
+            android:background="@drawable/drawable_cilck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>

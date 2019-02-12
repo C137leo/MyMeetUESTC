@@ -1,13 +1,8 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster;
 
-import java.util.List;
-
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.IView;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entity.HelpInfo;
 
 public interface IPrenster {
 
     void getData();
-    void attchView(IView iView);
-    void getDataFromDatabases();
 }

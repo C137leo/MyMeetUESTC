@@ -18,6 +18,4 @@ public interface Prenster {
     void attachView(IView view);
 
     void attachIncomingIntent(Intent intent);//暂时没用到
-
-    void getLoginStatus();
 }

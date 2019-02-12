@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,7 +26,7 @@ public class RetrofitHelper {
     }
     public void startRetrofitService(Context context) {
         retrofit=new Retrofit.Builder()
-                .baseUrl("https://www.happydoudou.xyz/moou/")
+                .baseUrl("https://www.happydoudou.xyz/")
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
