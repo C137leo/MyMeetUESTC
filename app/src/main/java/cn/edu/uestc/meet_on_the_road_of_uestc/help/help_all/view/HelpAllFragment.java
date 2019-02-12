@@ -20,6 +20,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.HelpAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageActivity;
 
 public class HelpAllFragment extends Fragment{
 
@@ -44,6 +45,13 @@ public class HelpAllFragment extends Fragment{
         tabLayout=getActivity().findViewById(R.id.tabTitle);
         helpAddButton=getActivity().findViewById(R.id.add_help_button);
         helpMyself=getActivity().findViewById(R.id.my_help_button);
+        helpMyself.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), HelpManageActivity.class);
+                startActivity(intent);
+            }
+        });
         helpAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
