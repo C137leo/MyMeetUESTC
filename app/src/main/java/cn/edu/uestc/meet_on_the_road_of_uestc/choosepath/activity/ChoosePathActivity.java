@@ -5,7 +5,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity;
         import android.support.v7.app.AppCompatActivity;
         import android.util.Log;
         import android.widget.Toast;
-
+        import cn.edu.uestc.meet_on_the_road_of_uestc.R;
         import com.amap.api.location.AMapLocation;
         import com.amap.api.location.AMapLocationClient;
         import com.amap.api.location.AMapLocationClientOption;
