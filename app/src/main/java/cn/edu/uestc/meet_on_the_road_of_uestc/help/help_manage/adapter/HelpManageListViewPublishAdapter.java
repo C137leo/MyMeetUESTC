@@ -40,7 +40,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         holder.publishHelpOwner.setText(listViewData.get(position).getPublishHelpOwner());
         holder.publishHelpTime.setText(listViewData.get(position).getPublishHelpTime());
         if(listViewData.get(position).getPublishHelpAcceptStatus()==0){
-            holder.publishHelpAcceptName.setText("还未接受帮帮");
+            holder.publishHelpAcceptName.setText("待接受");
         }else if(listViewData.get(position).getPublishHelpAcceptStatus()==1){
             holder.publishHelpAcceptName.setText(listViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptGrade.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptGrade()));

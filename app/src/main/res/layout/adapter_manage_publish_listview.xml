@@ -26,7 +26,7 @@
                     android:text="重金求子"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="30sp"/>
+                    android:textSize="20sp"/>
                 <LinearLayout
                     android:id="@+id/publish_detail_layout"
                     android:layout_alignLeft="@id/publish_help_title"
@@ -74,20 +74,21 @@
             </RelativeLayout>
             <ImageView
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_line"/>
             <RelativeLayout
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:id="@+id/publish_help_accept_image"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp"
+                    android:src="@mipmap/ic_icontest"/>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_marginStart="80dp"
@@ -100,11 +101,12 @@
                         android:text="姚大美人"
                         android:id="@+id/publish_help_accept_name"/>
                     <TextView
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/publish_help_accept_major"/>
                     <TextView
+                        android:layout_marginEnd="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/publish_help_accept_grade"/>
