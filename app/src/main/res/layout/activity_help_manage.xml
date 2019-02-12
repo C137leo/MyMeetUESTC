@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="我的帮帮"
             android:layout_centerInParent="true"
-            android:textSize="50sp"/>
+            android:textSize="30sp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_below="@id/help_manage_topbar"

@@ -34,6 +34,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         public final static Property Good_detail = new Property(7, String.class, "good_detail", false, "GOOD_DETAIL");
         public final static Property IsFinish = new Property(8, int.class, "isFinish", false, "IS_FINISH");
         public final static Property WhoFinishIt = new Property(9, String.class, "whoFinishIt", false, "WHO_FINISH_IT");
+        public final static Property AcceptTime = new Property(10, String.class, "acceptTime", false, "ACCEPT_TIME");
     }
 
 
@@ -58,7 +59,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
                 "\"IS_PAY\" INTEGER NOT NULL ," + // 6: isPay
                 "\"GOOD_DETAIL\" TEXT," + // 7: good_detail
                 "\"IS_FINISH\" INTEGER NOT NULL ," + // 8: isFinish
-                "\"WHO_FINISH_IT\" TEXT);"); // 9: whoFinishIt
+                "\"WHO_FINISH_IT\" TEXT," + // 9: whoFinishIt
+                "\"ACCEPT_TIME\" TEXT);"); // 10: acceptTime
     }
 
     /** Drops the underlying database table. */
@@ -112,6 +114,11 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (whoFinishIt != null) {
             stmt.bindString(10, whoFinishIt);
         }
+ 
+        String acceptTime = entity.getAcceptTime();
+        if (acceptTime != null) {
+            stmt.bindString(11, acceptTime);
+        }
     }
 
     @Override
@@ -159,6 +166,11 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (whoFinishIt != null) {
             stmt.bindString(10, whoFinishIt);
         }
+ 
+        String acceptTime = entity.getAcceptTime();
+        if (acceptTime != null) {
+            stmt.bindString(11, acceptTime);
+        }
     }
 
     @Override
@@ -178,7 +190,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             cursor.getInt(offset + 6), // isPay
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // good_detail
             cursor.getInt(offset + 8), // isFinish
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // whoFinishIt
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // whoFinishIt
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // acceptTime
         );
         return entity;
     }
@@ -195,6 +208,7 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         entity.setGood_detail(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setIsFinish(cursor.getInt(offset + 8));
         entity.setWhoFinishIt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setAcceptTime(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

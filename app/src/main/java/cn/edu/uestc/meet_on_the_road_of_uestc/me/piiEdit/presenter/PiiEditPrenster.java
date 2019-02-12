@@ -126,7 +126,7 @@ public class PiiEditPrenster implements IPrenster{
 
                     @Override
                     public void onComplete() {
-                        disposableForChange.dispose();
+                        disposableForUpload.dispose();
                     }
                 });
     }

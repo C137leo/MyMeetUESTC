@@ -24,10 +24,11 @@ public class HelpInfo implements Comparable<HelpInfo>{
     private String good_detail; //帮帮详情
     private int isFinish; //是否完成
     private String whoFinishIt; //谁完成
-    @Generated(hash = 719437884)
+    private String acceptTime;  //接受时间
+    @Generated(hash = 2101948538)
     public HelpInfo(String UID, String StuID, String location, String owner_name,
             String good_title, String publish_time, int isPay, String good_detail,
-            int isFinish, String whoFinishIt) {
+            int isFinish, String whoFinishIt, String acceptTime) {
         this.UID = UID;
         this.StuID = StuID;
         this.location = location;
@@ -38,6 +39,7 @@ public class HelpInfo implements Comparable<HelpInfo>{
         this.good_detail = good_detail;
         this.isFinish = isFinish;
         this.whoFinishIt = whoFinishIt;
+        this.acceptTime = acceptTime;
     }
     @Generated(hash = 498075579)
     public HelpInfo() {
@@ -102,6 +104,12 @@ public class HelpInfo implements Comparable<HelpInfo>{
     public void setWhoFinishIt(String whoFinishIt) {
         this.whoFinishIt = whoFinishIt;
     }
+    public String getAcceptTime() {
+        return this.acceptTime;
+    }
+    public void setAcceptTime(String acceptTime) {
+        this.acceptTime = acceptTime;
+    }
 
     @Override
     public int compareTo(@NonNull HelpInfo helpInfo) {
@@ -113,4 +121,5 @@ public class HelpInfo implements Comparable<HelpInfo>{
             return -1;
         }
     }
+
 }

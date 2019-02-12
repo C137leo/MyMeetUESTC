@@ -10,9 +10,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -23,17 +20,12 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.model.HelpModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
-import dev.utils.common.AssistUtils;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PrensterComl implements IPrenster{
     Observable<ResponseBody> observable;
@@ -74,11 +66,19 @@ public class PrensterComl implements IPrenster{
                             jsonArray=jsonParser.parse(responseBody.string()).getAsJsonArray();
                         } catch (IOException e) {
                             e.printStackTrace();
+                            iView.hideRefershing();
+                        }catch (IllegalStateException e){
+                            e.printStackTrace();
+                            iView.hideRefershing();
                         }
-                        for(JsonElement jsonElement:jsonArray){
-                            HelpInfo helpInfo=gson.fromJson(jsonElement,HelpInfo.class);
-                            helpInfoList.add(helpInfo);
-                            helpModel.saveGoodsData(helpInfo);
+                        if(jsonArray==null){
+                            iView.hideRefershing();
+                        }else {
+                            for (JsonElement jsonElement : jsonArray) {
+                                HelpInfo helpInfo = gson.fromJson(jsonElement, HelpInfo.class);
+                                helpInfoList.add(helpInfo);
+                                helpModel.saveGoodsData(helpInfo);
+                            }
                         }
                         getDataFromDatabases();
                     }

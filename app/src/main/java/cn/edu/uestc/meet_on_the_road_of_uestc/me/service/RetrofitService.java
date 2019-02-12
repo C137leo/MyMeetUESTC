@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface RetrofitService {
-    @POST("pii/post.php")
+    @POST("login_part/image.php")
     @Multipart
     Observable<ResponseBody> uploadImage(@Part MultipartBody.Part requestBody);
 
