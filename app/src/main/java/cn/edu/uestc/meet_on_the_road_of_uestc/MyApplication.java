@@ -9,6 +9,8 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoMaster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.jiguang.analytics.android.api.JAnalyticsInterface;
+import cn.jpush.android.api.JPushInterface;
 import dev.DevUtils;
 
 public class MyApplication extends TinkerApplication {
@@ -24,6 +26,10 @@ public class MyApplication extends TinkerApplication {
         context = getApplicationContext();
         DevUtils.init(getApplicationContext());
         greenDaoHelper.initGreenDao();
+        JAnalyticsInterface.init(context);
+        JAnalyticsInterface.setDebugMode(true);
+        JPushInterface.init(context);
+        JPushInterface.setDebugMode(true);
     }
     public static Context getMyContext(){
         return context;

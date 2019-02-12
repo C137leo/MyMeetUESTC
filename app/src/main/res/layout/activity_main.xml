@@ -12,26 +12,34 @@
         android:id="@+id/container_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffebcd"
+        android:background="@color/white"
         android:baselineAligned="false">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/menu_nav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_navigation_bottombar"/>
             <TextView
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_nav"
                 android:textColor="#595959"/>
-        </RelativeLayout>
-        <RelativeLayout
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
             android:gravity="center"
             android:id="@+id/menu_appointment"
             android:layout_width="wrap_content"
@@ -39,42 +47,66 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_appointment_bottombar"/>
             <TextView
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_appointment"
                 android:textColor="#595959"/>
-        </RelativeLayout>
-        <RelativeLayout
+        </LinearLayout>
+        <LinearLayout
             android:gravity="center"
             android:id="@+id/menu_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:clickable="true"
             android:focusable="true">
-
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_home_bottombar"/>
             <TextView
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_home"
                 android:textColor="#595959" />
-        </RelativeLayout>
-        <RelativeLayout
+        </LinearLayout>
+        <LinearLayout
             android:gravity="center"
             android:id="@+id/menu_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:clickable="true"
             android:focusable="true">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_help_bottombar"/>
             <TextView
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_help"
                 android:textColor="#595959"/>
-        </RelativeLayout>
-        <RelativeLayout
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
             android:gravity="center"
             android:id="@+id/menu_me"
             android:layout_width="wrap_content"
@@ -82,12 +114,19 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_me_bottombar"/>
             <TextView
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_me"
                 android:textColor="#595959"/>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout

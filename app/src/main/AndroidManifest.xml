@@ -45,24 +45,31 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
-        </provider>
         <activity android:name=".login.view.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".login.view.RegisterService" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+        <activity android:name=".help.help_details.view.HelpDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".help.help_add.view.HelpAddActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".login.register.view.RegisterActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".me.piiEdit.view.PiiEditActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".help.help_manage.view.HelpManageActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".help.help_manage.view.HelpManagePublishViewpagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".help.help_manage.view.HelpManageAcceptViewpagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="7be6fe20eb1ca175c1ef16590e700a5e"/>
+
+        <!-- 相机共享目录 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.edu.uestc.meet_on_the_road_of_uestc"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camerapaths" />
+        </provider>
         <!-- 配置APP ID -->
         <meta-data
             android:name="BUGLY_APPID"

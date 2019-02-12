@@ -5,6 +5,7 @@
     android:background="@mipmap/help_details_background">
 
     <ImageView
+        android:id="@+id/help_detail_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_back"
@@ -18,7 +19,7 @@
         android:layout_height="500dp"
         android:background="@drawable/shape_corners">
         <TextView
-            android:id="@+id/help_title"
+            android:id="@+id/help_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -26,31 +27,43 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"/>
         <TextView
+            android:id="@+id/help_detail_author"
             android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/help_title"
+            android:layout_alignLeft="@+id/help_detail_title"
             android:text="作者"/>
         <TextView
+            android:id="@+id/help_detail_publish_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginStart="70dp"
             android:text="发布时间"/>
         <ImageView
+            android:id="@+id/dividerLineAddDetail"
             android:layout_marginTop="80dp"
-            android:layout_alignLeft="@id/help_title"
+            android:layout_alignLeft="@id/help_detail_title"
             android:layout_marginEnd="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_line"/>
         <TextView
+            android:id="@+id/help_detail"
             android:layout_centerHorizontal="true"
-            android:layout_alignLeft="@id/help_title"
+            android:layout_alignLeft="@id/help_detail_title"
             android:layout_marginEnd="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="帮助详情"
             android:layout_marginTop="100dp"/>
     </RelativeLayout>
+    <com.amap.api.maps.MapView
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:id="@+id/help_detail_map"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"></com.amap.api.maps.MapView>
 </RelativeLayout>

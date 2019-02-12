@@ -27,7 +27,7 @@ public class RetrofitHelper {
     }
     public void startRetrofitService(){
         mRetrofit=new Retrofit.Builder()
-                .baseUrl("https://www.happydoudou.xyz/")
+                .baseUrl("https://www.happydoudou.xyz/moou/")
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
