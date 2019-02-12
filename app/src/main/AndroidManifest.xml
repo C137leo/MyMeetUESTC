@@ -55,8 +55,6 @@
         <activity android:name=".login.register.view.RegisterActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".me.piiEdit.view.PiiEditActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_manage.view.HelpManageActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".help.help_manage.view.HelpManagePublishViewpagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".help.help_manage.view.HelpManageAcceptViewpagerActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="2d0ddae9af1edeec243600e8027c70d6"/>
 
         <!-- 相机共享目录 -->
