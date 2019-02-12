@@ -44,6 +44,7 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosepath);
+//        setContentView(R.layout.activity_choosepath_path);
         //获取地图控件引用
         mapView = (MapView) findViewById(R.id.map);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，实现地图生命周期管理
@@ -91,10 +92,10 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
 
     public void setRoute(){
         List<LatLng> latLngs = new ArrayList<LatLng>();
-        latLngs.add(new LatLng(37.32816246525063,115.591305507701));
-        latLngs.add(new LatLng(37.328085683440804,115.59197069553669));
-        latLngs.add(new LatLng(37.32858049817199,115.59211017040546));
-        latLngs.add(new LatLng(37.32901601321207,115.59217454342182));
+        latLngs.add(new LatLng(30.75533739247437,103.93463802298358));
+        latLngs.add(new LatLng(30.755226753366486,103.93298149043406));
+        latLngs.add(new LatLng(30.75472518787249,103.93341064387641));
+        latLngs.add(new LatLng(30.754378515982434,103.93408870644636));
         Random random=new Random();
         final Polyline polyline =aMap.addPolyline(new PolylineOptions().
                 addAll(latLngs).width(10).color(Color.argb(255, 1, 1, 1)));
