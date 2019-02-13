@@ -1,6 +1,6 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities;
 
-public class ListViewData {
+public class PublishRecycleViewData {
     String publishHelpTitle;
     String publishHelpOwner;
     String publishHelpTime;
@@ -11,7 +11,7 @@ public class ListViewData {
     int publishHelpAcceptGrade;
     int publishHelpAcceptStatus;
 
-    public ListViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
+    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
@@ -23,7 +23,7 @@ public class ListViewData {
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
     }
 
-    public ListViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, int publishHelpAcceptStatus) {
+    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, int publishHelpAcceptStatus) {
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
