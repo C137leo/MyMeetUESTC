@@ -1,8 +1,10 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     View view;
     List<AcceptRecycleViewData> acceptRecycleViewData;
     Context context;
+    MapView mapView;
     public HelpManageListViewAcceptAdapter(Context context,List<AcceptRecycleViewData> acceptRecycleViewData){
         this.context=context;
         this.acceptRecycleViewData=acceptRecycleViewData;
@@ -36,11 +39,12 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder holder, int position) {
+        Log.d("onBindViewHolder","onBingViewHolder");
         holder.publishHelpTitle.setText(acceptRecycleViewData.get(position).getPublishHelpTitle());
         holder.publishHelpOwner.setText(acceptRecycleViewData.get(position).getPublishHelpOwner());
         holder.publishHelpAcceptTime.setText(acceptRecycleViewData.get(position).getPublishHelpAcceptTime());
         holder.publishHelpTime.setText(acceptRecycleViewData.get(position).getPublishHelpTime());
-
+        holder.mapView.onCreate(new Bundle());
     }
 
     @Override
@@ -48,12 +52,18 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
         return acceptRecycleViewData.size();
     }
 
+    public MapView getAcceptMapView(){
+        return mapView;
+    }
+
+
     class RecycleViewViewHolder extends RecyclerView.ViewHolder {
         TextView publishHelpTitle;
         TextView publishHelpOwner;
         TextView publishHelpTime;
         Button seeTheRouteHelp;
         TextView publishHelpAcceptTime;
+        MapView mapView;
         public RecycleViewViewHolder(View itemView) {
             super(itemView);
             publishHelpTitle=itemView.findViewById(R.id.accept_help_title);
@@ -61,6 +71,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
             publishHelpTime=itemView.findViewById(R.id.accept_publish_help_time);
             seeTheRouteHelp=itemView.findViewById(R.id.see_the_route_help);
             publishHelpAcceptTime=itemView.findViewById(R.id.accept_help_accept_time);
+            mapView=itemView.findViewById(R.id.accept_help_map);
         }
     }
 }

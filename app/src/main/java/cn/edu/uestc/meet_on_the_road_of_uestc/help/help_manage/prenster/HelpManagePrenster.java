@@ -31,7 +31,7 @@ public class HelpManagePrenster implements IPrenster{
     DaoSession daoSession= GreenDaoHelper.getDaoSession();
     PublishRecycleViewData publishRecycleViewData;
     List helpManageViewpagerActivity;
-    List<AcceptRecycleViewData> acceptRecycleViewData;
+    List<AcceptRecycleViewData> acceptRecycleViewData=new ArrayList<>();
     public HelpManagePrenster(Context context, FragmentManager fragmentManager){
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -96,14 +96,16 @@ public class HelpManagePrenster implements IPrenster{
     public HelpManageListViewAcceptAdapter initHelpManageListViewAcceptAdapter() {
         getRecycleAcceptData();
         HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter=new HelpManageListViewAcceptAdapter(MyApplication.getMyContext(),acceptRecycleViewData);
-        return null;
+        return helpManageListViewAcceptAdapter;
     }
 
     @Override
     public void getRecycleAcceptData() {
-        HashSet set=new HashSet(acceptRecycleViewData);
-        acceptRecycleViewData.clear();
-        acceptRecycleViewData.addAll(set);
+        if(acceptRecycleViewData!=null) {
+            HashSet set = new HashSet(acceptRecycleViewData);
+            acceptRecycleViewData.clear();
+            acceptRecycleViewData.addAll(set);
+        }
         List<HelpInfo> helpInfoList=daoSession.queryBuilder(HelpInfo.class).where(HelpInfoDao.Properties.WhoFinishIt.eq(daoSession.getStuInfoDao().loadAll().get(0).getStuName())).list();
         for(HelpInfo helpInfo:helpInfoList){
             if(helpInfo.getIsFinish()==0){

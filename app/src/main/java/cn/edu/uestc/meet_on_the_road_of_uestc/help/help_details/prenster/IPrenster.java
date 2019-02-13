@@ -11,4 +11,5 @@ public interface IPrenster {
     void onCreate();
     void searchDetailData(String UID);
     void searchLocation();
+    void updateHelpStatusToIsProcessing(String UID);
 }

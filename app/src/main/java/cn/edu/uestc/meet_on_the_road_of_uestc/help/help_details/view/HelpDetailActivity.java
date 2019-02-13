@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -17,6 +19,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.PoiItem;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster.HelpDetailPrenster;
@@ -32,6 +35,7 @@ public class HelpDetailActivity extends AppCompatActivity {
     MapView mMapView;
     ImageView helpDetailBack;
     AMap aMap;
+    Button helpConfirm;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,13 @@ public class HelpDetailActivity extends AppCompatActivity {
         helpDetailPrenster.searchDetailData(dataUID);
         helpDetailPrenster.searchLocation();
         helpDetailPrenster.attchView(iView);
+        helpConfirm=findViewById(R.id.help_confirm);
+        helpConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpDetailPrenster.updateHelpStatusToIsProcessing(dataUID);
+            }
+        });
     }
 
     public void setUpMap(){
@@ -94,6 +105,17 @@ public class HelpDetailActivity extends AppCompatActivity {
                     .position(new LatLng(helpPoiItem.getLatLonPoint().getLatitude(), helpPoiItem.getLatLonPoint().getLongitude()))
                     .title(helpPoiItem.getTitle()).snippet(helpPoiItem.getSnippet()));
             aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(helpPoiItem.getLatLonPoint().getLatitude(), helpPoiItem.getLatLonPoint().getLongitude())));
+        }
+
+        @Override
+        public void updateStatusToIsProcessingSuccess() {
+            Toast.makeText(MyApplication.getMyContext(),"已接受",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        @Override
+        public void updateStatusToIsProcessingError(String errmsg) {
+            Toast.makeText(MyApplication.getMyContext(),errmsg,Toast.LENGTH_SHORT).show();
         }
     };
 

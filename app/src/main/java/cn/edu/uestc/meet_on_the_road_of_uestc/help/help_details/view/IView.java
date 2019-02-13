@@ -10,4 +10,6 @@ public interface IView {
     void showData(HelpInfo helpInfo);
     void searchData();
     void setAmapLocation(PoiItem poiItem);
+    void updateStatusToIsProcessingSuccess();
+    void updateStatusToIsProcessingError(String errmsg);
 }

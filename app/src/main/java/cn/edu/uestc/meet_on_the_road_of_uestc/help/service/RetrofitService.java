@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.help.service;
 
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpStatusUpdateToIsProcessing;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -20,4 +21,7 @@ public interface RetrofitService {
 
     @GET("bbj/bbj_out.php")
     Observable<ResponseBody> getGoodsData();
+
+    @POST("bbj/bbj_in.php")
+    Observable<ResponseBody> updateHelpStatus(@Body HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing);
 }

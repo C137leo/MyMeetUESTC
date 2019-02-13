@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.amap.api.maps.MapView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewAcceptAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.prenster.HelpManagePrenster;
 
 public class HelpManageAcceptViewpagerFragment extends Fragment {
@@ -23,7 +25,7 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
     MapView mapView;
     HelpManagePrenster helpManagePrenster=new HelpManagePrenster(MyApplication.getMyContext());
     RecyclerView acceptRecycleView;
-
+    HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
 
     @Nullable
     @Override
@@ -34,36 +36,29 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d("onActivityCreated","onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-        acceptRecycleView=getActivity().findViewById(R.id.help_accept_recycleview);
-        acceptRecycleView.setAdapter(helpManagePrenster.initHelpManageListViewAcceptAdapter());
+        acceptRecycleView=view.findViewById(R.id.help_accept_recycleview);
+        helpManageListViewAcceptAdapter=helpManagePrenster.initHelpManageListViewAcceptAdapter();
         acceptRecycleView.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
-        mapView=getActivity().findViewById(R.id.accept_help_map);
-        mapView.onCreate(savedInstanceState);
+        acceptRecycleView.setAdapter(helpManageListViewAcceptAdapter);
+        mapView=helpManageListViewAcceptAdapter.getAcceptMapView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //在activity执行onDestroy时执行mapView.onDestroy()，销毁地图
-        mapView.onDestroy();
     }
     @Override
     public void onResume() {
         super.onResume();
-        //在activity执行onResume时执行mapView.onResume ()，重新绘制加载地图
-        mapView.onResume();
     }
     @Override
     public void onPause() {
         super.onPause();
-        //在activity执行onPause时执行mapView.onPause ()，暂停地图的绘制
-        mapView.onPause();
     }
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //在activity执行onSaveInstanceState时执行mapView.onSaveInstanceState (outState)，保存地图当前的状态
-        mapView.onSaveInstanceState(outState);
     }
 }
