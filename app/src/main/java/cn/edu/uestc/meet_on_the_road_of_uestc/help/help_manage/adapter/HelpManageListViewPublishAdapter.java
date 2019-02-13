@@ -14,16 +14,16 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.ListViewData;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.PublishRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
 public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.myViewHolder> {
-    List<ListViewData> listViewData;
+    List<PublishRecycleViewData> publishRecycleViewData;
     private Context context;
 
-    public HelpManageListViewPublishAdapter(Context context,List<ListViewData> listViewData){
+    public HelpManageListViewPublishAdapter(Context context,List<PublishRecycleViewData> publishRecycleViewData){
         this.context=context;
-        this.listViewData=listViewData;
+        this.publishRecycleViewData = publishRecycleViewData;
     }
 
 
@@ -36,29 +36,29 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        holder.publishHelpTitle.setText(listViewData.get(position).getPublishHelpTitle());
-        holder.publishHelpOwner.setText(listViewData.get(position).getPublishHelpOwner());
-        holder.publishHelpTime.setText(listViewData.get(position).getPublishHelpTime());
-        if(listViewData.get(position).getPublishHelpAcceptStatus()==0){
+        holder.publishHelpTitle.setText(publishRecycleViewData.get(position).getPublishHelpTitle());
+        holder.publishHelpOwner.setText(publishRecycleViewData.get(position).getPublishHelpOwner());
+        holder.publishHelpTime.setText(publishRecycleViewData.get(position).getPublishHelpTime());
+        if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==0){
             holder.publishHelpAcceptName.setText("待接受");
-        }else if(listViewData.get(position).getPublishHelpAcceptStatus()==1){
-            holder.publishHelpAcceptName.setText(listViewData.get(position).getPublishHelpAcceptName());
-            holder.publishHelpAcceptGrade.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptGrade()));
-            holder.publishHelpAcceptMajor.setText(listViewData.get(position).getPublishHelpAcceptMajor());
-            holder.publishHelpAcceptTime.setText(listViewData.get(position).getPublishHelpAcceptTime());
+        }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==1){
+            holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
+            holder.publishHelpAcceptGrade.setText(String.valueOf(publishRecycleViewData.get(position).getPublishHelpAcceptGrade()));
+            holder.publishHelpAcceptMajor.setText(publishRecycleViewData.get(position).getPublishHelpAcceptMajor());
+            holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
             holder.publishHelpAcceptStatus.setText("正在进行帮帮");
-        }else if(listViewData.get(position).getPublishHelpAcceptStatus()==2){
-            holder.publishHelpAcceptName.setText(listViewData.get(position).getPublishHelpAcceptName());
-            holder.publishHelpAcceptGrade.setText(String.valueOf(listViewData.get(position).getPublishHelpAcceptGrade()));
-            holder.publishHelpAcceptMajor.setText(listViewData.get(position).getPublishHelpAcceptMajor());
-            holder.publishHelpAcceptTime.setText(listViewData.get(position).getPublishHelpAcceptTime());
+        }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==2){
+            holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
+            holder.publishHelpAcceptGrade.setText(String.valueOf(publishRecycleViewData.get(position).getPublishHelpAcceptGrade()));
+            holder.publishHelpAcceptMajor.setText(publishRecycleViewData.get(position).getPublishHelpAcceptMajor());
+            holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
             holder.publishHelpAcceptStatus.setText("已完成帮帮");
         }
     }
 
     @Override
     public int getItemCount() {
-        return listViewData.size();
+        return publishRecycleViewData.size();
     }
 
     class myViewHolder extends RecyclerView.ViewHolder{
