@@ -150,27 +150,15 @@
                     android:focusable="true"
                     mapbox:srcCompat="@mipmap/peoplewholikethispath" />
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
+
+                <Button
+                    android:id="@+id/choosepath_button"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom">
+                    android:layout_marginLeft="23dp"
+                    android:background="@drawable/shape_gradient_loginbutton"
+                    android:text="@string/choose_path" />
 
-                    <ImageView
-                        android:id="@+id/choosethispath"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="50dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        mapbox:srcCompat="@mipmap/choosethispath" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="30dp"
-                        android:text="选择路径" />
-                </FrameLayout>
             </LinearLayout>
 
         </LinearLayout>
