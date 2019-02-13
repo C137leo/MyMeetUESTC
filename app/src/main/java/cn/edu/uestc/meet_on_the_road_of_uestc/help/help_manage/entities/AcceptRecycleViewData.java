@@ -1,16 +1,26 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities;
 
 public class AcceptRecycleViewData {
+    String UID;
     String publishHelpTitle;
     String publishHelpOwner;
     String publishHelpTime;
     String publishHelpAcceptTime;
 
-    public AcceptRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime) {
+    public AcceptRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime) {
+        this.UID = UID;
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
         this.publishHelpAcceptTime = publishHelpAcceptTime;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getPublishHelpTitle() {

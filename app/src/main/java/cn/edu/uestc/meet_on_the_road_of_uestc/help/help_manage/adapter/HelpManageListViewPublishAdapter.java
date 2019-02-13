@@ -17,10 +17,13 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.PublishRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
+import static cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao.Properties.UID;
+
 public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.myViewHolder> {
     List<PublishRecycleViewData> publishRecycleViewData;
     private Context context;
-
+    myViewHolder myViewHolder;
+    OnItemClickListener onItemClickListener;
     public HelpManageListViewPublishAdapter(Context context,List<PublishRecycleViewData> publishRecycleViewData){
         this.context=context;
         this.publishRecycleViewData = publishRecycleViewData;
@@ -35,7 +38,16 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
+        this.myViewHolder=holder;
+        holder.finishHelpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClick(publishRecycleViewData.get(position).getUID());
+                holder.finishHelpButton.setText("帮帮已完成");
+                holder.finishHelpButton.setClickable(false);
+            }
+        });
         holder.publishHelpTitle.setText(publishRecycleViewData.get(position).getPublishHelpTitle());
         holder.publishHelpOwner.setText(publishRecycleViewData.get(position).getPublishHelpOwner());
         holder.publishHelpTime.setText(publishRecycleViewData.get(position).getPublishHelpTime());
@@ -52,6 +64,8 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
             holder.publishHelpAcceptGrade.setText(String.valueOf(publishRecycleViewData.get(position).getPublishHelpAcceptGrade()));
             holder.publishHelpAcceptMajor.setText(publishRecycleViewData.get(position).getPublishHelpAcceptMajor());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
+            holder.finishHelpButton.setText("帮帮已完成");
+            holder.finishHelpButton.setClickable(false);
             holder.publishHelpAcceptStatus.setText("已完成帮帮");
         }
     }
@@ -61,6 +75,11 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         return publishRecycleViewData.size();
     }
 
+
+    public void updateStatusToFinish(){
+        myViewHolder.finishHelpButton.setText("帮帮已完成");
+        myViewHolder.finishHelpButton.setClickable(false);
+    }
     class myViewHolder extends RecyclerView.ViewHolder{
         TextView publishHelpTitle;
         TextView publishHelpOwner;
@@ -72,6 +91,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         TextView publishHelpAcceptMajor;
         TextView publishHelpAcceptGrade;
         TextView publishHelpAcceptStatus;
+        public OnItemClickListener onItemClickListener;
         public myViewHolder(View itemView) {
             super(itemView);
             Log.d("getView","getView");
@@ -87,4 +107,11 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
             publishHelpAcceptStatus=itemView.findViewById(R.id.publish_help_accept_status);
         }
     }
+    public void setOnClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener=onItemClickListener;
+    }
+    public interface OnItemClickListener{
+        void onClick(String UID);
+    }
+
 }

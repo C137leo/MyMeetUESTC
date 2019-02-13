@@ -25,6 +25,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     List<AcceptRecycleViewData> acceptRecycleViewData;
     Context context;
     MapView mapView;
+    RecycleViewViewHolder myHolder;
     public HelpManageListViewAcceptAdapter(Context context,List<AcceptRecycleViewData> acceptRecycleViewData){
         this.context=context;
         this.acceptRecycleViewData=acceptRecycleViewData;
@@ -39,6 +40,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewViewHolder holder, int position) {
+        myHolder=holder;
         Log.d("onBindViewHolder","onBingViewHolder");
         holder.publishHelpTitle.setText(acceptRecycleViewData.get(position).getPublishHelpTitle());
         holder.publishHelpOwner.setText(acceptRecycleViewData.get(position).getPublishHelpOwner());
@@ -55,7 +57,6 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     public MapView getAcceptMapView(){
         return mapView;
     }
-
 
     class RecycleViewViewHolder extends RecyclerView.ViewHolder {
         TextView publishHelpTitle;

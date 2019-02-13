@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities;
 
 public class PublishRecycleViewData {
+    String UID;
     String publishHelpTitle;
     String publishHelpOwner;
     String publishHelpTime;
@@ -11,7 +12,8 @@ public class PublishRecycleViewData {
     int publishHelpAcceptGrade;
     int publishHelpAcceptStatus;
 
-    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
+    public PublishRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
+        this.UID = UID;
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
@@ -23,11 +25,12 @@ public class PublishRecycleViewData {
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
     }
 
-    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, int publishHelpAcceptStatus) {
-        this.publishHelpTitle = publishHelpTitle;
-        this.publishHelpOwner = publishHelpOwner;
-        this.publishHelpTime = publishHelpTime;
-        this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getPublishHelpTitle() {

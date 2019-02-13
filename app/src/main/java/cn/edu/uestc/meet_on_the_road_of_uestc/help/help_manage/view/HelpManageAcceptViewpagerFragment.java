@@ -61,4 +61,10 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
+    IVew iVew=new IVew() {
+        @Override
+        public void updateStatusToSuccess() {
+        }
+    };
 }

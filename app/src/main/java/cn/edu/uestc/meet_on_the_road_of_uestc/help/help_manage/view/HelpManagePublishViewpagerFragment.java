@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,16 @@ import android.widget.ListView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewPublishAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.prenster.HelpManagePrenster;
 
 public class HelpManagePublishViewpagerFragment extends Fragment {
     View view;
     RecyclerView helpPublishRecycleView;
     HelpManagePrenster helpManagePrenster=new HelpManagePrenster(getActivity());
+    HelpManageListViewPublishAdapter helpManageListViewPublishAdapter;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -29,8 +34,25 @@ public class HelpManagePublishViewpagerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        helpManagePrenster.attchView(iVew);
+        helpManageListViewPublishAdapter=helpManagePrenster.initHelpManageListViewPublishAdapter();
+        helpManageListViewPublishAdapter.setOnClickListener(new HelpManageListViewPublishAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(String UID) {
+                Log.d("onClick","onClick");
+                helpManagePrenster.updateStatusToFinish(UID);
+            }
+        });
         helpPublishRecycleView=view.findViewById(R.id.help_publish_listview);
         helpPublishRecycleView.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
-        helpPublishRecycleView.setAdapter(helpManagePrenster.initHelpManageListViewPublishAdapter());
+        helpPublishRecycleView.setAdapter(helpManageListViewPublishAdapter);
     }
+
+    IVew iVew=new IVew() {
+        @Override
+        public void updateStatusToSuccess() {
+            helpManageListViewPublishAdapter.updateStatusToFinish();
+            helpManageListViewPublishAdapter.notifyDataSetChanged();
+        }
+    };
 }

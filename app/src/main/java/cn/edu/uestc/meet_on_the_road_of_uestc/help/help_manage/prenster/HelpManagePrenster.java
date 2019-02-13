@@ -16,6 +16,8 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpStatusToFinish;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewAcceptAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewPublishAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageViewpagerAdapter;
@@ -23,6 +25,15 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.AcceptRe
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.PublishRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageAcceptViewpagerFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManagePublishViewpagerFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.IVew;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitService;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 
 public class HelpManagePrenster implements IPrenster{
     List<PublishRecycleViewData> listViewDataPublishRecycle =new ArrayList<>();
@@ -32,6 +43,9 @@ public class HelpManagePrenster implements IPrenster{
     PublishRecycleViewData publishRecycleViewData;
     List helpManageViewpagerActivity;
     List<AcceptRecycleViewData> acceptRecycleViewData=new ArrayList<>();
+    RetrofitService retrofitService=RetrofitHelper.getInstance(MyApplication.getMyContext()).getRetrofitService(MyApplication.getMyContext());
+    Disposable updateHelpStatusToFinish;
+    IVew iVew;
     public HelpManagePrenster(Context context, FragmentManager fragmentManager){
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -41,6 +55,11 @@ public class HelpManagePrenster implements IPrenster{
     }
     public HelpManagePrenster(){
 
+    }
+
+    @Override
+    public void attchView(IVew iVew) {
+        this.iVew=iVew;
     }
 
     @Override
@@ -74,15 +93,15 @@ public class HelpManagePrenster implements IPrenster{
         for(HelpInfo helpInfo:helpInfoList){
             if(helpInfo.getIsFinish()==0){
                 Log.d("isFinish","0");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),"","","","",2018,0);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),"","","","",2018,0);
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }else if(helpInfo.getIsFinish()==1){
                 Log.d("isFinish","1");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,1);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,1);
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }else if(helpInfo.getIsFinish()==2){
                 Log.d("isFinish","2");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,2);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,2);
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }
         }
@@ -111,10 +130,39 @@ public class HelpManagePrenster implements IPrenster{
             if(helpInfo.getIsFinish()==0){
 
             }else if(helpInfo.getIsFinish()==1){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
+                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
             }else if(helpInfo.getIsFinish()==2){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
+                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
             }
         }
+    }
+
+    @Override
+    public void updateStatusToFinish(String UID) {
+        HelpStatusToFinish helpStatusToFinish=new HelpStatusToFinish(UID,2);
+        Observable<PostHelpAddStatus> observable=retrofitService.updateHelpStatusToFinish(helpStatusToFinish);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<PostHelpAddStatus>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        updateHelpStatusToFinish=d;
+                    }
+
+                    @Override
+                    public void onNext(PostHelpAddStatus postHelpAddStatus) {
+                        iVew.updateStatusToSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        updateHelpStatusToFinish.dispose();
+                    }
+                });
     }
 }
