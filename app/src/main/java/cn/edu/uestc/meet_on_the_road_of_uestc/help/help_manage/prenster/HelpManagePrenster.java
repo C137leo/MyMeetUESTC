@@ -53,6 +53,7 @@ public class HelpManagePrenster implements IPrenster {
     String acceptDetailSnippet;
     String acceptDetailTitle;
     HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
+    List acceptUIDlIST=new ArrayList();
     public HelpManagePrenster(Context context, FragmentManager fragmentManager){
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -112,6 +113,7 @@ public class HelpManagePrenster implements IPrenster {
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }
         }
+        iVew.dismissSwipeRefrshLayout();
     }
 
     public List<View> getHelpManageViewpagerActivity() {
@@ -127,21 +129,20 @@ public class HelpManagePrenster implements IPrenster {
 
     @Override
     public void getRecycleAcceptData() {
-        if(acceptRecycleViewData!=null) {
-            HashSet set = new HashSet(acceptRecycleViewData);
-            acceptRecycleViewData.clear();
-            acceptRecycleViewData.addAll(set);
-        }
         List<HelpInfo> helpInfoList=daoSession.queryBuilder(HelpInfo.class).where(HelpInfoDao.Properties.WhoFinishIt.eq(daoSession.getStuInfoDao().loadAll().get(0).getStuName())).list();
-        for(HelpInfo helpInfo:helpInfoList){
-            if(helpInfo.getIsFinish()==0){
-
-            }else if(helpInfo.getIsFinish()==1){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),helpInfo.getLocation()));
-            }else if(helpInfo.getIsFinish()==2){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),helpInfo.getLocation()));
+        for(HelpInfo helpInfo:helpInfoList) {
+            if (!(acceptUIDlIST.contains(helpInfo.getUID()))) {
+                if (helpInfo.getIsFinish() == 0) {
+                } else if (helpInfo.getIsFinish() == 1) {
+                    acceptUIDlIST.add(helpInfo.getUID());
+                    acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(), helpInfo.getGood_title(), helpInfo.getOwner_name(), helpInfo.getPublish_time(), helpInfo.getAcceptTime(), helpInfo.getLocation()));
+                } else if (helpInfo.getIsFinish() == 2) {
+                    acceptUIDlIST.add(helpInfo.getUID());
+                    acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(), helpInfo.getGood_title(), helpInfo.getOwner_name(), helpInfo.getPublish_time(), helpInfo.getAcceptTime(), helpInfo.getLocation()));
+                }
             }
         }
+        iVew.dismissSwipeRefrshLayout();
     }
 
     @Override

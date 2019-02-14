@@ -42,6 +42,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     String title;
     String snippet;
     String location;
+    RecycleViewViewHolder recycleViewViewHolder;
     public HelpManageListViewAcceptAdapter() {
     }
 
@@ -53,7 +54,9 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     @Override
     public RecycleViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_accept_listview,parent,false);
-        RecycleViewViewHolder recycleViewViewHolder=new RecycleViewViewHolder(view);
+        if(recycleViewViewHolder==null) {
+            recycleViewViewHolder = new RecycleViewViewHolder(view);
+        }
         return recycleViewViewHolder;
     }
 
@@ -66,6 +69,9 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
         holder.publishHelpAcceptTime.setText(acceptRecycleViewData.get(position).getPublishHelpAcceptTime());
         holder.publishHelpTime.setText(acceptRecycleViewData.get(position).getPublishHelpTime());
         location=acceptRecycleViewData.get(position).getPublishHelpLocation();
+        if(holder.mapView.getParent()!=null){
+            holder.mapView.removeAllViews();
+        }
         holder.mapView.onCreate(new Bundle());
         aMap=holder.mapView.getMap();
         initMapViewMaker();
@@ -80,8 +86,8 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
 
     public void drawMarker(){
         final  Marker marker=aMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet(snippet));
+        aMap.moveCamera(CameraUpdateFactory.zoomBy(5));
         aMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        aMap.moveCamera(CameraUpdateFactory.zoomBy(15));
     }
     @Override
     public int getItemCount() {
