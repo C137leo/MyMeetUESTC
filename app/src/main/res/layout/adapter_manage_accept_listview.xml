@@ -65,7 +65,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:background="@drawable/shape_gradient_loginbutton"
+                    android:background="@drawable/finish_help_button"
                     android:id="@+id/see_the_route_help"
                     android:text="查看路线"
                     android:layout_marginTop="50dp"
