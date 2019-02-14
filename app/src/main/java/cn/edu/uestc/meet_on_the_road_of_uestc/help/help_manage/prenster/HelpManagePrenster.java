@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 
-import com.amap.api.maps.MapView;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +31,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.Subject;
 
 public class HelpManagePrenster implements IPrenster{
     List<PublishRecycleViewData> listViewDataPublishRecycle =new ArrayList<>();

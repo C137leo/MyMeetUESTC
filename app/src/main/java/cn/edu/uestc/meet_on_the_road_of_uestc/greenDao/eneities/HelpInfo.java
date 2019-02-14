@@ -25,10 +25,16 @@ public class HelpInfo implements Comparable<HelpInfo>{
     private int isFinish; //是否完成
     private String whoFinishIt; //谁完成
     private String acceptTime;  //接受时间
-    @Generated(hash = 2101948538)
-    public HelpInfo(String UID, String StuID, String location, String owner_name,
-            String good_title, String publish_time, int isPay, String good_detail,
-            int isFinish, String whoFinishIt, String acceptTime) {
+    private String whoFinishItStuID; //完成人的学号
+    private String whoFinishItStuMajor; //完成人的专业
+    private int whoFinishItStuGrade; //完成人的年级
+
+
+    @Generated(hash = 1917342778)
+    public HelpInfo(String UID, String StuID, String location, String owner_name, String good_title,
+            String publish_time, int isPay, String good_detail, int isFinish, String whoFinishIt,
+            String acceptTime, String whoFinishItStuID, String whoFinishItStuMajor,
+            int whoFinishItStuGrade) {
         this.UID = UID;
         this.StuID = StuID;
         this.location = location;
@@ -40,76 +46,16 @@ public class HelpInfo implements Comparable<HelpInfo>{
         this.isFinish = isFinish;
         this.whoFinishIt = whoFinishIt;
         this.acceptTime = acceptTime;
+        this.whoFinishItStuID = whoFinishItStuID;
+        this.whoFinishItStuMajor = whoFinishItStuMajor;
+        this.whoFinishItStuGrade = whoFinishItStuGrade;
     }
+
+
     @Generated(hash = 498075579)
     public HelpInfo() {
     }
-    public String getUID() {
-        return this.UID;
-    }
-    public void setUID(String UID) {
-        this.UID = UID;
-    }
-    public String getStuID() {
-        return this.StuID;
-    }
-    public void setStuID(String StuID) {
-        this.StuID = StuID;
-    }
-    public String getLocation() {
-        return this.location;
-    }
-    public void setLocation(String location) {
-        this.location = location;
-    }
-    public String getOwner_name() {
-        return this.owner_name;
-    }
-    public void setOwner_name(String owner_name) {
-        this.owner_name = owner_name;
-    }
-    public String getGood_title() {
-        return this.good_title;
-    }
-    public void setGood_title(String good_title) {
-        this.good_title = good_title;
-    }
-    public String getPublish_time() {
-        return this.publish_time;
-    }
-    public void setPublish_time(String publish_time) {
-        this.publish_time = publish_time;
-    }
-    public int getIsPay() {
-        return this.isPay;
-    }
-    public void setIsPay(int isPay) {
-        this.isPay = isPay;
-    }
-    public String getGood_detail() {
-        return this.good_detail;
-    }
-    public void setGood_detail(String good_detail) {
-        this.good_detail = good_detail;
-    }
-    public int getIsFinish() {
-        return this.isFinish;
-    }
-    public void setIsFinish(int isFinish) {
-        this.isFinish = isFinish;
-    }
-    public String getWhoFinishIt() {
-        return this.whoFinishIt;
-    }
-    public void setWhoFinishIt(String whoFinishIt) {
-        this.whoFinishIt = whoFinishIt;
-    }
-    public String getAcceptTime() {
-        return this.acceptTime;
-    }
-    public void setAcceptTime(String acceptTime) {
-        this.acceptTime = acceptTime;
-    }
+
 
     @Override
     public int compareTo(@NonNull HelpInfo helpInfo) {
@@ -120,6 +66,146 @@ public class HelpInfo implements Comparable<HelpInfo>{
             Log.d("adjust","adjust");
             return -1;
         }
+    }
+
+
+    public String getUID() {
+        return this.UID;
+    }
+
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
+
+    public String getStuID() {
+        return this.StuID;
+    }
+
+
+    public void setStuID(String StuID) {
+        this.StuID = StuID;
+    }
+
+
+    public String getLocation() {
+        return this.location;
+    }
+
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    public String getOwner_name() {
+        return this.owner_name;
+    }
+
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
+    }
+
+
+    public String getGood_title() {
+        return this.good_title;
+    }
+
+
+    public void setGood_title(String good_title) {
+        this.good_title = good_title;
+    }
+
+
+    public String getPublish_time() {
+        return this.publish_time;
+    }
+
+
+    public void setPublish_time(String publish_time) {
+        this.publish_time = publish_time;
+    }
+
+
+    public int getIsPay() {
+        return this.isPay;
+    }
+
+
+    public void setIsPay(int isPay) {
+        this.isPay = isPay;
+    }
+
+
+    public String getGood_detail() {
+        return this.good_detail;
+    }
+
+
+    public void setGood_detail(String good_detail) {
+        this.good_detail = good_detail;
+    }
+
+
+    public int getIsFinish() {
+        return this.isFinish;
+    }
+
+
+    public void setIsFinish(int isFinish) {
+        this.isFinish = isFinish;
+    }
+
+
+    public String getWhoFinishIt() {
+        return this.whoFinishIt;
+    }
+
+
+    public void setWhoFinishIt(String whoFinishIt) {
+        this.whoFinishIt = whoFinishIt;
+    }
+
+
+    public String getAcceptTime() {
+        return this.acceptTime;
+    }
+
+
+    public void setAcceptTime(String acceptTime) {
+        this.acceptTime = acceptTime;
+    }
+
+
+    public String getWhoFinishItStuID() {
+        return this.whoFinishItStuID;
+    }
+
+
+    public void setWhoFinishItStuID(String whoFinishItStuID) {
+        this.whoFinishItStuID = whoFinishItStuID;
+    }
+
+
+    public String getWhoFinishItStuMajor() {
+        return this.whoFinishItStuMajor;
+    }
+
+
+    public void setWhoFinishItStuMajor(String whoFinishItStuMajor) {
+        this.whoFinishItStuMajor = whoFinishItStuMajor;
+    }
+
+
+    public int getWhoFinishItStuGrade() {
+        return this.whoFinishItStuGrade;
+    }
+
+
+    public void setWhoFinishItStuGrade(int whoFinishItStuGrade) {
+        this.whoFinishItStuGrade = whoFinishItStuGrade;
     }
 
 }

@@ -1,6 +1,5 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.prenster;
 
-import android.support.v4.util.TimeUtils;
 import android.util.Log;
 
 import com.amap.api.services.core.PoiItem;
@@ -16,6 +15,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpStatusUpdateToIsProcessing;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.IView;
@@ -50,7 +50,8 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
 
     @Override
     public void updateHelpStatusToIsProcessing(String UID) {
-        HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing=new HelpStatusUpdateToIsProcessing(UID,daoSession.getStuInfoDao().loadAll().get(0).getStuName(), DateUtils.getDateNow(),1);
+        StuInfo stuInfo =daoSession.getStuInfoDao().loadAll().get(0);
+        HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing=new HelpStatusUpdateToIsProcessing(UID,stuInfo.getStuName(), DateUtils.getDateNow(),1,stuInfo.getStuID(),stuInfo.getMajor(),stuInfo.getStuGrade());
         Observable<ResponseBody> observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).updateHelpStatus(helpStatusUpdateToIsProcessing);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

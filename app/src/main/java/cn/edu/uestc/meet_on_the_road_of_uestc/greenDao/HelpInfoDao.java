@@ -35,6 +35,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         public final static Property IsFinish = new Property(8, int.class, "isFinish", false, "IS_FINISH");
         public final static Property WhoFinishIt = new Property(9, String.class, "whoFinishIt", false, "WHO_FINISH_IT");
         public final static Property AcceptTime = new Property(10, String.class, "acceptTime", false, "ACCEPT_TIME");
+        public final static Property WhoFinishItStuID = new Property(11, String.class, "whoFinishItStuID", false, "WHO_FINISH_IT_STU_ID");
+        public final static Property WhoFinishItStuMajor = new Property(12, String.class, "whoFinishItStuMajor", false, "WHO_FINISH_IT_STU_MAJOR");
+        public final static Property WhoFinishItStuGrade = new Property(13, int.class, "whoFinishItStuGrade", false, "WHO_FINISH_IT_STU_GRADE");
     }
 
 
@@ -60,7 +63,10 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
                 "\"GOOD_DETAIL\" TEXT," + // 7: good_detail
                 "\"IS_FINISH\" INTEGER NOT NULL ," + // 8: isFinish
                 "\"WHO_FINISH_IT\" TEXT," + // 9: whoFinishIt
-                "\"ACCEPT_TIME\" TEXT);"); // 10: acceptTime
+                "\"ACCEPT_TIME\" TEXT," + // 10: acceptTime
+                "\"WHO_FINISH_IT_STU_ID\" TEXT," + // 11: whoFinishItStuID
+                "\"WHO_FINISH_IT_STU_MAJOR\" TEXT," + // 12: whoFinishItStuMajor
+                "\"WHO_FINISH_IT_STU_GRADE\" INTEGER NOT NULL );"); // 13: whoFinishItStuGrade
     }
 
     /** Drops the underlying database table. */
@@ -119,6 +125,17 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (acceptTime != null) {
             stmt.bindString(11, acceptTime);
         }
+ 
+        String whoFinishItStuID = entity.getWhoFinishItStuID();
+        if (whoFinishItStuID != null) {
+            stmt.bindString(12, whoFinishItStuID);
+        }
+ 
+        String whoFinishItStuMajor = entity.getWhoFinishItStuMajor();
+        if (whoFinishItStuMajor != null) {
+            stmt.bindString(13, whoFinishItStuMajor);
+        }
+        stmt.bindLong(14, entity.getWhoFinishItStuGrade());
     }
 
     @Override
@@ -171,6 +188,17 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         if (acceptTime != null) {
             stmt.bindString(11, acceptTime);
         }
+ 
+        String whoFinishItStuID = entity.getWhoFinishItStuID();
+        if (whoFinishItStuID != null) {
+            stmt.bindString(12, whoFinishItStuID);
+        }
+ 
+        String whoFinishItStuMajor = entity.getWhoFinishItStuMajor();
+        if (whoFinishItStuMajor != null) {
+            stmt.bindString(13, whoFinishItStuMajor);
+        }
+        stmt.bindLong(14, entity.getWhoFinishItStuGrade());
     }
 
     @Override
@@ -191,7 +219,10 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // good_detail
             cursor.getInt(offset + 8), // isFinish
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // whoFinishIt
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // acceptTime
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // acceptTime
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // whoFinishItStuID
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // whoFinishItStuMajor
+            cursor.getInt(offset + 13) // whoFinishItStuGrade
         );
         return entity;
     }
@@ -209,6 +240,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         entity.setIsFinish(cursor.getInt(offset + 8));
         entity.setWhoFinishIt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setAcceptTime(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setWhoFinishItStuID(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setWhoFinishItStuMajor(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setWhoFinishItStuGrade(cursor.getInt(offset + 13));
      }
     
     @Override

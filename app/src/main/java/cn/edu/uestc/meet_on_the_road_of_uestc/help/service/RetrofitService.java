@@ -26,6 +26,6 @@ public interface RetrofitService {
     @POST("bbj/bbj_in.php")
     Observable<ResponseBody> updateHelpStatus(@Body HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing);
 
-    @POST("bjj/bbj_in.php")
+    @POST("bbj/bbj_in.php")
     Observable<PostHelpAddStatus> updateHelpStatusToFinish(@Body HelpStatusToFinish helpStatusToFinish);
 }
