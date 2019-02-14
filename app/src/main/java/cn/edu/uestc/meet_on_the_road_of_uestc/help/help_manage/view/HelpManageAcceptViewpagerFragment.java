@@ -42,7 +42,6 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
         helpManageListViewAcceptAdapter=helpManagePrenster.initHelpManageListViewAcceptAdapter();
         acceptRecycleView.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
         acceptRecycleView.setAdapter(helpManageListViewAcceptAdapter);
-        mapView=helpManageListViewAcceptAdapter.getAcceptMapView();
     }
 
     @Override
@@ -65,6 +64,7 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
     IVew iVew=new IVew() {
         @Override
         public void updateStatusToSuccess() {
+
         }
     };
 }

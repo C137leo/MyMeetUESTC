@@ -5,6 +5,12 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +38,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HelpManagePrenster implements IPrenster{
+public class HelpManagePrenster implements IPrenster {
     List<PublishRecycleViewData> listViewDataPublishRecycle =new ArrayList<>();
     Context context;
     FragmentManager fragmentManager;
@@ -43,6 +49,10 @@ public class HelpManagePrenster implements IPrenster{
     RetrofitService retrofitService=RetrofitHelper.getInstance(MyApplication.getMyContext()).getRetrofitService(MyApplication.getMyContext());
     Disposable updateHelpStatusToFinish;
     IVew iVew;
+    LatLng acceptDetailLatlng;
+    String acceptDetailSnippet;
+    String acceptDetailTitle;
+    HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
     public HelpManagePrenster(Context context, FragmentManager fragmentManager){
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -111,7 +121,7 @@ public class HelpManagePrenster implements IPrenster{
     @Override
     public HelpManageListViewAcceptAdapter initHelpManageListViewAcceptAdapter() {
         getRecycleAcceptData();
-        HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter=new HelpManageListViewAcceptAdapter(MyApplication.getMyContext(),acceptRecycleViewData);
+        helpManageListViewAcceptAdapter=new HelpManageListViewAcceptAdapter(MyApplication.getMyContext(),acceptRecycleViewData);
         return helpManageListViewAcceptAdapter;
     }
 
@@ -127,9 +137,9 @@ public class HelpManagePrenster implements IPrenster{
             if(helpInfo.getIsFinish()==0){
 
             }else if(helpInfo.getIsFinish()==1){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
+                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),helpInfo.getLocation()));
             }else if(helpInfo.getIsFinish()==2){
-                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime()));
+                acceptRecycleViewData.add(new AcceptRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),helpInfo.getLocation()));
             }
         }
     }
@@ -162,4 +172,5 @@ public class HelpManagePrenster implements IPrenster{
                     }
                 });
     }
+
 }

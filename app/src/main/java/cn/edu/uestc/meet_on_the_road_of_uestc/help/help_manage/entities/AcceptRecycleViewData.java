@@ -6,13 +6,15 @@ public class AcceptRecycleViewData {
     String publishHelpOwner;
     String publishHelpTime;
     String publishHelpAcceptTime;
+    String publishHelpLocation;
 
-    public AcceptRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime) {
+    public AcceptRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String publishHelpLocation) {
         this.UID = UID;
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
         this.publishHelpAcceptTime = publishHelpAcceptTime;
+        this.publishHelpLocation = publishHelpLocation;
     }
 
     public String getUID() {
@@ -53,5 +55,13 @@ public class AcceptRecycleViewData {
 
     public void setPublishHelpAcceptTime(String publishHelpAcceptTime) {
         this.publishHelpAcceptTime = publishHelpAcceptTime;
+    }
+
+    public String getPublishHelpLocation() {
+        return publishHelpLocation;
+    }
+
+    public void setPublishHelpLocation(String publishHelpLocation) {
+        this.publishHelpLocation = publishHelpLocation;
     }
 }
