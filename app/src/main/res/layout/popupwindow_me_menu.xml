@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_popupwindow_me_menu">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:text="我的跑步"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/me_my_running"/>
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/me_my_help"
+            android:text="我的帮帮"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/me_my_appointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的约吧"/>
+    </LinearLayout>
+</LinearLayout>
