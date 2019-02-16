@@ -20,6 +20,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
@@ -101,10 +102,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         public void initFirstChart(final List firstChartData) {
             List<Entry> firstChartFormatData=new ArrayList<>();
             for (int i=0;i<firstChartData.size();i++){
-                firstChartFormatData.add(new Entry((int)firstChartData.get(i),i));
+                firstChartFormatData.add(new Entry(Float.valueOf((int)firstChartData.get(i)),i));
             }
             firstChart.setNoDataText("暂无数据，还需要加油哦(๑•̀ㅂ•́)و✧加油");
-            LineData lineData=new LineData(firstChartData);
+            LineDataSet lineData=new LineDataSet(firstChartFormatData,"myHelp");
             lineData.setDrawValues(false);
             XAxis xAxis=firstChart.getXAxis();
             xAxis.setValueFormatter(new IAxisValueFormatter()
@@ -124,10 +125,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         public void initSecondChart(final List secondChartData) {
             List<Entry> secondChartFormatData=new ArrayList<>();
             for (int i=0;i<secondChartData.size();i++){
-                secondChartFormatData.add(new Entry((int)secondChartData.get(i),i));
+                secondChartFormatData.add(new Entry(1,i));
             }
             secondChart.setNoDataText("暂无数据，还需要加油哦(๑•̀ㅂ•́)و✧加油");
-            LineData lineData=new LineData(secondChartData);
+            LineDataSet lineData=new LineDataSet(secondChartFormatData,"myHelp");
             lineData.setDrawValues(false);
             XAxis xAxis=secondChart.getXAxis();
             xAxis.setValueFormatter(new IAxisValueFormatter()
