@@ -18,6 +18,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpStatusUpdateToIsProcessing;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.model.HelpDetailsModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.service.RetrofitHelper;
 import dev.utils.common.DateUtils;
@@ -38,6 +39,7 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
     Disposable updateStatusDisposable;
     Gson gson=new Gson();
     PostHelpAddStatus postHelpAddStatus;
+    HelpDetailsModel helpDetailsModel=new HelpDetailsModel();
     @Override
     public void attchView(IView view) {
         this.iView=view;
@@ -49,9 +51,9 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
     }
 
     @Override
-    public void updateHelpStatusToIsProcessing(String UID) {
+    public void updateHelpStatusToIsProcessing(final String UID) {
         StuInfo stuInfo =daoSession.getStuInfoDao().loadAll().get(0);
-        HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing=new HelpStatusUpdateToIsProcessing(UID,stuInfo.getStuName(), DateUtils.getDateNow(),1,stuInfo.getStuID(),stuInfo.getMajor(),stuInfo.getStuGrade());
+        final HelpStatusUpdateToIsProcessing helpStatusUpdateToIsProcessing=new HelpStatusUpdateToIsProcessing(UID,stuInfo.getStuName(), DateUtils.getDateNow(),1,stuInfo.getStuID(),stuInfo.getMajor(),stuInfo.getStuGrade());
         Observable<ResponseBody> observable=retrofitHelper.getRetrofitService(MyApplication.getMyContext()).updateHelpStatus(helpStatusUpdateToIsProcessing);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,6 +72,7 @@ public class HelpDetailPrenster implements IPrenster, PoiSearch.OnPoiSearchListe
                         }
                         if(postHelpAddStatus.getErrcode()==107){
                             iView.updateStatusToIsProcessingSuccess();
+                            helpDetailsModel.updateStatusInDatabases(UID,helpStatusUpdateToIsProcessing);
                         }else{
                             iView.updateStatusToIsProcessingError(postHelpAddStatus.getErrmsg());
                         }

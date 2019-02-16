@@ -27,6 +27,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManag
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageViewpagerAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.AcceptRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.PublishRecycleViewData;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.model.HelpManageModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageAcceptViewpagerFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManagePublishViewpagerFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.IVew;
@@ -54,6 +55,7 @@ public class HelpManagePrenster implements IPrenster {
     String acceptDetailTitle;
     HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
     List acceptUIDlIST=new ArrayList();
+    HelpManageModel helpManageModel=new HelpManageModel();
     public HelpManagePrenster(Context context, FragmentManager fragmentManager){
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -146,7 +148,7 @@ public class HelpManagePrenster implements IPrenster {
     }
 
     @Override
-    public void updateStatusToFinish(String UID) {
+    public void updateStatusToFinish(final String UID) {
         HelpStatusToFinish helpStatusToFinish=new HelpStatusToFinish(UID,2);
         Observable<PostHelpAddStatus> observable=retrofitService.updateHelpStatusToFinish(helpStatusToFinish);
         observable.subscribeOn(Schedulers.io())
@@ -159,7 +161,10 @@ public class HelpManagePrenster implements IPrenster {
 
                     @Override
                     public void onNext(PostHelpAddStatus postHelpAddStatus) {
-                        iVew.updateStatusToSuccess();
+                        if(postHelpAddStatus.getErrcode()==109) {
+                            helpManageModel.writeDatabase(2,UID);
+                            iVew.updateStatusToSuccess();
+                        }
                     }
 
                     @Override

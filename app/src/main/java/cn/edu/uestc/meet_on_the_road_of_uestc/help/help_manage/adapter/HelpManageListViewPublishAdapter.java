@@ -74,6 +74,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
 
     public void updateStatusToFinish(){
+        myViewHolder.publishHelpAcceptStatus.setText("已完成帮帮");
         myViewHolder.finishHelpButton.setText("帮帮已完成");
         myViewHolder.finishHelpButton.setClickable(false);
     }

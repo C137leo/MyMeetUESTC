@@ -85,11 +85,14 @@ public class HelpInfoLatestFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        prensterComl.getDataFromDatabases();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        prensterComl.getDataFromDatabases();
     }
 
     @Override
@@ -106,4 +109,5 @@ public class HelpInfoLatestFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
 }
