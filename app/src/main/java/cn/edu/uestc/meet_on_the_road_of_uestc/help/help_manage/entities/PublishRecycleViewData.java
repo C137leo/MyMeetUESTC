@@ -11,8 +11,9 @@ public class PublishRecycleViewData {
     String publishHelpAcceptMajor;
     int publishHelpAcceptGrade;
     int publishHelpAcceptStatus;
+    String publishHelpLocation;
 
-    public PublishRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
+    public PublishRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus, String publishHelpLocation) {
         this.UID = UID;
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
@@ -23,6 +24,7 @@ public class PublishRecycleViewData {
         this.publishHelpAcceptMajor = publishHelpAcceptMajor;
         this.publishHelpAcceptGrade = publishHelpAcceptGrade;
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+        this.publishHelpLocation = publishHelpLocation;
     }
 
     public String getUID() {
@@ -103,5 +105,13 @@ public class PublishRecycleViewData {
 
     public void setPublishHelpAcceptStatus(int publishHelpAcceptStatus) {
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+    }
+
+    public String getPublishHelpLocation() {
+        return publishHelpLocation;
+    }
+
+    public void setPublishHelpLocation(String publishHelpLocation) {
+        this.publishHelpLocation = publishHelpLocation;
     }
 }

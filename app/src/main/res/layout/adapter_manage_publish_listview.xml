@@ -3,121 +3,106 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.CardView
-        app:cardCornerRadius="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:alpha="5"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="330dp"
             android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="330dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/publish_help_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="重金求子"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="10dp"
-                    android:textSize="20sp"/>
-                <LinearLayout
-                    android:id="@+id/publish_detail_layout"
-                    android:layout_alignLeft="@id/publish_help_title"
-                    android:layout_below="@id/publish_help_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/publish_help_owner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="老王"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="三天前"
-                        android:layout_marginStart="20dp"
-                        android:id="@+id/publish_help_time"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="30dp"
-                    android:layout_alignLeft="@id/publish_detail_layout"
-                    android:layout_below="@id/publish_detail_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="接受时间:"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/publish_help_accept_time"
-                        android:text="三天前"/>
-                </LinearLayout>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:background="@drawable/finish_help_button"
-                    android:id="@+id/finish_help_button"
-                    android:text="结束帮帮"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginStart="230dp"
-                    />
-            </RelativeLayout>
-            <ImageView
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_line"/>
-            <RelativeLayout
+            <LinearLayout
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:id="@+id/publish_help_accept_image"
-                    android:layout_marginStart="10dp"
-                    android:src="@mipmap/ic_icontest"/>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginStart="80dp"
+                <TextView
+                    android:text="已接受"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/publish_help_accept_status"/>
+                <TextView
+                    android:text="三天前"
+                    android:textSize="12dp"
+                    android:layout_marginStart="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/publish_help_accept_time"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:alpha="20"
+                    android:background="@drawable/background_help_manage_who_accept"
+                    android:orientation="vertical"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content">
+                    <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:id="@+id/publish_help_accept_image"
+                        android:src="@mipmap/ic_icontest" />
                     <TextView
-                        android:textSize="20sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="姚大美人"
-                        android:id="@+id/publish_help_accept_name"/>
+                        android:id="@+id/publish_help_accept_name"
+                        android:text="姚大美人"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content">
                     <TextView
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/publish_help_accept_major"/>
+                        android:text="这是个标题"
+                        android:id="@+id/publish_help_title"/>
                     <TextView
-                        android:layout_marginEnd="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/publish_help_accept_grade"/>
+                        android:layout_marginTop="5dp"
+                        android:text="三天前"
+                        android:textSize="12sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/publish_help_time"/>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/ic_location"/>
+                        <TextView
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:id="@+id/publish_help_location"
+                            android:layout_marginStart="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="图书馆"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/publish_help_accept_status"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="240dp"/>
-            </RelativeLayout>
+                <Button
+                    android:id="@+id/finish_help_button"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/finish_help_button"
+                    android:text="结束帮帮"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
 </FrameLayout>

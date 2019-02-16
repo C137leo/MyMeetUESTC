@@ -101,15 +101,15 @@ public class HelpManagePrenster implements IPrenster {
         for(HelpInfo helpInfo:helpInfoList){
             if(helpInfo.getIsFinish()==0){
                 Log.d("isFinish","0");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),"","","","",2018,0);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),"","","","",2018,0,helpInfo.getLocation());
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }else if(helpInfo.getIsFinish()==1){
                 Log.d("isFinish","1");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,1);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,1,helpInfo.getLocation());
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }else if(helpInfo.getIsFinish()==2){
                 Log.d("isFinish","2");
-                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,2);
+                publishRecycleViewData =new PublishRecycleViewData(helpInfo.getUID(),helpInfo.getGood_title(),helpInfo.getOwner_name(),helpInfo.getPublish_time(),helpInfo.getAcceptTime(),"",helpInfo.getWhoFinishIt(),"",2018,2,helpInfo.getLocation());
                 listViewDataPublishRecycle.add(publishRecycleViewData);
             }
         }

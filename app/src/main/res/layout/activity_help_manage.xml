@@ -7,7 +7,7 @@
         android:id="@+id/help_manage_topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_background_yellow">
+        android:background="@mipmap/background_help_manage">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
