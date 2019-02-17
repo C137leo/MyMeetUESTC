@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpInfoWithDistance;
 
-public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_RecyclerViewAdapter.MyViewHolder> {
+public class Help_RecyclerViewAdapterNearBy extends RecyclerView.Adapter<Help_RecyclerViewAdapterNearBy.MyViewHolder> {
     private Context mContext;
-    private List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList;
+    private List<HelpInfoWithDistance> mList;
     public onItemClickListener onItemClickListener;
-    public Help_RecyclerViewAdapter(Context context,List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> mList){
+    public Help_RecyclerViewAdapterNearBy(Context context, List<HelpInfoWithDistance> mList){
         this.mContext=context;
         this.mList=mList;
     }
@@ -42,7 +42,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
             myViewHolder.good_title.setText(mList.get(i).getGood_title());
             myViewHolder.publish_name.setText(mList.get(i).getOwner_name());
             myViewHolder.publish_time.setText(mList.get(i).getPublish_time());
-            myViewHolder.distance.setText("20");
+            myViewHolder.distance.setText(String.valueOf((int)mList.get(i).getDistance()));
         }
     }
 
@@ -58,7 +58,7 @@ public class Help_RecyclerViewAdapter extends RecyclerView.Adapter<Help_Recycler
         return myViewHolder;
     }
 
-    public void updateDataInFragment(List<HelpInfo> helpInfoList){
+    public void updateDataInFragment(List<HelpInfoWithDistance> helpInfoList){
         mList.clear();
         Log.d("ListSizeAfterClear",String.valueOf(mList.size()));
         mList.addAll(helpInfoList);

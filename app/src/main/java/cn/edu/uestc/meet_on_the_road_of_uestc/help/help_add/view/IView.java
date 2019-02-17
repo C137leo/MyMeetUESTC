@@ -12,4 +12,5 @@ public interface IView {
     void setPoiSearchLocation(PoiItem poiItem);
     void showInProgress();
     void addError(String errMsg);
+    void getLocationError();
 }

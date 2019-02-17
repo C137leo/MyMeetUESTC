@@ -2,7 +2,6 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.me.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.IpPrefix;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 

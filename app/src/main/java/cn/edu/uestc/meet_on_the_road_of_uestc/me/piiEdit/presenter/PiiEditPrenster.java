@@ -96,7 +96,7 @@ public class PiiEditPrenster implements IPrenster{
     public void uploadImag(String path) {
         File file=new File(path);
         Log.d("file",file.getName());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"),file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"),file);
         Log.d("requestBody", String.valueOf(requestBody.contentType()));
         MultipartBody.Part uploadImage=MultipartBody.Part.createFormData("image", file.getName(),requestBody);
         Observable<ResponseBody> observable=retrofitHelper.initRetrofitService().uploadImage(uploadImage);

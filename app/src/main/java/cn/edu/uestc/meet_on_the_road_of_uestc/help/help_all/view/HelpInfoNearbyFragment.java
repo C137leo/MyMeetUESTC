@@ -19,15 +19,16 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpInfoWithDistance;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapterNearBy;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.HelpDetailActivity;
 
 public class HelpInfoNearbyFragment extends Fragment {
-    private List<HelpInfo> mList=new ArrayList<>();
+    private List<HelpInfoWithDistance> mList=new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
-    Help_RecyclerViewAdapter help_recyclerViewAdapter;
+    Help_RecyclerViewAdapterNearBy help_recyclerViewAdapterNearBy;
     SwipeRefreshLayout swipeRefreshLayout;
     PrensterComl prensterComl=new PrensterComl(MyApplication.getMyContext());
     @Nullable
@@ -41,7 +42,7 @@ public class HelpInfoNearbyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        prensterComl.attchView(iViewNearby);
+        prensterComl.attchViewNearBy(iViewLatestNearby);
         swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout_nearby);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -51,10 +52,10 @@ public class HelpInfoNearbyFragment extends Fragment {
                 prensterComl.getData();
             }
         });
-        help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
+        help_recyclerViewAdapterNearBy =new Help_RecyclerViewAdapterNearBy(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        help_recyclerViewAdapter.setOnItemClickListener(new Help_RecyclerViewAdapter.onItemClickListener() {
+        help_recyclerViewAdapterNearBy.setOnItemClickListener(new Help_RecyclerViewAdapterNearBy.onItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position,String UID) {
                 Intent intent=new Intent(getActivity(), HelpDetailActivity.class);
@@ -63,13 +64,13 @@ public class HelpInfoNearbyFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        mRecyclerView.setAdapter(help_recyclerViewAdapter);
+        mRecyclerView.setAdapter(help_recyclerViewAdapterNearBy);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         prensterComl.getData();
     }
 
 
-    IView iViewNearby=new IView() {
+    IVewNearBy iViewLatestNearby =new IVewNearBy() {
         @Override
         public void hideRefershing() {
             Log.d("stopRefreshing","stopRefreshing");
@@ -77,19 +78,21 @@ public class HelpInfoNearbyFragment extends Fragment {
         }
 
         @Override
-        public void updateData(List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList) {
-            help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
+        public void updateData(List<HelpInfoWithDistance> helpInfoList) {
+            help_recyclerViewAdapterNearBy.updateDataInFragment(helpInfoList);
             swipeRefreshLayout.setRefreshing(false);
         }
     };
     @Override
     public void onStart() {
         super.onStart();
+        prensterComl.getData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        prensterComl.getData();
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_RecyclerViewAdapterLatest;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_details.view.HelpDetailActivity;
 
@@ -27,7 +27,7 @@ public class HelpInfoLatestFragment extends Fragment {
     private List<HelpInfo> mList=new ArrayList<>();
     LinearLayoutManager linearLayoutManager;
     RecyclerView mRecyclerView;
-    Help_RecyclerViewAdapter help_recyclerViewAdapter;
+    Help_RecyclerViewAdapterLatest help_recyclerViewAdapterLatest;
     SwipeRefreshLayout swipeRefreshLayout;
     PrensterComl prensterComl=new PrensterComl(MyApplication.getMyContext());
     @Nullable
@@ -41,7 +41,7 @@ public class HelpInfoLatestFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        prensterComl.attchView(iViewLatest);
+        prensterComl.attchViewLatest(iViewLatest);
         swipeRefreshLayout=getActivity().findViewById(R.id.help_all_refresh_layout_latest_nearby);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -51,10 +51,10 @@ public class HelpInfoLatestFragment extends Fragment {
                 prensterComl.getData();
             }
         });
-        help_recyclerViewAdapter=new Help_RecyclerViewAdapter(getActivity(),mList);
+        help_recyclerViewAdapterLatest =new Help_RecyclerViewAdapterLatest(getActivity(),mList);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        help_recyclerViewAdapter.setOnItemClickListener(new Help_RecyclerViewAdapter.onItemClickListener() {
+        help_recyclerViewAdapterLatest.setOnItemClickListener(new Help_RecyclerViewAdapterLatest.onItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position,String UID) {
                 Intent intent=new Intent(getActivity(), HelpDetailActivity.class);
@@ -63,13 +63,13 @@ public class HelpInfoLatestFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        mRecyclerView.setAdapter(help_recyclerViewAdapter);
+        mRecyclerView.setAdapter(help_recyclerViewAdapterLatest);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         prensterComl.getData();
     }
 
 
-    IView iViewLatest=new IView() {
+    IViewLatest iViewLatest=new IViewLatest() {
         @Override
         public void hideRefershing() {
             Log.d("stopRefreshing","stopRefreshing");
@@ -78,7 +78,7 @@ public class HelpInfoLatestFragment extends Fragment {
 
         @Override
         public void updateData(List<cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo> helpInfoList) {
-            help_recyclerViewAdapter.updateDataInFragment(helpInfoList);
+            help_recyclerViewAdapterLatest.updateDataInFragment(helpInfoList);
             swipeRefreshLayout.setRefreshing(false);
         }
     };

@@ -38,6 +38,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         public final static Property WhoFinishItStuID = new Property(11, String.class, "whoFinishItStuID", false, "WHO_FINISH_IT_STU_ID");
         public final static Property WhoFinishItStuMajor = new Property(12, String.class, "whoFinishItStuMajor", false, "WHO_FINISH_IT_STU_MAJOR");
         public final static Property WhoFinishItStuGrade = new Property(13, int.class, "whoFinishItStuGrade", false, "WHO_FINISH_IT_STU_GRADE");
+        public final static Property Latitude = new Property(14, double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(15, double.class, "longitude", false, "LONGITUDE");
     }
 
 
@@ -66,7 +68,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
                 "\"ACCEPT_TIME\" TEXT," + // 10: acceptTime
                 "\"WHO_FINISH_IT_STU_ID\" TEXT," + // 11: whoFinishItStuID
                 "\"WHO_FINISH_IT_STU_MAJOR\" TEXT," + // 12: whoFinishItStuMajor
-                "\"WHO_FINISH_IT_STU_GRADE\" INTEGER NOT NULL );"); // 13: whoFinishItStuGrade
+                "\"WHO_FINISH_IT_STU_GRADE\" INTEGER NOT NULL ," + // 13: whoFinishItStuGrade
+                "\"LATITUDE\" REAL NOT NULL ," + // 14: latitude
+                "\"LONGITUDE\" REAL NOT NULL );"); // 15: longitude
     }
 
     /** Drops the underlying database table. */
@@ -136,6 +140,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             stmt.bindString(13, whoFinishItStuMajor);
         }
         stmt.bindLong(14, entity.getWhoFinishItStuGrade());
+        stmt.bindDouble(15, entity.getLatitude());
+        stmt.bindDouble(16, entity.getLongitude());
     }
 
     @Override
@@ -199,6 +205,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             stmt.bindString(13, whoFinishItStuMajor);
         }
         stmt.bindLong(14, entity.getWhoFinishItStuGrade());
+        stmt.bindDouble(15, entity.getLatitude());
+        stmt.bindDouble(16, entity.getLongitude());
     }
 
     @Override
@@ -222,7 +230,9 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // acceptTime
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // whoFinishItStuID
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // whoFinishItStuMajor
-            cursor.getInt(offset + 13) // whoFinishItStuGrade
+            cursor.getInt(offset + 13), // whoFinishItStuGrade
+            cursor.getDouble(offset + 14), // latitude
+            cursor.getDouble(offset + 15) // longitude
         );
         return entity;
     }
@@ -243,6 +253,8 @@ public class HelpInfoDao extends AbstractDao<HelpInfo, String> {
         entity.setWhoFinishItStuID(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setWhoFinishItStuMajor(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setWhoFinishItStuGrade(cursor.getInt(offset + 13));
+        entity.setLatitude(cursor.getDouble(offset + 14));
+        entity.setLongitude(cursor.getDouble(offset + 15));
      }
     
     @Override

@@ -54,14 +54,13 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
     private String publish_time=DateUtils.getDateNow();
     private String good_detail;
     private String publish_location;
-    double latitude;
-    double longitude;
+    private double latitude=0;
+    private double longitude=0;
     private DaoSession daoSession= GreenDaoHelper.getDaoSession();
-    List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
-    HelpAddModel helpAddModel=new HelpAddModel();
+    private List<StuInfo> stuInfoList=new ArrayList<StuInfo>();
+    private HelpAddModel helpAddModel=new HelpAddModel();
     private String stuName;
-    Disposable disposable;
-
+    private Disposable disposable;
     public HelpAddPrenster(Context context){
         this.mContext=context;
     }
@@ -76,7 +75,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         stuInfoList=daoSession.loadAll(StuInfo.class);
         this.stuID=stuInfoList.get(0).getStuID();
         this.stuName=stuInfoList.get(0).getStuName();
-        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,0,good_detail,0,"","","","",0);
+        helpInfo=new HelpInfo(AssistUtils.getRandomUUID(),stuID,publish_location,stuName,good_title,publish_time,0,good_detail,0,"","","","",0,latitude,longitude);
         postData();
     }
 
@@ -126,7 +125,7 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
         //keyWord表示搜索字符串，
         //第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
         //cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
-        query.setPageSize(1);// 设置每页最多返回多少条poiitem
+        query.setPageSize(1);// 设置每页最多返回多少条poiItem
         query.setPageNum(1);//设置查询页码
         PoiSearch poiSearch = new PoiSearch(mContext, query);
         poiSearch.setOnPoiSearchListener(this);
@@ -204,8 +203,14 @@ public class HelpAddPrenster implements IPrenster, Inputtips.InputtipsListener, 
      */
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
-        Log.d("POI搜索结果","错误码为"+i);
-        iView.setPoiSearchLocation(poiResult.getPois().get(0));
+        if(i==1000) {
+            Log.d("POI搜索结果", "错误码为" + i);
+            latitude = poiResult.getPois().get(0).getLatLonPoint().getLatitude();
+            longitude = poiResult.getPois().get(0).getLatLonPoint().getLongitude();
+            iView.setPoiSearchLocation(poiResult.getPois().get(0));
+        }else {
+            iView.getLocationError();
+        }
     }
 
     @Override
