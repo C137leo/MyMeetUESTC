@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.AppointmentFragment;
@@ -31,6 +32,11 @@ public class MainActivity extends CheckPermissionsActivity{
     LinearLayout mHelp;
     LinearLayout mAppointment;
     LinearLayout mMe;
+    ImageView navigation;
+    ImageView home;
+    ImageView help;
+    ImageView appointment;
+    ImageView me;
     onClickListener monClickListener=new onClickListener();
     Intent serviceIntent = null;
 
@@ -54,6 +60,11 @@ public class MainActivity extends CheckPermissionsActivity{
         mHelp=findViewById(R.id.menu_help);
         mAppointment=findViewById(R.id.menu_appointment);
         mMe=findViewById(R.id.menu_me);
+        navigation=findViewById(R.id.navigation_drawable);
+        home=findViewById(R.id.home_drawable);
+        help=findViewById(R.id.help_drawable);
+        appointment=findViewById(R.id.appointment_drawable);
+        me=findViewById(R.id.me_drawable);
         mNav.setOnClickListener(monClickListener);
         mHome.setOnClickListener(monClickListener);
         mHelp.setOnClickListener(monClickListener);
@@ -68,26 +79,51 @@ public class MainActivity extends CheckPermissionsActivity{
                     mFragmentManager.beginTransaction()
                             .replace(R.id.container_content,navFragment)
                             .commit();
+                    navigation.setImageResource(R.drawable.ic_navigation_click);
+                    home.setImageResource(R.drawable.ic_home_bottombar);
+                    help.setImageResource(R.drawable.ic_help_bottombar);
+                    appointment.setImageResource(R.drawable.ic_appointment_bottombar);
+                    me.setImageResource(R.drawable.ic_me_bottombar);
                     break;
                 case R.id.menu_home:
                     mFragmentManager.beginTransaction()
                             .replace(R.id.container_content,homeFragment)
                             .commit();
+                    navigation.setImageResource(R.drawable.ic_navigation_bottombar);
+                    home.setImageResource(R.drawable.ic_home_cilck);
+                    help.setImageResource(R.drawable.ic_help_bottombar);
+                    appointment.setImageResource(R.drawable.ic_appointment_bottombar);
+                    me.setImageResource(R.drawable.ic_me_bottombar);
                     break;
                 case R.id.menu_help:
                     mFragmentManager.beginTransaction()
                             .replace(R.id.container_content, helpAllFragment)
                             .commit();
+                    navigation.setImageResource(R.drawable.ic_navigation_bottombar);
+                    home.setImageResource(R.drawable.ic_home_bottombar);
+                    help.setImageResource(R.drawable.ic_help_click);
+                    appointment.setImageResource(R.drawable.ic_appointment_bottombar);
+                    me.setImageResource(R.drawable.ic_me_bottombar);
                     break;
                 case R.id.menu_appointment:
                     mFragmentManager.beginTransaction()
                             .replace(R.id.container_content,appointmentFragment)
                             .commit();
+                    navigation.setImageResource(R.drawable.ic_navigation_bottombar);
+                    home.setImageResource(R.drawable.ic_home_bottombar);
+                    help.setImageResource(R.drawable.ic_help_bottombar);
+                    appointment.setImageResource(R.drawable.ic_appointment_click);
+                    me.setImageResource(R.drawable.ic_me_bottombar);
                     break;
                 case R.id.menu_me:
                     mFragmentManager.beginTransaction()
                             .replace(R.id.container_content,meFragment)
                             .commit();
+                    navigation.setImageResource(R.drawable.ic_navigation_bottombar);
+                    home.setImageResource(R.drawable.ic_home_bottombar);
+                    help.setImageResource(R.drawable.ic_help_bottombar);
+                    appointment.setImageResource(R.drawable.ic_appointment_bottombar);
+                    me.setImageResource(R.drawable.ic_me_click);
                     break;
                 default:
                     break;

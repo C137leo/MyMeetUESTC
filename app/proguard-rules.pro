@@ -83,6 +83,7 @@ public static java.lang.String TABLENAME;
 }
 -dontoptimize
 -dontpreverify
+-keepattributes  EnclosingMethod,Signature
 
 -dontwarn cn.jpush.**
 -keep class cn.jpush.** { *; }
@@ -90,7 +91,19 @@ public static java.lang.String TABLENAME;
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+-dontwarn cn.jmessage.**
+-keep class cn.jmessage.**{ *; }
 
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+
+#========================gson================================
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+
+#========================protobuf================================
+-keep class com.google.protobuf.** {*;}
 #----------retrofit--------------
 #-keepclassmembernames,allowobfuscation interface * {
 #    @retrofit2.http.* <methods>;
