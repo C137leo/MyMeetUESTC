@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.JMessageCallback.JMessageLoginCallback;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.model.LoginModel;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.view.IView;
+import cn.jpush.im.android.api.JMessageClient;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,7 +53,7 @@ public class StuInfoPrenster implements Prenster{
     public void attachIncomingIntent(Intent intent) {
 
     }
-    public void getStuInfo(String StuId,String password) {
+    public void getStuInfo(final String StuId, final String password) {
         PostLogin postLogin=new PostLogin(StuId,password);
         onCreate();
         Observable<NetWorkStatus> observable=dataManager.getSearchStudent(postLogin);
@@ -66,6 +68,7 @@ public class StuInfoPrenster implements Prenster{
                     @Override
                     public void onNext(NetWorkStatus netWorkStatus) {
                         if(netWorkStatus.getCode().getErrcode()==100){
+                            JMessageClient.login(StuId,password,new JMessageLoginCallback());
                             loginModel.writeDtabases(netWorkStatus);
                             view.loginSuccess();
                         }else{
