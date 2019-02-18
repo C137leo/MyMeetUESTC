@@ -6,9 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
 public class PublishViewHolder extends RecyclerView.ViewHolder {
-    ImageView publishImage;
+    CircleImageView publishImage;
     TextView publishMessge;
     public PublishViewHolder(View itemView) {
         super(itemView);

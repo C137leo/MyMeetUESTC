@@ -41,6 +41,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     String snippet;
     String location;
     RecycleViewViewHolder recycleViewViewHolder;
+    OnImageviewClickListener onImageviewClickListener;
     public HelpManageListViewAcceptAdapter() {
     }
 
@@ -56,13 +57,19 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecycleViewViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecycleViewViewHolder holder, final int position) {
         myHolder=holder;
         Log.d("onBindViewHolder","onBingViewHolder");
         holder.publishHelpTitle.setText(acceptRecycleViewData.get(position).getPublishHelpTitle());
         holder.publishHelpOwner.setText(acceptRecycleViewData.get(position).getPublishHelpOwner());
         holder.publishHelpAcceptTime.setText(acceptRecycleViewData.get(position).getPublishHelpAcceptTime());
         holder.publishHelpTime.setText(acceptRecycleViewData.get(position).getPublishHelpTime());
+        holder.seeTheRouteHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onImageviewClickListener.onClick(acceptRecycleViewData.get(position).getPublishHelpOwnerStuID());
+            }
+        });
         location=acceptRecycleViewData.get(position).getPublishHelpLocation();
         if(holder.mapView.getParent()!=null){
             holder.mapView.removeAllViews();
@@ -100,6 +107,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
         Button seeTheRouteHelp;
         TextView publishHelpAcceptTime;
         MapView mapView;
+        OnImageviewClickListener onImageviewClickListener;
         public RecycleViewViewHolder(View itemView) {
             super(itemView);
             publishHelpTitle=itemView.findViewById(R.id.accept_help_title);
@@ -111,6 +119,12 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
         }
     }
 
+    public interface OnImageviewClickListener{
+        void onClick(String userID);
+    }
+    public void setOnClickListener(OnImageviewClickListener onImageviewClickListener){
+        this.onImageviewClickListener=onImageviewClickListener;
+    }
     /**
      * POI数据获取
      * @param poiResult POI数据列表

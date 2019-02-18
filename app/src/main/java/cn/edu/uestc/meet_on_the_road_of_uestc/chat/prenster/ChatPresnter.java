@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +27,7 @@ public class ChatPresnter implements IPresnter{
 
     @Override
     public void startChat(String userName) {
+        Log.d("userName",userName);
         Conversation.createSingleConversation(userName, MyApplication.getJiguangAppkey());
         this.userName=userName;
         this.appKey=MyApplication.getJiguangAppkey();
@@ -112,6 +114,7 @@ public class ChatPresnter implements IPresnter{
                 ChatMessage chatMessage=new ChatMessage(sendMessage,1);
                 iView.updateMessageInAdapter(chatMessage);
             }else{
+                Log.d("jiguangIM",String.valueOf(i));
                 iView.sendError(s);
             }
         }

@@ -3,8 +3,10 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,10 +36,13 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
     ChatPresnter chatPresnter=new ChatPresnter();
     EditText messageInput;
     ImageView sendMessageConfirm;
+    String userID;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         chatPresnter.attchView(iView);
+        userID=getIntent().getStringExtra("StuID");
+        chatPresnter.startChat(userID);
         setContentView(R.layout.activity_chat_detail);
         toolbar=findViewById(R.id.chat_detail_toolbar);
         messageInput=findViewById(R.id.chat_input);
@@ -59,6 +64,8 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         chatAlbum.setOnClickListener(this);
         chatLocation.setOnClickListener(this);
         chatMessageRecycle=findViewById(R.id.chat_details_recyclerView);
+        chatMessageRecycle.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
+        chatMessageRecycle.setAdapter(chatDetailAdapter);
     }
 
     @Override
@@ -77,8 +84,12 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
             case R.id.chat_location:
 
             case R.id.message_send:
-                String message=messageInput.getText().toString();
-                chatPresnter.senSingleMessage(message);
+                if(TextUtils.isEmpty(messageInput.getText().toString())) {
+                    Toast.makeText(ChatActivity.this,"不能输入空消息",Toast.LENGTH_SHORT).show();
+                }else {
+                    String message = messageInput.getText().toString();
+                    chatPresnter.sentSingleMessage(message);
+                }
 
         }
     }

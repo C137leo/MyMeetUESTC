@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import com.amap.api.maps.MapView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.ChatActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewAcceptAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.prenster.HelpManagePrenster;
 
@@ -28,6 +31,7 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
     RecyclerView acceptRecycleView;
     HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    Button seeTheRoute;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +52,16 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
             }
         });
         acceptRecycleView=view.findViewById(R.id.help_accept_recycleview);
+        seeTheRoute=getActivity().findViewById(R.id.see_the_route_help);
         helpManageListViewAcceptAdapter=helpManagePrenster.initHelpManageListViewAcceptAdapter();
+        helpManageListViewAcceptAdapter.setOnClickListener(new HelpManageListViewAcceptAdapter.OnImageviewClickListener() {
+            @Override
+            public void onClick(String userID) {
+                Intent intent=new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("StuID",userID);
+                startActivity(intent);
+            }
+        });
         acceptRecycleView.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
         acceptRecycleView.setAdapter(helpManageListViewAcceptAdapter);
     }

@@ -34,7 +34,7 @@ public class MyApplication extends TinkerApplication {
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
         JMessageClient.init(context,true);
-        JMessageClient.registerEventReceiver(JiguangMessageIMEventReciver.class);
+        JMessageClient.registerEventReceiver(new JiguangMessageIMEventReciver());
     }
     public static Context getMyContext(){
         return context;
