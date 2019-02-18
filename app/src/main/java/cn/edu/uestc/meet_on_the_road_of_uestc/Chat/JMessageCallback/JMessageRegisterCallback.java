@@ -1,9 +1,14 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.JMessageCallback;
+package cn.edu.uestc.meet_on_the_road_of_uestc.Chat.JMessageCallback;
 
 import cn.jpush.im.api.BasicCallback;
 
-public class JMessageLoginCallback extends BasicCallback {
-    public JMessageLoginCallback(boolean b) {
+public class JMessageRegisterCallback extends BasicCallback {
+
+    public JMessageRegisterCallback() {
+        super();
+    }
+
+    public JMessageRegisterCallback(boolean b) {
         super(b);
     }
 
@@ -20,9 +25,5 @@ public class JMessageLoginCallback extends BasicCallback {
     @Override
     public void gotResult(int i, String s) {
 
-    }
-
-    public JMessageLoginCallback() {
-        super();
     }
 }

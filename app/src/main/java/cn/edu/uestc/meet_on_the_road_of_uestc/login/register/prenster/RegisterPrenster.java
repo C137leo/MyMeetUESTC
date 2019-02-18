@@ -2,7 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.login.register.prenster;
 
 import android.util.Log;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.JMessageCallback.JMessageRegisterCallback;
+import cn.edu.uestc.meet_on_the_road_of_uestc.Chat.JMessageCallback.JMessageRegisterCallback;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.RegisterStatus;

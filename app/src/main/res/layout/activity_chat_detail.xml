@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/silver"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/white"
+        android:id="@+id/chat_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@mipmap/ic_back">
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_details_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/chat_input"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="false" />
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_send"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_send"/>
+
+        <ImageView
+            android:layout_marginStart="5dp"
+            android:id="@+id/other_option_button"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_other_option" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/other_option"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <ImageView
+            android:id="@+id/chat_album"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_album" />
+        <ImageView
+            android:id="@+id/chat_location"
+            android:layout_marginStart="10dp"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_location"/>
+    </LinearLayout>
+</LinearLayout>

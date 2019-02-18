@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.JMessageCallback.JMessageLoginCallback;
+import cn.edu.uestc.meet_on_the_road_of_uestc.Chat.JMessageCallback.JMessageLoginCallback;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.NetWorkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.entity.PostLogin;
 import cn.edu.uestc.meet_on_the_road_of_uestc.login.model.LoginModel;
