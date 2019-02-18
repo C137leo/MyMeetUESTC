@@ -3,14 +3,23 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter.ChatDetailAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
 
 public class ChatActivity extends AppCompatActivity  implements View.OnClickListener {
     Toolbar toolbar;
@@ -19,11 +28,21 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
     ImageView chatAlbum;
     ImageView chatLocation;
     int OPTION_STATUS=0; //0时其他选项为关闭，1时为展开
+    RecyclerView chatMessageRecycle;
+    List<ChatMessage> chatMessageList=new ArrayList<>();
+    ChatDetailAdapter chatDetailAdapter=new ChatDetailAdapter(ChatActivity.this,chatMessageList);
+    ChatPresnter chatPresnter=new ChatPresnter();
+    EditText messageInput;
+    ImageView sendMessageConfirm;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
+        chatPresnter.attchView(iView);
         setContentView(R.layout.activity_chat_detail);
         toolbar=findViewById(R.id.chat_detail_toolbar);
+        messageInput=findViewById(R.id.chat_input);
+        sendMessageConfirm=findViewById(R.id.message_send);
+        sendMessageConfirm.setOnClickListener(this);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //启动返回按钮
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -39,6 +58,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         chatLocation=findViewById(R.id.chat_location);
         chatAlbum.setOnClickListener(this);
         chatLocation.setOnClickListener(this);
+        chatMessageRecycle=findViewById(R.id.chat_details_recyclerView);
     }
 
     @Override
@@ -56,6 +76,22 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
 
             case R.id.chat_location:
 
+            case R.id.message_send:
+                String message=messageInput.getText().toString();
+                chatPresnter.senSingleMessage(message);
+
         }
     }
+
+    IView iView=new IView() {
+        @Override
+        public void updateMessageInAdapter(ChatMessage chatMessage) {
+            chatDetailAdapter.addMessage(chatMessage);
+        }
+
+        @Override
+        public void sendError(String errMsg) {
+            Toast.makeText(MyApplication.getMyContext(),errMsg,Toast.LENGTH_SHORT).show();
+        }
+    };
 }

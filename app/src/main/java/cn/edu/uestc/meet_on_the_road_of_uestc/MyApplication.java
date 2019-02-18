@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.JiguangMessageIMEventReciver;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoMaster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
@@ -33,6 +34,7 @@ public class MyApplication extends TinkerApplication {
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
         JMessageClient.init(context,true);
+        JMessageClient.registerEventReceiver(JiguangMessageIMEventReciver.class);
     }
     public static Context getMyContext(){
         return context;
