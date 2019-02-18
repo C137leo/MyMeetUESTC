@@ -16,6 +16,7 @@ import dev.DevUtils;
 
 public class MyApplication extends TinkerApplication {
     GreenDaoHelper greenDaoHelper=new GreenDaoHelper();
+    static String jiguanAppkey="d240a417f22da27f1922aba3";
     public MyApplication(){
         super(ShareConstants.TINKER_ENABLE_ALL, "cn.edu.uestc.meet_on_the_road_of_uestc.MyApplicationLike",
                 "com.tencent.tinker.loader.TinkerLoader", false);
@@ -35,5 +36,9 @@ public class MyApplication extends TinkerApplication {
     }
     public static Context getMyContext(){
         return context;
+    }
+
+    public static String getJiguangAppkey(){
+        return jiguanAppkey;
     }
 }

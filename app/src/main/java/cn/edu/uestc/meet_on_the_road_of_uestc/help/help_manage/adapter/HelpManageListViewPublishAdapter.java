@@ -19,10 +19,10 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
 import static cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao.Properties.UID;
 
-public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.myViewHolder> {
+public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.MyViewHolder> {
     List<PublishRecycleViewData> publishRecycleViewData;
     private Context context;
-    myViewHolder myViewHolder;
+    HelpManageListViewPublishAdapter.MyViewHolder myViewHolder;
     OnItemClickListener onItemClickListener;
     public HelpManageListViewPublishAdapter(Context context,List<PublishRecycleViewData> publishRecycleViewData){
         this.context=context;
@@ -32,19 +32,20 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
     @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        myViewHolder myViewHolder=new myViewHolder(LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_publish_listview,parent,false));
-        return myViewHolder;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_publish_listview,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         this.myViewHolder=holder;
         holder.finishHelpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemClickListener.onClick(publishRecycleViewData.get(position).getUID());
                 holder.finishHelpButton.setText("帮帮已完成");
+                myViewHolder.publishHelpAcceptStatus.setText("已完成帮帮");
                 holder.finishHelpButton.setClickable(false);
             }
         });
@@ -53,6 +54,8 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         holder.publishHelpTime.setText(publishRecycleViewData.get(position).getPublishHelpTime());
         if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==0){
             holder.publishHelpAcceptName.setText("待接受");
+            holder.publishHelpAcceptStatus.setText("待接受");
+            holder.publishHelpAcceptTime.setText("");
         }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==1){
             holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
@@ -78,7 +81,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         myViewHolder.finishHelpButton.setText("帮帮已完成");
         myViewHolder.finishHelpButton.setClickable(false);
     }
-    class myViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
         TextView publishHelpLocation;
         TextView publishHelpTitle;
         TextView publishHelpTime;
@@ -88,7 +91,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         TextView publishHelpAcceptName;
         TextView publishHelpAcceptStatus;
         public OnItemClickListener onItemClickListener;
-        public myViewHolder(View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             Log.d("getView","getView");
             publishHelpTitle=itemView.findViewById(R.id.publish_help_title);

@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.Chat.adapter;
+package cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -28,15 +28,13 @@ import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.AcceptRecycleViewData;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.prenster.HelpManagePrenster;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageAcceptViewpagerFragment;
 
 public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpManageListViewAcceptAdapter.RecycleViewViewHolder> implements PoiSearch.OnPoiSearchListener {
     View view;
     List<AcceptRecycleViewData> acceptRecycleViewData;
     Context context;
     MapView mapView;
-    RecycleViewViewHolder myHolder;
+    HelpManageListViewAcceptAdapter.RecycleViewViewHolder myHolder;
     AMap aMap;
     LatLng latLng;
     String title;
@@ -54,10 +52,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     @Override
     public RecycleViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_accept_listview,parent,false);
-        if(recycleViewViewHolder==null) {
-            recycleViewViewHolder = new RecycleViewViewHolder(view);
-        }
-        return recycleViewViewHolder;
+        return new RecycleViewViewHolder(view);
     }
 
     @Override

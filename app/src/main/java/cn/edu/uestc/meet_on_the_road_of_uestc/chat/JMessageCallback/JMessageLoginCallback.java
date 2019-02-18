@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.Chat.JMessageCallback;
+package cn.edu.uestc.meet_on_the_road_of_uestc.chat.JMessageCallback;
 
 import cn.jpush.im.api.BasicCallback;
 
