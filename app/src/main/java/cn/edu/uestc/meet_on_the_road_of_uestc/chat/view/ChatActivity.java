@@ -97,6 +97,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
     IView iView=new IView() {
         @Override
         public void updateMessageInAdapter(ChatMessage chatMessage) {
+            messageInput.setText("");
             chatDetailAdapter.addMessage(chatMessage);
         }
 

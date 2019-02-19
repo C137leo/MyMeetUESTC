@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -67,7 +68,9 @@ public class ChatDetailAdapter extends RecyclerView.Adapter {
 
     public void addMessage(ChatMessage chatMessage){
         message.add(chatMessage);
-        notifyItemRangeInserted(message.size()-1,1);
-        notifyItemRangeChanged(message.size()-1,1);
+        notifyItemRangeInserted(message.size(),1);
+        notifyItemRangeChanged(message.size(),1);
+        Log.d("addMessage",String.valueOf(message.size()));
+
     }
 }
