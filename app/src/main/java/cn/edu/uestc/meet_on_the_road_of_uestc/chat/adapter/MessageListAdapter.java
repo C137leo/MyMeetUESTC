@@ -70,11 +70,15 @@ public class MessageListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class Holder{
+    public class Holder{
         CircleImageView circleImageView;
         TextView chatUserName;
         TextView messageDetail;
         String userID;
+
+        public String getUserID() {
+            return userID;
+        }
     }
 
     public void updateConversationList(List<Conversation> conversationList){

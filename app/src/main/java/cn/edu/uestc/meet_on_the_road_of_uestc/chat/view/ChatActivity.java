@@ -97,9 +97,9 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
 
     IView iView=new IView() {
         @Override
-        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+        public void updateSingleMessageInAdapter(List<ChatMessage> chatMessages) {
             messageInput.setText("");
-            chatDetailAdapter.addMessage(chatMessage);
+            chatDetailAdapter.addMessage(chatMessages);
         }
 
         @Override
@@ -110,6 +110,11 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         @Override
         public void updateConversationList(List<Conversation> conversationList) {
 
+        }
+
+        @Override
+        public void updateExistConversationMessages(List<ChatMessage> chatMessages) {
+            chatDetailAdapter.addMessage(chatMessages);
         }
     };
 }

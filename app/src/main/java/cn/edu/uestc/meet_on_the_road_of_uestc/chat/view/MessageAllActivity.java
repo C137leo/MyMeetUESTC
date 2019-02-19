@@ -1,8 +1,11 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,12 +30,21 @@ public class MessageAllActivity extends AppCompatActivity {
         chatPresnter.attchView(iView);
         messageListAdapter=new MessageListAdapter(MessageAllActivity.this,conversationList);
         messageAllList.setAdapter(messageListAdapter);
+        messageAllList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(MessageAllActivity.this,ChatActivity.class);
+                MessageListAdapter.Holder holder= (MessageListAdapter.Holder) view.getTag();
+                intent.putExtra("StuID",holder.getUserID());
+                startActivity(intent);
+            }
+        });
         chatPresnter.updateMessageAllList();
     }
 
     IView iView=new IView() {
         @Override
-        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+        public void updateSingleMessageInAdapter(List<ChatMessage> chatMessages) {
 
         }
 
@@ -44,6 +56,11 @@ public class MessageAllActivity extends AppCompatActivity {
         @Override
         public void updateConversationList(List<Conversation> conversationList) {
             messageListAdapter.updateConversationList(conversationList);
+        }
+
+        @Override
+        public void updateExistConversationMessages(List<ChatMessage> chatMessages) {
+
         }
     };
 }

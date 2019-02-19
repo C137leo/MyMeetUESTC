@@ -66,11 +66,13 @@ public class ChatDetailAdapter extends RecyclerView.Adapter {
         return message.size();
     }
 
-    public void addMessage(ChatMessage chatMessage){
-        message.add(chatMessage);
-        notifyItemRangeInserted(message.size(),1);
-        notifyItemRangeChanged(message.size(),1);
-        Log.d("addMessage",String.valueOf(message.size()));
+    public void addMessage(List<ChatMessage> chatMessage){
+        for(ChatMessage chatMessage1:chatMessage) {
+            message.add(chatMessage1);
+        }
+        notifyItemRangeInserted(message.size()-chatMessage.size(),chatMessage.size());
+        notifyItemRangeChanged(message.size()-chatMessage.size(),chatMessage.size());
+        Log.d("addMessage",String.valueOf(chatMessage.size()));
 
     }
 }

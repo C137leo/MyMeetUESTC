@@ -5,33 +5,89 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.IView;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.api.BasicCallback;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.Subject;
 
 public class ChatPresnter implements IPresnter{
     private IView iView;
     private String userName;
-    private String appKey;
+    private String appKey=MyApplication.getJiguangAppkey();
     private JMessageChatCallback jMessageChatCallback=new JMessageChatCallback();
     private String sendMessage;
+    Conversation conversation;
+    Disposable disposable;
     @Override
     public void attchView(IView iView) {
         this.iView=iView;
     }
 
     @Override
-    public void startChat(String userName) {
-        Log.d("userName",userName);
-        Conversation.createSingleConversation(userName, MyApplication.getJiguangAppkey());
+    public void startChat(final String userName) {
+        Observable.create(new ObservableOnSubscribe<List<ChatMessage>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<ChatMessage>> emitter) throws Exception {
+                conversation=JMessageClient.getSingleConversation(userName, appKey);
+                if((conversation.getAllMessage()).isEmpty())
+                {
+                    Log.d("userName", userName);
+                    Conversation.createSingleConversation(userName, MyApplication.getJiguangAppkey());
+                }else{
+                    List<ChatMessage> chatMessages=new ArrayList<>();
+                    for(Message message:conversation.getAllMessage()){
+                        Log.d("conversation",conversation.getId());
+                        if(message.getContentType()== ContentType.text) {
+                            TextContent textContent = (TextContent) message.getContent();
+                            ChatMessage chatMessage = new ChatMessage(textContent.getText(), 1);
+                            chatMessages.add(chatMessage);
+                        }
+                    }
+                    emitter.onNext(chatMessages);
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<ChatMessage>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable=d;
+                    }
+
+                    @Override
+                    public void onNext(List<ChatMessage> chatMessages) {
+                        Log.d("accept",String.valueOf(chatMessages.size()));
+                        iView.updateExistConversationMessages(chatMessages);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iView.sendError("网络错误，请稍后重试");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposable.dispose();
+                    }
+                });
         this.userName=userName;
-        this.appKey=MyApplication.getJiguangAppkey();
     }
 
     @Override
@@ -110,7 +166,9 @@ public class ChatPresnter implements IPresnter{
     @Override
     public void updateMessageList(String message) {
         ChatMessage chatMessage=new ChatMessage(message,0);
-        iView.updateSingleMessageInAdapter(chatMessage);
+        List<ChatMessage> chatMessages=new ArrayList<>();
+        chatMessages.add(chatMessage);
+        iView.updateSingleMessageInAdapter(chatMessages);
     }
 
     class JMessageChatCallback extends BasicCallback{
@@ -118,7 +176,9 @@ public class ChatPresnter implements IPresnter{
         public void gotResult(int i, String s) {
             if(i==0){
                 ChatMessage chatMessage=new ChatMessage(sendMessage,1);
-                iView.updateSingleMessageInAdapter(chatMessage);
+                List<ChatMessage> chatMessages=new ArrayList<>();
+                chatMessages.add(chatMessage);
+                iView.updateSingleMessageInAdapter(chatMessages);
             }else{
                 Log.d("jiguangIM",String.valueOf(i));
                 iView.sendError(s);
