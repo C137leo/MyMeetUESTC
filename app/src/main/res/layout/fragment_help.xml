@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
-            android:background="@mipmap/ic_help_tab_background"
+            android:background="@mipmap/background_help_manage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView

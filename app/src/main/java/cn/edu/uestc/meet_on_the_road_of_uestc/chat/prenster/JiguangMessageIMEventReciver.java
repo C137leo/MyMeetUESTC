@@ -5,6 +5,7 @@ import android.os.Message;
 import cn.jmessage.biz.httptask.task.GetEventNotificationTaskMng;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
+import cn.jpush.im.android.api.event.OfflineMessageEvent;
 
 public class JiguangMessageIMEventReciver {
     ChatPresnter chatPresnter;
@@ -18,5 +19,9 @@ public class JiguangMessageIMEventReciver {
                 TextContent textContent=(TextContent)event.getMessage().getContent();
                 chatPresnter.updateMessageList(textContent.getText());
         }
+    }
+
+    public void onEvent(OfflineMessageEvent offlineMessageEvent){
+
     }
 }

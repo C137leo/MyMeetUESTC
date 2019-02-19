@@ -1,60 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
-    <android.support.v7.widget.CardView
-        app:cardCornerRadius="10dp"
+    <RelativeLayout
+        android:background="@mipmap/background_help_all"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:alpha="5"
         android:layout_gravity="center_horizontal"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/goods_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="5dp"
+                android:hint="这是一个标题"
+                android:maxWidth="200dp"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="5dp"
+                android:hint="发布时间"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
+            android:layout_marginStart="10dp"
+            android:id="@+id/help_owner_image"
+            android:layout_marginTop="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_icontest"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="80dp"
+            android:layout_alignTop="@id/help_owner_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/publish_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="发布者姓名" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="公共与管理学院"
+                android:textSize="12sp"
+                android:id="@+id/publish_owner_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginStart="220dp"
+
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/goods_title"
-        android:layout_width="62dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="27dp"
-        android:hint="物品名称" />
-
-        <TextView
-            android:id="@+id/publish_name"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginBottom="14dp"
-            android:hint="发布者姓名" />
-
-        <TextView
-            android:id="@+id/publish_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginStart="104dp"
-            android:hint="发布时间" />
-
-    <ImageView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="280dp"
-        android:src="@mipmap/ic_trace" />
-
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_trace" />
         <TextView
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="300dp"
-            android:id="@+id/distance"
+            android:textSize="12sp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="这是地址"
+            android:id="@+id/publish_location"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/distance" />
-    </android.support.v7.widget.CardView>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+        <Button
+            android:layout_marginStart="220dp"
+            android:layout_centerVertical="true"
+            android:text="查看路线"
+            android:background="@drawable/finish_help_button"
+            android:id="@+id/help_all_see_the_route"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+    </RelativeLayout>
 
 
 </FrameLayout>

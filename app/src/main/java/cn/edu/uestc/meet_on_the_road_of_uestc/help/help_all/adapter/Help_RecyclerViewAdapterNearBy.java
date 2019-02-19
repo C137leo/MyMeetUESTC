@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -16,6 +17,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.HelpInfoWithDistance;
+import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
 public class Help_RecyclerViewAdapterNearBy extends RecyclerView.Adapter<Help_RecyclerViewAdapterNearBy.MyViewHolder> {
     private Context mContext;
@@ -42,7 +44,8 @@ public class Help_RecyclerViewAdapterNearBy extends RecyclerView.Adapter<Help_Re
             myViewHolder.good_title.setText(mList.get(i).getGood_title());
             myViewHolder.publish_name.setText(mList.get(i).getOwner_name());
             myViewHolder.publish_time.setText(mList.get(i).getPublish_time());
-            myViewHolder.distance.setText(String.valueOf((int)mList.get(i).getDistance()));
+            myViewHolder.publish_location.setText(mList.get(i).getLocation());
+            myViewHolder.helpAllPublishMajor.setText(mList.get(i).getWhoFinishItStuMajor());
         }
     }
 
@@ -74,15 +77,22 @@ public class Help_RecyclerViewAdapterNearBy extends RecyclerView.Adapter<Help_Re
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView good_title;
         TextView publish_name;
-        TextView distance;
+        TextView publish_location;
         TextView publish_time;
+        Button see_the_route_help_all;
+        CircleImageView helpDetailsImage;
+        TextView helpAllPublishMajor;
         private onItemClickListener onItemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             good_title=itemView.findViewById(R.id.goods_title);
             publish_name=itemView.findViewById(R.id.publish_name);
-            distance=itemView.findViewById(R.id.distance);
+            publish_location=itemView.findViewById(R.id.publish_location);
             publish_time=itemView.findViewById(R.id.publish_time);
+            see_the_route_help_all=itemView.findViewById(R.id.help_all_see_the_route);
+            helpDetailsImage=itemView.findViewById(R.id.help_owner_image);
+            helpAllPublishMajor=itemView.findViewById(R.id.publish_owner_major);
+            publish_location.setSelected(true);
         }
 
     }
