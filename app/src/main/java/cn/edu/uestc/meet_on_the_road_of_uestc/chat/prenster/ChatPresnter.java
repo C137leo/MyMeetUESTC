@@ -16,6 +16,7 @@ import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -88,6 +89,13 @@ public class ChatPresnter implements IPresnter{
                     }
                 });
         this.userName=userName;
+    }
+
+    @Override
+    public String userNickName(String userName) {
+        UserInfo userInfo= (UserInfo) conversation.getTargetInfo();
+        String nickName=userInfo.getNickname();
+        return nickName;
     }
 
     @Override

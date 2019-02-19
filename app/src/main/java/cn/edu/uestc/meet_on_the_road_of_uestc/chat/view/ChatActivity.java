@@ -2,6 +2,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         chatPresnter.startChat(userID);
         setContentView(R.layout.activity_chat_detail);
         toolbar=findViewById(R.id.chat_detail_toolbar);
+        toolbar.setTitle(chatPresnter.userNickName(userID));
         messageInput=findViewById(R.id.chat_input);
         sendMessageConfirm=findViewById(R.id.message_send);
         sendMessageConfirm.setOnClickListener(this);
@@ -67,6 +69,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         chatMessageRecycle=findViewById(R.id.chat_details_recyclerView);
         chatMessageRecycle.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
         chatMessageRecycle.setAdapter(chatDetailAdapter);
+
     }
 
     @Override
@@ -100,6 +103,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         public void updateSingleMessageInAdapter(List<ChatMessage> chatMessages) {
             messageInput.setText("");
             chatDetailAdapter.addMessage(chatMessages);
+            chatMessageRecycle.scrollToPosition(chatDetailAdapter.getItemCount()-1);
         }
 
         @Override
@@ -115,6 +119,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         @Override
         public void updateExistConversationMessages(List<ChatMessage> chatMessages) {
             chatDetailAdapter.addMessage(chatMessages);
+            chatMessageRecycle.scrollToPosition(chatDetailAdapter.getItemCount()-1);
         }
     };
 }

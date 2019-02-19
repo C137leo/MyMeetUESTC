@@ -25,4 +25,6 @@ public interface IPresnter {
     void attchView(IView iView);
 
     void updateMessageAllList();
+
+    String userNickName(String userName);
 }
