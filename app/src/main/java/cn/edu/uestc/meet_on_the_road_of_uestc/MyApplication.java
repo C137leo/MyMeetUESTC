@@ -1,14 +1,11 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.JiguangMessageIMEventReciver;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoMaster;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;

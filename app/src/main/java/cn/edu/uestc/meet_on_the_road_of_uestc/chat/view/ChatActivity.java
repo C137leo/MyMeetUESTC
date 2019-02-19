@@ -23,6 +23,9 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter.ChatDetailAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
+import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.event.MessageEvent;
+import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 
 public class ChatActivity extends AppCompatActivity  implements View.OnClickListener {
@@ -122,4 +125,20 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
             chatMessageRecycle.scrollToPosition(chatDetailAdapter.getItemCount()-1);
         }
     };
+
+    public void onEvent(MessageEvent event){
+        if(chatPresnter==null){
+            chatPresnter=new ChatPresnter();
+        }
+        switch (event.getMessage().getContentType()){
+            case file:
+            case text:
+                TextContent textContent=(TextContent)event.getMessage().getContent();
+                chatPresnter.updateMessageList(textContent.getText());
+        }
+    }
+
+    public void onEvent(OfflineMessageEvent offlineMessageEvent){
+
+    }
 }
