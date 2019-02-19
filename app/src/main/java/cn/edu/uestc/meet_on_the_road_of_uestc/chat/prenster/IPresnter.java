@@ -3,8 +3,10 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster;
 import android.net.Uri;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.IView;
+import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 
 public interface IPresnter {
@@ -21,4 +23,6 @@ public interface IPresnter {
     void updateMessageList(String message);
 
     void attchView(IView iView);
+
+    void updateMessageAllList();
 }

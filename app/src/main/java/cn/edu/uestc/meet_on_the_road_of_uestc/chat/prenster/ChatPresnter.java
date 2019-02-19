@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
@@ -102,9 +103,14 @@ public class ChatPresnter implements IPresnter{
     }
 
     @Override
+    public void updateMessageAllList() {
+        iView.updateConversationList(JMessageClient.getConversationList());
+    }
+
+    @Override
     public void updateMessageList(String message) {
         ChatMessage chatMessage=new ChatMessage(message,0);
-        iView.updateMessageInAdapter(chatMessage);
+        iView.updateSingleMessageInAdapter(chatMessage);
     }
 
     class JMessageChatCallback extends BasicCallback{
@@ -112,7 +118,7 @@ public class ChatPresnter implements IPresnter{
         public void gotResult(int i, String s) {
             if(i==0){
                 ChatMessage chatMessage=new ChatMessage(sendMessage,1);
-                iView.updateMessageInAdapter(chatMessage);
+                iView.updateSingleMessageInAdapter(chatMessage);
             }else{
                 Log.d("jiguangIM",String.valueOf(i));
                 iView.sendError(s);

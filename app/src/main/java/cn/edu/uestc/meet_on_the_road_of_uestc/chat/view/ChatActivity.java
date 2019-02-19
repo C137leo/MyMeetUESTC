@@ -22,6 +22,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter.ChatDetailAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
+import cn.jpush.im.android.api.model.Conversation;
 
 public class ChatActivity extends AppCompatActivity  implements View.OnClickListener {
     Toolbar toolbar;
@@ -96,7 +97,7 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
 
     IView iView=new IView() {
         @Override
-        public void updateMessageInAdapter(ChatMessage chatMessage) {
+        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
             messageInput.setText("");
             chatDetailAdapter.addMessage(chatMessage);
         }
@@ -104,6 +105,11 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
         @Override
         public void sendError(String errMsg) {
             Toast.makeText(MyApplication.getMyContext(),errMsg,Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void updateConversationList(List<Conversation> conversationList) {
+
         }
     };
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -60,4 +61,12 @@
         app:elevation="6dp"
         app:fabSize="mini"
         app:pressedTranslationZ="10dp" />
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/message_list"
+        android:id="@+id/enter_message_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
