@@ -63,15 +63,14 @@ public class InputTipsAdapter extends BaseAdapter {
         if(convertView==null) {
             holder=new Holder();
             convertView = LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_inputtips, null);
-            convertView.setTag(holder);
+            holder.mName=convertView.findViewById(R.id.name);
+            holder.mAddress=convertView.findViewById(R.id.address);
         }else{
             holder=(Holder)convertView.getTag();
         }
-        holder.mName=convertView.findViewById(R.id.name);
-        holder.mAddress=convertView.findViewById(R.id.address);
         holder.mName.setText(mTipList.get(position).getName());
         holder.mAddress.setText(mTipList.get(position).getAddress());
-//        Log.d("begin convertview","begin convertview");
+        convertView.setTag(holder);
         return convertView;
     }
 
