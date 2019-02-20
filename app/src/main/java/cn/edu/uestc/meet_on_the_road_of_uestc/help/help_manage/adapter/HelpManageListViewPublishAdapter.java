@@ -51,14 +51,19 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         holder.publishHelpTitle.setText(publishRecycleViewData.get(position).getPublishHelpTitle());
         holder.publishHelpTime.setText(publishRecycleViewData.get(position).getPublishHelpTime());
         if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==0){
+            Log.d("status",String.valueOf(0));
             holder.publishHelpAcceptName.setText("待接受");
             holder.publishHelpAcceptStatus.setText("待接受");
             holder.publishHelpAcceptTime.setText("");
         }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==1){
+            Log.d("status",String.valueOf(1));
             holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
             holder.publishHelpAcceptStatus.setText("正在进行帮帮");
+            holder.finishHelpButton.setText("结束帮帮");
+            holder.finishHelpButton.setClickable(true);
         }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==2){
+            Log.d("status",String.valueOf(2));
             holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
             Log.d("AcceptName",publishRecycleViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
@@ -75,6 +80,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
 
     public void updateStatusToFinish(){
+        Log.d("status","updateToFinish");
         myViewHolder.publishHelpAcceptStatus.setText("已完成帮帮");
         myViewHolder.finishHelpButton.setText("帮帮已完成");
         myViewHolder.finishHelpButton.setClickable(false);

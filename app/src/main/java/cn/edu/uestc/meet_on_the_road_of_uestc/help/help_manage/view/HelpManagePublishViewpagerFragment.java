@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
@@ -65,6 +66,11 @@ public class HelpManagePublishViewpagerFragment extends Fragment {
         @Override
         public void dismissSwipeRefrshLayout() {
             swipeRefreshLayout.setRefreshing(false);
+        }
+
+        @Override
+        public void updateStatusFailed(String errMsg) {
+            Toast.makeText(MyApplication.getMyContext(),errMsg,Toast.LENGTH_SHORT).show();
         }
     };
 }

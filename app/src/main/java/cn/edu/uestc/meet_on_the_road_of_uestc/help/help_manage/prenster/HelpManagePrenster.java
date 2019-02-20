@@ -164,6 +164,8 @@ public class HelpManagePrenster implements IPrenster {
                         if(postHelpAddStatus.getErrcode()==109) {
                             helpManageModel.writeDatabase(2,UID);
                             iVew.updateStatusToSuccess();
+                        }else{
+                            iVew.updateStatusFailed(postHelpAddStatus.getErrmsg());
                         }
                     }
 
