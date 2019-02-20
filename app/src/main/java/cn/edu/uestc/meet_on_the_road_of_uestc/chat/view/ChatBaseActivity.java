@@ -15,4 +15,10 @@ public class ChatBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         JMessageClient.registerEventReceiver(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        JMessageClient.unRegisterEventReceiver(this);
+    }
 }
