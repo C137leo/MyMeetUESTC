@@ -187,7 +187,9 @@ public class HelpAddActivity extends AppCompatActivity {
 
         @Override
         public void updateLocationEdittext(String location) {
-            publish_location_edittext.setText(location);
+            if(TextUtils.isEmpty(publish_location_edittext.getText())) {
+                publish_location_edittext.setText(location);
+            }
         }
 
         @Override
