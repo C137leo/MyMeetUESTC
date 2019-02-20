@@ -14,6 +14,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.IView;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.ContentType;
+import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -54,11 +55,19 @@ public class ChatPresnter implements IPresnter{
                 }else{
                     List<ChatMessage> chatMessages=new ArrayList<>();
                     for(Message message:conversation.getAllMessage()){
-                        Log.d("conversation",conversation.getId());
-                        if(message.getContentType()== ContentType.text) {
-                            TextContent textContent = (TextContent) message.getContent();
-                            ChatMessage chatMessage = new ChatMessage(textContent.getText(), 1);
-                            chatMessages.add(chatMessage);
+                        if(message.getDirect()== MessageDirect.send) {
+                            Log.d("conversation", conversation.getId());
+                            if (message.getContentType() == ContentType.text) {
+                                TextContent textContent = (TextContent) message.getContent();
+                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), 1);
+                                chatMessages.add(chatMessage);
+                            }
+                        }else if(message.getDirect()==MessageDirect.receive){
+                            if (message.getContentType() == ContentType.text) {
+                                TextContent textContent = (TextContent) message.getContent();
+                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), 0);
+                                chatMessages.add(chatMessage);
+                            }
                         }
                     }
                     emitter.onNext(chatMessages);
