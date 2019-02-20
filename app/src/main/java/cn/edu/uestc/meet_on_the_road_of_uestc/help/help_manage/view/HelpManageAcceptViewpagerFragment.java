@@ -96,5 +96,10 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
                 helpManageListViewAcceptAdapter.notifyDataSetChanged();
             }
         }
+
+        @Override
+        public void updateStatusFailed(String errMsg) {
+
+        }
     };
 }

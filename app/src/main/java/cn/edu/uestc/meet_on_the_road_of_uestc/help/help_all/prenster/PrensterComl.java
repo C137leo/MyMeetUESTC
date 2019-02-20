@@ -70,6 +70,7 @@ public class PrensterComl implements IPrenster, AMapLocationListener {
         aMapLocationClient.setLocationListener(this);
         AMapLocationClientOption aMapLocationClientOption=new AMapLocationClientOption();
         aMapLocationClientOption.setOnceLocationLatest(true);
+        aMapLocationClientOption.setInterval(60000);
         aMapLocationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         aMapLocationClient.setLocationOption(aMapLocationClientOption);
         aMapLocationClient.startLocation();
