@@ -5,7 +5,6 @@ import android.content.Context;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.JiguangMessageIMEventReciver;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
@@ -31,7 +30,6 @@ public class MyApplication extends TinkerApplication {
         JPushInterface.init(context);
         JPushInterface.setDebugMode(true);
         JMessageClient.init(context,true);
-        JMessageClient.registerEventReceiver(new JiguangMessageIMEventReciver());
     }
     public static Context getMyContext(){
         return context;

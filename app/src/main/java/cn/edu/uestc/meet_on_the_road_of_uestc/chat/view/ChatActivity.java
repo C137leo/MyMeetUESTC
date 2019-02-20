@@ -28,7 +28,7 @@ import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 
-public class ChatActivity extends AppCompatActivity  implements View.OnClickListener {
+public class ChatActivity extends ChatBaseActivity implements View.OnClickListener {
     Toolbar toolbar;
     ImageView chat_options_button;
     LinearLayout otherOption;
@@ -136,9 +136,5 @@ public class ChatActivity extends AppCompatActivity  implements View.OnClickList
                 TextContent textContent=(TextContent)event.getMessage().getContent();
                 chatPresnter.updateMessageList(textContent.getText());
         }
-    }
-
-    public void onEvent(OfflineMessageEvent offlineMessageEvent){
-
     }
 }

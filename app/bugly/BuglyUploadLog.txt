@@ -138,3 +138,7 @@ file=/Users/ray/Desktop/Meet-on-the-road-of-UESTC-Android/app/build/outputs/mapp
 sha1=a4ac7512ea88366e2907d0967f7c24dd5c6cf9f7
 appId=da5ca25ce3
 
+file=/Users/ray/Desktop/Meet-on-the-road-of-UESTC-Android/app/build/outputs/mapping/release/mapping.txt
+sha1=36479dc534dd3e9dfd6b37d6058464afd4a4d547
+appId=da5ca25ce3
+

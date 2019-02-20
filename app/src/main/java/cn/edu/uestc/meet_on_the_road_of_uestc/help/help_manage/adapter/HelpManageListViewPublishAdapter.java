@@ -39,14 +39,12 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        Log.d("onBindView","onbind");
         this.myViewHolder=holder;
         holder.finishHelpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemClickListener.onClick(publishRecycleViewData.get(position).getUID());
-                holder.finishHelpButton.setText("帮帮已完成");
-                myViewHolder.publishHelpAcceptStatus.setText("已完成帮帮");
-                holder.finishHelpButton.setClickable(false);
             }
         });
         holder.publishHelpLocation.setText(publishRecycleViewData.get(position).getPublishHelpLocation());
@@ -81,6 +79,7 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         myViewHolder.finishHelpButton.setText("帮帮已完成");
         myViewHolder.finishHelpButton.setClickable(false);
     }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView publishHelpLocation;
         TextView publishHelpTitle;

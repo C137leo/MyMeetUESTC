@@ -60,7 +60,6 @@ public class HelpManagePublishViewpagerFragment extends Fragment {
         @Override
         public void updateStatusToSuccess() {
             helpManageListViewPublishAdapter.updateStatusToFinish();
-            helpManageListViewPublishAdapter.notifyDataSetChanged();
         }
 
         @Override
