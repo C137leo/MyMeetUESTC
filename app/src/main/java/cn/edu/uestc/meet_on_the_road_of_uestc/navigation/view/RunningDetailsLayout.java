@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.navigation;
+package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

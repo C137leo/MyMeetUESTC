@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:background="@drawable/ic_nearbydetails"
-    android:layout_height="150dp">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -89,5 +90,11 @@
             android:layout_width="wrap_content"
             android:layout_height="5dp" />
     </LinearLayout>
-
+    <Button
+        android:id="@+id/say_hello"
+        android:layout_gravity="center_vertical"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:background="@drawable/finish_help_button"
+        android:text="打个    招呼"/>
 </LinearLayout>

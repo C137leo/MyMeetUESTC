@@ -47,7 +47,7 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".login.view.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".navigation.view.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_details.view.HelpDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

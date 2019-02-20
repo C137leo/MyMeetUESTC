@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.navigation;
+package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view;
 
 
 import android.Manifest;
@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -78,6 +79,7 @@ import java.util.TimerTask;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.ChatActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InfoWindowAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.InputTipsAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter.traceTime;
@@ -146,7 +148,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     NavPrenster navPrenster=new NavPrenster();
     List newarByMarketId=new ArrayList();
     Marker currentMarker;
-
+    InfoWindowAdapter infoWindowAdapter=new InfoWindowAdapter();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -164,6 +166,7 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
         super.onActivityCreated(savedInstanceState);
         setUpMap();
         DevUtils.init(MyApplication.getMyContext());
+        navPrenster.attchView(iVew);
         LogConfig logConfig = new LogConfig();
         logConfig.logLevel = LogLevel.DEBUG;
         logConfig.tag = "LOG_TAG";
@@ -306,8 +309,27 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
             }
         });
         aMap.setOnMarkerClickListener(this);
-        aMap.setInfoWindowAdapter(new InfoWindowAdapter());
+        aMap.setInfoWindowAdapter(infoWindowAdapter);
+        infoWindowAdapter.setOnSayHelloClickListener(new InfoWindowAdapter.OnSayHelloClickListener() {
+            @Override
+            public void onClick(String stuID) {
+                navPrenster.startChat(stuID);
+            }
+        });
     }
+
+    IVew iVew=new IVew() {
+        @Override
+        public void startChatSuccessful() {
+            Intent intent=new Intent(getActivity(), ChatActivity.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public void startChatError() {
+            Toast.makeText(getActivity(),"网络错误，请稍后重试",Toast.LENGTH_SHORT);
+        }
+    };
     /**
      * 初始化高德地图
      */

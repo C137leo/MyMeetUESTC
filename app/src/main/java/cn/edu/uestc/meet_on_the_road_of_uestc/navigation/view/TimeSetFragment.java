@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.navigation;
+package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -19,12 +19,12 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
 @SuppressLint("ValidFragment")
-public class DistanceSetFragment extends Fragment {
+public class TimeSetFragment extends Fragment {
     String[] goalList;
     View view;
-    static String distance;
+    static String time;
     @SuppressLint("ValidFragment")
-    public DistanceSetFragment(String[] goalList){
+    public TimeSetFragment(String[] goalList){
         this.goalList=goalList;
     }
     @Nullable
@@ -38,31 +38,35 @@ public class DistanceSetFragment extends Fragment {
                 mViewGroup.removeView(view);
             }
         }
-        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal_distance, container, false);
+        view = getLayoutInflater().inflate(R.layout.adapter_fragment_goal_time, container, false);
         return view;
     }
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        WheelListView pickDistanceGoal;
+        for(String List:goalList){
+            Log.d("goalList",List);
+        }
+        WheelListView pickTimeGoal;
         final TextView timeGoal;
         super.onActivityCreated(savedInstanceState);
-        timeGoal=getActivity().findViewById(R.id.distanceGoal);
-        pickDistanceGoal=getActivity().findViewById(R.id.pickDistanceGoal);
-        pickDistanceGoal.setItems(goalList);
-        pickDistanceGoal.setSelectedTextColor(0xFFFF00FF);
+        timeGoal=getActivity().findViewById(R.id.timeGoal);
+        pickTimeGoal=getActivity().findViewById(R.id.pickTimeGoal);
+        pickTimeGoal.setItems(goalList);
+        pickTimeGoal.setSelectedTextColor(0xFFFF00FF);
         LineConfig lineConfig=new LineConfig();
+        pickTimeGoal.setSelectedIndex(4);
+        pickTimeGoal.setOffset(3);
         lineConfig.setColor(Color.parseColor("#26A1BD"));
         lineConfig.setAlpha(100);
-        pickDistanceGoal.setSelectedIndex(2);
-        pickDistanceGoal.setOffset(3);
         lineConfig.setThick(ConvertUtils.toPx(MyApplication.getMyContext(),3));
-        pickDistanceGoal.setLineConfig(lineConfig);
-        pickDistanceGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
+        pickTimeGoal.setLineConfig(lineConfig);
+        timeGoal.setText("Test");
+        pickTimeGoal.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
             @Override
             public void onItemSelected(int i, String s) {
-                distance=s;
+                time=s;
                 timeGoal.setText(s);
             }
         });
@@ -92,7 +96,7 @@ public class DistanceSetFragment extends Fragment {
         super.onDestroy();
     }
 
-    public static String getDistance() {
-        return distance;
+    public static String getTime() {
+        return time;
     }
 }
