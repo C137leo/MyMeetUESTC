@@ -146,7 +146,7 @@ public class ChatPresnter implements IPresnter{
     }
 
     @Override
-    public void sendImage(Uri uri) throws FileNotFoundException {
+    public void sendImage(File file) throws FileNotFoundException {
         /**
          * 创建一条单聊图片信息，此方法是创建message的快捷接口，对于不需要关注会话实例的开发者可以使用此方法
          * 快捷的创建一条消息。其他的情况下推荐使用{@link Conversation#createSendMessage(MessageContent)}
@@ -158,7 +158,7 @@ public class ChatPresnter implements IPresnter{
          * @return 消息对象
          * @throws FileNotFoundException
          */
-        Message message=JMessageClient.createSingleImageMessage(userName, appKey, new File(uri.getPath()));
+        Message message=JMessageClient.createSingleImageMessage(userName, appKey, file);
         sendMessageToServe(message);
         message.setOnSendCompleteCallback(jMessageChatCallback);
     }
