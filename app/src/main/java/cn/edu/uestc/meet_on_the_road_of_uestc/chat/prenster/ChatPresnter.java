@@ -10,7 +10,9 @@ import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.DefaultUser;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.IView;
+import cn.jiguang.imui.commons.models.IMessage;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.ContentType;
@@ -37,6 +39,7 @@ public class ChatPresnter implements IPresnter{
     private String sendMessage;
     Conversation conversation;
     Disposable disposable;
+    DefaultUser sendUser;
     @Override
     public void attchView(IView iView) {
         this.iView=iView;
@@ -44,6 +47,7 @@ public class ChatPresnter implements IPresnter{
 
     @Override
     public void startChat(final String userName) {
+        sendUser=new DefaultUser(userName,userNickName(userName),null);
         Observable.create(new ObservableOnSubscribe<List<ChatMessage>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ChatMessage>> emitter) throws Exception {
@@ -59,13 +63,16 @@ public class ChatPresnter implements IPresnter{
                             Log.d("conversation", conversation.getId());
                             if (message.getContentType() == ContentType.text) {
                                 TextContent textContent = (TextContent) message.getContent();
-                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), 1);
+                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), IMessage.MessageType.SEND_TEXT.ordinal());
+                                chatMessage.setUserInfo(sendUser);
                                 chatMessages.add(chatMessage);
                             }
                         }else if(message.getDirect()==MessageDirect.receive){
+                            DefaultUser reciverUser=new DefaultUser(message.getFromUser().getUserName(),message.getFromUser().getNickname(),null);
                             if (message.getContentType() == ContentType.text) {
                                 TextContent textContent = (TextContent) message.getContent();
-                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), 0);
+                                ChatMessage chatMessage = new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
+                                chatMessage.setUserInfo(reciverUser);
                                 chatMessages.add(chatMessage);
                             }
                         }
@@ -180,22 +187,14 @@ public class ChatPresnter implements IPresnter{
         iView.updateConversationList(JMessageClient.getConversationList());
     }
 
-    @Override
-    public void updateMessageList(String message) {
-        ChatMessage chatMessage=new ChatMessage(message,0);
-        List<ChatMessage> chatMessages=new ArrayList<>();
-        chatMessages.add(chatMessage);
-        iView.updateSingleMessageInAdapter(chatMessages);
-    }
 
     class JMessageChatCallback extends BasicCallback{
         @Override
         public void gotResult(int i, String s) {
             if(i==0){
-                ChatMessage chatMessage=new ChatMessage(sendMessage,1);
-                List<ChatMessage> chatMessages=new ArrayList<>();
-                chatMessages.add(chatMessage);
-                iView.updateSingleMessageInAdapter(chatMessages);
+                ChatMessage chatMessage=new ChatMessage(sendMessage, IMessage.MessageType.SEND_TEXT.ordinal());
+                chatMessage.setUserInfo(sendUser);
+                iView.updateSingleMessageInAdapter(chatMessage);
             }else{
                 Log.d("jiguangIM",String.valueOf(i));
                 iView.sendError(s);

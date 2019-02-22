@@ -21,8 +21,6 @@ public interface IPresnter {
 
     void sendMessageToServe(Message message);
 
-    void updateMessageList(String message);
-
     void attchView(IView iView);
 
     void updateMessageAllList();

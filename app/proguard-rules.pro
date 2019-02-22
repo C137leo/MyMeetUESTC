@@ -131,6 +131,8 @@ public static java.lang.String TABLENAME;
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 
+-keep class cn.jiguang.imui.** { *; }
+
 
 
 

@@ -44,7 +44,7 @@ public class MessageAllActivity extends AppCompatActivity {
 
     IView iView=new IView() {
         @Override
-        public void updateSingleMessageInAdapter(List<ChatMessage> chatMessages) {
+        public void updateSingleMessageInAdapter(ChatMessage chatMessages) {
 
         }
 

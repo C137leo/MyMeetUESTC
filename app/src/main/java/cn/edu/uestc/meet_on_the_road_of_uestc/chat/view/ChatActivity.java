@@ -2,22 +2,13 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,27 +19,28 @@ import java.util.Objects;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.chat.adapter.ChatDetailAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.DefaultUser;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.model.FileItem;
-import cn.jpush.im.android.api.JMessageClient;
+import cn.jiguang.imui.commons.models.IMessage;
+import cn.jiguang.imui.messages.MessageList;
+import cn.jiguang.imui.messages.MsgListAdapter;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
-import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 
 public class ChatActivity extends ChatBaseActivity implements View.OnClickListener, OnMenuClickListener {
     Toolbar toolbar;
-    RecyclerView chatMessageRecycle;
     List<ChatMessage> chatMessageList=new ArrayList<>();
-    ChatDetailAdapter chatDetailAdapter=new ChatDetailAdapter(ChatActivity.this,chatMessageList);
     ChatPresnter chatPresnter=new ChatPresnter();
     String userID;
     ChatInputView chatInputView;
     int IMAGE_PICK_REQUEST_CODE=0;
+    MessageList messageList;
+    MsgListAdapter adapter = new MsgListAdapter<>(userID, null, null);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -66,9 +58,11 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                 finish();
             }
         });
-        chatMessageRecycle=findViewById(R.id.chat_details_recyclerView);
-        chatMessageRecycle.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
-        chatMessageRecycle.setAdapter(chatDetailAdapter);
+        messageList=findViewById(R.id.msg_list);
+        messageList.setShowSenderDisplayName(true); //设置发送方显示昵称
+        messageList.setShowReceiverDisplayName(true); //设置接收方显示昵称
+        messageList.setAdapter(adapter);
+        messageList.forbidScrollToRefresh(true);
         chatInputView=findViewById(R.id.chat_input);
         chatInputView.setMenuClickListener(this);
     }
@@ -80,9 +74,8 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
 
     IView iView=new IView() {
         @Override
-        public void updateSingleMessageInAdapter(List<ChatMessage> chatMessages) {
-            chatDetailAdapter.addMessage(chatMessages);
-            chatMessageRecycle.scrollToPosition(chatDetailAdapter.getItemCount()-1);
+        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+            adapter.addToStart(chatMessage, true);
         }
 
         @Override
@@ -97,8 +90,9 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
 
         @Override
         public void updateExistConversationMessages(List<ChatMessage> chatMessages) {
-            chatDetailAdapter.addMessage(chatMessages);
-            chatMessageRecycle.scrollToPosition(chatDetailAdapter.getItemCount()-1);
+            for(ChatMessage chatMessage:chatMessages){
+                adapter.addToStart(chatMessage,true);
+            }
         }
     };
 
@@ -179,14 +173,15 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     }
 
     public void onEvent(MessageEvent event){
-        if(chatPresnter==null){
-            chatPresnter=new ChatPresnter();
-        }
+        DefaultUser reciverUser=new DefaultUser(event.getMessage().getFromUser().getUserName(),event.getMessage().getFromUser().getDisplayName(),null);
         switch (event.getMessage().getContentType()){
             case file:
+
             case text:
                 TextContent textContent=(TextContent)event.getMessage().getContent();
-                chatPresnter.updateMessageList(textContent.getText());
+                ChatMessage chatMessage=new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
+                chatMessage.setUserInfo(reciverUser);
+                adapter.addToStart(chatMessage,true);
         }
     }
 }
