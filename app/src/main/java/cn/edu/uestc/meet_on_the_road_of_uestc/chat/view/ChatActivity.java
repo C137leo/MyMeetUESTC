@@ -207,15 +207,20 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * 在线消息下发
+     * @param event 在线消息下发事件
+     */
     public void onEvent(MessageEvent event){
         DefaultUser reciverUser=new DefaultUser(event.getMessage().getFromUser().getUserName(),event.getMessage().getFromUser().getDisplayName(),null);
         switch (event.getMessage().getContentType()){
             case image:
                 //处理图片消息
                 ImageContent imageContent = (ImageContent) event.getMessage().getContent();
-                imageContent.getLocalPath();//图片本地地址
-                imageContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
+                String reciverImageLocalPath=imageContent.getLocalPath();//图片本地地址
+                String receiveImageThumbnailPath=imageContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
                 ChatMessage chatImageMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_IMAGE.ordinal());
+                chatImageMessage.setMediaFilePath(reciverImageLocalPath);
                 chatImageMessage.setUserInfo(reciverUser);
                 adapter.addToStart(chatImageMessage,true);
                 break;
@@ -225,6 +230,14 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                 chatTextMessage.setUserInfo(reciverUser);
                 adapter.addToStart(chatTextMessage,true);
                 break;
+            case video:
+                ImageContent videoContent = (ImageContent) event.getMessage().getContent();
+                String reciverVideoLocalPath=videoContent.getLocalPath();//图片本地地址
+                String receiveVideoThumbnailPath=videoContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
+                ChatMessage receiveVideoMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_VIDEO.ordinal());
+                receiveVideoMessage.setMediaFilePath(reciverVideoLocalPath);
+                receiveVideoMessage.setUserInfo(reciverUser);
+                adapter.addToStart(receiveVideoMessage,true);
         }
     }
 }
