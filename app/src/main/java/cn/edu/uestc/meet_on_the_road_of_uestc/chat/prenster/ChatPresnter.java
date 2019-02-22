@@ -47,11 +47,11 @@ public class ChatPresnter implements IPresnter{
 
     @Override
     public void startChat(final String userName) {
+        conversation=JMessageClient.getSingleConversation(userName, appKey);
         sendUser=new DefaultUser(userName,userNickName(userName),null);
         Observable.create(new ObservableOnSubscribe<List<ChatMessage>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ChatMessage>> emitter) throws Exception {
-                conversation=JMessageClient.getSingleConversation(userName, appKey);
                 if((conversation.getAllMessage()).isEmpty())
                 {
                     Log.d("userName", userName);
