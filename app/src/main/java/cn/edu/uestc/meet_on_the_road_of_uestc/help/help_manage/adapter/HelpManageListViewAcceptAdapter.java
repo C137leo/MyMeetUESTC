@@ -23,22 +23,20 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 
+import java.util.Collections;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.AcceptRecycleViewData;
 
-public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpManageListViewAcceptAdapter.RecycleViewViewHolder> implements PoiSearch.OnPoiSearchListener {
+public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpManageListViewAcceptAdapter.RecycleViewViewHolder> {
     View view;
     List<AcceptRecycleViewData> acceptRecycleViewData;
     Context context;
     MapView mapView;
     HelpManageListViewAcceptAdapter.RecycleViewViewHolder myHolder;
     AMap aMap;
-    LatLng latLng;
-    String title;
-    String snippet;
     String location;
     RecycleViewViewHolder recycleViewViewHolder;
     OnImageviewClickListener onImageviewClickListener;
@@ -47,6 +45,7 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
 
     public HelpManageListViewAcceptAdapter(Context context, List<AcceptRecycleViewData> acceptRecycleViewData){
         this.context=context;
+        Collections.reverse(acceptRecycleViewData);
         this.acceptRecycleViewData=acceptRecycleViewData;
     }
     @NonNull
@@ -76,18 +75,12 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
         }
         holder.mapView.onCreate(new Bundle());
         aMap=holder.mapView.getMap();
-        initMapViewMaker();
-    }
-    public void initMapViewMaker(){
-        Log.d("SearchPoi","SearchPoi");
-        PoiSearch.Query query=new PoiSearch.Query(location,"","");
-        PoiSearch poiSearch=new PoiSearch(context,query);
-        poiSearch.setOnPoiSearchListener(this);
-        poiSearch.searchPOIAsyn();
+        drawMarker(acceptRecycleViewData.get(position));
     }
 
-    public void drawMarker(){
-        final  Marker marker=aMap.addMarker(new MarkerOptions().position(latLng).title(title).snippet(snippet));
+    public void drawMarker(AcceptRecycleViewData acceptRecycleViewData){
+        LatLng latLng=new LatLng(acceptRecycleViewData.getLatitude(),acceptRecycleViewData.getLontitude());
+        final  Marker marker=aMap.addMarker(new MarkerOptions().position(latLng).title(acceptRecycleViewData.getPublishHelpTitle()).snippet(acceptRecycleViewData.getPublishHelpLocation()));
         aMap.moveCamera(CameraUpdateFactory.zoomBy(5));
         aMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
@@ -124,24 +117,5 @@ public class HelpManageListViewAcceptAdapter extends RecyclerView.Adapter<HelpMa
     }
     public void setOnClickListener(OnImageviewClickListener onImageviewClickListener){
         this.onImageviewClickListener=onImageviewClickListener;
-    }
-    /**
-     * POI数据获取
-     * @param poiResult POI数据列表
-     * @param i 状态码，1000即为成功
-     */
-    @Override
-    public void onPoiSearched(PoiResult poiResult, int i) {
-        Log.d("poiSearch",String.valueOf(i));
-        PoiItem poiItem=poiResult.getPois().get(0);
-        latLng=new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude());
-        title=poiItem.getTitle();
-        snippet=poiItem.getSnippet();
-        drawMarker();
-    }
-
-    @Override
-    public void onPoiItemSearched(PoiItem poiItem, int i) {
-
     }
 }
