@@ -3,11 +3,15 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.chat.view;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,12 +26,15 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.DefaultUser;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.me.piiEdit.view.PiiEditActivity;
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.model.FileItem;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageList;
 import cn.jiguang.imui.messages.MsgListAdapter;
+import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
@@ -39,8 +46,11 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     String userID;
     ChatInputView chatInputView;
     int IMAGE_PICK_REQUEST_CODE=0;
+    int IMAGE_SHOOT_REQUEST_CODE=1;
     MessageList messageList;
     MsgListAdapter adapter = new MsgListAdapter<>(userID, null, null);
+    Uri contentUri;
+    File tempFile;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -135,6 +145,22 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     public boolean switchToCameraMode() {
         // 点击拍照按钮触发事件，显示拍照界面前触发此事件
         // 返回 true 表示使用默认的界面
+        //用于保存调用相机拍照后所生成的文件
+        tempFile = new File(Environment.getExternalStorageDirectory().getPath());
+        //跳转到调用系统相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //判断版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            contentUri = FileProvider.getUriForFile(ChatActivity.this, "cn.edu.uestc.meet_on_the_road_of_uestc", tempFile);
+            Log.d("contentURI",String.valueOf(contentUri));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {    //否则使用Uri.fromFile(file)方法获取Uri
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        }
+        startActivityForResult(intent, IMAGE_SHOOT_REQUEST_CODE);
         return false;
     }
 
@@ -167,6 +193,15 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+                    break;
+                }
+            case 1:
+                if(resultCode==RESULT_OK){
+                    try {
+                        chatPresnter.sendImage(tempFile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
 
         }
@@ -175,13 +210,21 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     public void onEvent(MessageEvent event){
         DefaultUser reciverUser=new DefaultUser(event.getMessage().getFromUser().getUserName(),event.getMessage().getFromUser().getDisplayName(),null);
         switch (event.getMessage().getContentType()){
-            case file:
-
+            case image:
+                //处理图片消息
+                ImageContent imageContent = (ImageContent) event.getMessage().getContent();
+                imageContent.getLocalPath();//图片本地地址
+                imageContent.getLocalThumbnailPath();//图片对应缩略图的本地地址
+                ChatMessage chatImageMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_IMAGE.ordinal());
+                chatImageMessage.setUserInfo(reciverUser);
+                adapter.addToStart(chatImageMessage,true);
+                break;
             case text:
                 TextContent textContent=(TextContent)event.getMessage().getContent();
-                ChatMessage chatMessage=new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
-                chatMessage.setUserInfo(reciverUser);
-                adapter.addToStart(chatMessage,true);
+                ChatMessage chatTextMessage=new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
+                chatTextMessage.setUserInfo(reciverUser);
+                adapter.addToStart(chatTextMessage,true);
+                break;
         }
     }
 }
