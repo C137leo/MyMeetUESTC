@@ -17,11 +17,14 @@ public class AppointmentInfo {
     String whoPublishStuMajor;
     String location;
     String appointmentTime;
+    double appointmentLatitude;
+    double appointmentLongtitude;
     int appointmentNum;
-    @Generated(hash = 788121477)
+    @Generated(hash = 843543211)
     public AppointmentInfo(String appointmentUID, String publishTime,
             String whoPublish, String whoPublishStuID, int whoPublishStuGrade,
             String whoPublishStuMajor, String location, String appointmentTime,
+            double appointmentLatitude, double appointmentLongtitude,
             int appointmentNum) {
         this.appointmentUID = appointmentUID;
         this.publishTime = publishTime;
@@ -31,6 +34,8 @@ public class AppointmentInfo {
         this.whoPublishStuMajor = whoPublishStuMajor;
         this.location = location;
         this.appointmentTime = appointmentTime;
+        this.appointmentLatitude = appointmentLatitude;
+        this.appointmentLongtitude = appointmentLongtitude;
         this.appointmentNum = appointmentNum;
     }
     @Generated(hash = 1142461733)
@@ -89,6 +94,18 @@ public class AppointmentInfo {
     }
     public void setAppointmentNum(int appointmentNum) {
         this.appointmentNum = appointmentNum;
+    }
+    public double getAppointmentLatitude() {
+        return this.appointmentLatitude;
+    }
+    public void setAppointmentLatitude(double appointmentLatitude) {
+        this.appointmentLatitude = appointmentLatitude;
+    }
+    public double getAppointmentLongtitude() {
+        return this.appointmentLongtitude;
+    }
+    public void setAppointmentLongtitude(double appointmentLongtitude) {
+        this.appointmentLongtitude = appointmentLongtitude;
     }
 
 

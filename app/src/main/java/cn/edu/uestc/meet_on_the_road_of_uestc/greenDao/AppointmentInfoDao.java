@@ -32,7 +32,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         public final static Property WhoPublishStuMajor = new Property(5, String.class, "whoPublishStuMajor", false, "WHO_PUBLISH_STU_MAJOR");
         public final static Property Location = new Property(6, String.class, "location", false, "LOCATION");
         public final static Property AppointmentTime = new Property(7, String.class, "appointmentTime", false, "APPOINTMENT_TIME");
-        public final static Property AppointmentNum = new Property(8, int.class, "appointmentNum", false, "APPOINTMENT_NUM");
+        public final static Property AppointmentLatitude = new Property(8, double.class, "appointmentLatitude", false, "APPOINTMENT_LATITUDE");
+        public final static Property AppointmentLongtitude = new Property(9, double.class, "appointmentLongtitude", false, "APPOINTMENT_LONGTITUDE");
+        public final static Property AppointmentNum = new Property(10, int.class, "appointmentNum", false, "APPOINTMENT_NUM");
     }
 
 
@@ -56,7 +58,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
                 "\"WHO_PUBLISH_STU_MAJOR\" TEXT," + // 5: whoPublishStuMajor
                 "\"LOCATION\" TEXT," + // 6: location
                 "\"APPOINTMENT_TIME\" TEXT," + // 7: appointmentTime
-                "\"APPOINTMENT_NUM\" INTEGER NOT NULL );"); // 8: appointmentNum
+                "\"APPOINTMENT_LATITUDE\" REAL NOT NULL ," + // 8: appointmentLatitude
+                "\"APPOINTMENT_LONGTITUDE\" REAL NOT NULL ," + // 9: appointmentLongtitude
+                "\"APPOINTMENT_NUM\" INTEGER NOT NULL );"); // 10: appointmentNum
     }
 
     /** Drops the underlying database table. */
@@ -104,7 +108,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         if (appointmentTime != null) {
             stmt.bindString(8, appointmentTime);
         }
-        stmt.bindLong(9, entity.getAppointmentNum());
+        stmt.bindDouble(9, entity.getAppointmentLatitude());
+        stmt.bindDouble(10, entity.getAppointmentLongtitude());
+        stmt.bindLong(11, entity.getAppointmentNum());
     }
 
     @Override
@@ -146,7 +152,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         if (appointmentTime != null) {
             stmt.bindString(8, appointmentTime);
         }
-        stmt.bindLong(9, entity.getAppointmentNum());
+        stmt.bindDouble(9, entity.getAppointmentLatitude());
+        stmt.bindDouble(10, entity.getAppointmentLongtitude());
+        stmt.bindLong(11, entity.getAppointmentNum());
     }
 
     @Override
@@ -165,7 +173,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // whoPublishStuMajor
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // location
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // appointmentTime
-            cursor.getInt(offset + 8) // appointmentNum
+            cursor.getDouble(offset + 8), // appointmentLatitude
+            cursor.getDouble(offset + 9), // appointmentLongtitude
+            cursor.getInt(offset + 10) // appointmentNum
         );
         return entity;
     }
@@ -180,7 +190,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         entity.setWhoPublishStuMajor(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setLocation(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setAppointmentTime(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setAppointmentNum(cursor.getInt(offset + 8));
+        entity.setAppointmentLatitude(cursor.getDouble(offset + 8));
+        entity.setAppointmentLongtitude(cursor.getDouble(offset + 9));
+        entity.setAppointmentNum(cursor.getInt(offset + 10));
      }
     
     @Override
