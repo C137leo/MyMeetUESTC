@@ -21,12 +21,15 @@ public class AppointmentInfo {
     double appointmentLatitude;
     double appointmentLongtitude;
     int appointmentNum;
-    @Generated(hash = 42264840)
+    int appointmentType; // 1:约图书馆,2:约跑,3:约饭,0:自定义
+    String appointmentTypeText;
+    @Generated(hash = 298109946)
     public AppointmentInfo(String appointmentUID, String appointmentTitle,
             String publishTime, String whoPublish, String whoPublishStuID,
             int whoPublishStuGrade, String whoPublishStuMajor, String location,
             String appointmentTime, double appointmentLatitude,
-            double appointmentLongtitude, int appointmentNum) {
+            double appointmentLongtitude, int appointmentNum, int appointmentType,
+            String appointmentTypeText) {
         this.appointmentUID = appointmentUID;
         this.appointmentTitle = appointmentTitle;
         this.publishTime = publishTime;
@@ -39,6 +42,8 @@ public class AppointmentInfo {
         this.appointmentLatitude = appointmentLatitude;
         this.appointmentLongtitude = appointmentLongtitude;
         this.appointmentNum = appointmentNum;
+        this.appointmentType = appointmentType;
+        this.appointmentTypeText = appointmentTypeText;
     }
     @Generated(hash = 1142461733)
     public AppointmentInfo() {
@@ -114,6 +119,18 @@ public class AppointmentInfo {
     }
     public void setAppointmentTitle(String appointmentTitle) {
         this.appointmentTitle = appointmentTitle;
+    }
+    public int getAppointmentType() {
+        return this.appointmentType;
+    }
+    public void setAppointmentType(int appointmentType) {
+        this.appointmentType = appointmentType;
+    }
+    public String getAppointmentTypeText() {
+        return this.appointmentTypeText;
+    }
+    public void setAppointmentTypeText(String appointmentTypeText) {
+        this.appointmentTypeText = appointmentTypeText;
     }
 
 

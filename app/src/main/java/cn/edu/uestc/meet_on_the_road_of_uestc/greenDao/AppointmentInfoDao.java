@@ -36,6 +36,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         public final static Property AppointmentLatitude = new Property(9, double.class, "appointmentLatitude", false, "APPOINTMENT_LATITUDE");
         public final static Property AppointmentLongtitude = new Property(10, double.class, "appointmentLongtitude", false, "APPOINTMENT_LONGTITUDE");
         public final static Property AppointmentNum = new Property(11, int.class, "appointmentNum", false, "APPOINTMENT_NUM");
+        public final static Property AppointmentType = new Property(12, int.class, "appointmentType", false, "APPOINTMENT_TYPE");
+        public final static Property AppointmentTypeText = new Property(13, String.class, "appointmentTypeText", false, "APPOINTMENT_TYPE_TEXT");
     }
 
 
@@ -62,7 +64,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
                 "\"APPOINTMENT_TIME\" TEXT," + // 8: appointmentTime
                 "\"APPOINTMENT_LATITUDE\" REAL NOT NULL ," + // 9: appointmentLatitude
                 "\"APPOINTMENT_LONGTITUDE\" REAL NOT NULL ," + // 10: appointmentLongtitude
-                "\"APPOINTMENT_NUM\" INTEGER NOT NULL );"); // 11: appointmentNum
+                "\"APPOINTMENT_NUM\" INTEGER NOT NULL ," + // 11: appointmentNum
+                "\"APPOINTMENT_TYPE\" INTEGER NOT NULL ," + // 12: appointmentType
+                "\"APPOINTMENT_TYPE_TEXT\" TEXT);"); // 13: appointmentTypeText
     }
 
     /** Drops the underlying database table. */
@@ -118,6 +122,12 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         stmt.bindDouble(10, entity.getAppointmentLatitude());
         stmt.bindDouble(11, entity.getAppointmentLongtitude());
         stmt.bindLong(12, entity.getAppointmentNum());
+        stmt.bindLong(13, entity.getAppointmentType());
+ 
+        String appointmentTypeText = entity.getAppointmentTypeText();
+        if (appointmentTypeText != null) {
+            stmt.bindString(14, appointmentTypeText);
+        }
     }
 
     @Override
@@ -167,6 +177,12 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         stmt.bindDouble(10, entity.getAppointmentLatitude());
         stmt.bindDouble(11, entity.getAppointmentLongtitude());
         stmt.bindLong(12, entity.getAppointmentNum());
+        stmt.bindLong(13, entity.getAppointmentType());
+ 
+        String appointmentTypeText = entity.getAppointmentTypeText();
+        if (appointmentTypeText != null) {
+            stmt.bindString(14, appointmentTypeText);
+        }
     }
 
     @Override
@@ -188,7 +204,9 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // appointmentTime
             cursor.getDouble(offset + 9), // appointmentLatitude
             cursor.getDouble(offset + 10), // appointmentLongtitude
-            cursor.getInt(offset + 11) // appointmentNum
+            cursor.getInt(offset + 11), // appointmentNum
+            cursor.getInt(offset + 12), // appointmentType
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // appointmentTypeText
         );
         return entity;
     }
@@ -207,6 +225,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         entity.setAppointmentLatitude(cursor.getDouble(offset + 9));
         entity.setAppointmentLongtitude(cursor.getDouble(offset + 10));
         entity.setAppointmentNum(cursor.getInt(offset + 11));
+        entity.setAppointmentType(cursor.getInt(offset + 12));
+        entity.setAppointmentTypeText(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override

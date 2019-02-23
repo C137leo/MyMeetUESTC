@@ -11,6 +11,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:gravity="center_vertical"
+                android:textSize="10sp"
+                android:id="@+id/appointment_type"
+                android:text="这是约吧的类别"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@color/yellow"/>

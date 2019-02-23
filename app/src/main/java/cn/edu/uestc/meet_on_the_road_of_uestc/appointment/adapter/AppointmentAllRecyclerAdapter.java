@@ -49,6 +49,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
         holder.appointmentTime.setText(appointmentInfoList.get(position).getAppointmentTime());
         holder.appointmentPeopleNum.setText(appointmentInfoList.get(position).getAppointmentNum());
         holder.appointmentLocation.setText(appointmentInfoList.get(position).getLocation());
+        holder.appointmentTypeText.setText(appointmentInfoList.get(position).getAppointmentTypeText());
     }
 
     @Override
@@ -65,6 +66,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
         TextView appointmentPeopleNum;
         TextView appointmentTime;
         Button joinAppointmentButton;
+        TextView appointmentTypeText;
         public AppointmentAllRecyclerViewHolder(View itemView) {
             super(itemView);
             appointmentTitle=itemView.findViewById(R.id.appointment_title);
@@ -72,6 +74,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
             appointmentPeopleNum=itemView.findViewById(R.id.appointment_people_num);
             appointmentTime=itemView.findViewById(R.id.appointment_time);
             joinAppointmentButton=itemView.findViewById(R.id.appointment_join);
+            appointmentTypeText=itemView.findViewById(R.id.appointment_type);
         }
     }
 
