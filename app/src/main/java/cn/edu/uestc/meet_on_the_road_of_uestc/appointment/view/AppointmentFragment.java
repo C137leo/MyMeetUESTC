@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.appointment;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
