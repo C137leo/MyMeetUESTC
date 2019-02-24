@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.view;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter.AppointmentAllRecyclerAdapter;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.prenster.AppointmentPrenster;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.adapter.AppointmentAllRecyclerAdapter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.prenster.AppointmentPrenster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view.IVew;
 
 public class AppointmentFragment extends Fragment {
     RecyclerView appointmentAllRecyclerView;

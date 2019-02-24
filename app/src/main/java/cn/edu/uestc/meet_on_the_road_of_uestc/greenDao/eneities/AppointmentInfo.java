@@ -30,7 +30,7 @@ public class AppointmentInfo {
     String appointmentTypeText;
     int appointmentStatus; //0:正在进行 1:已完成 3:删除
     @Convert(converter = StuInfoListConverter.class,columnType = String.class)
-    List<StuInfo> appointmentStuInfoList;
+    List<StuInfo> appointmentStuInfoList; //参与学生的数组
     @Generated(hash = 1111392472)
     public AppointmentInfo(String appointmentUID, String appointmentTitle,
             String publishTime, String whoPublish, String whoPublishStuID,

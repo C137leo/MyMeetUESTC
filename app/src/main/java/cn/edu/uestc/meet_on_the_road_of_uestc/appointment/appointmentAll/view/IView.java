@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.view;
+package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.view;
 
 import java.util.List;
 
