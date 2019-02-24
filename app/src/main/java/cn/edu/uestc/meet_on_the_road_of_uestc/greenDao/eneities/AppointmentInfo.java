@@ -1,9 +1,14 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities;
 
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
+
+import java.util.List;
+
+import cn.edu.uestc.meet_on_the_road_of_uestc.converter.StuInfoListConverter;
 
 @Entity
 public class AppointmentInfo {
@@ -24,13 +29,16 @@ public class AppointmentInfo {
     int appointmentType; // 1:约图书馆,2:约跑,3:约饭,0:自定义
     String appointmentTypeText;
     int appointmentStatus; //0:正在进行 1:已完成 3:删除
-    @Generated(hash = 1017585259)
+    @Convert(converter = StuInfoListConverter.class,columnType = String.class)
+    List<StuInfo> appointmentStuInfoList;
+    @Generated(hash = 1111392472)
     public AppointmentInfo(String appointmentUID, String appointmentTitle,
             String publishTime, String whoPublish, String whoPublishStuID,
             int whoPublishStuGrade, String whoPublishStuMajor, String location,
             String appointmentTime, double appointmentLatitude,
             double appointmentLongtitude, int appointmentNum, int appointmentType,
-            String appointmentTypeText, int appointmentStatus) {
+            String appointmentTypeText, int appointmentStatus,
+            List<StuInfo> appointmentStuInfoList) {
         this.appointmentUID = appointmentUID;
         this.appointmentTitle = appointmentTitle;
         this.publishTime = publishTime;
@@ -46,6 +54,7 @@ public class AppointmentInfo {
         this.appointmentType = appointmentType;
         this.appointmentTypeText = appointmentTypeText;
         this.appointmentStatus = appointmentStatus;
+        this.appointmentStuInfoList = appointmentStuInfoList;
     }
     @Generated(hash = 1142461733)
     public AppointmentInfo() {
@@ -139,6 +148,12 @@ public class AppointmentInfo {
     }
     public void setAppointmentStatus(int appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
+    }
+    public List<StuInfo> getAppointmentStuInfoList() {
+        return this.appointmentStuInfoList;
+    }
+    public void setAppointmentStuInfoList(List<StuInfo> appointmentStuInfoList) {
+        this.appointmentStuInfoList = appointmentStuInfoList;
     }
 
 
