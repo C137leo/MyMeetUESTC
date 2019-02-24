@@ -77,7 +77,10 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
             appointmentTypeText=itemView.findViewById(R.id.appointment_type);
         }
     }
-
+    public void updateAppointmentList(List<AppointmentInfo> appointmentInfoList){
+        this.appointmentInfoList=appointmentInfoList;
+        notifyDataSetChanged();
+    }
     interface JoinAppointmentButtonClickListener{
         void joinAppointmentButtonClickListener();
     }

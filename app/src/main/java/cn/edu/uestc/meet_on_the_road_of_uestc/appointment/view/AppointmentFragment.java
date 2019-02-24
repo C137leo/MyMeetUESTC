@@ -15,6 +15,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.adapter.AppointmentAllRecyclerAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.prenster.AppointmentPrenster;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view.IVew;
 
 public class AppointmentFragment extends Fragment {
     RecyclerView appointmentAllRecyclerView;
@@ -32,4 +33,16 @@ public class AppointmentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         appointmentAllRecyclerView=getActivity().findViewById(R.id.appointment_recyclerView);
     }
+
+    IView iView=new IView() {
+        @Override
+        public void updateAppointmentData(List<AppointmentInfo> appointmentInfoList) {
+            appointmentAllRecyclerAdapter.updateAppointmentList(appointmentInfoList);
+        }
+
+        @Override
+        public void getDataError(String errMsg) {
+
+        }
+    };
 }
