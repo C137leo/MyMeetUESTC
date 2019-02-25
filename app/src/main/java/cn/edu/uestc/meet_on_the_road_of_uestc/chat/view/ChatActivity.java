@@ -181,7 +181,8 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         // 点击拍照按钮触发事件，显示拍照界面前触发此事件
         // 返回 true 表示使用默认的界面
         //用于保存调用相机拍照后所生成的文件
-        tempFile = new File(Environment.getExternalStorageDirectory().getPath());
+        tempFile = new File(Environment.getExternalStorageDirectory().getPath(),System.currentTimeMillis()+".jpg");
+        Log.d("tempFilePath",tempFile.getPath());
         //跳转到调用系统相机
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //判断版本
@@ -233,6 +234,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
             case 1:
                 if(resultCode==RESULT_OK){
                     try {
+                        Log.d("tempFilePath",tempFile.getName());
                         chatPresnter.sendImage(tempFile);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
