@@ -12,6 +12,9 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.DefaultUser;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.IView;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
@@ -32,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.Subject;
 
 public class ChatPresnter implements IPresnter{
+    DaoSession daoSession=GreenDaoHelper.getDaoSession();
     private IView iView;
     private String userName;
     private String appKey=MyApplication.getJiguangAppkey();
@@ -46,7 +50,7 @@ public class ChatPresnter implements IPresnter{
     @Override
     public void startChat(final String userName) {
         conversation=JMessageClient.getSingleConversation(userName, appKey);
-        sendUser=new DefaultUser(userName,userNickName(userName),null);
+        sendUser=new DefaultUser(daoSession.loadAll(StuInfo.class).get(0).getStuID(),daoSession.loadAll(StuInfo.class).get(0).getNickName(),null);
         Observable.create(new ObservableOnSubscribe<List<ChatMessage>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ChatMessage>> emitter) throws Exception {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +22,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
@@ -74,6 +79,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_detail);
         density= getResources().getDisplayMetrics().density;
+        Log.d("density",String.valueOf(density));
         holdersConfig=new MsgListAdapter.HoldersConfig();
         initImageLoager();
         Log.d("process","initImageLoader");
@@ -301,60 +307,70 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                         .asBitmap()
                         .load(string)
                         .apply(new RequestOptions().fitCenter().placeholder(R.drawable.aurora_picture_not_found))
-                        .into(new SimpleTarget<Bitmap>() {
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                int imageWidth = resource.getWidth();
-                                int imageHeight = resource.getHeight();
-                                Log.d("ImageSize", "Image width " + imageWidth + " height: " + imageHeight);
-
-                                // 裁剪 bitmap
-                                float width, height;
-                                if (imageWidth > imageHeight) {
-                                    if (imageWidth > MAX_WIDTH) {
-                                        float temp = MAX_WIDTH / imageWidth * imageHeight;
-                                        height = temp > MIN_HEIGHT ? temp : MIN_HEIGHT;
-                                        width = MAX_WIDTH;
-                                    } else if (imageWidth < MIN_WIDTH) {
-                                        float temp = MIN_WIDTH / imageWidth * imageHeight;
-                                        height = temp < MAX_HEIGHT ? temp : MAX_HEIGHT;
-                                        width = MIN_WIDTH;
-                                    } else {
-                                        float ratio = imageWidth / imageHeight;
-                                        if (ratio > 3) {
-                                            ratio = 3;
-                                        }
-                                        height = imageHeight * ratio;
-                                        width = imageWidth;
-                                    }
-                                } else {
-                                    if (imageHeight > MAX_HEIGHT) {
-                                        float temp = MAX_HEIGHT / imageHeight * imageWidth;
-                                        width = temp > MIN_WIDTH ? temp : MIN_WIDTH;
-                                        height = MAX_HEIGHT;
-                                    } else if (imageHeight < MIN_HEIGHT) {
-                                        float temp = MIN_HEIGHT / imageHeight * imageWidth;
-                                        width = temp < MAX_WIDTH ? temp : MAX_WIDTH;
-                                        height = MIN_HEIGHT;
-                                    } else {
-                                        float ratio = imageHeight / imageWidth;
-                                        if (ratio > 3) {
-                                            ratio = 3;
-                                        }
-                                        width = imageWidth * ratio;
-                                        height = imageHeight;
-                                    }
-                                }
-                                ViewGroup.LayoutParams params = imageView.getLayoutParams();
-                                params.width = (int) width;
-                                params.height = (int) height;
-                                imageView.setLayoutParams(params);
-                                Matrix matrix = new Matrix();
-                                float scaleWidth = width / imageWidth;
-                                float scaleHeight = height / imageHeight;
-                                matrix.postScale(scaleWidth, scaleHeight);
-                                imageView.setImageBitmap(Bitmap.createBitmap(resource, 0, 0, imageWidth, imageHeight, matrix, true));
+//                                int imageWidth = resource.getWidth();
+//                                int imageHeight = resource.getHeight();
+//                                Log.d("ImageSize", "Image width " + imageWidth + " height: " + imageHeight);
+//
+//                                // 裁剪 bitmap
+//                                float width, height;
+//                                if (imageWidth > imageHeight) {
+//                                    if (imageWidth > MAX_WIDTH) {
+//                                        float temp = MAX_WIDTH / imageWidth * imageHeight;
+//                                        height = temp > MIN_HEIGHT ? temp : MIN_HEIGHT;
+//                                        width = MAX_WIDTH;
+//                                    } else if (imageWidth < MIN_WIDTH) {
+//                                        float temp = MIN_WIDTH / imageWidth * imageHeight;
+//                                        height = temp < MAX_HEIGHT ? temp : MAX_HEIGHT;
+//                                        width = MIN_WIDTH;
+//                                    } else {
+//                                        float ratio = imageWidth / imageHeight;
+//                                        if (ratio > 3) {
+//                                            ratio = 3;
+//                                        }
+//                                        height = imageHeight * ratio;
+//                                        width = imageWidth;
+//                                    }
+//                                } else {
+//                                    if (imageHeight > MAX_HEIGHT) {
+//                                        float temp = MAX_HEIGHT / imageHeight * imageWidth;
+//                                        width = temp > MIN_WIDTH ? temp : MIN_WIDTH;
+//                                        height = MAX_HEIGHT;
+//                                    } else if (imageHeight < MIN_HEIGHT) {
+//                                        float temp = MIN_HEIGHT / imageHeight * imageWidth;
+//                                        width = temp < MAX_WIDTH ? temp : MAX_WIDTH;
+//                                        height = MIN_HEIGHT;
+//                                    } else {
+//                                        float ratio = imageHeight / imageWidth;
+//                                        if (ratio > 3) {
+//                                            ratio = 3;
+//                                        }
+//                                        width = imageWidth * ratio;
+//                                        height = imageHeight;
+//                                    }
+//                                }
+//                                ViewGroup.LayoutParams params = imageView.getLayoutParams();
+//                                params.width = (int) width;
+//                                params.height = (int) height;
+//                                imageView.setLayoutParams(params);
+//                                Matrix matrix = new Matrix();
+//                                float scaleWidth = width / imageWidth;
+//                                float scaleHeight = height / imageHeight;
+//                                matrix.postScale(scaleWidth, scaleHeight);
+//                                Log.d("image",String.valueOf(imageHeight));
+//                                Log.d("imageWidth",String.valueOf(imageWidth));
+//
+//                                imageView.setImageBitmap(Bitmap.createBitmap(resource, 0, 0, imageWidth, imageHeight, matrix, true));
+                                imageView.setImageBitmap(resource);
                             }
+
                         });
             }
 
