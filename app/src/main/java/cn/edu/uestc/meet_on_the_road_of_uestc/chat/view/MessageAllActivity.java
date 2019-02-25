@@ -49,6 +49,11 @@ public class MessageAllActivity extends AppCompatActivity {
         }
 
         @Override
+        public void addSingleMessageInAdapter(ChatMessage chatMessages) {
+
+        }
+
+        @Override
         public void sendError(String errMsg) {
 
         }

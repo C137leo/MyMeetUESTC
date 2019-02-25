@@ -35,8 +35,6 @@ public class ChatPresnter implements IPresnter{
     private IView iView;
     private String userName;
     private String appKey=MyApplication.getJiguangAppkey();
-    private JMessageChatCallback jMessageChatCallback=new JMessageChatCallback();
-    private String sendMessage;
     Conversation conversation;
     Disposable disposable;
     DefaultUser sendUser;
@@ -64,6 +62,7 @@ public class ChatPresnter implements IPresnter{
                             if (message.getContentType() == ContentType.text) {
                                 TextContent textContent = (TextContent) message.getContent();
                                 ChatMessage chatMessage = new ChatMessage(textContent.getText(), IMessage.MessageType.SEND_TEXT.ordinal());
+                                chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
                                 chatMessage.setUserInfo(sendUser);
                                 chatMessages.add(chatMessage);
                             }
@@ -72,6 +71,7 @@ public class ChatPresnter implements IPresnter{
                             if (message.getContentType() == ContentType.text) {
                                 TextContent textContent = (TextContent) message.getContent();
                                 ChatMessage chatMessage = new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
+                                chatMessage.setMessageStatus(IMessage.MessageStatus.RECEIVE_SUCCEED);
                                 chatMessage.setUserInfo(reciverUser);
                                 chatMessages.add(chatMessage);
                             }
@@ -128,8 +128,23 @@ public class ChatPresnter implements IPresnter{
          */
         Message singleTextMessage=JMessageClient.createSingleTextMessage(userName, appKey, singleMessage);
         sendMessageToServe(singleTextMessage);
-        singleTextMessage.setOnSendCompleteCallback(jMessageChatCallback);
-        sendMessage=singleMessage;
+        final ChatMessage chatMessage=new ChatMessage(singleMessage,IMessage.MessageType.SEND_TEXT.ordinal());
+        chatMessage.setUserInfo(sendUser);
+        iView.addSingleMessageInAdapter(chatMessage); //添加到聊天列表尾部
+        chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_GOING);
+        singleTextMessage.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if(i==0){
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                    iView.updateSingleMessageInAdapter(chatMessage);
+                }else {
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_FAILED);
+                    iView.updateSingleMessageInAdapter(chatMessage);
+                    iView.sendError("网络错误");
+                }
+            }
+        });
     }
 
     @Override
@@ -149,7 +164,11 @@ public class ChatPresnter implements IPresnter{
          */
         Message message=JMessageClient.createSingleLocationMessage(userName, appKey, latitude, longitude, 1000, address);
         sendMessageToServe(message);
-        message.setOnSendCompleteCallback(jMessageChatCallback);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+            }
+        });
     }
 
     @Override
@@ -167,7 +186,24 @@ public class ChatPresnter implements IPresnter{
          */
         Message message=JMessageClient.createSingleImageMessage(userName, appKey, file);
         sendMessageToServe(message);
-        message.setOnSendCompleteCallback(jMessageChatCallback);
+        final ChatMessage chatMessage=new ChatMessage("",IMessage.MessageType.SEND_IMAGE.ordinal());
+        chatMessage.setUserInfo(sendUser);
+        chatMessage.setMediaFilePath(file.getPath());
+        Log.d("ImagePath",file.getPath());
+        chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_GOING);
+        iView.addSingleMessageInAdapter(chatMessage);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if(i==0){
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                    iView.updateSingleMessageInAdapter(chatMessage);
+                }else {
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_FAILED);
+                    iView.sendError("网路错误");
+                }
+            }
+        });
     }
 
     @Override
@@ -187,18 +223,4 @@ public class ChatPresnter implements IPresnter{
         iView.updateConversationList(JMessageClient.getConversationList());
     }
 
-
-    class JMessageChatCallback extends BasicCallback{
-        @Override
-        public void gotResult(int i, String s) {
-            if(i==0){
-                ChatMessage chatMessage=new ChatMessage(sendMessage, IMessage.MessageType.SEND_TEXT.ordinal());
-                chatMessage.setUserInfo(sendUser);
-                iView.updateSingleMessageInAdapter(chatMessage);
-            }else{
-                Log.d("jiguangIM",String.valueOf(i));
-                iView.sendError(s);
-            }
-        }
-    }
 }

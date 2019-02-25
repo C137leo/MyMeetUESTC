@@ -59,11 +59,11 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     int IMAGE_PICK_REQUEST_CODE=0;
     int IMAGE_SHOOT_REQUEST_CODE=1;
     MessageList messageList;
-    MsgListAdapter.HoldersConfig holdersConfig=new MsgListAdapter.HoldersConfig();
+    MsgListAdapter.HoldersConfig holdersConfig;
     MsgListAdapter adapter;
     Uri contentUri;
     File tempFile;
-    final float density = getResources().getDisplayMetrics().density;
+    float density ;
     final float MIN_WIDTH = 60 * density;
     final float MAX_WIDTH = 200 * density;
     final float MIN_HEIGHT = 60 * density;
@@ -72,12 +72,16 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_chat_detail);
+        density= getResources().getDisplayMetrics().density;
+        holdersConfig=new MsgListAdapter.HoldersConfig();
         initImageLoager();
+        Log.d("process","initImageLoader");
         adapter = new MsgListAdapter<>(userID, holdersConfig, imageLoader);
+        Log.d("process","initAdapter");
         chatPresnter.attchView(iView);
         userID=getIntent().getStringExtra("StuID");
         chatPresnter.startChat(userID);
-        setContentView(R.layout.activity_chat_detail);
         toolbar=findViewById(R.id.chat_detail_toolbar);
         toolbar.setTitle(chatPresnter.userNickName(userID));
         setSupportActionBar(toolbar);
@@ -104,8 +108,13 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
 
     IView iView=new IView() {
         @Override
-        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+        public void addSingleMessageInAdapter(ChatMessage chatMessage) {
             adapter.addToStart(chatMessage, true);
+        }
+
+        @Override
+        public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+            adapter.updateMessage(chatMessage);
         }
 
         @Override
@@ -286,6 +295,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
              */
             @Override
             public void loadImage(final ImageView imageView, String string) {
+                Log.d("useImageLoader",string);
                 // You can use other image load libraries.
                 Glide.with(getApplicationContext())
                         .asBitmap()

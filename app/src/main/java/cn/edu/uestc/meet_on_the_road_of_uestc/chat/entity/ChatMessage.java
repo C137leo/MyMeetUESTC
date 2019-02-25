@@ -14,6 +14,7 @@ public class ChatMessage implements IMessage {
     private IUser user;
     private String contentFile;
     private long duration;
+    private MessageStatus mMsgStatus = MessageStatus.CREATED;
 
 
     public ChatMessage(String text, int type) {
@@ -82,7 +83,7 @@ public class ChatMessage implements IMessage {
 
     @Override
     public MessageStatus getMessageStatus() {
-        return null;
+        return this.mMsgStatus;
     }
 
     @Override
@@ -94,4 +95,13 @@ public class ChatMessage implements IMessage {
     public String getMediaFilePath() {
         return contentFile;
     }
+
+    /**
+     * Set Message status. After sending Message, change the status so that the progress bar will dismiss.
+     * @param messageStatus {@link cn.jiguang.imui.commons.models.IMessage.MessageStatus}
+     */
+    public void setMessageStatus(MessageStatus messageStatus) {
+        this.mMsgStatus = messageStatus;
+    }
+
 }
