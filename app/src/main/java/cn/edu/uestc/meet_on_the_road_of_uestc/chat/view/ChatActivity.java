@@ -68,6 +68,8 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     MsgListAdapter adapter;
     Uri contentUri;
     File tempFile;
+    final private ArrayList<String> mPathList = new ArrayList<>();
+    final private ArrayList<String> mMsgIdList = new ArrayList<>();
     float density ;
     final float MIN_WIDTH = 60 * density;
     final float MAX_WIDTH = 200 * density;
@@ -105,6 +107,21 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         messageList.forbidScrollToRefresh(true);
         chatInputView=findViewById(R.id.chat_input);
         chatInputView.setMenuClickListener(this);
+        adapter.setOnMsgClickListener(new MsgListAdapter.OnMsgClickListener<ChatMessage>() {
+            @Override
+            public void onMessageClick(ChatMessage message) {
+                Log.d("click","click1");
+                if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE.ordinal()
+                        || message.getType() == IMessage.MessageType.SEND_IMAGE.ordinal()) {
+                    Log.d("click","click2");
+                    Intent intent = new Intent(ChatActivity.this, ImageBrowserActivity.class);
+                    intent.putExtra("msgId", message.getMsgId());
+                    intent.putStringArrayListExtra("pathList", mPathList);
+                    intent.putStringArrayListExtra("idList", mMsgIdList);
+                    startActivity(intent);
+                    }
+            }
+        });
     }
 
     @Override
@@ -115,11 +132,21 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
     IView iView=new IView() {
         @Override
         public void addSingleMessageInAdapter(ChatMessage chatMessage) {
+            if(chatMessage.getType()==IMessage.MessageType.RECEIVE_IMAGE.ordinal()||chatMessage.getType()==IMessage.MessageType.SEND_IMAGE.ordinal());
+            {
+                mPathList.add(chatMessage.getMediaFilePath());
+                mMsgIdList.add(chatMessage.getMsgId());
+            }
             adapter.addToStart(chatMessage, true);
         }
 
         @Override
         public void updateSingleMessageInAdapter(ChatMessage chatMessage) {
+            if(chatMessage.getType()==IMessage.MessageType.RECEIVE_IMAGE.ordinal()||chatMessage.getType()==IMessage.MessageType.SEND_IMAGE.ordinal());
+            {
+                mPathList.add(chatMessage.getMediaFilePath());
+                mMsgIdList.add(chatMessage.getMsgId());
+            }
             adapter.updateMessage(chatMessage);
         }
 
@@ -136,6 +163,11 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         @Override
         public void updateExistConversationMessages(List<ChatMessage> chatMessages) {
             for(ChatMessage chatMessage:chatMessages){
+                if(chatMessage.getType()==IMessage.MessageType.RECEIVE_IMAGE.ordinal()||chatMessage.getType()==IMessage.MessageType.SEND_IMAGE.ordinal());
+                {
+                    mPathList.add(chatMessage.getMediaFilePath());
+                    mMsgIdList.add(chatMessage.getMsgId());
+                }
                 adapter.addToStart(chatMessage,true);
             }
         }
