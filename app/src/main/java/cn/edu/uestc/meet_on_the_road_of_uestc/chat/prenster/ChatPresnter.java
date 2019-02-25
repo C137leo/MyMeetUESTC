@@ -42,6 +42,7 @@ public class ChatPresnter implements IPresnter{
     Conversation conversation;
     Disposable disposable;
     DefaultUser sendUser;
+    String avatrPath="https://www.happydoudou.xyz/moou/login_part/image/";
     @Override
     public void attchView(IView iView) {
         this.iView=iView;
@@ -50,7 +51,7 @@ public class ChatPresnter implements IPresnter{
     @Override
     public void startChat(final String userName) {
         conversation=JMessageClient.getSingleConversation(userName, appKey);
-        sendUser=new DefaultUser(daoSession.loadAll(StuInfo.class).get(0).getStuID(),daoSession.loadAll(StuInfo.class).get(0).getNickName(),null);
+        sendUser=new DefaultUser(daoSession.loadAll(StuInfo.class).get(0).getStuID(),daoSession.loadAll(StuInfo.class).get(0).getNickName(),avatrPath+daoSession.loadAll(StuInfo.class).get(0).getStuID()+".png");
         Observable.create(new ObservableOnSubscribe<List<ChatMessage>>() {
             @Override
             public void subscribe(ObservableEmitter<List<ChatMessage>> emitter) throws Exception {
