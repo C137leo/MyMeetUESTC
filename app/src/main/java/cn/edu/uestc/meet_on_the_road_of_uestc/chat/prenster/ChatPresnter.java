@@ -1,10 +1,12 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,6 +137,27 @@ public class ChatPresnter implements IPresnter{
         UserInfo userInfo= (UserInfo) conversation.getTargetInfo();
         String nickName=userInfo.getNickname();
         return nickName;
+    }
+
+    /**
+     * 创建一条群聊video消息，此方法是创建message的快捷接口，对于不需要关注会话实例的开发者可以使用此方法
+     * 接口来创建消息
+     *
+     * @param groupID       群组groupID
+     * @param thumbImage    视频缩略图，可不填。
+     * @param thumbFormat   视频缩略图格式名
+     * @param videoFile     视频文件对象
+     * @param videoFileName 视频文件名称，如果不填或为空，则默认使用文件原名
+     * @param duration      视频时长
+     * @return 消息对象
+     * @throws IOException
+     * @since 2.6.0
+     */
+    @Override
+    public void sentVideo(long groupID, Bitmap thumbImage, String thumbFormat, File videoFile, String videoFileName, int duration) throws IOException {
+        Message videoMessage=JMessageClient.createGroupVideoMessage(groupID, thumbImage, thumbFormat, videoFile, videoFileName, duration);
+        sendMessageToServe(videoMessage);
+
     }
 
     @Override

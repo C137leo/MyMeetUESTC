@@ -110,16 +110,22 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         adapter.setOnMsgClickListener(new MsgListAdapter.OnMsgClickListener<ChatMessage>() {
             @Override
             public void onMessageClick(ChatMessage message) {
-                Log.d("click","click1");
-                if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE.ordinal()
+                // do something
+                if (message.getType() == IMessage.MessageType.RECEIVE_VIDEO.ordinal()
+                        || message.getType() == IMessage.MessageType.SEND_VIDEO.ordinal()) {
+                    if (!TextUtils.isEmpty(message.getMediaFilePath())) {
+                        Intent intent = new Intent(ChatActivity.this, VideoViewActivity.class);
+                        intent.putExtra(VideoViewActivity.VIDEO_PATH, message.getMediaFilePath());
+                        startActivity(intent);
+                    }
+                } else if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE.ordinal()
                         || message.getType() == IMessage.MessageType.SEND_IMAGE.ordinal()) {
-                    Log.d("click","click2");
-                    Intent intent = new Intent(ChatActivity.this, ImageBrowserActivity.class);
+                    Intent intent = new Intent(ChatActivity.this, VideoViewActivity.class);
                     intent.putExtra("msgId", message.getMsgId());
                     intent.putStringArrayListExtra("pathList", mPathList);
                     intent.putStringArrayListExtra("idList", mMsgIdList);
                     startActivity(intent);
-                    }
+                }
             }
         });
     }
@@ -204,6 +210,12 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
         // 点击图片按钮触发事件，显示图片选择界面前触发此事件
         // 返回 true 表示使用默认的界面
         Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        ArrayList<String> selectType=new ArrayList<>();
+        selectType.add("image/*");
+        selectType.add("video/*");
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,selectType);
+        //４．３以上的设备才支持Intent.EXTRA_ALLOW_MULTIPLE，是否可以一次选择多个文件
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
         startActivityForResult(intent,IMAGE_PICK_REQUEST_CODE);
         return false;
     }
@@ -249,17 +261,32 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
             case 0:
                 if(resultCode==RESULT_OK){
                     Uri imageUri=data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor=getContentResolver().query(imageUri,filePathColumn,null,null,null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String imagePath=cursor.getString(columnIndex); //照片路径
-                    cursor.close();
-                    File file=new File(imagePath);
-                    try {
-                        chatPresnter.sendImage(file);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                    if(imageUri.toString().contains("image")) {
+                        String[] imageFilePathColumn = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = getContentResolver().query(imageUri, imageFilePathColumn, null, null, null);
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(imageFilePathColumn[0]);
+                        String imagePath = cursor.getString(columnIndex); //照片路径
+                        cursor.close();
+                        File imageFile = new File(imagePath);
+                        try {
+                            chatPresnter.sendImage(imageFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }else if(imageUri.toString().contains("video")){
+                        String[] videoFilePathColumn = {MediaStore.Video.Media.DATA};
+                        Cursor cursor = getContentResolver().query(imageUri, videoFilePathColumn, null, null, null);
+                        cursor.moveToFirst();
+                        int columnIndex = cursor.getColumnIndex(videoFilePathColumn[0]);
+                        String videoPath = cursor.getString(columnIndex); //照片路径
+                        cursor.close();
+                        File videoFile = new File(videoPath);
+                        try {
+                            chatPresnter.sendImage(videoFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 }
@@ -291,12 +318,14 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                 ChatMessage chatImageMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_IMAGE.ordinal());
                 chatImageMessage.setMediaFilePath(reciverImageLocalPath);
                 chatImageMessage.setUserInfo(reciverUser);
+                chatImageMessage.setMessageStatus(IMessage.MessageStatus.RECEIVE_SUCCEED);
                 adapter.addToStart(chatImageMessage,true);
                 break;
             case text:
                 TextContent textContent=(TextContent)event.getMessage().getContent();
                 ChatMessage chatTextMessage=new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
                 chatTextMessage.setUserInfo(reciverUser);
+                chatTextMessage.setMessageStatus(IMessage.MessageStatus.RECEIVE_SUCCEED);
                 adapter.addToStart(chatTextMessage,true);
                 break;
             case video:
@@ -306,6 +335,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                 ChatMessage receiveVideoMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_VIDEO.ordinal());
                 receiveVideoMessage.setMediaFilePath(reciverVideoLocalPath);
                 receiveVideoMessage.setUserInfo(reciverUser);
+                receiveVideoMessage.setMessageStatus(IMessage.MessageStatus.RECEIVE_SUCCEED);
                 adapter.addToStart(receiveVideoMessage,true);
         }
     }
