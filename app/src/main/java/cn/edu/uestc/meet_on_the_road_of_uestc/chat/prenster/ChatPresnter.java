@@ -17,6 +17,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.enums.MessageDirect;
@@ -71,6 +72,14 @@ public class ChatPresnter implements IPresnter{
                                 chatMessage.setUserInfo(sendUser);
                                 chatMessages.add(chatMessage);
                             }
+                            if(message.getContentType()==ContentType.image){
+                                ChatMessage chatMessage=new ChatMessage("",IMessage.MessageType.SEND_IMAGE.ordinal());
+                                ImageContent imageContent= (ImageContent) message.getContent();
+                                chatMessage.setMediaFilePath(imageContent.getLocalPath());
+                                chatMessage.setUserInfo(sendUser);
+                                chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                                chatMessages.add(chatMessage);
+                            }
                         }else if(message.getDirect()==MessageDirect.receive){
                             DefaultUser reciverUser=new DefaultUser(message.getFromUser().getUserName(),message.getFromUser().getNickname(),null);
                             if (message.getContentType() == ContentType.text) {
@@ -78,6 +87,15 @@ public class ChatPresnter implements IPresnter{
                                 ChatMessage chatMessage = new ChatMessage(textContent.getText(), IMessage.MessageType.RECEIVE_TEXT.ordinal());
                                 chatMessage.setMessageStatus(IMessage.MessageStatus.RECEIVE_SUCCEED);
                                 chatMessage.setUserInfo(reciverUser);
+                                chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                                chatMessages.add(chatMessage);
+                            }
+                            if(message.getContentType()==ContentType.image){
+                                ChatMessage chatMessage=new ChatMessage("",IMessage.MessageType.RECEIVE_IMAGE.ordinal());
+                                ImageContent imageContent= (ImageContent) message.getContent();
+                                chatMessage.setMediaFilePath(imageContent.getLocalPath());
+                                chatMessage.setUserInfo(reciverUser);
+                                chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
                                 chatMessages.add(chatMessage);
                             }
                         }
