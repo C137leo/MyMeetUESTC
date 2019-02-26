@@ -30,6 +30,6 @@ public interface IPresnter {
 
     String userNickName(String userName);
 
-    void sentVideo(long groupID, Bitmap thumbImage, String thumbFormat, File videoFile, String videoFileName, int duration) throws IOException;
+    void sentVideo(android.graphics.Bitmap thumbImage, java.lang.String thumbFormat, java.io.File videoFile, java.lang.String videoFileName, int duration) throws IOException;
 
 }

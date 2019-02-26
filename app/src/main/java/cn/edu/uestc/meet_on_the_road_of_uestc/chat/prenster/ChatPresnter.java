@@ -143,7 +143,6 @@ public class ChatPresnter implements IPresnter{
      * 创建一条群聊video消息，此方法是创建message的快捷接口，对于不需要关注会话实例的开发者可以使用此方法
      * 接口来创建消息
      *
-     * @param groupID       群组groupID
      * @param thumbImage    视频缩略图，可不填。
      * @param thumbFormat   视频缩略图格式名
      * @param videoFile     视频文件对象
@@ -154,10 +153,32 @@ public class ChatPresnter implements IPresnter{
      * @since 2.6.0
      */
     @Override
-    public void sentVideo(long groupID, Bitmap thumbImage, String thumbFormat, File videoFile, String videoFileName, int duration) throws IOException {
-        Message videoMessage=JMessageClient.createGroupVideoMessage(groupID, thumbImage, thumbFormat, videoFile, videoFileName, duration);
+    public void sentVideo(android.graphics.Bitmap thumbImage,
+                          java.lang.String thumbFormat,
+                          java.io.File videoFile,
+                          java.lang.String videoFileName,
+                          int duration) throws IOException {
+        Message videoMessage=JMessageClient.createSingleVideoMessage(userName, appKey, thumbImage,thumbFormat, videoFile, videoFileName, duration);
         sendMessageToServe(videoMessage);
-
+        final ChatMessage chatMessage=new ChatMessage("",IMessage.MessageType.SEND_VIDEO.ordinal());
+        chatMessage.setUserInfo(sendUser);
+        chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_GOING);
+        chatMessage.setMediaFilePath(videoFile.getPath());
+        Log.d("VideoPath",videoFile.getPath());
+        iView.addSingleMessageInAdapter(chatMessage);
+        videoMessage.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if(i==0){
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_SUCCEED);
+                    iView.updateSingleMessageInAdapter(chatMessage);
+                }else {
+                    chatMessage.setMessageStatus(IMessage.MessageStatus.SEND_FAILED);
+                    iView.updateSingleMessageInAdapter(chatMessage);
+                    iView.sendError("网络错误");
+                }
+            }
+        });
     }
 
     @Override

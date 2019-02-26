@@ -32,6 +32,7 @@ import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +42,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.ChatMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.entity.DefaultUser;
 import cn.edu.uestc.meet_on_the_road_of_uestc.chat.prenster.ChatPresnter;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.photoview.PhotoView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.me.piiEdit.view.PiiEditActivity;
 import cn.jiguang.imui.chatinput.ChatInputView;
@@ -120,7 +122,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                     }
                 } else if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE.ordinal()
                         || message.getType() == IMessage.MessageType.SEND_IMAGE.ordinal()) {
-                    Intent intent = new Intent(ChatActivity.this, VideoViewActivity.class);
+                    Intent intent = new Intent(ChatActivity.this, ImageBrowserActivity.class);
                     intent.putExtra("msgId", message.getMsgId());
                     intent.putStringArrayListExtra("pathList", mPathList);
                     intent.putStringArrayListExtra("idList", mMsgIdList);
@@ -143,6 +145,7 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                 mPathList.add(chatMessage.getMediaFilePath());
                 mMsgIdList.add(chatMessage.getMsgId());
             }
+            Log.d("addSingleMessage","addSingleMessage");
             adapter.addToStart(chatMessage, true);
         }
 
@@ -282,9 +285,12 @@ public class ChatActivity extends ChatBaseActivity implements View.OnClickListen
                         String videoPath = cursor.getString(columnIndex); //照片路径
                         cursor.close();
                         File videoFile = new File(videoPath);
+                        Log.d("videoPath",videoPath);
                         try {
-                            chatPresnter.sendImage(videoFile);
+                            chatPresnter.sentVideo(null,null,videoFile,videoFile.getName(),5);
                         } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
