@@ -11,18 +11,18 @@ import android.widget.TextView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
-public class AppointmentSelectPickerLayout extends LinearLayout {
+public class AppointmentSelectTypePickerLayout extends LinearLayout {
     TextView typeStudy;
     TextView typeEat;
     TextView typeHappy;
     TextView typeOther;
     int type; //0:自习 1:吃饭 2:娱乐 3:其他
-    public AppointmentSelectPickerLayout(Context context) {
+    public AppointmentSelectTypePickerLayout(Context context) {
         super(context);
         initView(context);
     }
 
-    public AppointmentSelectPickerLayout(Context context, @Nullable AttributeSet attrs) {
+    public AppointmentSelectTypePickerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }

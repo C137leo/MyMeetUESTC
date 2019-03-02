@@ -13,15 +13,15 @@ import org.w3c.dom.Text;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
-public class AppointmentSelectShow extends LinearLayout {
+public class AppointmentSelectTime extends LinearLayout {
     SelectOnClickListener onClickListener;
     TextView selectShow;
-    public AppointmentSelectShow(Context context) {
+    public AppointmentSelectTime(Context context) {
         super(context);
         initView(context);
     }
 
-    public AppointmentSelectShow(Context context, @Nullable AttributeSet attrs) {
+    public AppointmentSelectTime(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }

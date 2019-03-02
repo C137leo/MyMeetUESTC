@@ -17,20 +17,21 @@
             android:text="选个标签"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectPickerLayout
+        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTypePickerLayout
+            android:id="@+id/appointmentTypeSelected"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectPickerLayout>
-
+            android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTypePickerLayout>
         <TextView
             android:layout_marginTop="25dp"
             android:text="选个时间"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow
+        <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTime
+            android:id="@+id/appointmentTimeSelected"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        </cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow>
+        </cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTime>
     </LinearLayout>
 </RelativeLayout>

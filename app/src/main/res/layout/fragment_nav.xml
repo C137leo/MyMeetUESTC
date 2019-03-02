@@ -114,6 +114,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
         <ListView
+            android:visibility="gone"
             android:layout_gravity="center_horizontal"
             android:id="@+id/inputtip_list"
             android:layout_width="300dp"
