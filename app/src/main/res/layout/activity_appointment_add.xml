@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@mipmap/background_appointment_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/type_study_own"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/finish_help_button"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:text="自习"/>
+        <TextView
+            android:id="@+id/type_eat"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="吃饭"/>
+        <TextView
+            android:id="@+id/type_happy"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="娱乐"/>
+        <TextView
+            android:id="@+id/type_other"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他"/>
+    </LinearLayout>
+    <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow>
+</RelativeLayout>
