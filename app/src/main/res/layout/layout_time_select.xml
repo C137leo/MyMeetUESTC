@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
     
     <TextView
+        android:hint="请选择时间"
         android:id="@+id/timeSelectedShow"
         android:layout_width="300dp"
         android:layout_height="match_parent" />
