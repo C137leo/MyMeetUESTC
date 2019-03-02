@@ -8,13 +8,27 @@
         android:layout_height="match_parent"
         android:src="@mipmap/background_appointment_add"/>
     <LinearLayout
+        android:orientation="vertical"
         android:layout_marginStart="35dp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
+        <TextView
+            android:layout_marginTop="33dp"
+            android:text="选个标签"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectPickerLayout
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectPickerLayout>
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:text="选个时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectShow>

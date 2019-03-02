@@ -23,6 +23,7 @@ public class AppointmentSelectShow extends LinearLayout {
 
     public AppointmentSelectShow(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        initView(context);
     }
 
     public void initView(Context context){

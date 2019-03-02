@@ -24,6 +24,7 @@ public class AppointmentSelectPickerLayout extends LinearLayout {
 
     public AppointmentSelectPickerLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        initView(context);
     }
 
     public void initView(Context context){
