@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 
 public class AppointmentSelectTime extends LinearLayout {
-    SelectOnClickListener onClickListener;
+    SelectOnClickListener mOnClickListener;
     TextView selectShow;
     public AppointmentSelectTime(Context context) {
         super(context);
@@ -34,7 +34,7 @@ public class AppointmentSelectTime extends LinearLayout {
         selectShow.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickListener.selectClick();
+                mOnClickListener.selectClick();
             }
         });
     }
@@ -43,7 +43,7 @@ public class AppointmentSelectTime extends LinearLayout {
         void selectClick();
     }
 
-    public void initOnClickLister(SelectOnClickListener onClickLister){
-        this.onClickListener=onClickListener;
+    public void initOnClickLister(SelectOnClickListener mOnClickLister){
+        this.mOnClickListener=mOnClickLister;
     }
 }
