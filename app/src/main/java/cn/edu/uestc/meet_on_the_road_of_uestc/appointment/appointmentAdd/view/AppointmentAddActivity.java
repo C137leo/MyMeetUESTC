@@ -18,6 +18,7 @@ import java.util.Date;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.entity.TimeMessage;
+import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentNumberLayout;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTypePickerLayout;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentTimePicker;
@@ -32,6 +33,7 @@ public class AppointmentAddActivity extends AppCompatActivity {
     int timeText;
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     AppointmentTimePicker appointmentTimePicker;
+    AppointmentNumberLayout appointmentNumberLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class AppointmentAddActivity extends AppCompatActivity {
         appointmentSelectTypePickerLayout=findViewById(R.id.appointmentTypeSelected);
         appointmentSelectTime=findViewById(R.id.appointmentTimeSelected);
         appointmentTimePicker=findViewById(R.id.appointment_time_picker);
+        appointmentNumberLayout=findViewById(R.id.appointment_number_picker);
         appointmentTimePicker.setAppointmentTimeClick(new AppointmentTimePicker.SetAppointmentTimeClick() {
             @Override
             public void onCancelClick() {
