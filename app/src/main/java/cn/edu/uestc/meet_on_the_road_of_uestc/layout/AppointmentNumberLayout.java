@@ -63,6 +63,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person7.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person8.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 number=8;
+                break;
             case R.id.person7:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -73,6 +74,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person7.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person8.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=7;
+                break;
             case R.id.person6:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -83,6 +85,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person8.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person7.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=6;
+                break;
             case R.id.person5:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -93,6 +96,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person7.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person6.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=5;
+                break;
             case R.id.person4:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -103,6 +107,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person6.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person5.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=4;
+                break;
             case R.id.person3:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -113,6 +118,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person5.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person4.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=3;
+                break;
             case R.id.person2:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
@@ -123,6 +129,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person4.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person3.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=2;
+                break;
             case R.id.person1:
                 person1.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_selected));
                 person8.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
@@ -133,6 +140,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
                 person3.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 person2.setImageDrawable(getResources().getDrawable(R.drawable.ic_person));
                 number=1;
+                break;
         }
     }
 

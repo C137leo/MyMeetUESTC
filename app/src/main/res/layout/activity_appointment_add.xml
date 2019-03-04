@@ -62,16 +62,23 @@
             android:text="补充说明"
             android:layout_marginTop="31dp"/>
         <EditText
-
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:gravity="top"
             android:lines="8"
-            android:hint="呼唤你的小伙伴把"
+            android:hint="呼唤你的小伙伴吧"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:id="@+id/appointment_introduction_add"
             android:background="@drawable/appointment_add_introduction"/>
+        <Button
+            android:id="@+id/appointment_publish"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:background="@drawable/finish_help_button"/>
     </LinearLayout>
     <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentTimePicker
         android:id="@+id/appointment_time_picker"
