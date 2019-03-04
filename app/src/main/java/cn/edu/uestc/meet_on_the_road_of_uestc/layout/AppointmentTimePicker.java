@@ -15,8 +15,12 @@ import android.widget.TimePicker;
 
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import androidx.annotation.RequiresApi;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.entity.TimeMessage;
+import cn.jpush.im.android.api.event.MessageEvent;
 
 public class AppointmentTimePicker extends RelativeLayout implements View.OnClickListener {
     MaterialCalendarView materialCalendarView;
@@ -64,6 +68,9 @@ public class AppointmentTimePicker extends RelativeLayout implements View.OnClic
                 break;
             case R.id.appointment_add_time_confirm:
                 setAppointmentTimeClick.onConfirmClick();
+                String date=materialCalendarView.getSelectedDate().getMonth()+"月"+materialCalendarView.getCurrentDate().getDay();
+                TimeMessage timeMessage=new TimeMessage(selectTime,date);
+                EventBus.getDefault().post(timeMessage);
                 break;
             case R.id.selected_time:
                 appointmentSelectTime.setVisibility(VISIBLE);
@@ -86,6 +93,10 @@ public class AppointmentTimePicker extends RelativeLayout implements View.OnClic
     public interface SetAppointmentTimeClick{
         void onCancelClick();
         void onConfirmClick();
+    }
+
+    public String getSelectTime() {
+        return selectTime;
     }
 
     public void setAppointmentTimeClick(SetAppointmentTimeClick setAppointmentTimeClick){

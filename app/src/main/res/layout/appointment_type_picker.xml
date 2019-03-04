@@ -10,18 +10,21 @@
         android:layout_height="30dp"
         android:text="自习"/>
     <TextView
+        android:gravity="center"
         android:id="@+id/type_eat"
         android:layout_marginStart="20dp"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:text="吃饭"/>
     <TextView
+        android:gravity="center"
         android:id="@+id/type_happy"
         android:layout_marginStart="20dp"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:text="娱乐"/>
     <TextView
+        android:gravity="center"
         android:id="@+id/type_other"
         android:layout_marginStart="20dp"
         android:layout_width="40dp"
