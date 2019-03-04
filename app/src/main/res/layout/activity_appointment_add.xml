@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
         android:layout_marginStart="10dp"
@@ -44,6 +46,32 @@
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentNumberLayout>
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在什么地方" />
+        <EditText
+            android:id="@+id/appointment_add_location"
+            android:hint="填写地点"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="补充说明"
+            android:layout_marginTop="31dp"/>
+        <EditText
+
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="top"
+            android:lines="8"
+            android:hint="呼唤你的小伙伴把"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appointment_introduction_add"
+            android:background="@drawable/appointment_add_introduction"/>
     </LinearLayout>
     <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentTimePicker
         android:id="@+id/appointment_time_picker"
