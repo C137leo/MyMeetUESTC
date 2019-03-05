@@ -11,6 +11,8 @@
         android:background="@drawable/background_appointment_me_toolbar"
         app:navigationIcon="@mipmap/ic_back"></android.support.v7.widget.Toolbar>
 
-
-    
+    <cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentMeTitle
+        android:id="@+id/appointment_me_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentMeTitle>
 </LinearLayout>
