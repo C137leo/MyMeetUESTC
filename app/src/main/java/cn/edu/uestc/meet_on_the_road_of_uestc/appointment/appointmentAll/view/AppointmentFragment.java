@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.view;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
     List<AppointmentInfo> appointmentInfoList;
     AppointmentPrenster appointmentPrenster=new AppointmentPrenster();
     ImageView appointmentAddView;
+    ImageView appointmentMe;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         appointmentAllRecyclerView=getActivity().findViewById(R.id.appointment_recyclerView);
+        appointmentMe=getActivity().findViewById(R.id.appointment_me);
         appointmentAddView=getActivity().findViewById(R.id.appointment_add);
         setClickListener();
     }
