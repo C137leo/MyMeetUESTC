@@ -57,7 +57,7 @@ public class AppointmentAddPrenster implements IPrenster {
 
                     @Override
                     public void onNext(NetworkStatus networkStatus) {
-
+                        iVew.publishSuccessfully("success");
                     }
 
                     @Override

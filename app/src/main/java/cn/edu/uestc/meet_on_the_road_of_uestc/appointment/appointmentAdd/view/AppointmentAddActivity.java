@@ -3,12 +3,10 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,18 +14,14 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.entity.TimeMessage;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.prenster.AppointmentAddPrenster;
-import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.prenster.AppointmentPrenster;
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentNumberLayout;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTime;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentSelectTypePickerLayout;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentTimePicker;
-import cn.jpush.im.android.api.event.MessageEvent;
 
 public class AppointmentAddActivity extends AppCompatActivity implements View.OnClickListener {
     AppointmentSelectTypePickerLayout appointmentSelectTypePickerLayout;
@@ -56,6 +50,7 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
         appointmentAddPublish=findViewById(R.id.appointment_publish);
         appointmentLocation=findViewById(R.id.appointment_add_location);
         appointmentIntroductionAdd=findViewById(R.id.appointment_introduction_add);
+        appointmentAddPublish.setOnClickListener(this);
         appointmentTimePicker.setAppointmentTimeClick(new AppointmentTimePicker.SetAppointmentTimeClick() {
             @Override
             public void onCancelClick() {
@@ -91,6 +86,7 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
     IVew iVew=new IVew() {
         @Override
         public void publishSuccessfully(String errMsg) {
+            Log.d("appointmentPublish","publishSuccessfully");
             finish();
         }
 
