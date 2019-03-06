@@ -19,6 +19,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.view.AppointmentAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.adapter.AppointmentAllRecyclerAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.prenster.AppointmentPrenster;
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.view.AppointmentMe;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 
 public class AppointmentFragment extends Fragment implements View.OnClickListener {
@@ -45,6 +46,7 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
 
     public void setClickListener(){
         appointmentAddView.setOnClickListener(this);
+        appointmentMe.setOnClickListener(this);
     }
     IView iView=new IView() {
         @Override
@@ -64,6 +66,11 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
             case R.id.appointment_add:
                 Intent intent=new Intent(getActivity(), AppointmentAddActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.appointment_me:
+                Intent intent1=new Intent(getActivity(), AppointmentMe.class);
+                startActivity(intent1);
+                break;
         }
     }
 }
