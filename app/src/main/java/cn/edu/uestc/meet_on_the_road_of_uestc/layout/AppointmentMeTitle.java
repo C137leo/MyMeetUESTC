@@ -36,12 +36,12 @@ public class AppointmentMeTitle extends RelativeLayout implements View.OnClickLi
         switch (v.getId()){
             case R.id.appointment_accept:
                 appointmentMeTitleListener.appointmentAcceptClick();
-                appointmentAccept.setBackground(getResources().getDrawable(R.drawable.finish_help_button));
-                appointmentPublish.setBackground(null);
+                setAppointmentTitleBackground(0);
+                break;
             case R.id.appointment_publish:
                 appointmentMeTitleListener.appointmentPublishClick();
-                appointmentAccept.setBackground(null);
-                appointmentPublish.setBackground(getResources().getDrawable(R.drawable.finish_help_button));
+                setAppointmentTitleBackground(1);
+                break;
         }
     }
 
@@ -50,6 +50,15 @@ public class AppointmentMeTitle extends RelativeLayout implements View.OnClickLi
         void appointmentPublishClick();
     }
 
+    public void setAppointmentTitleBackground(int position){
+        if(position==0){
+            appointmentAccept.setBackground(getResources().getDrawable(R.drawable.finish_help_button));
+            appointmentPublish.setBackground(null);
+        }else if(position==1){
+            appointmentAccept.setBackground(null);
+            appointmentPublish.setBackground(getResources().getDrawable(R.drawable.finish_help_button));
+        }
+    }
     public void initAppointmentMeTitleClick(AppointmentMeTitleListener appointmentMeTitleListener){
         this.appointmentMeTitleListener=appointmentMeTitleListener;
     }
