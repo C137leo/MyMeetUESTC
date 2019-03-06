@@ -5,6 +5,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.Toolbar
+        android:id="@+id/appointment_me_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="我的约吧"

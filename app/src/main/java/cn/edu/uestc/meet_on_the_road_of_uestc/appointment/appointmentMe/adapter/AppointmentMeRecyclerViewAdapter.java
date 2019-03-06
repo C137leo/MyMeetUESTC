@@ -12,12 +12,9 @@ public class AppointmentMeRecyclerViewAdapter {
 
 
     class AppointmentMeRecyclerViewHolder extends RecyclerView.ViewHolder{
-
         public AppointmentMeRecyclerViewHolder(View itemView) {
             super(itemView);
         }
-
-
 
     }
 }
