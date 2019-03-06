@@ -28,7 +28,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
     @Override
     public AppointmentAllRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(view==null){
-            view= LayoutInflater.from(context).inflate(R.layout.appointment_layout,parent,false);
+            view= LayoutInflater.from(context).inflate(R.layout.appointment_me_recyclerview_layout,parent,false);
             appointmentAllRecyclerViewHolder=new AppointmentAllRecyclerViewHolder(view);
             view.setTag(appointmentAllRecyclerViewHolder);
         }else {
