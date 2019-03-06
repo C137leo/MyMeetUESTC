@@ -60,9 +60,20 @@
                         android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="这是约吧的人数"
-                        android:id="@+id/appointment_people_num"
+                        android:text="这是约吧现在的人数"
+                        android:id="@+id/appointment_people_accept_num"
                         android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="/"/>
+                    <TextView
+                        android:id="@+id/appointment_people_set_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="这是想要的人数"
+                        android:textSize="10sp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="8dp"

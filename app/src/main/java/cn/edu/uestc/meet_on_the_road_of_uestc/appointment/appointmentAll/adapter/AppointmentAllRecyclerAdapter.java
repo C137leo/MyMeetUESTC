@@ -47,7 +47,8 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
         });
         holder.appointmentTitle.setText(appointmentInfoList.get(position).getAppointmentTitle());
         holder.appointmentTime.setText(appointmentInfoList.get(position).getAppointmentTime());
-        holder.appointmentPeopleNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+        holder.appointmentPeopleAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
+        holder.appointmentPeopleSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
         holder.appointmentLocation.setText(appointmentInfoList.get(position).getLocation());
         holder.appointmentTypeText.setText(appointmentInfoList.get(position).getAppointmentTypeText());
     }
@@ -63,15 +64,17 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
     class AppointmentAllRecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView appointmentTitle;
         TextView appointmentLocation;
-        TextView appointmentPeopleNum;
+        TextView appointmentPeopleAcceptNum;
         TextView appointmentTime;
         Button joinAppointmentButton;
         TextView appointmentTypeText;
+        TextView appointmentPeopleSetNum;
         public AppointmentAllRecyclerViewHolder(View itemView) {
             super(itemView);
             appointmentTitle=itemView.findViewById(R.id.appointment_title);
             appointmentLocation=itemView.findViewById(R.id.appointment_location);
-            appointmentPeopleNum=itemView.findViewById(R.id.appointment_people_num);
+            appointmentPeopleAcceptNum=itemView.findViewById(R.id.appointment_people_accept_num);
+            appointmentPeopleSetNum=itemView.findViewById(R.id.appointment_people_set_num);
             appointmentTime=itemView.findViewById(R.id.appointment_time);
             joinAppointmentButton=itemView.findViewById(R.id.appointment_join);
             appointmentTypeText=itemView.findViewById(R.id.appointment_type);
