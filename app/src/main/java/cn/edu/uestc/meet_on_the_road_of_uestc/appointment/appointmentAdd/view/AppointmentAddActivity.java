@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
     EditText appointmentIntroductionAdd;
     AppointmentAddPrenster appointmentAddPrenster;
     String dateTime;
+    Toolbar appointmentAddToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
         appointmentAddPublish=findViewById(R.id.appointment_publish);
         appointmentLocation=findViewById(R.id.appointment_add_location);
         appointmentIntroductionAdd=findViewById(R.id.appointment_introduction_add);
+        appointmentAddToolbar=findViewById(R.id.appointment_add_toolbar);
         appointmentAddPublish.setOnClickListener(this);
         appointmentTimePicker.setAppointmentTimeClick(new AppointmentTimePicker.SetAppointmentTimeClick() {
             @Override
@@ -65,6 +68,12 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
         });
         EventBus.getDefault().register(this);
         initClickListener();
+        appointmentAddToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void initClickListener(){
