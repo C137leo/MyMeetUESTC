@@ -6,6 +6,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 public interface IPrenster {
 
     void addSingleAppointmentData(AppointmentInfo appointmentInfo);
-    void initPublishData(int type,int number,String dateTime,String location,String introduction);
+    void initPublishData(int type,int number,String date,String time,String location,String introduction);
     void attchView(IVew iVew);
 }

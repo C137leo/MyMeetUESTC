@@ -35,14 +35,15 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         public final static Property WhoPublishStuGrade = new Property(5, int.class, "whoPublishStuGrade", false, "WHO_PUBLISH_STU_GRADE");
         public final static Property WhoPublishStuMajor = new Property(6, String.class, "whoPublishStuMajor", false, "WHO_PUBLISH_STU_MAJOR");
         public final static Property Location = new Property(7, String.class, "location", false, "LOCATION");
-        public final static Property AppointmentTime = new Property(8, String.class, "appointmentTime", false, "APPOINTMENT_TIME");
-        public final static Property AppointmentLatitude = new Property(9, double.class, "appointmentLatitude", false, "APPOINTMENT_LATITUDE");
-        public final static Property AppointmentLongtitude = new Property(10, double.class, "appointmentLongtitude", false, "APPOINTMENT_LONGTITUDE");
-        public final static Property AppointmentNum = new Property(11, int.class, "appointmentNum", false, "APPOINTMENT_NUM");
-        public final static Property AppointmentType = new Property(12, int.class, "appointmentType", false, "APPOINTMENT_TYPE");
-        public final static Property AppointmentTypeText = new Property(13, String.class, "appointmentTypeText", false, "APPOINTMENT_TYPE_TEXT");
-        public final static Property AppointmentStatus = new Property(14, int.class, "appointmentStatus", false, "APPOINTMENT_STATUS");
-        public final static Property AppointmentStuInfoList = new Property(15, String.class, "appointmentStuInfoList", false, "APPOINTMENT_STU_INFO_LIST");
+        public final static Property AppointmentDate = new Property(8, String.class, "appointmentDate", false, "APPOINTMENT_DATE");
+        public final static Property AppointmentTime = new Property(9, String.class, "appointmentTime", false, "APPOINTMENT_TIME");
+        public final static Property AppointmentLatitude = new Property(10, double.class, "appointmentLatitude", false, "APPOINTMENT_LATITUDE");
+        public final static Property AppointmentLongtitude = new Property(11, double.class, "appointmentLongtitude", false, "APPOINTMENT_LONGTITUDE");
+        public final static Property AppointmentNum = new Property(12, int.class, "appointmentNum", false, "APPOINTMENT_NUM");
+        public final static Property AppointmentType = new Property(13, int.class, "appointmentType", false, "APPOINTMENT_TYPE");
+        public final static Property AppointmentTypeText = new Property(14, String.class, "appointmentTypeText", false, "APPOINTMENT_TYPE_TEXT");
+        public final static Property AppointmentStatus = new Property(15, int.class, "appointmentStatus", false, "APPOINTMENT_STATUS");
+        public final static Property AppointmentStuInfoList = new Property(16, String.class, "appointmentStuInfoList", false, "APPOINTMENT_STU_INFO_LIST");
     }
 
     private final StuInfoListConverter appointmentStuInfoListConverter = new StuInfoListConverter();
@@ -67,14 +68,15 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
                 "\"WHO_PUBLISH_STU_GRADE\" INTEGER NOT NULL ," + // 5: whoPublishStuGrade
                 "\"WHO_PUBLISH_STU_MAJOR\" TEXT," + // 6: whoPublishStuMajor
                 "\"LOCATION\" TEXT," + // 7: location
-                "\"APPOINTMENT_TIME\" TEXT," + // 8: appointmentTime
-                "\"APPOINTMENT_LATITUDE\" REAL NOT NULL ," + // 9: appointmentLatitude
-                "\"APPOINTMENT_LONGTITUDE\" REAL NOT NULL ," + // 10: appointmentLongtitude
-                "\"APPOINTMENT_NUM\" INTEGER NOT NULL ," + // 11: appointmentNum
-                "\"APPOINTMENT_TYPE\" INTEGER NOT NULL ," + // 12: appointmentType
-                "\"APPOINTMENT_TYPE_TEXT\" TEXT," + // 13: appointmentTypeText
-                "\"APPOINTMENT_STATUS\" INTEGER NOT NULL ," + // 14: appointmentStatus
-                "\"APPOINTMENT_STU_INFO_LIST\" TEXT);"); // 15: appointmentStuInfoList
+                "\"APPOINTMENT_DATE\" TEXT," + // 8: appointmentDate
+                "\"APPOINTMENT_TIME\" TEXT," + // 9: appointmentTime
+                "\"APPOINTMENT_LATITUDE\" REAL NOT NULL ," + // 10: appointmentLatitude
+                "\"APPOINTMENT_LONGTITUDE\" REAL NOT NULL ," + // 11: appointmentLongtitude
+                "\"APPOINTMENT_NUM\" INTEGER NOT NULL ," + // 12: appointmentNum
+                "\"APPOINTMENT_TYPE\" INTEGER NOT NULL ," + // 13: appointmentType
+                "\"APPOINTMENT_TYPE_TEXT\" TEXT," + // 14: appointmentTypeText
+                "\"APPOINTMENT_STATUS\" INTEGER NOT NULL ," + // 15: appointmentStatus
+                "\"APPOINTMENT_STU_INFO_LIST\" TEXT);"); // 16: appointmentStuInfoList
     }
 
     /** Drops the underlying database table. */
@@ -123,24 +125,29 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             stmt.bindString(8, location);
         }
  
+        String appointmentDate = entity.getAppointmentDate();
+        if (appointmentDate != null) {
+            stmt.bindString(9, appointmentDate);
+        }
+ 
         String appointmentTime = entity.getAppointmentTime();
         if (appointmentTime != null) {
-            stmt.bindString(9, appointmentTime);
+            stmt.bindString(10, appointmentTime);
         }
-        stmt.bindDouble(10, entity.getAppointmentLatitude());
-        stmt.bindDouble(11, entity.getAppointmentLongtitude());
-        stmt.bindLong(12, entity.getAppointmentNum());
-        stmt.bindLong(13, entity.getAppointmentType());
+        stmt.bindDouble(11, entity.getAppointmentLatitude());
+        stmt.bindDouble(12, entity.getAppointmentLongtitude());
+        stmt.bindLong(13, entity.getAppointmentNum());
+        stmt.bindLong(14, entity.getAppointmentType());
  
         String appointmentTypeText = entity.getAppointmentTypeText();
         if (appointmentTypeText != null) {
-            stmt.bindString(14, appointmentTypeText);
+            stmt.bindString(15, appointmentTypeText);
         }
-        stmt.bindLong(15, entity.getAppointmentStatus());
+        stmt.bindLong(16, entity.getAppointmentStatus());
  
         List appointmentStuInfoList = entity.getAppointmentStuInfoList();
         if (appointmentStuInfoList != null) {
-            stmt.bindString(16, appointmentStuInfoListConverter.convertToDatabaseValue(appointmentStuInfoList));
+            stmt.bindString(17, appointmentStuInfoListConverter.convertToDatabaseValue(appointmentStuInfoList));
         }
     }
 
@@ -184,24 +191,29 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             stmt.bindString(8, location);
         }
  
+        String appointmentDate = entity.getAppointmentDate();
+        if (appointmentDate != null) {
+            stmt.bindString(9, appointmentDate);
+        }
+ 
         String appointmentTime = entity.getAppointmentTime();
         if (appointmentTime != null) {
-            stmt.bindString(9, appointmentTime);
+            stmt.bindString(10, appointmentTime);
         }
-        stmt.bindDouble(10, entity.getAppointmentLatitude());
-        stmt.bindDouble(11, entity.getAppointmentLongtitude());
-        stmt.bindLong(12, entity.getAppointmentNum());
-        stmt.bindLong(13, entity.getAppointmentType());
+        stmt.bindDouble(11, entity.getAppointmentLatitude());
+        stmt.bindDouble(12, entity.getAppointmentLongtitude());
+        stmt.bindLong(13, entity.getAppointmentNum());
+        stmt.bindLong(14, entity.getAppointmentType());
  
         String appointmentTypeText = entity.getAppointmentTypeText();
         if (appointmentTypeText != null) {
-            stmt.bindString(14, appointmentTypeText);
+            stmt.bindString(15, appointmentTypeText);
         }
-        stmt.bindLong(15, entity.getAppointmentStatus());
+        stmt.bindLong(16, entity.getAppointmentStatus());
  
         List appointmentStuInfoList = entity.getAppointmentStuInfoList();
         if (appointmentStuInfoList != null) {
-            stmt.bindString(16, appointmentStuInfoListConverter.convertToDatabaseValue(appointmentStuInfoList));
+            stmt.bindString(17, appointmentStuInfoListConverter.convertToDatabaseValue(appointmentStuInfoList));
         }
     }
 
@@ -221,14 +233,15 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             cursor.getInt(offset + 5), // whoPublishStuGrade
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // whoPublishStuMajor
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // location
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // appointmentTime
-            cursor.getDouble(offset + 9), // appointmentLatitude
-            cursor.getDouble(offset + 10), // appointmentLongtitude
-            cursor.getInt(offset + 11), // appointmentNum
-            cursor.getInt(offset + 12), // appointmentType
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // appointmentTypeText
-            cursor.getInt(offset + 14), // appointmentStatus
-            cursor.isNull(offset + 15) ? null : appointmentStuInfoListConverter.convertToEntityProperty(cursor.getString(offset + 15)) // appointmentStuInfoList
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // appointmentDate
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // appointmentTime
+            cursor.getDouble(offset + 10), // appointmentLatitude
+            cursor.getDouble(offset + 11), // appointmentLongtitude
+            cursor.getInt(offset + 12), // appointmentNum
+            cursor.getInt(offset + 13), // appointmentType
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // appointmentTypeText
+            cursor.getInt(offset + 15), // appointmentStatus
+            cursor.isNull(offset + 16) ? null : appointmentStuInfoListConverter.convertToEntityProperty(cursor.getString(offset + 16)) // appointmentStuInfoList
         );
         return entity;
     }
@@ -243,14 +256,15 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         entity.setWhoPublishStuGrade(cursor.getInt(offset + 5));
         entity.setWhoPublishStuMajor(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setLocation(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setAppointmentTime(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setAppointmentLatitude(cursor.getDouble(offset + 9));
-        entity.setAppointmentLongtitude(cursor.getDouble(offset + 10));
-        entity.setAppointmentNum(cursor.getInt(offset + 11));
-        entity.setAppointmentType(cursor.getInt(offset + 12));
-        entity.setAppointmentTypeText(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setAppointmentStatus(cursor.getInt(offset + 14));
-        entity.setAppointmentStuInfoList(cursor.isNull(offset + 15) ? null : appointmentStuInfoListConverter.convertToEntityProperty(cursor.getString(offset + 15)));
+        entity.setAppointmentDate(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setAppointmentTime(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setAppointmentLatitude(cursor.getDouble(offset + 10));
+        entity.setAppointmentLongtitude(cursor.getDouble(offset + 11));
+        entity.setAppointmentNum(cursor.getInt(offset + 12));
+        entity.setAppointmentType(cursor.getInt(offset + 13));
+        entity.setAppointmentTypeText(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setAppointmentStatus(cursor.getInt(offset + 15));
+        entity.setAppointmentStuInfoList(cursor.isNull(offset + 16) ? null : appointmentStuInfoListConverter.convertToEntityProperty(cursor.getString(offset + 16)));
      }
     
     @Override

@@ -3,6 +3,9 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.prenst
 import android.content.Context;
 import android.util.AndroidException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAdd.view.IVew;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.entity.NetworkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.service.RetrofitHelper;
@@ -36,11 +39,13 @@ public class AppointmentAddPrenster implements IPrenster {
     }
 
     @Override
-    public void initPublishData(int type, int number, String dateTime, String location, String introduction) {
+    public void initPublishData(int type, int number, String date,String time, String location, String introduction) {
         String appointmentUID= AssistUtils.getRandomUUID();
         StuInfo stuInfo=daoSession.getStuInfoDao().loadAll().get(0);
+        List<StuInfo> stuInfoList=new ArrayList<>();
+        stuInfoList.add(GreenDaoHelper.getDaoSession().getStuInfoDao().loadAll().get(0));
         appointmentInfo=new AppointmentInfo(appointmentUID,introduction, DateUtils.getDateNow(),stuInfo.getStuName(),stuInfo.getStuID(),
-                stuInfo.getStuGrade(),stuInfo.getMajor(),location,dateTime,0,0,number,type,"",0,null);
+                stuInfo.getStuGrade(),stuInfo.getMajor(),location,date,time,0,0,number,type,"",0,stuInfoList);
         addSingleAppointmentData(appointmentInfo);
     }
 

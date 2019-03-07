@@ -19,7 +19,7 @@ public class AppointmentNumberLayout extends LinearLayout implements View.OnClic
     ImageView person6;
     ImageView person7;
     ImageView person8;
-    int number;
+    int number=1;
     public AppointmentNumberLayout(Context context) {
         super(context);
         initView(context);

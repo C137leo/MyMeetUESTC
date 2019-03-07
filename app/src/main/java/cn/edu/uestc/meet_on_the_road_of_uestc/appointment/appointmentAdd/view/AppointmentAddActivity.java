@@ -38,7 +38,8 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
     EditText appointmentLocation;
     EditText appointmentIntroductionAdd;
     AppointmentAddPrenster appointmentAddPrenster;
-    String dateTime;
+    String date;
+    String time;
     Toolbar appointmentAddToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.appointment_publish:
-                appointmentAddPrenster.initPublishData(appointmentType,appointmentNumberLayout.getNumber(),dateTime,appointmentLocation.getText().toString(),appointmentIntroductionAdd.getText().toString());
+                appointmentAddPrenster.initPublishData(appointmentType,appointmentNumberLayout.getNumber(),date,time,appointmentLocation.getText().toString(),appointmentIntroductionAdd.getText().toString());
         }
     }
 
@@ -109,12 +110,13 @@ public class AppointmentAddActivity extends AppCompatActivity implements View.On
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshUI(TimeMessage timeMessage){
         if(timeMessage.getSelectTime()!=null) {
-            dateTime=timeMessage.getDate() + "     " + timeMessage.getSelectTime();
+            date=timeMessage.getDate();
+            time=timeMessage.getSelectTime();
             appointmentSelectTime.setDateTimeTextShow(timeMessage.getDate() + "     " + timeMessage.getSelectTime());
         }else if(timeMessage.getDate()==null) {
             Toast.makeText(this,"请选择时间",Toast.LENGTH_SHORT).show();
         }else if(timeMessage.getSelectTime()==null){
-            dateTime=timeMessage.getDate();
+            date=timeMessage.getDate();
             appointmentSelectTime.setDateTimeTextShow(timeMessage.getDate());
         }
     }

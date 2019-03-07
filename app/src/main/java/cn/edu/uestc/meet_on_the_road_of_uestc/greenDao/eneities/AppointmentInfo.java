@@ -22,6 +22,7 @@ public class AppointmentInfo {
     int whoPublishStuGrade;
     String whoPublishStuMajor;
     String location;
+    String appointmentDate;
     String appointmentTime;
     double appointmentLatitude;
     double appointmentLongtitude;
@@ -31,14 +32,14 @@ public class AppointmentInfo {
     int appointmentStatus; //0:正在进行 1:已完成 3:删除
     @Convert(converter = StuInfoListConverter.class,columnType = String.class)
     List<StuInfo> appointmentStuInfoList; //参与学生的数组
-    @Generated(hash = 1111392472)
+    @Generated(hash = 1710594240)
     public AppointmentInfo(String appointmentUID, String appointmentTitle,
             String publishTime, String whoPublish, String whoPublishStuID,
             int whoPublishStuGrade, String whoPublishStuMajor, String location,
-            String appointmentTime, double appointmentLatitude,
-            double appointmentLongtitude, int appointmentNum, int appointmentType,
-            String appointmentTypeText, int appointmentStatus,
-            List<StuInfo> appointmentStuInfoList) {
+            String appointmentDate, String appointmentTime,
+            double appointmentLatitude, double appointmentLongtitude,
+            int appointmentNum, int appointmentType, String appointmentTypeText,
+            int appointmentStatus, List<StuInfo> appointmentStuInfoList) {
         this.appointmentUID = appointmentUID;
         this.appointmentTitle = appointmentTitle;
         this.publishTime = publishTime;
@@ -47,6 +48,7 @@ public class AppointmentInfo {
         this.whoPublishStuGrade = whoPublishStuGrade;
         this.whoPublishStuMajor = whoPublishStuMajor;
         this.location = location;
+        this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.appointmentLatitude = appointmentLatitude;
         this.appointmentLongtitude = appointmentLongtitude;
@@ -154,6 +156,12 @@ public class AppointmentInfo {
     }
     public void setAppointmentStuInfoList(List<StuInfo> appointmentStuInfoList) {
         this.appointmentStuInfoList = appointmentStuInfoList;
+    }
+    public String getAppointmentDate() {
+        return this.appointmentDate;
+    }
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
 
