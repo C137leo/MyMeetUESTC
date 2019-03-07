@@ -1,78 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
     <RelativeLayout
-        android:background="@mipmap/person_information_topbar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@mipmap/person_information_topbar">
+
         <cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView
             android:id="@+id/pii_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:src="@mipmap/ic_icontest"
-            />
+            android:src="@mipmap/ic_icontest" />
+
         <LinearLayout
-            android:layout_alignTop="@id/pii_image"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="130dp">
+            android:layout_alignTop="@id/pii_image"
+            android:layout_marginStart="130dp"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:textSize="25sp"
                     android:id="@+id/pii_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="姚大美人"/>
+                    android:text="姚大美人"
+                    android:textSize="25sp" />
+
                 <ImageView
                     android:id="@+id/pii_edit"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_pii_edit"/>
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:src="@mipmap/ic_pii_edit" />
             </LinearLayout>
+
             <TextView
-                android:layout_marginTop="10dp"
+                android:id="@+id/pii_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pii_name" />
+                android:layout_marginTop="10dp" />
+
             <TextView
-                android:textSize="12sp"
                 android:id="@+id/pii_major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="公共管理学院"/>
+                android:text="公共管理学院"
+                android:textSize="12sp" />
+
             <TextView
-                android:textSize="12sp"
+                android:id="@+id/pii_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pii_grade"
-                android:text="大一"/>
+                android:text="大一"
+                android:textSize="12sp" />
+
             <LinearLayout
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="个人签名："/>
+                    android:text="个人签名：" />
+
                 <TextView
-                    android:textSize="15sp"
-                    android:text="开心快乐每一天!"
                     android:id="@+id/pii_signature"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="开心快乐每一天!"
+                    android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/me_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="288dp"
+            android:layout_marginTop="142dp"
+            android:src="@mipmap/ic_me_menu" />
     </RelativeLayout>
 
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:layout_gravity="center_horizontal"
+        android:alpha="5"
+        android:layout_marginTop="20dp"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/me_menu_chart_first_title"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="我发布的帮帮"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/me_menu_chart_first"
+            android:layout_marginTop="20dp"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            ></com.github.mikephil.charting.charts.LineChart>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:alpha="5"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/me_menu_chart_second_title"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="我接受的帮帮"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/me_menu_second_chart"
+                android:layout_marginTop="20dp"
+                android:layout_width="350dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                ></com.github.mikephil.charting.charts.LineChart>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

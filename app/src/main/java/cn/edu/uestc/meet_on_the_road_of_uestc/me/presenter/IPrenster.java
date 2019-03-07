@@ -9,4 +9,6 @@ public interface IPrenster {
     void getStuInfo();
     void attchView(IVew iVew);
     Uri isImageChange();
+    void drawFirstChartWithIPublish();
+    void drawSecondChartWithIAccept();
 }

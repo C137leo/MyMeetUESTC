@@ -25,10 +25,17 @@ public class HelpInfo implements Comparable<HelpInfo>{
     private int isFinish; //是否完成
     private String whoFinishIt; //谁完成
     private String acceptTime;  //接受时间
-    @Generated(hash = 2101948538)
+    private String whoFinishItStuID; //完成人的学号
+    private String whoFinishItStuMajor; //完成人的专业
+    private int whoFinishItStuGrade; //完成人的年级
+    private double latitude; //地点的经度
+    private double longitude; //地点的纬度
+    @Generated(hash = 1493464364)
     public HelpInfo(String UID, String StuID, String location, String owner_name,
             String good_title, String publish_time, int isPay, String good_detail,
-            int isFinish, String whoFinishIt, String acceptTime) {
+            int isFinish, String whoFinishIt, String acceptTime,
+            String whoFinishItStuID, String whoFinishItStuMajor,
+            int whoFinishItStuGrade, double latitude, double longitude) {
         this.UID = UID;
         this.StuID = StuID;
         this.location = location;
@@ -40,6 +47,11 @@ public class HelpInfo implements Comparable<HelpInfo>{
         this.isFinish = isFinish;
         this.whoFinishIt = whoFinishIt;
         this.acceptTime = acceptTime;
+        this.whoFinishItStuID = whoFinishItStuID;
+        this.whoFinishItStuMajor = whoFinishItStuMajor;
+        this.whoFinishItStuGrade = whoFinishItStuGrade;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     @Generated(hash = 498075579)
     public HelpInfo() {
@@ -110,6 +122,37 @@ public class HelpInfo implements Comparable<HelpInfo>{
     public void setAcceptTime(String acceptTime) {
         this.acceptTime = acceptTime;
     }
+    public String getWhoFinishItStuID() {
+        return this.whoFinishItStuID;
+    }
+    public void setWhoFinishItStuID(String whoFinishItStuID) {
+        this.whoFinishItStuID = whoFinishItStuID;
+    }
+    public String getWhoFinishItStuMajor() {
+        return this.whoFinishItStuMajor;
+    }
+    public void setWhoFinishItStuMajor(String whoFinishItStuMajor) {
+        this.whoFinishItStuMajor = whoFinishItStuMajor;
+    }
+    public int getWhoFinishItStuGrade() {
+        return this.whoFinishItStuGrade;
+    }
+    public void setWhoFinishItStuGrade(int whoFinishItStuGrade) {
+        this.whoFinishItStuGrade = whoFinishItStuGrade;
+    }
+    public double getLatitude() {
+        return this.latitude;
+    }
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+    public double getLongitude() {
+        return this.longitude;
+    }
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
 
     @Override
     public int compareTo(@NonNull HelpInfo helpInfo) {
@@ -121,5 +164,4 @@ public class HelpInfo implements Comparable<HelpInfo>{
             return -1;
         }
     }
-
 }

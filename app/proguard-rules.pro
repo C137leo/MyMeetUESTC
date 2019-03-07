@@ -83,6 +83,7 @@ public static java.lang.String TABLENAME;
 }
 -dontoptimize
 -dontpreverify
+-keepattributes  EnclosingMethod,Signature
 
 -dontwarn cn.jpush.**
 -keep class cn.jpush.** { *; }
@@ -90,7 +91,19 @@ public static java.lang.String TABLENAME;
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+-dontwarn cn.jmessage.**
+-keep class cn.jmessage.**{ *; }
 
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+
+#========================gson================================
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+
+#========================protobuf================================
+-keep class com.google.protobuf.** {*;}
 #----------retrofit--------------
 #-keepclassmembernames,allowobfuscation interface * {
 #    @retrofit2.http.* <methods>;
@@ -116,6 +129,19 @@ public static java.lang.String TABLENAME;
 }
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+-keep class cn.jiguang.imui.** { *; }
+
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
 }
 
 

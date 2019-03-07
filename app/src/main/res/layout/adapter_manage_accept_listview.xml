@@ -65,7 +65,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:background="@drawable/shape_gradient_loginbutton"
+                    android:background="@drawable/finish_help_button"
                     android:id="@+id/see_the_route_help"
                     android:text="查看路线"
                     android:layout_marginTop="50dp"
@@ -78,16 +78,14 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_line"/>
-            <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
                 <com.amap.api.maps.MapView
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/accept_help_map"
-                    android:layout_width="320dp"
-                    android:layout_height="100dp"></com.amap.api.maps.MapView>
-            </RelativeLayout>
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"></com.amap.api.maps.MapView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

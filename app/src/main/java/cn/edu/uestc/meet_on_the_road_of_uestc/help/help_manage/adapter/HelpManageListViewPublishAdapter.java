@@ -17,10 +17,13 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.PublishRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
-public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.myViewHolder> {
+import static cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao.Properties.UID;
+
+public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpManageListViewPublishAdapter.MyViewHolder> {
     List<PublishRecycleViewData> publishRecycleViewData;
     private Context context;
-
+    HelpManageListViewPublishAdapter.MyViewHolder myViewHolder;
+    OnItemClickListener onItemClickListener;
     public HelpManageListViewPublishAdapter(Context context,List<PublishRecycleViewData> publishRecycleViewData){
         this.context=context;
         this.publishRecycleViewData = publishRecycleViewData;
@@ -29,29 +32,43 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
 
     @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        myViewHolder myViewHolder=new myViewHolder(LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_publish_listview,parent,false));
-        return myViewHolder;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.adapter_manage_publish_listview,parent,false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        Log.d("onBindView","onbind");
+        this.myViewHolder=holder;
+        holder.finishHelpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onClick(publishRecycleViewData.get(position).getUID());
+            }
+        });
+        holder.publishHelpLocation.setText(publishRecycleViewData.get(position).getPublishHelpLocation());
         holder.publishHelpTitle.setText(publishRecycleViewData.get(position).getPublishHelpTitle());
-        holder.publishHelpOwner.setText(publishRecycleViewData.get(position).getPublishHelpOwner());
         holder.publishHelpTime.setText(publishRecycleViewData.get(position).getPublishHelpTime());
         if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==0){
+            Log.d("status",String.valueOf(0));
             holder.publishHelpAcceptName.setText("待接受");
+            holder.publishHelpAcceptStatus.setText("待接受");
+            holder.publishHelpAcceptTime.setText("");
         }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==1){
+            Log.d("status",String.valueOf(1));
             holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
-            holder.publishHelpAcceptGrade.setText(String.valueOf(publishRecycleViewData.get(position).getPublishHelpAcceptGrade()));
-            holder.publishHelpAcceptMajor.setText(publishRecycleViewData.get(position).getPublishHelpAcceptMajor());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
             holder.publishHelpAcceptStatus.setText("正在进行帮帮");
+            holder.finishHelpButton.setText("结束帮帮");
+            holder.finishHelpButton.setClickable(true);
         }else if(publishRecycleViewData.get(position).getPublishHelpAcceptStatus()==2){
+            Log.d("status",String.valueOf(2));
             holder.publishHelpAcceptName.setText(publishRecycleViewData.get(position).getPublishHelpAcceptName());
-            holder.publishHelpAcceptGrade.setText(String.valueOf(publishRecycleViewData.get(position).getPublishHelpAcceptGrade()));
-            holder.publishHelpAcceptMajor.setText(publishRecycleViewData.get(position).getPublishHelpAcceptMajor());
+            Log.d("AcceptName",publishRecycleViewData.get(position).getPublishHelpAcceptName());
             holder.publishHelpAcceptTime.setText(publishRecycleViewData.get(position).getPublishHelpAcceptTime());
+            holder.finishHelpButton.setText("帮帮已完成");
+            holder.finishHelpButton.setClickable(false);
             holder.publishHelpAcceptStatus.setText("已完成帮帮");
         }
     }
@@ -61,30 +78,43 @@ public class HelpManageListViewPublishAdapter extends RecyclerView.Adapter<HelpM
         return publishRecycleViewData.size();
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder{
+
+    public void updateStatusToFinish(){
+        Log.d("status","updateToFinish");
+        myViewHolder.publishHelpAcceptStatus.setText("已完成帮帮");
+        myViewHolder.finishHelpButton.setText("帮帮已完成");
+        myViewHolder.finishHelpButton.setClickable(false);
+    }
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView publishHelpLocation;
         TextView publishHelpTitle;
-        TextView publishHelpOwner;
         TextView publishHelpTime;
         Button finishHelpButton;
         TextView publishHelpAcceptTime;
         CircleImageView publishHelpAcceptImage;
         TextView publishHelpAcceptName;
-        TextView publishHelpAcceptMajor;
-        TextView publishHelpAcceptGrade;
         TextView publishHelpAcceptStatus;
-        public myViewHolder(View itemView) {
+        public OnItemClickListener onItemClickListener;
+        public MyViewHolder(View itemView) {
             super(itemView);
             Log.d("getView","getView");
             publishHelpTitle=itemView.findViewById(R.id.publish_help_title);
-            publishHelpOwner=itemView.findViewById(R.id.publish_help_owner);
             publishHelpTime=itemView.findViewById(R.id.publish_help_time);
             finishHelpButton=itemView.findViewById(R.id.finish_help_button);
             publishHelpAcceptTime=itemView.findViewById(R.id.publish_help_accept_time);
             publishHelpAcceptImage=itemView.findViewById(R.id.publish_help_accept_image);
             publishHelpAcceptName=itemView.findViewById(R.id.publish_help_accept_name);
-            publishHelpAcceptMajor=itemView.findViewById(R.id.publish_help_accept_major);
-            publishHelpAcceptGrade=itemView.findViewById(R.id.publish_help_accept_grade);
             publishHelpAcceptStatus=itemView.findViewById(R.id.publish_help_accept_status);
+            publishHelpLocation=itemView.findViewById(R.id.publish_help_location);
+            publishHelpLocation.setSelected(true);
         }
     }
+    public void setOnClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener=onItemClickListener;
+    }
+    public interface OnItemClickListener{
+        void onClick(String UID);
+    }
+
 }

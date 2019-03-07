@@ -34,6 +34,7 @@ import com.amap.api.services.help.Tip;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.adapter.InputTipsListViewAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.prenster.HelpAddPrenster;
@@ -186,7 +187,9 @@ public class HelpAddActivity extends AppCompatActivity {
 
         @Override
         public void updateLocationEdittext(String location) {
-            publish_location_edittext.setText(location);
+            if(TextUtils.isEmpty(publish_location_edittext.getText())) {
+                publish_location_edittext.setText(location);
+            }
         }
 
         @Override
@@ -220,6 +223,14 @@ public class HelpAddActivity extends AppCompatActivity {
         public void addError(String errMsg) {
             addHelpProgress.setVisibility(View.GONE);
             Toast.makeText(HelpAddActivity.this,errMsg,Toast.LENGTH_SHORT).show();
+        }
+
+        /**
+         * 获取地址失败
+         */
+        @Override
+        public void getLocationError() {
+            Toast.makeText(MyApplication.getMyContext(),"获取信息失败，请检查网络",Toast.LENGTH_SHORT).show();
         }
     };
 

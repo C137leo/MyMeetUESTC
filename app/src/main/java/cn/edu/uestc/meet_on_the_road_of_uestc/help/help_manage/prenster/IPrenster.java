@@ -7,6 +7,7 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManag
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageViewpagerAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities.AcceptRecycleViewData;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageAcceptViewpagerFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.IVew;
 
 public interface IPrenster {
 
@@ -15,4 +16,6 @@ public interface IPrenster {
     void getListViewDataPublish();
     HelpManageListViewAcceptAdapter initHelpManageListViewAcceptAdapter();
     void getRecycleAcceptData();
+    void updateStatusToFinish(String UID);
+    void attchView(IVew iVew);
 }

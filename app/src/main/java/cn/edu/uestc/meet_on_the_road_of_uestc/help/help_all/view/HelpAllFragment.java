@@ -11,18 +11,21 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.MessageAllActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_add.view.HelpAddActivity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.adapter.Help_FragmentAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_all.prenster.PrensterComl;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view.HelpManageActivity;
 
-public class HelpAllFragment extends Fragment{
+public class HelpAllFragment extends Fragment implements View.OnClickListener {
 
     private List<HelpInfo> mList;
     ViewPager mViewPager;
@@ -32,6 +35,7 @@ public class HelpAllFragment extends Fragment{
     FloatingActionButton helpMyself;
     PrensterComl prensterComl=new PrensterComl(getActivity());
     Help_FragmentAdapter help_fragmentAdapter;
+    ImageView enterMessageList;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,22 +47,12 @@ public class HelpAllFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         mViewPager=getActivity().findViewById(R.id.help_viewPager);
         tabLayout=getActivity().findViewById(R.id.tabTitle);
+        enterMessageList=getActivity().findViewById(R.id.enter_message_list);
+        enterMessageList.setOnClickListener(this);
         helpAddButton=getActivity().findViewById(R.id.add_help_button);
         helpMyself=getActivity().findViewById(R.id.my_help_button);
-        helpMyself.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), HelpManageActivity.class);
-                startActivity(intent);
-            }
-        });
-        helpAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), HelpAddActivity.class);
-                startActivity(intent);
-            }
-        });
+        helpMyself.setOnClickListener(this);
+        helpAddButton.setOnClickListener(this);
         initViewPager();
     }
     private void initViewPager(){
@@ -74,6 +68,23 @@ public class HelpAllFragment extends Fragment{
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.my_help_button:
+                Intent myIntent=new Intent(getActivity(), HelpManageActivity.class);
+                startActivity(myIntent);
+                break;
+            case R.id.add_help_button:
+                Intent addIntent=new Intent(getActivity(), HelpAddActivity.class);
+                startActivity(addIntent);
+                break;
+            case R.id.enter_message_list:
+                Intent messageListIntent=new Intent(getActivity(), MessageAllActivity.class);
+                startActivity(messageListIntent);
+                break;
+        }
+    }
 
     @Override
     public void onStart() {

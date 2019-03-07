@@ -3,18 +3,17 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.navigation.adapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
 
-import java.util.HashMap;
-
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
+import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view.NavFragment;
 import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.prenster.NavPrenster;
 
 public class InfoWindowAdapter implements AMap.InfoWindowAdapter {
@@ -31,6 +30,8 @@ public class InfoWindowAdapter implements AMap.InfoWindowAdapter {
     TextView custom_info_snippet;
     View view;
     View customView;
+    Button sayHello;
+    OnSayHelloClickListener onSayHelloClickListener;
     @Override
     public View getInfoWindow(Marker marker) {
         initView();
@@ -74,5 +75,20 @@ public class InfoWindowAdapter implements AMap.InfoWindowAdapter {
         infowindow_icon=view.findViewById(R.id.infowindow_image);
         custom_info_snippet=customView.findViewById(R.id.custom_info_snippet);
         custom_info_title=customView.findViewById(R.id.custom_info_title);
+        sayHello=view.findViewById(R.id.say_hello);
+        sayHello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSayHelloClickListener.onClick(stuInfo.getStuID());
+            }
+        });
+    }
+
+    public interface OnSayHelloClickListener{
+        void onClick(String stuID);
+    }
+
+    public void setOnSayHelloClickListener(OnSayHelloClickListener onSayHelloClickListener){
+        this.onSayHelloClickListener=onSayHelloClickListener;
     }
 }

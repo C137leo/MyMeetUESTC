@@ -1,21 +1,27 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import com.amap.api.maps.MapView;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.chat.view.ChatActivity;
+import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewAcceptAdapter;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.prenster.HelpManagePrenster;
 
 public class HelpManageAcceptViewpagerFragment extends Fragment {
@@ -23,8 +29,9 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
     MapView mapView;
     HelpManagePrenster helpManagePrenster=new HelpManagePrenster(MyApplication.getMyContext());
     RecyclerView acceptRecycleView;
-
-
+    HelpManageListViewAcceptAdapter helpManageListViewAcceptAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Button seeTheRoute;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -34,36 +41,65 @@ public class HelpManageAcceptViewpagerFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d("onActivityCreated","onActivityCreated");
+        helpManagePrenster.attchView(iVew);
         super.onActivityCreated(savedInstanceState);
-        acceptRecycleView=getActivity().findViewById(R.id.help_accept_recycleview);
-        acceptRecycleView.setAdapter(helpManagePrenster.initHelpManageListViewAcceptAdapter());
+        swipeRefreshLayout=view.findViewById(R.id.help_accept_swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                helpManagePrenster.getRecycleAcceptData();
+            }
+        });
+        acceptRecycleView=view.findViewById(R.id.help_accept_recycleview);
+        seeTheRoute=getActivity().findViewById(R.id.see_the_route_help);
+        helpManageListViewAcceptAdapter=helpManagePrenster.initHelpManageListViewAcceptAdapter();
+        helpManageListViewAcceptAdapter.setOnClickListener(new HelpManageListViewAcceptAdapter.OnImageviewClickListener() {
+            @Override
+            public void onClick(String userID) {
+                Intent intent=new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("StuID",userID);
+                startActivity(intent);
+            }
+        });
         acceptRecycleView.setLayoutManager(new LinearLayoutManager(MyApplication.getMyContext()));
-        mapView=getActivity().findViewById(R.id.accept_help_map);
-        mapView.onCreate(savedInstanceState);
+        acceptRecycleView.setAdapter(helpManageListViewAcceptAdapter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //在activity执行onDestroy时执行mapView.onDestroy()，销毁地图
-        mapView.onDestroy();
     }
     @Override
     public void onResume() {
         super.onResume();
-        //在activity执行onResume时执行mapView.onResume ()，重新绘制加载地图
-        mapView.onResume();
     }
     @Override
     public void onPause() {
         super.onPause();
-        //在activity执行onPause时执行mapView.onPause ()，暂停地图的绘制
-        mapView.onPause();
     }
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //在activity执行onSaveInstanceState时执行mapView.onSaveInstanceState (outState)，保存地图当前的状态
-        mapView.onSaveInstanceState(outState);
     }
+
+    IVew iVew=new IVew() {
+        @Override
+        public void updateStatusToSuccess() {
+
+        }
+
+        @Override
+        public void dismissSwipeRefrshLayout() {
+            swipeRefreshLayout.setRefreshing(false);
+            if(helpManageListViewAcceptAdapter!=null) {
+                helpManageListViewAcceptAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public void updateStatusFailed(String errMsg) {
+
+        }
+    };
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/appointment_accept"
+            android:gravity="center"
+            android:background="@drawable/finish_help_button"
+            android:textSize="20sp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="我接受的"/>
+        <TextView
+            android:gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/appointment_publish"
+            android:textSize="20sp"
+            android:layout_marginStart="40dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="我发布的"/>
+    </LinearLayout>
+</RelativeLayout>

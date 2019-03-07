@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!--用于写入缓存数据到扩展存储卡-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--用于申请调用A-GPS模块-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!--用于申请获取蓝牙信息进行室内定位-->
@@ -47,7 +48,7 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".login.view.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.RunningActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".navigation.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".navigation.view.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivityPathItem" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
@@ -57,6 +58,12 @@
         <activity android:name=".login.register.view.RegisterActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".me.piiEdit.view.PiiEditActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_manage.view.HelpManageActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".chat.view.ChatActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".chat.view.MessageAllActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".chat.view.ImageBrowserActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".chat.view.VideoViewActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".appointment.appointmentAdd.view.AppointmentAddActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".appointment.appointmentMe.view.AppointmentMe" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data android:name="com.amap.api.v2.apikey" android:value="7be6fe20eb1ca175c1ef16590e700a5e"/>
 
         <!-- 相机共享目录 -->

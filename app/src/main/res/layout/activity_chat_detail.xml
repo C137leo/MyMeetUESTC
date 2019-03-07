@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/silver"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/white"
+        android:id="@+id/chat_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@mipmap/ic_back">
+    </android.support.v7.widget.Toolbar>
+    <cn.jiguang.imui.messages.MessageList
+        android:layout_weight="1"
+        android:id="@+id/msg_list"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        app:avatarHeight="48dp"
+        app:avatarWidth="48dp"
+        app:showReceiverDisplayName="true"
+        app:showSenderDisplayName="false"
+        app:avatarRadius="5dp"
+        app:bubbleMaxWidth="0.70"
+        app:dateTextSize="14sp"
+        app:receiveBubblePaddingLeft="16dp"
+        app:receiveBubblePaddingRight="8dp"
+        app:receiveTextColor="#ffffff"
+        app:receiveTextSize="14sp"
+        app:sendBubblePaddingLeft="8dp"
+        app:sendBubblePaddingRight="16dp"
+        app:sendTextColor="#7587A8"
+        app:sendTextSize="14sp" ></cn.jiguang.imui.messages.MessageList>
+
+    <cn.jiguang.imui.chatinput.ChatInputView
+        android:id="@+id/chat_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cameraBtnIcon="@drawable/aurora_menuitem_camera"
+        app:inputCursorDrawable="@drawable/aurora_edittext_cursor_bg"
+        app:inputEditTextBg="@drawable/aurora_edittext_bg"
+        app:photoBtnIcon="@drawable/aurora_menuitem_photo"
+        app:sendBtnIcon="@drawable/aurora_menuitem_send"
+        app:voiceBtnIcon="@drawable/aurora_menuitem_mic" />
+</LinearLayout>

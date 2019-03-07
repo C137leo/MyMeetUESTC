@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.entities;
 
 public class PublishRecycleViewData {
+    String UID;
     String publishHelpTitle;
     String publishHelpOwner;
     String publishHelpTime;
@@ -10,8 +11,10 @@ public class PublishRecycleViewData {
     String publishHelpAcceptMajor;
     int publishHelpAcceptGrade;
     int publishHelpAcceptStatus;
+    String publishHelpLocation;
 
-    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus) {
+    public PublishRecycleViewData(String UID, String publishHelpTitle, String publishHelpOwner, String publishHelpTime, String publishHelpAcceptTime, String imagePath, String publishHelpAcceptName, String publishHelpAcceptMajor, int publishHelpAcceptGrade, int publishHelpAcceptStatus, String publishHelpLocation) {
+        this.UID = UID;
         this.publishHelpTitle = publishHelpTitle;
         this.publishHelpOwner = publishHelpOwner;
         this.publishHelpTime = publishHelpTime;
@@ -21,13 +24,15 @@ public class PublishRecycleViewData {
         this.publishHelpAcceptMajor = publishHelpAcceptMajor;
         this.publishHelpAcceptGrade = publishHelpAcceptGrade;
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+        this.publishHelpLocation = publishHelpLocation;
     }
 
-    public PublishRecycleViewData(String publishHelpTitle, String publishHelpOwner, String publishHelpTime, int publishHelpAcceptStatus) {
-        this.publishHelpTitle = publishHelpTitle;
-        this.publishHelpOwner = publishHelpOwner;
-        this.publishHelpTime = publishHelpTime;
-        this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getPublishHelpTitle() {
@@ -100,5 +105,13 @@ public class PublishRecycleViewData {
 
     public void setPublishHelpAcceptStatus(int publishHelpAcceptStatus) {
         this.publishHelpAcceptStatus = publishHelpAcceptStatus;
+    }
+
+    public String getPublishHelpLocation() {
+        return publishHelpLocation;
+    }
+
+    public void setPublishHelpLocation(String publishHelpLocation) {
+        this.publishHelpLocation = publishHelpLocation;
     }
 }
