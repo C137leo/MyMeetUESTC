@@ -8,13 +8,13 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.HelpInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.traceInfo;
 
-import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.AppointmentInfoDao;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.HelpInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.StuInfoDao;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.traceInfoDao;
 
@@ -27,13 +27,13 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.traceInfoDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
-    private final DaoConfig helpInfoDaoConfig;
     private final DaoConfig appointmentInfoDaoConfig;
+    private final DaoConfig helpInfoDaoConfig;
     private final DaoConfig stuInfoDaoConfig;
     private final DaoConfig traceInfoDaoConfig;
 
-    private final HelpInfoDao helpInfoDao;
     private final AppointmentInfoDao appointmentInfoDao;
+    private final HelpInfoDao helpInfoDao;
     private final StuInfoDao stuInfoDao;
     private final traceInfoDao traceInfoDao;
 
@@ -41,11 +41,11 @@ public class DaoSession extends AbstractDaoSession {
             daoConfigMap) {
         super(db);
 
-        helpInfoDaoConfig = daoConfigMap.get(HelpInfoDao.class).clone();
-        helpInfoDaoConfig.initIdentityScope(type);
-
         appointmentInfoDaoConfig = daoConfigMap.get(AppointmentInfoDao.class).clone();
         appointmentInfoDaoConfig.initIdentityScope(type);
+
+        helpInfoDaoConfig = daoConfigMap.get(HelpInfoDao.class).clone();
+        helpInfoDaoConfig.initIdentityScope(type);
 
         stuInfoDaoConfig = daoConfigMap.get(StuInfoDao.class).clone();
         stuInfoDaoConfig.initIdentityScope(type);
@@ -53,30 +53,30 @@ public class DaoSession extends AbstractDaoSession {
         traceInfoDaoConfig = daoConfigMap.get(traceInfoDao.class).clone();
         traceInfoDaoConfig.initIdentityScope(type);
 
-        helpInfoDao = new HelpInfoDao(helpInfoDaoConfig, this);
         appointmentInfoDao = new AppointmentInfoDao(appointmentInfoDaoConfig, this);
+        helpInfoDao = new HelpInfoDao(helpInfoDaoConfig, this);
         stuInfoDao = new StuInfoDao(stuInfoDaoConfig, this);
         traceInfoDao = new traceInfoDao(traceInfoDaoConfig, this);
 
-        registerDao(HelpInfo.class, helpInfoDao);
         registerDao(AppointmentInfo.class, appointmentInfoDao);
+        registerDao(HelpInfo.class, helpInfoDao);
         registerDao(StuInfo.class, stuInfoDao);
         registerDao(traceInfo.class, traceInfoDao);
     }
     
     public void clear() {
-        helpInfoDaoConfig.clearIdentityScope();
         appointmentInfoDaoConfig.clearIdentityScope();
+        helpInfoDaoConfig.clearIdentityScope();
         stuInfoDaoConfig.clearIdentityScope();
         traceInfoDaoConfig.clearIdentityScope();
     }
 
-    public HelpInfoDao getHelpInfoDao() {
-        return helpInfoDao;
-    }
-
     public AppointmentInfoDao getAppointmentInfoDao() {
         return appointmentInfoDao;
+    }
+
+    public HelpInfoDao getHelpInfoDao() {
+        return helpInfoDao;
     }
 
     public StuInfoDao getStuInfoDao() {
