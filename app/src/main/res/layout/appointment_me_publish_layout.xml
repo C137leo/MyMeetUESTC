@@ -36,7 +36,7 @@
                     android:textSize="10sp"
                     android:layout_gravity="center"
                     android:text="这是约吧的地点"
-                    android:id="@+id/appointment_location"
+                    android:id="@+id/appointment_me_publish_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="这是约吧现在的人数"
-                    android:id="@+id/appointment_people_publish_num"
+                    android:id="@+id/appointment_me_publish_num"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                     android:textSize="10sp"
                     android:text="/"/>
                 <TextView
-                    android:id="@+id/appointment_people_set_num"
+                    android:id="@+id/appointment_me_publish_set_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="这是想要的人数"
@@ -252,6 +252,7 @@
             </LinearLayout>
         </LinearLayout>
         <Button
+            android:id="@+id/appointment_me_publish_start_chat"
             android:layout_marginTop="100dp"
             android:layout_marginStart="200dp"
             android:layout_width="wrap_content"
