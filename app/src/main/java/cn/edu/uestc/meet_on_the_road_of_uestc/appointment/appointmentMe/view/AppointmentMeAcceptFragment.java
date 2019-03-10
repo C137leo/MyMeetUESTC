@@ -24,7 +24,7 @@ public class AppointmentMeAcceptFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        appointmentMeRecyclerView=getActivity().findViewById(R.id.appointment_me_accept_recycler_view);
+        appointmentMeRecyclerView=getActivity().findViewById(R.id.appointment_me_accept_recycler_view);
     }
 
 

@@ -27,6 +27,6 @@ public class AppointmentMePublishFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        appointmentPublishRecyclerView=getActivity().findViewById(R.id.appointment_me_publish_recycler_view);
+        appointmentPublishRecyclerView=getActivity().findViewById(R.id.appointment_me_publish_recycler_view);
     }
 }

@@ -11,10 +11,17 @@ public class AppointmentMeRecyclerViewAdapter {
 
 
 
-    class AppointmentMeRecyclerViewHolder extends RecyclerView.ViewHolder{
-        public AppointmentMeRecyclerViewHolder(View itemView) {
+    class AppointmentMeAcceptRecyclerViewHolder extends RecyclerView.ViewHolder{
+        public AppointmentMeAcceptRecyclerViewHolder(View itemView) {
             super(itemView);
         }
 
     }
+
+    class AppointmentMePublishRecyclerViewHolder extends RecyclerView.ViewHolder{
+        public AppointmentMePublishRecyclerViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
 }
