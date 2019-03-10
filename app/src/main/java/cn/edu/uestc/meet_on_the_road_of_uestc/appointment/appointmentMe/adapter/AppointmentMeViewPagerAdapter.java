@@ -26,4 +26,5 @@ public class AppointmentMeViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return appointmentMeFragment.size();
     }
+
 }

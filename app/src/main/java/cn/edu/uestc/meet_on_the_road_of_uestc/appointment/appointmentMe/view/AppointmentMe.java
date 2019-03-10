@@ -40,11 +40,12 @@ public class AppointmentMe extends AppCompatActivity implements ViewPager.OnPage
         appointmentMeTitle.initAppointmentMeTitleClick(new AppointmentMeTitle.AppointmentMeTitleListener() {
             @Override
             public void appointmentAcceptClick() {
-
+                appointmentMeViewPager.setCurrentItem(0);
             }
 
             @Override
             public void appointmentPublishClick() {
+                appointmentMeViewPager.setCurrentItem(1);
 
             }
         });
