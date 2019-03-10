@@ -51,6 +51,7 @@
         <activity android:name=".navigation.view.SetGoalActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivityPathItem" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".choosepath.activity.ChoosePathActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".choosepath.activity.NaviActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.FinishRunActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".navigation.run_activity.BeforeRunCalculate" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".help.help_details.view.HelpDetailActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
