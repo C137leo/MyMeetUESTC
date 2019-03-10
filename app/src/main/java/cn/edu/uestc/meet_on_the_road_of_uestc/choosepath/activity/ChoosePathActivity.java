@@ -1,54 +1,31 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity;
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
+        import android.graphics.Color;
+        import android.os.Bundle;
+        import android.support.v7.app.AppCompatActivity;
+        import android.util.Log;
+        import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.Polyline;
-import com.amap.api.maps.model.PolylineOptions;
-import com.amap.api.navi.AMapNavi;
-import com.amap.api.navi.AMapNaviListener;
-import com.amap.api.navi.AMapNaviViewListener;
-import com.amap.api.navi.AmapNaviPage;
-import com.amap.api.navi.AmapNaviParams;
-import com.amap.api.navi.enums.NaviType;
-import com.amap.api.navi.model.AMapCalcRouteResult;
-import com.amap.api.navi.model.AMapLaneInfo;
-import com.amap.api.navi.model.AMapModelCross;
-import com.amap.api.navi.model.AMapNaviCameraInfo;
-import com.amap.api.navi.model.AMapNaviCross;
-import com.amap.api.navi.model.AMapNaviInfo;
-import com.amap.api.navi.model.AMapNaviLocation;
-import com.amap.api.navi.model.AMapNaviRouteNotifyData;
-import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
-import com.amap.api.navi.model.AMapServiceAreaInfo;
-import com.amap.api.navi.model.AimLessModeCongestionInfo;
-import com.amap.api.navi.model.AimLessModeStat;
-import com.amap.api.navi.model.NaviInfo;
-import com.amap.api.navi.model.NaviLatLng;
-import com.autonavi.tbt.TrafficFacilityInfo;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.view.NavFragment;
-public class ChoosePathActivity  extends AppCompatActivity implements LocationSource,AMapLocationListener {
+        import com.amap.api.location.AMapLocation;
+        import com.amap.api.location.AMapLocationClient;
+        import com.amap.api.location.AMapLocationClientOption;
+        import com.amap.api.location.AMapLocationListener;
+        import com.amap.api.maps.AMap;
+        import com.amap.api.maps.CameraUpdateFactory;
+        import com.amap.api.maps.LocationSource;
+        import com.amap.api.maps.MapView;
+        import com.amap.api.maps.UiSettings;
+        import com.amap.api.maps.model.LatLng;
+        import com.amap.api.maps.model.Polyline;
+        import com.amap.api.maps.model.PolylineOptions;
+        import java.text.SimpleDateFormat;
+        import java.util.ArrayList;
+        import java.util.Date;
+        import java.util.List;
+        import java.util.Random;
+        import cn.edu.uestc.meet_on_the_road_of_uestc.navigation.NavFragment;
+        import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+public class ChoosePathActivity  extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
     //AMap是地图对象
     private AMap aMap;
@@ -62,7 +39,6 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
     NavFragment navFragment;
-    //获取AMapNavi实例
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +62,7 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
         location();
         //开始设置路线
         setRoute();
+
     }
 
     private void location() {
@@ -112,11 +89,8 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
         //启动定位
         mLocationClient.startLocation();
     }
-    //设置导航
 
-
-
-    private void setRoute(){
+    public void setRoute(){
         List<LatLng> latLngs = new ArrayList<LatLng>();
         latLngs.add(new LatLng(30.75533739247437,103.93463802298358));
         latLngs.add(new LatLng(30.755226753366486,103.93298149043406));
@@ -229,6 +203,4 @@ public class ChoosePathActivity  extends AppCompatActivity implements LocationSo
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
-
 }

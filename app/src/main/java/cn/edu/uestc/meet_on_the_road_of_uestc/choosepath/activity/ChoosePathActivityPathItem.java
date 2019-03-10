@@ -32,7 +32,7 @@ public class ChoosePathActivityPathItem  extends AppCompatActivity  {
         choosePathAdapter.imageViewSetOnclick(new ChoosePathAdapter.ImageViewInterface() {
             @Override
             public void onclick(View view, int position) {
-                Intent intent=new Intent(ChoosePathActivityPathItem.this,NaviActivity.class);
+                Intent intent=new Intent(ChoosePathActivityPathItem.this,ChoosePathActivity.class);
                 startActivity(intent);
             }
         });
