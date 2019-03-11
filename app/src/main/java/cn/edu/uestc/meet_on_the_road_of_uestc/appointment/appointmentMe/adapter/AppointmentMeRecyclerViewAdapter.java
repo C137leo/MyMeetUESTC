@@ -1,19 +1,56 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
 
-public class AppointmentMeRecyclerViewAdapter {
+public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
+    List<AppointmentInfo> appointmentInfoList;
+    int APPOINTMENT_ACCEPT=0;
+    int APPOINTMENT_PUBLISH=1;
+    int type;
+    public AppointmentMeRecyclerViewAdapter(List<AppointmentInfo> appointmentInfoList,int type) {
+        this.appointmentInfoList = appointmentInfoList;
+        this.type=type;
+    }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return appointmentInfoList.size();
+    }
 
     class AppointmentMeAcceptRecyclerViewHolder extends RecyclerView.ViewHolder{
         TextView appointmentMeAcceptType;
