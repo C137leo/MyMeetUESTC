@@ -98,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout1"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -117,6 +118,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout2"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -136,6 +138,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout3"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -155,6 +158,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout4"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -174,6 +178,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout5"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -193,6 +198,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout6"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -212,6 +218,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout7"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -231,6 +238,7 @@
                         android:text="用户"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/appointment_me_accept_linearLayout8"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"

@@ -1,7 +1,9 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.adapter;
 
+import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.layout.CircleImageView;
@@ -21,6 +24,9 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     int APPOINTMENT_ACCEPT=0;
     int APPOINTMENT_PUBLISH=1;
     int type;
+    View view;
+    AppointmentMeAcceptRecyclerViewHolder appointmentMeAcceptRecyclerViewHolder;
+    AppointmentMePublishRecyclerViewHolder appointmentMePublishRecyclerViewHolder;
     public AppointmentMeRecyclerViewAdapter(List<AppointmentInfo> appointmentInfoList,int type) {
         this.appointmentInfoList = appointmentInfoList;
         this.type=type;
@@ -39,12 +45,606 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(type==0){
+            view= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.appointment_me_accept_layout,parent,false);
+            appointmentMeAcceptRecyclerViewHolder=new AppointmentMeAcceptRecyclerViewHolder(view);
+        }else if(type==1){
+            view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.appointment_me_publish_layout,parent,false);
+            appointmentMePublishRecyclerViewHolder=new AppointmentMePublishRecyclerViewHolder(view);
+        }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        AppointmentMeAcceptRecyclerViewHolder acceptHolder = null;
+        AppointmentMePublishRecyclerViewHolder publishHolder = null;
+        if(type==0){
+            acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
+        }else if(type==1){
+            publishHolder=(AppointmentMePublishRecyclerViewHolder) holder;
+        }
+        if(type==0){
+            switch (appointmentInfoList.get(position).getAppointmentNum()) {
+                case 1:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                    }
+                    break;
+                case 2:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                    }
+                    break;
+                case 3:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                    }
+                    break;
+                case 4:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                    }
+                    break;
+                case 5:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                    }
+                    break;
+                case 6:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.GONE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                    }
+                    break;
+                case 7:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                        case 7:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            break;
+                    }
+                    break;
+                case 8:
+                    acceptHolder.appointmentMeAcceptLayout1.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout2.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout3.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout4.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout5.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout6.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout7.setVisibility(View.VISIBLE);
+                    acceptHolder.appointmentMeAcceptLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                        case 7:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            break;
+                        case 8:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            acceptHolder.appointmentMeAcceptNickname8.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(7).getNickName());
+                            break;
+                    }break;
+            }
+        }else if(type==1){
+            switch (appointmentInfoList.get(position).getAppointmentNum()) {
+                case 1:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            acceptHolder.appointmentMeAcceptNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                    }
+                    break;
+                case 2:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                    }
+                    break;
+                case 3:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                    }
+                    break;
+                case 4:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                    }
+                    break;
+                case 5:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                    }
+                    break;
+                case 6:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.GONE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                    }
+                    break;
+                case 7:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                        case 7:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            publishHolder.appointmentMePublishNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            break;
+                    }
+                    break;
+                case 8:
+                    publishHolder.appointmentMePublishLayout1.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout2.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout3.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout4.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout5.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout6.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout7.setVisibility(View.VISIBLE);
+                    publishHolder.appointmentMePublishLayout8.setVisibility(View.GONE);
+                    switch (appointmentInfoList.get(position).getAppointmentStuInfoList().size()) {
+                        case 1:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            break;
+                        case 2:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            break;
+                        case 3:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            break;
+                        case 4:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            break;
+                        case 5:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            break;
+                        case 6:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            break;
+                        case 7:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            publishHolder.appointmentMePublishNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            break;
+                        case 8:
+                            publishHolder.appointmentMePublishNickname1.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(0).getNickName());
+                            publishHolder.appointmentMePublishNickname2.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(1).getNickName());
+                            publishHolder.appointmentMePublishNickname3.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(2).getNickName());
+                            publishHolder.appointmentMePublishNickname4.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(3).getNickName());
+                            publishHolder.appointmentMePublishNickname5.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(4).getNickName());
+                            publishHolder.appointmentMePublishNickname6.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(5).getNickName());
+                            publishHolder.appointmentMePublishNickname7.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(6).getNickName());
+                            publishHolder.appointmentMePublishNickname8.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().get(7).getNickName());
+                            break;
+                    }break;
+            }
+        }
     }
 
     @Override
