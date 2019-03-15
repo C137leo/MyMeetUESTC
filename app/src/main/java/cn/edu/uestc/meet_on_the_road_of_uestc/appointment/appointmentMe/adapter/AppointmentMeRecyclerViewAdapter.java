@@ -61,8 +61,20 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         AppointmentMePublishRecyclerViewHolder publishHolder = null;
         if(type==0){
             acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
+            acceptHolder.appointmentMeAcceptType.setText(appointmentInfoList.get(position).getAppointmentType());
+            acceptHolder.appointmentMeAcceptTime.setText(appointmentInfoList.get(position).getAppointmentTime());
+            acceptHolder.appointmentMeAcceptDetail.setText(appointmentInfoList.get(position).getAppointmentTitle());
+            acceptHolder.appointmentMeAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
+            acceptHolder.appointmentMeAcceptSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+            acceptHolder.appointmentMeAcceptLocation.setText(appointmentInfoList.get(position).getLocation());
         }else if(type==1){
             publishHolder=(AppointmentMePublishRecyclerViewHolder) holder;
+            publishHolder.appointmentMePublishType.setText(appointmentInfoList.get(position).getAppointmentType());
+            publishHolder.appointmentMePublishTime.setText(appointmentInfoList.get(position).getAppointmentTime());
+            publishHolder.appointmentMePublishDetail.setText(appointmentInfoList.get(position).getAppointmentTitle());
+            publishHolder.appointmentMePublishNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
+            publishHolder.appointmentMePublishSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+            publishHolder.appointmentMePublishLocation.setText(appointmentInfoList.get(position).getLocation());
         }
         if(type==0){
             switch (appointmentInfoList.get(position).getAppointmentNum()) {
