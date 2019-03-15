@@ -45,7 +45,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
                 joinAppointmentButtonClickListener.joinAppointmentButtonClickListener();
             }
         });
-        holder.appointmentTitle.setText(appointmentInfoList.get(position).getAppointmentTitle());
+        holder.appointmentTitle.setText(appointmentInfoList.get(position).getAppointmentT());
         holder.appointmentTime.setText(appointmentInfoList.get(position).getAppointmentTime());
         holder.appointmentPeopleAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
         holder.appointmentPeopleSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());

@@ -15,8 +15,8 @@ public class AppointmentInfo {
     @Id(autoincrement = false)
     String appointmentUID;
     @Property
-    String appointmentTitle;
     String publishTime;
+    String appointmentT;
     String whoPublish;
     String whoPublishStuID;
     int whoPublishStuGrade;
@@ -32,17 +32,17 @@ public class AppointmentInfo {
     int appointmentStatus; //0:正在进行 1:已完成 3:删除
     @Convert(converter = StuInfoListConverter.class,columnType = String.class)
     List<StuInfo> appointmentStuInfoList; //参与学生的数组
-    @Generated(hash = 1710594240)
-    public AppointmentInfo(String appointmentUID, String appointmentTitle,
-            String publishTime, String whoPublish, String whoPublishStuID,
+    @Generated(hash = 2013591996)
+    public AppointmentInfo(String appointmentUID, String publishTime,
+            String appointmentT, String whoPublish, String whoPublishStuID,
             int whoPublishStuGrade, String whoPublishStuMajor, String location,
             String appointmentDate, String appointmentTime,
             double appointmentLatitude, double appointmentLongtitude,
             int appointmentNum, int appointmentType, String appointmentTypeText,
             int appointmentStatus, List<StuInfo> appointmentStuInfoList) {
         this.appointmentUID = appointmentUID;
-        this.appointmentTitle = appointmentTitle;
         this.publishTime = publishTime;
+        this.appointmentT = appointmentT;
         this.whoPublish = whoPublish;
         this.whoPublishStuID = whoPublishStuID;
         this.whoPublishStuGrade = whoPublishStuGrade;
@@ -72,6 +72,12 @@ public class AppointmentInfo {
     }
     public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
+    }
+    public String getAppointmentT() {
+        return this.appointmentT;
+    }
+    public void setAppointmentT(String appointmentT) {
+        this.appointmentT = appointmentT;
     }
     public String getWhoPublish() {
         return this.whoPublish;
@@ -103,17 +109,17 @@ public class AppointmentInfo {
     public void setLocation(String location) {
         this.location = location;
     }
+    public String getAppointmentDate() {
+        return this.appointmentDate;
+    }
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
     public String getAppointmentTime() {
         return this.appointmentTime;
     }
     public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
-    }
-    public int getAppointmentNum() {
-        return this.appointmentNum;
-    }
-    public void setAppointmentNum(int appointmentNum) {
-        this.appointmentNum = appointmentNum;
     }
     public double getAppointmentLatitude() {
         return this.appointmentLatitude;
@@ -127,11 +133,11 @@ public class AppointmentInfo {
     public void setAppointmentLongtitude(double appointmentLongtitude) {
         this.appointmentLongtitude = appointmentLongtitude;
     }
-    public String getAppointmentTitle() {
-        return this.appointmentTitle;
+    public int getAppointmentNum() {
+        return this.appointmentNum;
     }
-    public void setAppointmentTitle(String appointmentTitle) {
-        this.appointmentTitle = appointmentTitle;
+    public void setAppointmentNum(int appointmentNum) {
+        this.appointmentNum = appointmentNum;
     }
     public int getAppointmentType() {
         return this.appointmentType;
@@ -156,12 +162,6 @@ public class AppointmentInfo {
     }
     public void setAppointmentStuInfoList(List<StuInfo> appointmentStuInfoList) {
         this.appointmentStuInfoList = appointmentStuInfoList;
-    }
-    public String getAppointmentDate() {
-        return this.appointmentDate;
-    }
-    public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;
     }
 
 

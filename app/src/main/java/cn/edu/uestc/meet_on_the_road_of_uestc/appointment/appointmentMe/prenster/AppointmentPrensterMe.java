@@ -1,5 +1,6 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.prenster;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -11,6 +12,9 @@ import com.google.gson.JsonParser;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,7 +26,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.StuInfo;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,8 +47,15 @@ public class AppointmentPrensterMe implements IPrenster{
     Gson gson;
     JsonArray appointmentInfoJsonArray;
     EventBus eventBus;
-    public AppointmentPrensterMe(Context context) {
+    Date date=new Date();
+    int type; //0:Accept,1:Publish
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    public AppointmentPrensterMe(Context context,int type) {
         this.context = context;
+        this.type=type;
     }
 
     @Override
@@ -55,7 +65,8 @@ public class AppointmentPrensterMe implements IPrenster{
 
     @Override
     public List<AppointmentInfo> getAppointmentAcceptData() {
-        for(AppointmentInfo appointmentInfo:daoSession.getAppointmentInfoDao().loadAll()){
+        List<AppointmentInfo> appointmentInfos=daoSession.getAppointmentInfoDao().loadAll();
+        for(AppointmentInfo appointmentInfo:appointmentInfos){
             for (StuInfo stuInfo:appointmentInfo.getAppointmentStuInfoList()){
                 if(TextUtils.equals(stuInfo.getStuID(),daoSession.getStuInfoDao().loadAll().get(0).getStuID()));
                 {
@@ -64,12 +75,14 @@ public class AppointmentPrensterMe implements IPrenster{
                 }
             }
         }
+        iVew.setAppointmentMeAccept(appointmentAcceptData);
         return appointmentAcceptData;
     }
 
     @Override
     public List<AppointmentInfo> getAppointmentPublishData() {
         appointmentPublishData=daoSession.queryBuilder(AppointmentInfo.class).where(AppointmentInfoDao.Properties.WhoPublish.eq(daoSession.getStuInfoDao().loadAll().get(0).getStuName())).list();
+        iVew.setAppointmentMePublish(appointmentPublishData);
         return appointmentPublishData;
     }
 
@@ -79,8 +92,8 @@ public class AppointmentPrensterMe implements IPrenster{
         if(loadAllAppointmentInfo==null){
             loadAllAppointmentInfo= RetrofitHelper.getInstance().getRetrofitService().getAllAppointmentData();
         }
-        loadAllAppointmentInfo.observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+        loadAllAppointmentInfo.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -98,6 +111,10 @@ public class AppointmentPrensterMe implements IPrenster{
                             AppointmentInfo appointmentInfo=gson.fromJson(jsonElement,AppointmentInfo.class);
                             appointmentAllList.add(appointmentInfo);
                         }
+                        AppointmentInfo tmep=new AppointmentInfo("testUID","测试约吧",timeFormat.format(date),daoSession.getStuInfoDao().loadAll().get(0).getNickName(),daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
+                                daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(),daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
+                                "电子科大图书馆",dateFormat.format(date),timeFormat.format(date),0,0,2,1,"",0,new ArrayList<StuInfo>());
+                        appointmentAllList.add(tmep);
                         appointmentMeModel.addAppointmentInfo(appointmentAllList);
                     }
 
@@ -105,12 +122,20 @@ public class AppointmentPrensterMe implements IPrenster{
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         iVew.updateError("网络错误");
+                        if(type==0) {
+                            getAppointmentAcceptData();
+                        }else if(type==1) {
+                            getAppointmentPublishData();
+                        }
                     }
 
                     @Override
                     public void onComplete() {
-                        getAppointmentAcceptData();
-                        getAppointmentPublishData();
+                        if(type==0) {
+                            getAppointmentAcceptData();
+                        }else if(type==1) {
+                            getAppointmentPublishData();
+                        }
                         iVew.hideRefreshing();
                     }
                 });

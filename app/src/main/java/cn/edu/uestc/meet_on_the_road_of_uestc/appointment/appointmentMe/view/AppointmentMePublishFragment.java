@@ -26,10 +26,10 @@ public class AppointmentMePublishFragment extends Fragment {
     RecyclerView appointmentPublishRecyclerView;
     View view;
     List<AppointmentInfo> appointmentMeAcceptInfos=new ArrayList<>();
-    AppointmentMeRecyclerViewAdapter appointmentMeRecyclerViewAdapter=new AppointmentMeRecyclerViewAdapter(appointmentMeAcceptInfos,1);
+    AppointmentMeRecyclerViewAdapter appointmentMeRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
     SwipeRefreshLayout appointmentMePublishRefresh;
-    AppointmentPrensterMe appointmentPrensterMe=new AppointmentPrensterMe(MyApplication.getMyContext());
+    AppointmentPrensterMe appointmentPrensterMe=new AppointmentPrensterMe(MyApplication.getMyContext(),1);
     public AppointmentMePublishFragment() {
     }
 
@@ -43,6 +43,7 @@ public class AppointmentMePublishFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        appointmentMeRecyclerViewAdapter=new AppointmentMeRecyclerViewAdapter(appointmentMeAcceptInfos,1);
         appointmentPublishRecyclerView=getActivity().findViewById(R.id.appointment_me_publish_recycler_view);
         appointmentMePublishRefresh=getActivity().findViewById(R.id.appointment_me_publish_swipe_refresh);
         appointmentPrensterMe.attchView(iVew);
@@ -61,13 +62,13 @@ public class AppointmentMePublishFragment extends Fragment {
     }
     IVew iVew=new IVew() {
         @Override
-        public void setAppointmentMeAccept() {
+        public void setAppointmentMeAccept(List<AppointmentInfo> appointmentMeAccept) {
 
         }
 
         @Override
-        public void setAppointmentMePublish() {
-            appointmentMeRecyclerViewAdapter.updateAllData(appointmentMeAcceptInfos);
+        public void setAppointmentMePublish(List<AppointmentInfo> appointmentMePublish) {
+            appointmentMeRecyclerViewAdapter.updateAllData(appointmentMePublish);
         }
 
         @Override
@@ -77,7 +78,8 @@ public class AppointmentMePublishFragment extends Fragment {
 
         @Override
         public void updateError(String errMsg) {
-            Toast.makeText(MyApplication.getMyContext(),errMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),errMsg, Toast.LENGTH_SHORT).show();
+            hideRefreshing();
         }
     };
 }

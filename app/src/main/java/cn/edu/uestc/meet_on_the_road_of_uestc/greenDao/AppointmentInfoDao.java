@@ -28,8 +28,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
      */
     public static class Properties {
         public final static Property AppointmentUID = new Property(0, String.class, "appointmentUID", true, "APPOINTMENT_UID");
-        public final static Property AppointmentTitle = new Property(1, String.class, "appointmentTitle", false, "APPOINTMENT_TITLE");
-        public final static Property PublishTime = new Property(2, String.class, "publishTime", false, "PUBLISH_TIME");
+        public final static Property PublishTime = new Property(1, String.class, "publishTime", false, "PUBLISH_TIME");
+        public final static Property AppointmentT = new Property(2, String.class, "appointmentT", false, "APPOINTMENT_T");
         public final static Property WhoPublish = new Property(3, String.class, "whoPublish", false, "WHO_PUBLISH");
         public final static Property WhoPublishStuID = new Property(4, String.class, "whoPublishStuID", false, "WHO_PUBLISH_STU_ID");
         public final static Property WhoPublishStuGrade = new Property(5, int.class, "whoPublishStuGrade", false, "WHO_PUBLISH_STU_GRADE");
@@ -61,8 +61,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"APPOINTMENT_INFO\" (" + //
                 "\"APPOINTMENT_UID\" TEXT PRIMARY KEY NOT NULL ," + // 0: appointmentUID
-                "\"APPOINTMENT_TITLE\" TEXT," + // 1: appointmentTitle
-                "\"PUBLISH_TIME\" TEXT," + // 2: publishTime
+                "\"PUBLISH_TIME\" TEXT," + // 1: publishTime
+                "\"APPOINTMENT_T\" TEXT," + // 2: appointmentT
                 "\"WHO_PUBLISH\" TEXT," + // 3: whoPublish
                 "\"WHO_PUBLISH_STU_ID\" TEXT," + // 4: whoPublishStuID
                 "\"WHO_PUBLISH_STU_GRADE\" INTEGER NOT NULL ," + // 5: whoPublishStuGrade
@@ -94,14 +94,14 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             stmt.bindString(1, appointmentUID);
         }
  
-        String appointmentTitle = entity.getAppointmentTitle();
-        if (appointmentTitle != null) {
-            stmt.bindString(2, appointmentTitle);
-        }
- 
         String publishTime = entity.getPublishTime();
         if (publishTime != null) {
-            stmt.bindString(3, publishTime);
+            stmt.bindString(2, publishTime);
+        }
+ 
+        String appointmentT = entity.getAppointmentT();
+        if (appointmentT != null) {
+            stmt.bindString(3, appointmentT);
         }
  
         String whoPublish = entity.getWhoPublish();
@@ -160,14 +160,14 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
             stmt.bindString(1, appointmentUID);
         }
  
-        String appointmentTitle = entity.getAppointmentTitle();
-        if (appointmentTitle != null) {
-            stmt.bindString(2, appointmentTitle);
-        }
- 
         String publishTime = entity.getPublishTime();
         if (publishTime != null) {
-            stmt.bindString(3, publishTime);
+            stmt.bindString(2, publishTime);
+        }
+ 
+        String appointmentT = entity.getAppointmentT();
+        if (appointmentT != null) {
+            stmt.bindString(3, appointmentT);
         }
  
         String whoPublish = entity.getWhoPublish();
@@ -226,8 +226,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
     public AppointmentInfo readEntity(Cursor cursor, int offset) {
         AppointmentInfo entity = new AppointmentInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // appointmentUID
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // appointmentTitle
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // publishTime
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // publishTime
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // appointmentT
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // whoPublish
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // whoPublishStuID
             cursor.getInt(offset + 5), // whoPublishStuGrade
@@ -249,8 +249,8 @@ public class AppointmentInfoDao extends AbstractDao<AppointmentInfo, String> {
     @Override
     public void readEntity(Cursor cursor, AppointmentInfo entity, int offset) {
         entity.setAppointmentUID(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setAppointmentTitle(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPublishTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPublishTime(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setAppointmentT(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setWhoPublish(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setWhoPublishStuID(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setWhoPublishStuGrade(cursor.getInt(offset + 5));

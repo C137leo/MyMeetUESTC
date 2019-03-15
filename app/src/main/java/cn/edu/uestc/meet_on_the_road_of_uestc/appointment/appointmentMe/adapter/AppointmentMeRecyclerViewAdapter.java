@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,12 +59,14 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public void updateAllData(List<AppointmentInfo> appointmentInfoList){
-        (this.appointmentInfoList).addAll(appointmentInfoList);
-        HashSet hashSet=new HashSet();
-        hashSet.addAll(appointmentInfoList);
-        this.appointmentInfoList.removeAll(this.appointmentInfoList);
-        this.appointmentInfoList.addAll(hashSet);
-        notifyDataSetChanged();
+        if(appointmentInfoList!=null) {
+            (this.appointmentInfoList).addAll(appointmentInfoList);
+            HashSet hashSet = new HashSet();
+            hashSet.addAll(appointmentInfoList);
+            this.appointmentInfoList.removeAll(this.appointmentInfoList);
+            this.appointmentInfoList.addAll(hashSet);
+            notifyDataSetChanged();
+        }
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -73,7 +76,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
             acceptHolder.appointmentMeAcceptType.setText(appointmentInfoList.get(position).getAppointmentType());
             acceptHolder.appointmentMeAcceptTime.setText(appointmentInfoList.get(position).getAppointmentTime());
-            acceptHolder.appointmentMeAcceptDetail.setText(appointmentInfoList.get(position).getAppointmentTitle());
+            acceptHolder.appointmentMeAcceptDetail.setText(appointmentInfoList.get(position).getAppointmentT());
             acceptHolder.appointmentMeAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
             acceptHolder.appointmentMeAcceptSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
             acceptHolder.appointmentMeAcceptLocation.setText(appointmentInfoList.get(position).getLocation());
@@ -81,7 +84,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             publishHolder=(AppointmentMePublishRecyclerViewHolder) holder;
             publishHolder.appointmentMePublishType.setText(appointmentInfoList.get(position).getAppointmentType());
             publishHolder.appointmentMePublishTime.setText(appointmentInfoList.get(position).getAppointmentTime());
-            publishHolder.appointmentMePublishDetail.setText(appointmentInfoList.get(position).getAppointmentTitle());
+            publishHolder.appointmentMePublishDetail.setText(appointmentInfoList.get(position).getAppointmentT());
             publishHolder.appointmentMePublishNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
             publishHolder.appointmentMePublishSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
             publishHolder.appointmentMePublishLocation.setText(appointmentInfoList.get(position).getLocation());

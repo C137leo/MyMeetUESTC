@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -24,10 +25,10 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 public class AppointmentMeAcceptFragment extends Fragment {
     RecyclerView appointmentMeAcceptRecyclerView;
     View view;
-    List<AppointmentInfo> appointmentMeAcceptList;
-    AppointmentMeRecyclerViewAdapter appointmentMeRecyclerViewAdapter=new AppointmentMeRecyclerViewAdapter(appointmentMeAcceptList,0);
+    List<AppointmentInfo> appointmentMeAcceptList=new ArrayList<>();
+    AppointmentMeRecyclerViewAdapter appointmentMeRecyclerViewAdapter;
     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyApplication.getMyContext());
-    AppointmentPrensterMe appointmentPrensterMe=new AppointmentPrensterMe(MyApplication.getMyContext());
+    AppointmentPrensterMe appointmentPrensterMe=new AppointmentPrensterMe(MyApplication.getMyContext(),0);
     SwipeRefreshLayout appointmentMeAcceptRefresh;
     @Nullable
     @Override
@@ -39,6 +40,7 @@ public class AppointmentMeAcceptFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        appointmentMeRecyclerViewAdapter=new AppointmentMeRecyclerViewAdapter(appointmentMeAcceptList,0);
         appointmentMeAcceptRecyclerView=getActivity().findViewById(R.id.appointment_me_accept_recycler_view);
         appointmentMeAcceptRefresh=getActivity().findViewById(R.id.appointment_me_accept_swipe_refresh);
         appointmentPrensterMe.attchView(iVew);
@@ -58,12 +60,12 @@ public class AppointmentMeAcceptFragment extends Fragment {
 
     IVew iVew=new IVew() {
         @Override
-        public void setAppointmentMeAccept() {
-            appointmentMeRecyclerViewAdapter.updateAllData(appointmentMeAcceptList);
+        public void setAppointmentMeAccept(List<AppointmentInfo> appointmentMeAccept) {
+            appointmentMeRecyclerViewAdapter.updateAllData(appointmentMeAccept);
         }
 
         @Override
-        public void setAppointmentMePublish() {
+        public void setAppointmentMePublish(List<AppointmentInfo> appointmentMePublish) {
 
         }
 
@@ -74,7 +76,8 @@ public class AppointmentMeAcceptFragment extends Fragment {
 
         @Override
         public void updateError(String errMsg) {
-            Toast.makeText(MyApplication.getMyContext(),errMsg,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),errMsg,Toast.LENGTH_SHORT).show();
+            hideRefreshing();
         }
     };
 
