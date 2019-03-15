@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
@@ -55,6 +57,14 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         return null;
     }
 
+    public void updateAllData(List<AppointmentInfo> appointmentInfoList){
+        (this.appointmentInfoList).addAll(appointmentInfoList);
+        HashSet hashSet=new HashSet();
+        hashSet.addAll(appointmentInfoList);
+        this.appointmentInfoList.removeAll(this.appointmentInfoList);
+        this.appointmentInfoList.addAll(hashSet);
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AppointmentMeAcceptRecyclerViewHolder acceptHolder = null;

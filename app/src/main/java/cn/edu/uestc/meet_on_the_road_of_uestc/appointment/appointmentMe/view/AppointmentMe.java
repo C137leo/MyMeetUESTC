@@ -29,7 +29,6 @@ public class AppointmentMe extends AppCompatActivity implements ViewPager.OnPage
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appointmentPrensterMe=new AppointmentPrensterMe(AppointmentMe.this);
-        appointmentPrensterMe.attchView(iVew);
         setContentView(R.layout.activity_appointment_me);
         appointmentMeTitle=findViewById(R.id.appointment_me_title);
         appointmentMeToolbar=findViewById(R.id.appointment_me_toolbar);
@@ -82,7 +81,4 @@ public class AppointmentMe extends AppCompatActivity implements ViewPager.OnPage
         }
     }
 
-    IVew iVew=new IVew() {
-
-    };
 }

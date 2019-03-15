@@ -104,12 +104,14 @@ public class AppointmentPrensterMe implements IPrenster{
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        iVew.updateError("网络错误");
                     }
 
                     @Override
                     public void onComplete() {
                         getAppointmentAcceptData();
                         getAppointmentPublishData();
+                        iVew.hideRefreshing();
                     }
                 });
     }
