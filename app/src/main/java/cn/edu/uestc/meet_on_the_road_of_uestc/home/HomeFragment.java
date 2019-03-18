@@ -44,18 +44,23 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPic(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("GetPicError","GetPicError");
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseData=response.body().string();
-                Log.d("responData",responseData);
-                parseJSON(responseData);
-            }
-        });
+        try {
+            getPic(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d("GetPicError", "GetPicError");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseData = response.body().string();
+                    Log.d("responData", responseData);
+                    parseJSON(responseData);
+                }
+            });
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     public void getPic(okhttp3.Callback callback){
