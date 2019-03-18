@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.adapter
 import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
 
     public void updateAllData(List<AppointmentInfo> appointmentInfoList){
         if(appointmentInfoList!=null) {
+            Log.d("appointmentInfoListSize",String.valueOf(appointmentInfoList));
             (this.appointmentInfoList).addAll(appointmentInfoList);
             HashSet hashSet = new HashSet();
             hashSet.addAll(appointmentInfoList);

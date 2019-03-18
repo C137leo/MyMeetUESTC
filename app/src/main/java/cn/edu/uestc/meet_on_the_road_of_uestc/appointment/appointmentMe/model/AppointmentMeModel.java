@@ -1,5 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.model;
 
+import android.util.Log;
+
 import java.util.List;
 
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
@@ -13,6 +15,7 @@ public class AppointmentMeModel implements IModel{
     @Override
     public void addAppointmentInfo(List<AppointmentInfo> appointmentInfoList) {
         for(AppointmentInfo appointmentInfo:appointmentInfoList) {
+            Log.d("appointmentInsert",appointmentInfo.getWhoPublish());
             daoSession.getAppointmentInfoDao().insertOrReplace(appointmentInfo);
         }
     }

@@ -13,9 +13,9 @@ import retrofit2.http.Part;
 
 public interface RetrofitService {
 
-    @POST("yb/yb.php")
+    @POST("yb/yb_in.php")
     Observable<NetworkStatus> addSingleAppointmentData(@Body AppointmentInfo appointmentInfo);
 
-    @GET("yb/getAllData")
+    @GET("yb/yb_out.php")
     Observable<ResponseBody> getAllAppointmentData();
 }

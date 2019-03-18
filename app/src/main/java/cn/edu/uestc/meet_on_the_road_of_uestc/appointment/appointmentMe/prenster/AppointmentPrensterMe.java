@@ -3,6 +3,7 @@ package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.prenste
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -37,12 +38,12 @@ public class AppointmentPrensterMe implements IPrenster{
     Context context;
     IVew iVew;
     DaoSession daoSession=GreenDaoHelper.getDaoSession();
-    List<AppointmentInfo> appointmentAllList;
-    List<AppointmentInfo> appointmentAcceptData;
-    List<AppointmentInfo> appointmentPublishData;
+    List<AppointmentInfo> appointmentAllList=new ArrayList<>();
+    List<AppointmentInfo> appointmentAcceptData=new ArrayList<>();
+    List<AppointmentInfo> appointmentPublishData=new ArrayList<>();
     Observable<ResponseBody> loadAllAppointmentInfo;
     Disposable disposable;
-    AppointmentMeModel appointmentMeModel;
+    AppointmentMeModel appointmentMeModel=new AppointmentMeModel();
     JsonParser jsonParser;
     Gson gson;
     JsonArray appointmentInfoJsonArray;
@@ -66,12 +67,15 @@ public class AppointmentPrensterMe implements IPrenster{
     @Override
     public List<AppointmentInfo> getAppointmentAcceptData() {
         List<AppointmentInfo> appointmentInfos=daoSession.getAppointmentInfoDao().loadAll();
+        Log.d("appointmentInfosSize",String.valueOf(appointmentInfos.size()));
         for(AppointmentInfo appointmentInfo:appointmentInfos){
+            Log.d("AppointmentSize", String.valueOf(appointmentInfo.getAppointmentStuInfoList().size()));
             for (StuInfo stuInfo:appointmentInfo.getAppointmentStuInfoList()){
+                Log.d("stuInfo",daoSession.getStuInfoDao().loadAll().get(0).getStuID());
                 if(TextUtils.equals(stuInfo.getStuID(),daoSession.getStuInfoDao().loadAll().get(0).getStuID()));
                 {
                     appointmentPublishData.add(appointmentInfo);
-                    break;
+                    Log.d("appointmentPublishAdd","appointmentPublishAdd");
                 }
             }
         }
@@ -81,7 +85,8 @@ public class AppointmentPrensterMe implements IPrenster{
 
     @Override
     public List<AppointmentInfo> getAppointmentPublishData() {
-        appointmentPublishData=daoSession.queryBuilder(AppointmentInfo.class).where(AppointmentInfoDao.Properties.WhoPublish.eq(daoSession.getStuInfoDao().loadAll().get(0).getStuName())).list();
+        appointmentPublishData=daoSession.queryBuilder(AppointmentInfo.class).where(AppointmentInfoDao.Properties.WhoPublish.eq(daoSession.getStuInfoDao().loadAll().get(0).getNickName())).list();
+        Log.d("appointment",String.valueOf(appointmentAcceptData.size()));
         iVew.setAppointmentMePublish(appointmentPublishData);
         return appointmentPublishData;
     }
@@ -106,25 +111,38 @@ public class AppointmentPrensterMe implements IPrenster{
                             appointmentInfoJsonArray=jsonParser.parse(responseBody.string()).getAsJsonArray();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
                         }
-                        for(JsonElement jsonElement:appointmentInfoJsonArray){
-                            AppointmentInfo appointmentInfo=gson.fromJson(jsonElement,AppointmentInfo.class);
-                            appointmentAllList.add(appointmentInfo);
+                        try {
+                            for (JsonElement jsonElement : appointmentInfoJsonArray) {
+                                AppointmentInfo appointmentInfo = gson.fromJson(jsonElement, AppointmentInfo.class);
+                                appointmentAllList.add(appointmentInfo);
+                            }
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
                         }
-                        AppointmentInfo tmep=new AppointmentInfo("testUID","测试约吧",timeFormat.format(date),daoSession.getStuInfoDao().loadAll().get(0).getNickName(),daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
-                                daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(),daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
-                                "电子科大图书馆",dateFormat.format(date),timeFormat.format(date),0,0,2,1,"",0,new ArrayList<StuInfo>());
+                        AppointmentInfo tmep = new AppointmentInfo("testUID", "测试约吧", timeFormat.format(date), daoSession.getStuInfoDao().loadAll().get(0).getNickName(), daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
+                                daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(), daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
+                                "电子科大图书馆", dateFormat.format(date), timeFormat.format(date), 0, 0, 2, 1, "", 0, daoSession.getStuInfoDao().loadAll());
                         appointmentAllList.add(tmep);
                         appointmentMeModel.addAppointmentInfo(appointmentAllList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        AppointmentInfo tmep=new AppointmentInfo("testUID","测试约吧",timeFormat.format(date),daoSession.getStuInfoDao().loadAll().get(0).getNickName(),daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
+                                daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(),daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
+                                "电子科大图书馆",dateFormat.format(date),timeFormat.format(date),0,0,2,1,"",0,daoSession.getStuInfoDao().loadAll());
+                        appointmentAllList.add(tmep);
+                        appointmentMeModel.addAppointmentInfo(appointmentAllList);
                         e.printStackTrace();
                         iVew.updateError("网络错误");
                         if(type==0) {
+                            Log.d("getAppointmentAccept","getAppointmentAccept");
                             getAppointmentAcceptData();
                         }else if(type==1) {
+                            Log.d("getAppointmentPublish","getAppointmentPublish");
                             getAppointmentPublishData();
                         }
                     }
@@ -132,8 +150,10 @@ public class AppointmentPrensterMe implements IPrenster{
                     @Override
                     public void onComplete() {
                         if(type==0) {
+                            Log.d("getAppointmentAccept","getAppointmentAccept");
                             getAppointmentAcceptData();
                         }else if(type==1) {
+                            Log.d("getAppointmentPublish","getAppointmentPublish");
                             getAppointmentPublishData();
                         }
                         iVew.hideRefreshing();

@@ -1,5 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.converter;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -24,6 +26,7 @@ public class StuInfoListConverter implements PropertyConverter<List<StuInfo>,Str
             List<StuInfo> stuInfoList=new ArrayList<>();
             for(JsonElement jsonElement:jsonElements){
                 StuInfo stuInfo=gson.fromJson(jsonElement,StuInfo.class);
+                Log.d("stuInfoConverter",stuInfo.getStuID());
                 stuInfoList.add(stuInfo);
             }
             return stuInfoList;
