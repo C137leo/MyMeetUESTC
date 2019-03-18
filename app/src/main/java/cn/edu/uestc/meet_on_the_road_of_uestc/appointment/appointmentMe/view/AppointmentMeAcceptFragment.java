@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class AppointmentMeAcceptFragment extends Fragment {
     IVew iVew=new IVew() {
         @Override
         public void setAppointmentMeAccept(List<AppointmentInfo> appointmentMeAccept) {
+            Log.d("test1", String.valueOf(appointmentMeAccept.size()));
             appointmentMeRecyclerViewAdapter.updateAllData(appointmentMeAccept);
         }
 

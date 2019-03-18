@@ -60,11 +60,12 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             appointmentMePublishRecyclerViewHolder=new AppointmentMePublishRecyclerViewHolder(view);
             return appointmentMePublishRecyclerViewHolder;
         }
+        return null;
     }
 
     public void updateAllData(List<AppointmentInfo> appointmentInfoList){
         if(appointmentInfoList!=null) {
-            Log.d("appointmentInfoListSize",String.valueOf(appointmentInfoList));
+            Log.d("appointmentInfoListSize",String.valueOf(appointmentInfoList.size()));
             (this.appointmentInfoList).addAll(appointmentInfoList);
             HashSet hashSet = new HashSet();
             hashSet.addAll(appointmentInfoList);
@@ -79,19 +80,19 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         AppointmentMePublishRecyclerViewHolder publishHolder = null;
         if(type==0){
             acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
-            acceptHolder.appointmentMeAcceptType.setText(appointmentInfoList.get(position).getAppointmentType());
+            acceptHolder.appointmentMeAcceptType.setText(appointmentInfoList.get(position).getAppointmentTypeText());
             acceptHolder.appointmentMeAcceptTime.setText(appointmentInfoList.get(position).getAppointmentTime());
             acceptHolder.appointmentMeAcceptDetail.setText(appointmentInfoList.get(position).getAppointmentT());
-            acceptHolder.appointmentMeAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
-            acceptHolder.appointmentMeAcceptSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+            acceptHolder.appointmentMeAcceptNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentStuInfoList().size()));
+            acceptHolder.appointmentMeAcceptSetNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentNum()));
             acceptHolder.appointmentMeAcceptLocation.setText(appointmentInfoList.get(position).getLocation());
         }else if(type==1){
             publishHolder=(AppointmentMePublishRecyclerViewHolder) holder;
-            publishHolder.appointmentMePublishType.setText(appointmentInfoList.get(position).getAppointmentType());
+            publishHolder.appointmentMePublishType.setText(appointmentInfoList.get(position).getAppointmentTypeText());
             publishHolder.appointmentMePublishTime.setText(appointmentInfoList.get(position).getAppointmentTime());
             publishHolder.appointmentMePublishDetail.setText(appointmentInfoList.get(position).getAppointmentT());
-            publishHolder.appointmentMePublishNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
-            publishHolder.appointmentMePublishSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+            publishHolder.appointmentMePublishNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentStuInfoList().size()));
+            publishHolder.appointmentMePublishSetNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentNum()));
             publishHolder.appointmentMePublishLocation.setText(appointmentInfoList.get(position).getLocation());
         }
         if(type==0){
