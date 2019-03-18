@@ -50,13 +50,16 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(type==0){
+            Log.d("type","0");
             view= LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.appointment_me_accept_layout,parent,false);
             appointmentMeAcceptRecyclerViewHolder=new AppointmentMeAcceptRecyclerViewHolder(view);
+            return appointmentMeAcceptRecyclerViewHolder;
         }else if(type==1){
+            Log.d("type","1");
             view=LayoutInflater.from(MyApplication.getMyContext()).inflate(R.layout.appointment_me_publish_layout,parent,false);
             appointmentMePublishRecyclerViewHolder=new AppointmentMePublishRecyclerViewHolder(view);
+            return appointmentMePublishRecyclerViewHolder;
         }
-        return null;
     }
 
     public void updateAllData(List<AppointmentInfo> appointmentInfoList){
