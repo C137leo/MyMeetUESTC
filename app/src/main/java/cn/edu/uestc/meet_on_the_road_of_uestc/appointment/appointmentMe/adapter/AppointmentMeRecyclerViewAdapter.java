@@ -1,14 +1,20 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentMe.adapter;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -31,6 +37,9 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     View view;
     AppointmentMeAcceptRecyclerViewHolder appointmentMeAcceptRecyclerViewHolder;
     AppointmentMePublishRecyclerViewHolder appointmentMePublishRecyclerViewHolder;
+    ExpandClickListener expandClickListener;
+    RotateAnimation acceptExpandAnimation;
+    RotateAnimation publishExpandAnimation;
     public AppointmentMeRecyclerViewAdapter(List<AppointmentInfo> appointmentInfoList,int type) {
         this.appointmentInfoList = appointmentInfoList;
         this.type=type;
@@ -74,22 +83,79 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             notifyDataSetChanged();
         }
     }
+
+    public interface ExpandClickListener{
+        void acceptExpand();
+        void publishExpand();
+    }
+
+    public void setExpandListener(final RecyclerView.ViewHolder holder){
+        this.expandClickListener=new ExpandClickListener() {
+            @Override
+            public void acceptExpand() {
+                AppointmentMeAcceptRecyclerViewHolder acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
+                expandView(acceptHolder.appointmentAcceptStu,acceptHolder.appointmentAcceptCardView,ValueAnimator.ofInt(0,50));
+                if(acceptHolder.appointmentAcceptStu.getVisibility()==View.GONE){
+                    acceptExpandAnimation=new RotateAnimation(0,180,0.5f,0.5f);
+                }else {
+                    acceptExpandAnimation=new RotateAnimation(180,0,0.5f,0.5f);
+                }
+                acceptExpandAnimation.setDuration(500);
+                acceptExpandAnimation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+                acceptHolder.appointmentAcceptExpand.setAnimation(acceptExpandAnimation);
+                acceptExpandAnimation.start();
+
+            }
+
+            @Override
+            public void publishExpand() {
+                AppointmentMePublishRecyclerViewHolder publishViewholder= (AppointmentMePublishRecyclerViewHolder) holder;
+                expandView(publishViewholder.appointmentPublishStu,publishViewholder.appointmentPublishCardView,ValueAnimator.ofInt(0,50));
+                if(publishViewholder.appointmentPublishStu.getVisibility()==View.GONE){
+                    publishExpandAnimation=new RotateAnimation(0,180,0.5f,0.5f);
+                }else {
+                    publishExpandAnimation=new RotateAnimation(180,0,0.5f,0.5f);
+                }
+                publishExpandAnimation.setDuration(500);
+                publishExpandAnimation.setFillAfter(true);
+                publishViewholder.appointmentPulishExpand.setAnimation(publishExpandAnimation);
+                publishExpandAnimation.start();
+            }
+        };
+    }
+
+    public void expandView(final View relativeLayoutView,final View cardView, ValueAnimator valueAnimator){
+        view.setVisibility(View.VISIBLE);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value= (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams=relativeLayoutView.getLayoutParams();
+                ViewGroup.LayoutParams cardViewLayout=cardView.getLayoutParams();
+                layoutParams.height=value;
+                relativeLayoutView.setLayoutParams(layoutParams);
+            }
+        });
+        valueAnimator.start();
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AppointmentMeAcceptRecyclerViewHolder acceptHolder = null;
         AppointmentMePublishRecyclerViewHolder publishHolder = null;
         if(type==0){
             acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
+            setExpandListener(acceptHolder);
             acceptHolder.appointmentMeAcceptType.setText(appointmentInfoList.get(position).getAppointmentTypeText());
-            acceptHolder.appointmentMeAcceptTime.setText(appointmentInfoList.get(position).getAppointmentTime());
+            acceptHolder.appointmentMeAcceptTime.setText(appointmentInfoList.get(position).getAppointmentDate()+" "+appointmentInfoList.get(position).getAppointmentTime());
             acceptHolder.appointmentMeAcceptDetail.setText(appointmentInfoList.get(position).getAppointmentT());
             acceptHolder.appointmentMeAcceptNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentStuInfoList().size()));
             acceptHolder.appointmentMeAcceptSetNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentNum()));
             acceptHolder.appointmentMeAcceptLocation.setText(appointmentInfoList.get(position).getLocation());
         }else if(type==1){
             publishHolder=(AppointmentMePublishRecyclerViewHolder) holder;
+            setExpandListener(publishHolder);
             publishHolder.appointmentMePublishType.setText(appointmentInfoList.get(position).getAppointmentTypeText());
-            publishHolder.appointmentMePublishTime.setText(appointmentInfoList.get(position).getAppointmentTime());
+            publishHolder.appointmentMePublishTime.setText(appointmentInfoList.get(position).getAppointmentDate()+" "+appointmentInfoList.get(position).getAppointmentTime());
             publishHolder.appointmentMePublishDetail.setText(appointmentInfoList.get(position).getAppointmentT());
             publishHolder.appointmentMePublishNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentStuInfoList().size()));
             publishHolder.appointmentMePublishSetNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentNum()));
@@ -684,6 +750,9 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     class AppointmentMeAcceptRecyclerViewHolder extends RecyclerView.ViewHolder{
+        RelativeLayout appointmentAcceptStu;
+        ImageView appointmentAcceptExpand;
+        CardView appointmentAcceptCardView;
         TextView appointmentMeAcceptType;
         TextView appointmentMeAcceptDetail;
         TextView appointmentMeAcceptLocation;
@@ -717,6 +786,9 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         LinearLayout appointmentMeAcceptLayout8;
         public AppointmentMeAcceptRecyclerViewHolder(View itemView) {
             super(itemView);
+            appointmentAcceptStu=itemView.findViewById(R.id.appointment_accept_stu);
+            appointmentAcceptExpand=itemView.findViewById(R.id.appointment_stu_accept_expand);
+            appointmentAcceptCardView=itemView.findViewById(R.id.appointment_accept_cardview);
             appointmentMeAcceptType=itemView.findViewById(R.id.appointment_me_accept_type);
             appointmentMeAcceptDetail=itemView.findViewById(R.id.appointment_me_accept_detail);
             appointmentMeAcceptLocation=itemView.findViewById(R.id.appointment_me_accept_location);
@@ -756,11 +828,19 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             appointmentMeAcceptNickname6.setSelected(true);
             appointmentMeAcceptNickname7.setSelected(true);
             appointmentMeAcceptNickname8.setSelected(true);
+            appointmentAcceptExpand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    expandClickListener.acceptExpand();
+                }
+            });
         }
 
     }
 
     class AppointmentMePublishRecyclerViewHolder extends RecyclerView.ViewHolder{
+        RelativeLayout appointmentPublishStu;
+        ImageView appointmentPulishExpand;
         TextView appointmentMePublishType;
         TextView appointmentMePublishDetail;
         TextView appointmentMePublishLocation;
@@ -768,6 +848,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         TextView appointmentMePublishSetNum;
         TextView appointmentMePublishTime;
         Button appointmentMePublishStartChat;
+        CardView appointmentPublishCardView;
         CircleImageView appointmentMePublishImage1;
         TextView appointmentMePublishNickname1;
         CircleImageView appointmentMePublishImage2;
@@ -794,6 +875,9 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
         LinearLayout appointmentMePublishLayout8;
         public AppointmentMePublishRecyclerViewHolder(View itemView) {
             super(itemView);
+            appointmentPublishStu=itemView.findViewById(R.id.appointment_publish_stu);
+            appointmentPulishExpand=itemView.findViewById(R.id.appointment_stu_publish_expand);
+            appointmentPublishCardView=itemView.findViewById(R.id.appointment_publish_cardview);
             appointmentMePublishType=itemView.findViewById(R.id.appointment_me_publish_type);
             appointmentMePublishDetail=itemView.findViewById(R.id.appointment_me_publish_detail);
             appointmentMePublishLocation=itemView.findViewById(R.id.appointment_me_publish_location);
@@ -833,6 +917,12 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             appointmentMePublishNickname6.setSelected(true);
             appointmentMePublishNickname7.setSelected(true);
             appointmentMePublishNickname8.setSelected(true);
+            appointmentPulishExpand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    expandClickListener.publishExpand();
+                }
+            });
 
         }
     }
