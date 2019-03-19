@@ -748,6 +748,14 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             appointmentMeAcceptImage8=itemView.findViewById(R.id.appointment_me_accept_person8);
             appointmentMeAcceptNickname8=itemView.findViewById(R.id.appointment_me_accept_nickname8);
             appointmentMeAcceptLayout8=itemView.findViewById(R.id.appointment_me_accept_linearLayout8);
+            appointmentMeAcceptNickname1.setSelected(true);
+            appointmentMeAcceptNickname2.setSelected(true);
+            appointmentMeAcceptNickname3.setSelected(true);
+            appointmentMeAcceptNickname4.setSelected(true);
+            appointmentMeAcceptNickname5.setSelected(true);
+            appointmentMeAcceptNickname6.setSelected(true);
+            appointmentMeAcceptNickname7.setSelected(true);
+            appointmentMeAcceptNickname8.setSelected(true);
         }
 
     }
@@ -817,6 +825,15 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             appointmentMePublishImage8=itemView.findViewById(R.id.appointment_me_publish_person8);
             appointmentMePublishNickname8=itemView.findViewById(R.id.appointment_me_publish_nickname8);
             appointmentMePublishLayout8=itemView.findViewById(R.id.appointment_me_publish_linearLayout8);
+            appointmentMePublishNickname1.setSelected(true);
+            appointmentMePublishNickname2.setSelected(true);
+            appointmentMePublishNickname3.setSelected(true);
+            appointmentMePublishNickname4.setSelected(true);
+            appointmentMePublishNickname5.setSelected(true);
+            appointmentMePublishNickname6.setSelected(true);
+            appointmentMePublishNickname7.setSelected(true);
+            appointmentMePublishNickname8.setSelected(true);
+
         }
     }
 

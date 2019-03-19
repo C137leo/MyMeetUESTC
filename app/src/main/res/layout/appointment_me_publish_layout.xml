@@ -110,6 +110,10 @@
                         android:id="@+id/appointment_me_publish_person1"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname1"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -130,6 +134,10 @@
                         android:id="@+id/appointment_me_publish_person2"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname2"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -150,6 +158,10 @@
                         android:id="@+id/appointment_me_publish_person3"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname3"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -170,6 +182,10 @@
                         android:id="@+id/appointment_me_publish_person4"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname4"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -190,6 +206,10 @@
                         android:id="@+id/appointment_me_publish_person5"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname5"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -210,6 +230,10 @@
                         android:id="@+id/appointment_me_publish_person6"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname6"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -230,6 +254,10 @@
                         android:id="@+id/appointment_me_publish_person7"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname7"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
@@ -250,6 +278,10 @@
                         android:id="@+id/appointment_me_publish_person8"
                         android:src="@mipmap/ic_icontest"/>
                     <TextView
+                        android:maxWidth="35dp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
                         android:id="@+id/appointment_me_publish_nickname8"
                         android:layout_gravity="center_horizontal"
                         android:textSize="10sp"
