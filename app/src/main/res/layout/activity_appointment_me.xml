@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"></cn.edu.uestc.meet_on_the_road_of_uestc.layout.AppointmentMeTitle>
 
     <android.support.v4.view.ViewPager
+        android:layout_marginTop="10dp"
         android:id="@+id/appointment_me_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v4.view.ViewPager>

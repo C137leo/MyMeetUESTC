@@ -122,18 +122,18 @@ public class AppointmentPrensterMe implements IPrenster{
                         }catch (NullPointerException e){
                             e.printStackTrace();
                         }
-                        AppointmentInfo tmep = new AppointmentInfo("testUID", "测试约吧", timeFormat.format(date), daoSession.getStuInfoDao().loadAll().get(0).getNickName(), daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
+                        AppointmentInfo tmep = new AppointmentInfo("testUID",timeFormat.format(date), "测试约吧" , daoSession.getStuInfoDao().loadAll().get(0).getNickName(), daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
                                 daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(), daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
-                                "电子科大图书馆", dateFormat.format(date), timeFormat.format(date), 0, 0, 2, 1, "", 0, daoSession.getStuInfoDao().loadAll());
+                                "电子科大图书馆", dateFormat.format(date), timeFormat.format(date), 0, 0, 2, 1, "约饭", 0, daoSession.getStuInfoDao().loadAll());
                         appointmentAllList.add(tmep);
                         appointmentMeModel.addAppointmentInfo(appointmentAllList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        AppointmentInfo tmep=new AppointmentInfo("testUID","测试约吧",timeFormat.format(date),daoSession.getStuInfoDao().loadAll().get(0).getNickName(),daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
+                        AppointmentInfo tmep=new AppointmentInfo("testUID",timeFormat.format(date),"测试约吧",daoSession.getStuInfoDao().loadAll().get(0).getNickName(),daoSession.getStuInfoDao().loadAll().get(0).getStuID(),
                                 daoSession.getStuInfoDao().loadAll().get(0).getStuGrade(),daoSession.getStuInfoDao().loadAll().get(0).getMajor(),
-                                "电子科大图书馆",dateFormat.format(date),timeFormat.format(date),0,0,2,1,"",0,daoSession.getStuInfoDao().loadAll());
+                                "电子科大图书馆",dateFormat.format(date),timeFormat.format(date),0,0,2,1,"约饭",0,daoSession.getStuInfoDao().loadAll());
                         appointmentAllList.add(tmep);
                         appointmentMeModel.addAppointmentInfo(appointmentAllList);
                         e.printStackTrace();
