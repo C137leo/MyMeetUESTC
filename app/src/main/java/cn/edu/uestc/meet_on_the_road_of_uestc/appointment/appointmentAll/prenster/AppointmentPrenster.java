@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.view.IView;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.service.RetrofitHelper;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.DaoSession;
+import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.GreenDaoHelper;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -22,8 +25,16 @@ import okhttp3.ResponseBody;
 public class AppointmentPrenster implements IPrenster {
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance();
     Disposable disposable;
+    DaoSession daoSession= GreenDaoHelper.getDaoSession();
     Gson gson;
     List<AppointmentInfo> appointmentInfoList;
+    IView iVew;
+
+    @Override
+    public void attchView(IView iVew) {
+        this.iVew=iVew;
+    }
+
     @Override
     public void initAppointmentData() {
         final Observable<ResponseBody> getAllAppointmentData=retrofitHelper.getRetrofitService().getAllAppointmentData();
@@ -53,13 +64,18 @@ public class AppointmentPrenster implements IPrenster {
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }catch (IllegalStateException e){
+                            e.printStackTrace();
                         }
-
+                        appointmentInfoList=daoSession.getAppointmentInfoDao().loadAll();
+                        iVew.updateAppointmentData(appointmentInfoList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
+                        appointmentInfoList=daoSession.getAppointmentInfoDao().loadAll();
+                        iVew.updateAppointmentData(appointmentInfoList);
                     }
 
                     @Override

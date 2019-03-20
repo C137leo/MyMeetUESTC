@@ -34,7 +34,7 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
         }else {
             appointmentAllRecyclerViewHolder=(AppointmentAllRecyclerViewHolder) view.getTag();
         }
-        return null;
+        return appointmentAllRecyclerViewHolder;
     }
 
     @Override
@@ -46,9 +46,9 @@ public class AppointmentAllRecyclerAdapter extends RecyclerView.Adapter<Appointm
             }
         });
         holder.appointmentTitle.setText(appointmentInfoList.get(position).getAppointmentT());
-        holder.appointmentTime.setText(appointmentInfoList.get(position).getAppointmentTime());
-        holder.appointmentPeopleAcceptNum.setText(appointmentInfoList.get(position).getAppointmentStuInfoList().size());
-        holder.appointmentPeopleSetNum.setText(appointmentInfoList.get(position).getAppointmentNum());
+        holder.appointmentTime.setText(appointmentInfoList.get(position).getAppointmentDate()+" "+appointmentInfoList.get(position).getAppointmentTime());
+        holder.appointmentPeopleAcceptNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentStuInfoList().size()));
+        holder.appointmentPeopleSetNum.setText(String.valueOf(appointmentInfoList.get(position).getAppointmentNum()));
         holder.appointmentLocation.setText(appointmentInfoList.get(position).getLocation());
         holder.appointmentTypeText.setText(appointmentInfoList.get(position).getAppointmentTypeText());
     }
