@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -94,14 +95,13 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             @Override
             public void acceptExpand() {
                 AppointmentMeAcceptRecyclerViewHolder acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
-                expandView(acceptHolder.appointmentAcceptStu,acceptHolder.appointmentAcceptCardView,ValueAnimator.ofInt(0,50));
+                expandView(acceptHolder.appointmentAcceptStu,acceptHolder.appointmentAcceptCardView,ValueAnimator.ofInt(0,230));
                 if(acceptHolder.appointmentAcceptStu.getVisibility()==View.GONE){
-                    acceptExpandAnimation=new RotateAnimation(0,180,0.5f,0.5f);
+                    acceptExpandAnimation=new RotateAnimation(0,180,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
                 }else {
-                    acceptExpandAnimation=new RotateAnimation(180,0,0.5f,0.5f);
+                    acceptExpandAnimation=new RotateAnimation(180,0,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
                 }
                 acceptExpandAnimation.setDuration(500);
-                acceptExpandAnimation.setFillAfter(true);//动画执行完后是否停留在执行完的状态
                 acceptHolder.appointmentAcceptExpand.setAnimation(acceptExpandAnimation);
                 acceptExpandAnimation.start();
 
@@ -110,14 +110,13 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             @Override
             public void publishExpand() {
                 AppointmentMePublishRecyclerViewHolder publishViewholder= (AppointmentMePublishRecyclerViewHolder) holder;
-                expandView(publishViewholder.appointmentPublishStu,publishViewholder.appointmentPublishCardView,ValueAnimator.ofInt(0,50));
+                expandView(publishViewholder.appointmentPublishStu,publishViewholder.appointmentPublishCardView,ValueAnimator.ofInt(0,230));
                 if(publishViewholder.appointmentPublishStu.getVisibility()==View.GONE){
-                    publishExpandAnimation=new RotateAnimation(0,180,0.5f,0.5f);
+                    publishExpandAnimation=new RotateAnimation(0,180, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
                 }else {
-                    publishExpandAnimation=new RotateAnimation(180,0,0.5f,0.5f);
+                    publishExpandAnimation=new RotateAnimation(180,0,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                 }
                 publishExpandAnimation.setDuration(500);
-                publishExpandAnimation.setFillAfter(true);
                 publishViewholder.appointmentPulishExpand.setAnimation(publishExpandAnimation);
                 publishExpandAnimation.start();
             }
@@ -125,13 +124,16 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public void expandView(final View relativeLayoutView,final View cardView, ValueAnimator valueAnimator){
-        view.setVisibility(View.VISIBLE);
+        relativeLayoutView.setVisibility(View.VISIBLE);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value= (int) animation.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams=relativeLayoutView.getLayoutParams();
-                ViewGroup.LayoutParams cardViewLayout=cardView.getLayoutParams();
+                ViewGroup.LayoutParams cardViewParams=cardView.getLayoutParams();
+                Log.d("cardHeight",String.valueOf(cardViewParams.height));
+                Log.d("height", String.valueOf(layoutParams.height));
+                Log.d("value",String.valueOf(value));
                 layoutParams.height=value;
                 relativeLayoutView.setLayoutParams(layoutParams);
             }
@@ -750,7 +752,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     class AppointmentMeAcceptRecyclerViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout appointmentAcceptStu;
+        LinearLayout appointmentAcceptStu;
         ImageView appointmentAcceptExpand;
         CardView appointmentAcceptCardView;
         TextView appointmentMeAcceptType;
@@ -839,7 +841,7 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     class AppointmentMePublishRecyclerViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout appointmentPublishStu;
+        LinearLayout appointmentPublishStu;
         ImageView appointmentPulishExpand;
         TextView appointmentMePublishType;
         TextView appointmentMePublishDetail;

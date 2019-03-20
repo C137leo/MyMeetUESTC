@@ -92,7 +92,8 @@
                     android:textSize="10sp"
                     android:text="这是约吧的时间"/>
             </LinearLayout>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/appointment_publish_stu"
                 android:layout_width="wrap_content"
@@ -302,7 +303,7 @@
                             android:text="用户"/>
                     </LinearLayout>
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
             <ImageView
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_expand"

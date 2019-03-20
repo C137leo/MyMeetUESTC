@@ -92,7 +92,8 @@
                     android:textSize="10sp"
                     android:text="这是约吧的时间"/>
             </LinearLayout>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/appointment_accept_stu"
                 android:layout_marginTop="10dp"
@@ -302,7 +303,7 @@
                             android:text="用户"/>
                     </LinearLayout>
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
             <ImageView
                 android:id="@+id/appointment_stu_accept_expand"
                 android:layout_width="wrap_content"
