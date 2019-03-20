@@ -53,6 +53,7 @@ public class AppointmentMeAcceptFragment extends Fragment {
                 updateAppointmentData();
             }
         });
+        updateAppointmentData();
     }
 
     public void updateAppointmentData(){

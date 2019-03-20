@@ -55,6 +55,7 @@ public class AppointmentMePublishFragment extends Fragment {
                 updateAppointmentData();
             }
         });
+        updateAppointmentData();
     }
 
     public void updateAppointmentData(){

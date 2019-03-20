@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -95,13 +96,15 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             @Override
             public void acceptExpand() {
                 AppointmentMeAcceptRecyclerViewHolder acceptHolder= (AppointmentMeAcceptRecyclerViewHolder) holder;
-                expandView(acceptHolder.appointmentAcceptStu,acceptHolder.appointmentAcceptCardView,ValueAnimator.ofInt(0,230));
                 if(acceptHolder.appointmentAcceptStu.getVisibility()==View.GONE){
                     acceptExpandAnimation=new RotateAnimation(0,180,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                    expandView(acceptHolder.appointmentAcceptStu,acceptHolder.appointmentAcceptCardView,ValueAnimator.ofInt(0,230));
                 }else {
                     acceptExpandAnimation=new RotateAnimation(180,0,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                    collsapeView(acceptHolder.appointmentAcceptStu,ValueAnimator.ofInt(230,0));
                 }
                 acceptExpandAnimation.setDuration(500);
+                acceptExpandAnimation.setFillAfter(true);
                 acceptHolder.appointmentAcceptExpand.setAnimation(acceptExpandAnimation);
                 acceptExpandAnimation.start();
 
@@ -110,13 +113,15 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
             @Override
             public void publishExpand() {
                 AppointmentMePublishRecyclerViewHolder publishViewholder= (AppointmentMePublishRecyclerViewHolder) holder;
-                expandView(publishViewholder.appointmentPublishStu,publishViewholder.appointmentPublishCardView,ValueAnimator.ofInt(0,230));
                 if(publishViewholder.appointmentPublishStu.getVisibility()==View.GONE){
                     publishExpandAnimation=new RotateAnimation(0,180, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                    expandView(publishViewholder.appointmentPublishStu,publishViewholder.appointmentPublishCardView,ValueAnimator.ofInt(0,230));
                 }else {
                     publishExpandAnimation=new RotateAnimation(180,0,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+                    collsapeView(publishViewholder.appointmentPublishStu,ValueAnimator.ofInt(230,0));
                 }
                 publishExpandAnimation.setDuration(500);
+                publishExpandAnimation.setFillAfter(true);
                 publishViewholder.appointmentPulishExpand.setAnimation(publishExpandAnimation);
                 publishExpandAnimation.start();
             }
@@ -136,6 +141,22 @@ public class AppointmentMeRecyclerViewAdapter extends RecyclerView.Adapter {
                 Log.d("value",String.valueOf(value));
                 layoutParams.height=value;
                 relativeLayoutView.setLayoutParams(layoutParams);
+            }
+        });
+        valueAnimator.start();
+    }
+
+    public void collsapeView(final View relativeLayoutView,ValueAnimator valueAnimator){
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value= (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams=relativeLayoutView.getLayoutParams();
+                layoutParams.height=value;
+                relativeLayoutView.setLayoutParams(layoutParams);
+                if(value==0) {
+                    relativeLayoutView.setVisibility(View.GONE);
+                }
             }
         });
         valueAnimator.start();
