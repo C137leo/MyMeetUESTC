@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
     AppointmentPrenster appointmentPrenster=new AppointmentPrenster();
     ImageView appointmentAddView;
     ImageView appointmentMe;
+    Button appointmentJoin;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +67,16 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
         public void getDataError(String errMsg) {
 
         }
+
+        @Override
+        public void joinAppointmentSuccessfully() {
+
+        }
+
+        @Override
+        public void joinAppointmentFailed(String errmsg) {
+            Toast.makeText(MyApplication.getMyContext(),errmsg,Toast.LENGTH_SHORT).show();
+        }
     };
 
     @Override
@@ -78,6 +90,8 @@ public class AppointmentFragment extends Fragment implements View.OnClickListene
                 Intent intent1=new Intent(getActivity(), AppointmentMe.class);
                 startActivity(intent1);
                 break;
+            case R.id.appointment_join:
+
         }
     }
 }

@@ -5,4 +5,5 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.appointmentAll.view.IV
 public interface IPrenster {
     void attchView(IView iVew);
     void initAppointmentData();
+    void joinAppointment(String appointmentUID);
 }

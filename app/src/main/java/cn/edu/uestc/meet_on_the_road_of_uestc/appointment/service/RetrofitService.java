@@ -1,6 +1,7 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.appointment.service;
 
 
+import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.entity.AppointmentJoinEntity;
 import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 import cn.edu.uestc.meet_on_the_road_of_uestc.appointment.entity.NetworkStatus;
 import cn.edu.uestc.meet_on_the_road_of_uestc.help.entities.PostHelpAddStatus;
@@ -18,4 +19,7 @@ public interface RetrofitService {
 
     @GET("yb/yb_out.php")
     Observable<ResponseBody> getAllAppointmentData();
+
+    @POST("yb/yb_join.php")
+    Observable<ResponseBody> joinApoointment(@Body AppointmentJoinEntity appointmentJoinEntity);
 }

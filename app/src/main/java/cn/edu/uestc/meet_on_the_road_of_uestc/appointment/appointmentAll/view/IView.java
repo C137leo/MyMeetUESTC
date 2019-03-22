@@ -7,4 +7,6 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.greenDao.eneities.AppointmentInfo;
 public interface IView {
     void updateAppointmentData(List<AppointmentInfo> appointmentInfoList);
     void getDataError(String errMsg);
+    void joinAppointmentSuccessfully();
+    void joinAppointmentFailed(String errmsg);
 }
