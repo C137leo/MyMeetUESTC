@@ -28,8 +28,8 @@ import okhttp3.ResponseBody;
 public class AppointmentPrenster implements IPrenster {
     RetrofitHelper retrofitHelper=RetrofitHelper.getInstance();
     Disposable disposable;
-    aoSession daoSession= GreenDaoHelper.getDaoSession();
-    Gson gson=new Gson()g;
+    DaoSession daoSession= GreenDaoHelper.getDaoSession();
+    Gson gson=new Gson();
     List<AppointmentInfo> appointmentInfoList;
     IView iVew;
     StuInfo stuInfo=GreenDaoHelper.getDaoSession().getStuInfoDao().loadAll().get(0);

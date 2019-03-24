@@ -1,4 +1,4 @@
-package cn.edu.uestc.meet_on_the_road_of_uestc.home;
+package cn.edu.uestc.meet_on_the_road_of_uestc.home.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
