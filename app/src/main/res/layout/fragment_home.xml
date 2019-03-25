@@ -9,20 +9,33 @@
             android:layout_height="match_parent"
             android:id="@+id/bing_pic"
             android:scaleType="centerCrop"/>
-        <TextView
-            android:textSize="20sp"
+        <LinearLayout
+            android:id="@+id/temperature_layout"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:text="温度"
-            android:id="@+id/home_weather_temperature"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:text="温度"
+                android:textColor="#ffffff"
+                android:id="@+id/home_weather_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" °C"/>
+        </LinearLayout>
         <TextView
+            android:textColor="#ffffff"
             android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/weather_location"
             android:text="温度地点"
-            android:layout_alignLeft="@id/home_weather_temperature"/>
+            android:layout_alignLeft="@id/temperature_layout"/>
     </RelativeLayout>
 </RelativeLayout>

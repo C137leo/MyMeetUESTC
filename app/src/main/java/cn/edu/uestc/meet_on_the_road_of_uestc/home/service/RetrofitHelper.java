@@ -10,7 +10,7 @@ public class RetrofitHelper {
 
     public static RetrofitHelper getInstance(){
         if(instance==null){
-            RetrofitHelper instance=new RetrofitHelper();
+            instance=new RetrofitHelper();
         }
         return instance;
     }
