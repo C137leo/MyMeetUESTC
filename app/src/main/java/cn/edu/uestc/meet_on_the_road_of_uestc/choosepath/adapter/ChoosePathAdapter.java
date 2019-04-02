@@ -5,18 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import cn.edu.uestc.meet_on_the_road_of_uestc.R;
-import cn.edu.uestc.meet_on_the_road_of_uestc.MyApplication;
 import cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.Path;
-import cn.edu.uestc.meet_on_the_road_of_uestc.help.help_manage.adapter.HelpManageListViewPublishAdapter;
+
 
 public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pathViewHolder> {
+    public List<Path> getmParhList() {
+        return mParhList;
+    }
 
     private List<Path> mParhList;
     private ImageViewInterface imageViewInterface;
@@ -47,8 +47,11 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
         super();
        mParhList=new ArrayList<>();
         //下面的数字10代表着路径数量
-        for (int i=0;i<10;i++){
-                    mParhList.add(new Path("跑完感觉腿粗的路线" +i,   i));
+        mParhList.add(new Path("环校南门起点",1,30.7441350000,103.9252640000));
+        mParhList.add(new Path("东湖环湖",1,30.7482890000,103.9305910000));
+        mParhList.add(new Path("操场",1,30.7491420000,103.9367010000));
+        for (int i=3;i<10;i++){
+                    mParhList.add(new Path("跑完感觉腿粗的路线" +i,   i,30.75533739247437,  103.93463802298358));
             }
         }
 
@@ -62,6 +65,7 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
     @Override
     public void onBindViewHolder(@NonNull pathViewHolder holder, final int position) {
         Path path=mParhList.get(position);
+
         holder.pathName.setText(path.getPathName());
         holder.imageView.setOnClickListener(new View.OnClickListener() {
         @Override

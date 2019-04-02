@@ -5,7 +5,33 @@ public class Path {
     private int pathId;
 //    boolean active;
     private String lastRunDate;
-    public Path(String pathName,int pathId, String lastRunDate){
+    private double pathLatitude;
+    private double pathLongtitude;
+
+    public double getPathLatitude() {
+        return pathLatitude;
+    }
+
+    public void setPathLatitude(double pathLatitude) {
+        this.pathLatitude = pathLatitude;
+    }
+
+    public double getPathLongtitude() {
+        return pathLongtitude;
+    }
+
+    public void setPathLongtitude(double pathLongtitude) {
+        this.pathLongtitude = pathLongtitude;
+    }
+
+    public Path(String pathName, int pathId, double pathLatitude, double pathLongtitude) {
+        this.pathName = pathName;
+        this.pathId = pathId;
+        this.pathLatitude = pathLatitude;
+        this.pathLongtitude = pathLongtitude;
+    }
+
+    public Path(String pathName, int pathId, String lastRunDate){
         this.pathName=pathName;
         this.pathId=pathId;
 //        this.lastRunDate=LastRunDate;

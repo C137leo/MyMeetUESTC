@@ -25,14 +25,17 @@ public class ChoosePathActivityPathItem  extends AppCompatActivity  {
         setContentView(R.layout.activity_choosepath_path_manage);
         ImageView choosePathButton=(ImageView) this.findViewById(R.id.choosethispath1);
         recyclerView=(RecyclerView)findViewById(R.id.choosepath_path_item_listview);
-        ChoosePathAdapter choosePathAdapter = new ChoosePathAdapter();
+        final ChoosePathAdapter choosePathAdapter = new ChoosePathAdapter();
         recyclerView.setAdapter(choosePathAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, OrientationHelper.VERTICAL));
         choosePathAdapter.imageViewSetOnclick(new ChoosePathAdapter.ImageViewInterface() {
             @Override
             public void onclick(View view, int position) {
+                mParhList=choosePathAdapter.getmParhList();
                 Intent intent=new Intent(ChoosePathActivityPathItem.this,NaviActivity.class);
+                intent.putExtra("latitude",mParhList.get(position).getPathLatitude());
+                intent.putExtra("longtitude",mParhList.get(position).getPathLongtitude());
                 startActivity(intent);
             }
         });
