@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,16 +17,26 @@ import cn.edu.uestc.meet_on_the_road_of_uestc.R;
 import cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.Path;
 import cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.adapter.ChoosePathAdapter;
 
+import static dev.utils.app.ClipboardUtils.getIntent;
+
 public class ChoosePathActivityPathItem  extends AppCompatActivity  {
     private RecyclerView recyclerView;
     private List<Path> mParhList;
+    private double latitude;
+    private double longtitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosepath_path_manage);
         ImageView choosePathButton=(ImageView) this.findViewById(R.id.choosethispath1);
         recyclerView=(RecyclerView)findViewById(R.id.choosepath_path_item_listview);
-        final ChoosePathAdapter choosePathAdapter = new ChoosePathAdapter();
+        final ChoosePathAdapter choosePathAdapter = new ChoosePathAdapter(getIntent().getDoubleExtra("Latitude",30.7498393974),getIntent().getDoubleExtra("Longtitude",103.9280676842));
+       
+        Log.e("====================","===================================="+choosePathAdapter);
+        Log.e("====================","===================================="+getIntent().getDoubleExtra("Latitude",30.7498393974));
+        Log.e("====================","===================================="+getIntent().getDoubleExtra("Longtitude",103.9280676842));
+
         recyclerView.setAdapter(choosePathAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, OrientationHelper.VERTICAL));

@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -151,6 +152,15 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     List newarByMarketId=new ArrayList();
     Marker currentMarker;
     InfoWindowAdapter infoWindowAdapter=new InfoWindowAdapter();
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -279,6 +289,8 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
                     case 0:
                         //加入了intent跳转到别的界面
                         Intent intent=new Intent(getActivity(),ChoosePathActivityPathItem.class);
+                        intent.putExtra("Latitude",Latitude);
+                        intent.putExtra("Longtitude",Longitude);
                         startActivity(intent);
 //                        setRandomRoute();
                         flag++;
@@ -530,21 +542,6 @@ public class NavFragment extends Fragment implements PoiSearch.OnPoiSearchListen
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
 
-    }
-
-    public void setRandomRoute(){
-        List<LatLonPoint> walk_destination=new ArrayList<>();
-        walk_destination.add(new LatLonPoint(37.32816246525063,115.591305507701));
-        walk_destination.add(new LatLonPoint(37.328085683440804,115.59197069553669));
-        walk_destination.add(new LatLonPoint(37.32858049817199,115.59211017040546));
-        walk_destination.add(new LatLonPoint(37.32901601321207,115.59217454342182));
-        Random random=new Random();
-        LatLonPoint walkDestination=walk_destination.get(random.nextInt(walk_destination.size()));
-        routeSearch = new RouteSearch(MyApplication.getMyContext());
-        routeSearch.setRouteSearchListener(this);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(new LatLonPoint(mCurLocation.latitude,mCurLocation.longitude),new LatLonPoint(37.32901601321207,115.59217454342182));
-        RouteSearch.WalkRouteQuery query = new RouteSearch.WalkRouteQuery(fromAndTo);
-        routeSearch.calculateWalkRouteAsyn(query);//开始算
     }
 
     @Override

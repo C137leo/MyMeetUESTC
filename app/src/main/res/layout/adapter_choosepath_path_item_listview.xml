@@ -6,56 +6,59 @@
     android:layout_height="wrap_content"
     app:ignore="NamespaceTypo">
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:alpha="5"
+                    app:cardCornerRadius="10dp">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:alpha="5"
-        app:cardCornerRadius="10dp">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/choosepath_background"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:alpha="5"
+                    app:cardCornerRadius="10dp"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/path_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="pathname"
                             android:textSize="20dp" />
+
                         <TextView
+                            android:id="@+id/distance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="距起点700m" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
                             android:gravity="left|bottom"
-                            >
+                            android:orientation="horizontal">
+
                             <TextView
+                                android:id="@+id/lastRunDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="上次完成"
-                                />
+                                android:text="上次完成" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -66,32 +69,28 @@
 
                     </LinearLayout>
                 </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right">
 
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right">
+                        <ImageView
+                            android:id="@+id/choosethispath1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="50dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            mapbox:srcCompat="@mipmap/choosethispath" />
 
-                <ImageView
-                    android:id="@+id/choosethispath1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    mapbox:srcCompat="@mipmap/choosethispath" />
-
-                <TextView
-                    android:layout_width="78dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="30dp"
-                    android:text="选择路径" />
-            </FrameLayout>
-
-        </FrameLayout>
-    </android.support.v7.widget.CardView>
+                        <TextView
+                            android:layout_width="78dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30dp"
+                            android:text="选择路径" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
 
 
 </LinearLayout>
