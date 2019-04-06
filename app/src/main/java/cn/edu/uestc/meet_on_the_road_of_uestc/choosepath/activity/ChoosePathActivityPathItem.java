@@ -1,7 +1,9 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.OrientationHelper;
@@ -48,6 +50,21 @@ public class ChoosePathActivityPathItem  extends AppCompatActivity  {
                 intent.putExtra("latitude",mParhList.get(position).getPathLatitude());
                 intent.putExtra("longtitude",mParhList.get(position).getPathLongtitude());
                 startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+                new AlertDialog.Builder(ChoosePathActivityPathItem.this)
+                        .setTitle("确认删除吗？")
+                        .setNegativeButton("取消",null)
+                        .setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                choosePathAdapter.notifyItemRemoved(position);
+                            }
+
+                        })
+                .show();
             }
         });
         //原来的intent跳转方法

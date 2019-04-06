@@ -1,5 +1,6 @@
 package cn.edu.uestc.meet_on_the_road_of_uestc.choosepath.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,8 +53,10 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
     public void imageViewSetOnclick(ImageViewInterface imageViewInterface){
         this.imageViewInterface=imageViewInterface;
     }
+
     public interface ImageViewInterface{
-        public void onclick( View view,int position);
+        void onclick( View view,int position);
+        void onLongClick( View view,int position);
     }
    static class pathViewHolder extends RecyclerView.ViewHolder {
         //        ImageView pathImage;
@@ -62,6 +65,7 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
         TextView lastRunDate ;
         TextView distanceText;
         ImageView imageView;
+        @SuppressLint("WrongViewCast")
         public pathViewHolder(View itemView) {
             super(itemView);
 
@@ -105,7 +109,7 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull pathViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final pathViewHolder holder, final int position) {
         Path path=mParhList.get(position);
         holder.pathName.setText(path.getPathName());
         CharSequence sequence=String.valueOf("距离目的地还有"+Math.round((Float)distance.get(position))+"米");
@@ -116,9 +120,17 @@ public class ChoosePathAdapter extends RecyclerView.Adapter<ChoosePathAdapter.pa
             if(imageViewInterface!=null){
                imageViewInterface.onclick(v,position);
             }
-
         }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(imageViewInterface!=null){
+                    imageViewInterface.onLongClick(v,position);
+                }
+            }
+        });
+
     }
 
     @Override
